@@ -11,5 +11,4 @@ public class Notice {
 	private int noticeCount;
 	private String createDate;
 	private String updateDate;
-	
 }
