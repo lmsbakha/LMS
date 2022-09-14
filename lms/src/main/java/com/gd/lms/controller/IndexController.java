@@ -19,4 +19,10 @@ public class IndexController {
    public String test_park_so() {
 	   return "test_park_so";
    }
+   
+   @GetMapping("/test_haneul")
+   public String test_haneul() {
+	   return "test_haneul";
+   }
+   
 }
