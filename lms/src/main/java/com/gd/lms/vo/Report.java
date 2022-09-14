@@ -12,6 +12,4 @@ public class Report {
 	private String reportEndDate;
 	private String updateDate;
 	private String createDate;
-	
-	
 }
