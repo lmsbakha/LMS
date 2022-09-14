@@ -34,4 +34,4 @@ build/
 
 ### ignore properties file ###
 application.properties
-application-KEY.properties
+application-db.properties
