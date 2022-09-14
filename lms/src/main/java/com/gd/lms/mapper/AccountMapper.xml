@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.AccountMapper">
-	<select id="selectAccount" resultType="com.gd.lms.vo.Account">
-		SELECT * from account
+	<select id="selectAccount" resultType="com.gd.lms.vo.Account" parameterType="String">
+		SELECT account_id accountId, account_pw accountPw, account_email accountEmail, account_state accountState, account_level accountLevel, create_date createDate, update_date updateDate from account WHERE account_id = #{accountId}
 	</select>
 </mapper>

@@ -22,7 +22,8 @@ public class IndexController {
 	@GetMapping("/test")
    public String test(HttpSession session) {
 	   //서비스 콜하기
-	   Account account = accountService.getAccount();
+		String testId = "aaaa";
+	   Account account = accountService.getAccount(testId);
 	   System.out.println(account+"<-- account");
 	   session.setAttribute("account", account);
 	   return "test";	//포워딩

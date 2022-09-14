@@ -6,5 +6,5 @@ import com.gd.lms.vo.Account;
 
 @Mapper
 public interface AccountMapper {
-	Account selectAccount();
+	Account selectAccount(String testId);
 }
