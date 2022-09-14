@@ -4,14 +4,12 @@ import lombok.Data;
 
 @Data
 public class QnA {
-	private int qnaNo;
-	private String qnaTitle;
-	private String qnaContent;
-	private String accountId;
-	private String createDate;
-	private String qnaDisclosure;	// 공개 or 비공개
-	private String qnaKind;			// 질문 or 답변
-	private String qnaState;		// 대기중 or 답변완료
-	
-	
+	private int qnaNo;				// qna 인덱스 번호
+	private String qnaTitle;		// 문의사항 제목		
+	private String qnaContent;		// 문의사항 내용	
+	private String accountId;		// 계정 아이디	
+	private String qnaDisclosure;	// 문의사항 공개여부 (공개/비공개)
+	private String qnaKind;			// 문의사항 글 종류 (질문/답변)
+	private String qnaState;		// 문의사항 현황 (대기중/답변완료)
+	private String createDate;		// 문의사항 등록일
 }
