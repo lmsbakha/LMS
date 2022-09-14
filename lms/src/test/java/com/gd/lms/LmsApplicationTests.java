@@ -1,4 +1,4 @@
-package com.gd.test0907;
+package com.gd.lms;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
