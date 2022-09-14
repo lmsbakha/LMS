@@ -17,9 +17,10 @@ public class AccountService {
 	@Autowired AccountMapper accountMapper;
 	
 	//test
-	public Account getAccount() {
+	public Account getAccount(String testId) {
 		//리턴
-		Account account = accountMapper.selectAccount();
+		System.out.println(testId+"<-- testId");
+		Account account = accountMapper.selectAccount(testId);
 		System.out.println(account+"<-- account");
 		log.debug(TeamColor.PSJ + account +TeamColor.TEXT_RESET);
 		return account;
