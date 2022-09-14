@@ -9,20 +9,4 @@ public class IndexController {
    public String index() {
       return "index";
    }
-   
-   @GetMapping("/test_park")
-   public String test() {
-	   return "test_park";
-   } 
-   
-   @GetMapping("/test_park_so")
-   public String test_park_so() {
-	   return "test_park_so";
-   }
-   
-   @GetMapping("/test_haneul")
-   public String test_haneul() {
-	   return "test_haneul";
-   }
-   
 }
