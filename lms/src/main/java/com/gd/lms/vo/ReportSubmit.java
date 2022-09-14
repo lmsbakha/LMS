@@ -4,14 +4,12 @@ import lombok.Data;
 
 @Data
 public class ReportSubmit {
-	private int reportSubmitNo;
-	private int educationNo;
-	private int reportNo;
-	private String accountId;
-	private String reportSubmitTitle;
-	private String reportSubmitContent;
-	private int reportSubmitScore;
-	private String updateDate;
-	private String createDate;
-	
+	private int reportSubmitNo;			// reportSubmit 인덱스 번호
+	private int educationNo;			// education 번호
+	private int reportNo;				// report 번호
+	private String accountId;			// 계정 아이디
+	private String reportSubmitContent;	// 제줄한 과제 내용
+	private String reportSubmitScore;	// 제줄한 과제 점수
+	private String updateDate;			// 제줄한 과제 수정일
+	private String createDate;			// 제줄한 과제 등록일
 }
