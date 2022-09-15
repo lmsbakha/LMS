@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,24 +75,16 @@
 			<div class="content-error">
 				<div class="hpanel">
 					<div class="panel-body">
-						<form action="${pageContext.request.contextPath}/register" id="loginForm" method="post">
+						<form action="${pageContext.request.contextPath}/register" id="registerForm" method="post">
 							<div class="row">
-								<div class="form-group col-lg-12 ">
-									<label for="accountLevel">회원</label>
-								    	<select class="form-control" name="accountLevel" id="accountLevel">
-								        	<option value="" disabled selected>===선택해 주세요===</option>
-								        	<option value="1">학생</option>
-							                <option value="2">강사</option>
-							                <option value="3">행정</option>
-					                  	</select>
-					                  	<br>
-								</div>
 								<div class="form-group col-lg-12">
+								<input type="hidden" name="accountLevel" id="accountLevel" value="${accountLevel}">
 									<label for="accountId">아이디</label>
-									<button type="button" class="btn btn-success" id="idCkBtn" style="margin-bottom: 5px">
+									<input class="form-control" placeholder="사용하실 아이디를 입력해주세요" id="accountId" name="accountId" required="required">
+									<br>
+									<button type="button" class="btn btn-success btn-block" id="idCkBtn" style="margin-bottom: 5px;">
 										<b>중복검사</b>
 									</button>
-									<input class="form-control" placeholder="사용하실 아이디를 입력해주세요" id="accountId" name="accountId" required="required">
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberName">이름</label> <input class="form-control" placeholder="이름을 입력해주세요" id="memberName" name="memberName" required="required">
@@ -110,11 +103,34 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label>주소</label>
-									<button type="button" class="btn btn-success" id="addrBtn" style="margin-bottom: 5px">
+									<input style="margin-bottom: 5px" class="form-control" id="memberAddress" name="memberAddress" type="text" readonly="readonly" placeholder="주소" /> 
+									<button type="button" class="btn btn-success btn-block form-group" id="addrBtn" style="margin-bottom: 5px">
 										<b>주소검색</b>
 									</button>
-									<input style="margin-bottom: 5px" class="form-control" id="memberAddress" name="memberAddress" type="text" readonly="readonly" placeholder="주소" /> <input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소" />
+									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소" />
 								</div>
+								<!-- 학생만 accountLevel = 1 -->
+						            <c:if test="${accountLevel eq 1}">
+							            <div class="form-group">
+								            <label>학력</label>
+								            <select class="form-control" name="graduate">
+								             	<option>고졸</option>
+							                    <option>초대졸</option>
+							                    <option>대졸</option>
+					                  		</select>
+							            </div>
+						            </c:if>
+						            <!-- 학생만 accountLevel = 1 -->
+						            <c:if test="${accountLevel eq 1}">
+							            <div class="form-group">
+								            <label>병역 여부</label>
+								            <select class="form-control" name="military">
+								             	<option>해당없음</option>
+							                    <option>군필</option>
+							                    <option>미필</option>
+					                  		</select>
+							            </div>
+							       </c:if>     
 								<!-- /////////////////////////////////////// -->
 								<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 								<div id="layer" style="display: none; position: fixed; overflow: hidden; z-index: 1; -webkit-overflow-scrolling: touch;">
