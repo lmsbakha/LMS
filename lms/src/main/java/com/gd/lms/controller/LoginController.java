@@ -18,9 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class LoginController {
 	// AccountService 객체 주입
-	@Autowired
-	AccountService accountService;
-
+	@Autowired AccountService accountService;
+	
+	@GetMapping("/loginCheck/index")
+	public String index() {
+		return "index";
+	}
 	// login.jsp 접속시 나타나는 로그인 폼
 	// 파라미터 : HttpSession(sessionLevel)
 	// 리턴값 : 로그인 폼
