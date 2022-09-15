@@ -70,29 +70,23 @@
 	<div class="error-pagewrap">
 		<div class="error-page-int">
 			<div class="text-center m-b-md custom-login">
-				<h3>PLEASE LOGIN TO APP</h3>
-				<p>This is the best app ever!</p>
+				<h3>PLEASE LOGIN TO LMS</h3>
+				<p>설명부분이다~</p>
 			</div>
 			<div class="content-error">
 				<div class="hpanel">
                     <div class="panel-body">
                         <form action="#" id="loginForm">
                             <div class="form-group">
-                                <label class="control-label" for="username">Username</label>
-                                <input type="text" placeholder="example@gmail.com" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">
-                                <span class="help-block small">Your unique username to app</span>
+                                <label class="control-label" for="accountId">아이디</label>
+                                <input type="text" placeholder="Please enter you username" required="required" value="" name="accountId" id="accountId" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="password">Password</label>
-                                <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control">
-                                <span class="help-block small">Yur strong password</span>
-                            </div>
-                            <div class="checkbox login-checkbox">
-                                <label>
-										<input type="checkbox" class="i-checks"> Remember me </label>
-                                <p class="help-block small">(if this is a private computer)</p>
-                            </div>
-                            <button class="btn btn-success btn-block loginbtn">Login</button>
+                                <label class="control-label" for="accountPw">비밀번호</label>
+                                <input type="password" placeholder="Please enter your password" required="required" value="" name="accountPw" id="accountPw" class="form-control">
+                          	    <span class="help-block small">대문자, 소문자, 특수문자가 포함된 10자리 비밀번호</span>
+                            </div><br>
+                            <button class="btn btn-success btn-block loginbtn"><b>Login</b></button>
                             <a class="btn btn-default btn-block" href="#">Register</a>
                         </form>
                     </div>

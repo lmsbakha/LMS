@@ -14,15 +14,20 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Service
 public class AccountService {
+	// AccountMapper 객체 주입
 	@Autowired AccountMapper accountMapper;
-	
-	//test
-	public Account getAccount(String testId) {
-		//리턴
-		System.out.println(testId+"<-- testId");
-		Account account = accountMapper.selectAccount(testId);
-		System.out.println(account+"<-- account");
-		log.debug(TeamColor.PSJ + account +TeamColor.TEXT_RESET);
+
+	// 로그인에 사용되는 메소드
+	// 파라미터 : account (accountId, accountPw)
+	// 리턴값 : account (accountId, accountLevel, accountState)
+	public Account getLogin(Account paramAccount) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + paramAccount + "<-- paramAccount" + TeamColor.TEXT_RESET);
+		// Mapper call
+		Account account = accountMapper.selectLogin(paramAccount);
+		// Mapper에서 받아온 account(id, level)값 디버깅
+		log.debug(TeamColor.PSJ + account + "<-- account" + TeamColor.TEXT_RESET);
 		return account;
-	};
+	}
+
 }
