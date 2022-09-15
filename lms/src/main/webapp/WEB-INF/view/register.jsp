@@ -76,6 +76,16 @@
 					<div class="panel-body">
 						<form action="${pageContext.request.contextPath}/register" id="loginForm" method="post">
 							<div class="row">
+								<div class="form-group col-lg-12 ">
+									<label for="accountLevel">회원</label>
+								    	<select class="form-control" name="accountLevel" id="accountLevel">
+								        	<option value="" disabled selected>===선택해 주세요===</option>
+								        	<option value="1">학생</option>
+							                <option value="2">강사</option>
+							                <option value="3">행정</option>
+					                  	</select>
+					                  	<br>
+								</div>
 								<div class="form-group col-lg-12">
 									<label for="accountId">아이디</label>
 									<button type="button" class="btn btn-success" id="idCkBtn" style="margin-bottom: 5px">
