@@ -91,7 +91,7 @@
 									<button type="button" class="btn btn-success" id="idCkBtn" style="margin-bottom: 5px">
 										<b>중복검사</b>
 									</button>
-									<input class="form-control" placeholder="사용하실 아이디를 입력해주세요" id="accountId" name="accountId" required="required" readonly="readonly">
+									<input class="form-control" placeholder="사용하실 아이디를 입력해주세요" id="accountId" name="accountId" required="required">
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberName">이름</label> <input class="form-control" placeholder="이름을 입력해주세요" id="memberName" name="memberName" required="required">
@@ -123,7 +123,7 @@
 								<!-- /////////////////////////////////////// -->
 							</div>
 							<div class="text-center">
-								<button class="btn btn-success loginbtn">Register</button>
+								<button type="submit" class="btn btn-success loginbtn">Register</button>
 								<button class="btn btn-default">Cancel</button>
 							</div>
 						</form>
