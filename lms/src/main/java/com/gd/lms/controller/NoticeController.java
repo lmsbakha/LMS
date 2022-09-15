@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.NoticeService;
-import com.gd.lms.vo.Member;
 import com.gd.lms.vo.Notice;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,16 +23,22 @@ public class NoticeController {
 	NoticeService noticeService;
 
 	// 공지 리스트 페이지
-	@GetMapping("/noticeList")
-	public String noticeList(Model model) {
-
-		List<Map<String, Object>> list = noticeService.getNoticeList();
+	@GetMapping("/noticeList/{currentPage}")
+	public String noticeList(Model model, @PathVariable(name="currentPage") int currentPage) {
+		
+		int rowPerPage = 10;						// 페이지 당 게시글 수
+		int beginRow = (currentPage-1)*rowPerPage;	// 시작 페이지
+		int totalNotice = noticeService.countTotalNotice();	// 총 공지 수
+		
+		List<Notice> noticeList = noticeService.getNoticeList(beginRow, rowPerPage);	// 리스트 불러오기
+		
 		// model에 데이터 세팅
-		model.addAttribute("list", list);
-
-		return "noticeList"; // ("countriesList").forward(request, response);
+		model.addAttribute("noticeList", noticeList);
+		
+		return "noticeList";
 	}
-
+	
+	
 	// 공지글 작성 폼
 	@GetMapping("/newNotice")
 	public String addNoticeForm() {

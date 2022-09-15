@@ -1,5 +1,6 @@
 package com.gd.lms.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,20 +19,35 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class NoticeService {
 	@Autowired private NoticeMapper noticeMapper;
+
+	// 개시글 갯수
+	public int countTotalNotice() {
+		return noticeMapper.selectTotalNotice();
+	}
 	
 	// 공지사항 리스트
-	public List<Map<String, Object>> getNoticeList(){
-		List<Map<String, Object>> noticeList = noticeMapper.selectNoticeList();
-		return noticeList;
+	public List<Notice> getNoticeList(int beginRow, int rowPerPage){
+		Map<String, Object> noticeMap = new HashMap<String, Object>();
+		noticeMap.put("beginRow", beginRow);
+		noticeMap.put("rowPerPage", rowPerPage);
+		// 디버그
+		log.debug(TeamColor.LHN+"beginRow"+beginRow);
+		log.debug(TeamColor.LHN+"rowPerPage"+rowPerPage);
+		
+		return noticeMapper.selectNoticeList(noticeMap);
 	}
+	
+	
+	
+	
+	
 	
 	// 공지사항 신규 작성
 	public int addNotice(Notice notice) {
 		// 디버깅
 		log.debug(TeamColor.debuging+" addNotice 실행" + TeamColor.LHN + TeamColor.TEXT_RESET);
-		int row = noticeMapper.addNotice(notice);
-		return row;
+		return noticeMapper.insertNotice(notice);
 	}
-	
+	// 공지글 조회수 증가	
 	
 }
