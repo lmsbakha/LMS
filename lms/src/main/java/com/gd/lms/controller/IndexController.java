@@ -22,7 +22,7 @@ public class IndexController {
 	@GetMapping("/test")
    public String test(HttpSession session) {
 	   //서비스 콜하기
-		String testId = "aaaa";
+		String testId = "admin";
 	   Account account = accountService.getAccount(testId);
 	   System.out.println(account+"<-- account");
 	   session.setAttribute("account", account);
