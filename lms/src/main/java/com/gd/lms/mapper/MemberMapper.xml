@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.MemberMapper">
-
 	<!-- 회원가입 시 계정 생성 -->
    <insert id="insertMember" parameterType="com.gd.lms.vo.Member">
       INSERT INTO
@@ -15,9 +14,7 @@
       #{member_email},#{member_phone},#{member_address},
       #{member_detail_address}, now(), now(),
       #{member_military},#{member_marry},#{member_graduate},#{manager_id_access}
-      );
+      )
    </insert>
 	<!-- 회원가입 시 계정 생성 -->
-	
-	
 </mapper>

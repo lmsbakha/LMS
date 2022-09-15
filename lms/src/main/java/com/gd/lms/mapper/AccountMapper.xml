@@ -10,11 +10,11 @@
 		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
 	</select>
 	<!-- /로그인 -->
-
 	<!-- 계정 추가 -->
 	<insert id="insertAccount" parameterType="com.gd.lms.vo.Account">
 		INSERT INTO account (
-		account_id, account_pw, account_state, account_level, create_date, update_date)
-		VALUES(#{account_id}, PASSWORD('1234'}, '대기', #{account_level}, now(), now() );
+		account_id, account_pw, account_level, create_date, update_date)
+		VALUES(#{account_id}, PASSWORD('1234'}, #{account_level}, now(), now() )
 	</insert>
+	<!-- 계정 추가 -->
 </mapper>
