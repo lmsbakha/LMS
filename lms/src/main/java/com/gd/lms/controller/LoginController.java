@@ -20,10 +20,6 @@ public class LoginController {
 	// AccountService 객체 주입
 	@Autowired AccountService accountService;
 	
-	@GetMapping("/loginCheck/index")
-	public String index() {
-		return "index";
-	}
 	// login.jsp 접속시 나타나는 로그인 폼
 	// 파라미터 : HttpSession(sessionLevel)
 	// 리턴값 : 로그인 폼
@@ -83,7 +79,13 @@ public class LoginController {
 		// loginCheck에서 sessionId 값을 확인
 		return "redirect:/loginCheck/index";
 	}
-
+	
+	// 로그인 액션을 거쳐서 index.jsp로 이동하는 메소드
+	@GetMapping("/loginCheck/index")
+	public String index() {
+		return "index";
+	}
+	
 	// 로그아웃을 위한 기능 메소드
 	// 매개변수: 세션값(sessionId, sessionLevel)
 	// 리턴값: login.jsp (로그인이 되어 있지 않은 상태)
@@ -91,7 +93,7 @@ public class LoginController {
 	public String logout(HttpSession session) {
 		if (session.getAttribute("sessionId") != null) { // 세션에 sessionId 값이 null이 아니라면
 			session.invalidate(); // 세션 초기화
-			log.debug(TeamColor.PSJ + "session값을 초기화합니다" + TeamColor.TEXT_RESET);
+			log.debug(TeamColor.PSJ + "[로그아웃] session값을 초기화합니다" + TeamColor.TEXT_RESET);
 		}
 		return "redirect:/login";
 	}
