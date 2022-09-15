@@ -76,7 +76,7 @@
 			<div class="content-error">
 				<div class="hpanel">
                     <div class="panel-body">
-                        <form action="#" id="loginForm">
+                        <form method="post" action="${pageContext.request.contextPath}/login" id="loginForm">
                             <div class="form-group">
                                 <label class="control-label" for="accountId">아이디</label>
                                 <input type="text" placeholder="Please enter you username" required="required" value="" name="accountId" id="accountId" class="form-control">
@@ -86,7 +86,7 @@
                                 <input type="password" placeholder="Please enter your password" required="required" value="" name="accountPw" id="accountPw" class="form-control">
                           	    <span class="help-block small">대문자, 소문자, 특수문자가 포함된 10자리 비밀번호</span>
                             </div><br>
-                            <button class="btn btn-success btn-block loginbtn"><b>Login</b></button>
+                            <button type="submit" class="btn btn-success btn-block loginbtn"><b>Login</b></button>
                             <a class="btn btn-default btn-block" href="#">Register</a>
                         </form>
                     </div>
