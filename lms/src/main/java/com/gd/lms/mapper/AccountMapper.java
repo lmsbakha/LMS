@@ -10,4 +10,7 @@ public interface AccountMapper {
 	// 파라미터 : account (accountId, accountPw)
 	// 리턴값 : account (accountId, accountLevel, accountState)
 	Account selectLogin(Account account);
+	
+	// 계정 추가에 사용되는 메소드
+	int insertAccount(Account account);
 }

@@ -2,11 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.AccountMapper">
 	<!-- 로그인 -->
-	<select id="selectLogin" parameterType="com.gd.lms.vo.Account" resultType="com.gd.lms.vo.Account">
-		SELECT 
-			account_id accountId, account_level accountLevel, account_state accountState 
-		FROM account 
-		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw}) 
+	<select id="selectLogin" parameterType="com.gd.lms.vo.Account"
+		resultType="com.gd.lms.vo.Account">
+		SELECT
+		account_id accountId, account_level accountLevel, account_state accountState
+		FROM account
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
 	</select>
 	<!-- /로그인 -->
+
+	<!-- 계정 추가 -->
+	<insert id="insertAccount" parameterType="com.gd.lms.vo.Account">
+		INSERT INTO account (
+		account_id, account_pw, account_state, account_level, create_date, update_date)
+		VALUES(#{account_id}, PASSWORD(#{account_pw}, #{account_state}, #{account_level}, now(), now() );
+	</insert>
 </mapper>

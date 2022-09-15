@@ -17,5 +17,7 @@
       #{member_military},#{member_marry},#{member_graduate},#{manager_id_access}
       );
    </insert>
-
+	<!-- 회원가입 시 계정 생성 -->
+	
+	
 </mapper>

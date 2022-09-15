@@ -6,7 +6,8 @@ import com.gd.lms.vo.Member;
 @Mapper
 public interface MemberMapper {
 
-	// 회원가입 시 계정 생성
+	// 회원가입 시 사용되는 메소드
+	// 파라미터 : member 
 	int insertMember(Member member);
 	
 	// 회원가입 시 아이디 중복검사

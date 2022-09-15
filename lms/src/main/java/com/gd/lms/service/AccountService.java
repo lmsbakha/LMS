@@ -3,6 +3,7 @@ package com.gd.lms.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.AccountMapper;
@@ -30,4 +31,15 @@ public class AccountService {
 		return account;
 	}
 
+	// 계정 추가에 사용되는 메소드
+	// 파라미터 : account 
+	public int addAccount(Account account, @RequestParam(value = "Account")Account paraAccount) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + account + "<-- paramAccount" + TeamColor.TEXT_RESET);
+		// Mapper call
+		int row = accountMapper.insertAccount(paraAccount);
+		// Mapper에서 받아온 account 값 디버깅
+		log.debug(TeamColor.PSY + account + "<-- account" + TeamColor.TEXT_RESET);
+		return row;
+	}
 }
