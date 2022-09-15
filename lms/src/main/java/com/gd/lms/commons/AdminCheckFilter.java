@@ -23,7 +23,7 @@ public class AdminCheckFilter implements Filter {
 		if(request instanceof HttpServletRequest) {
 			log.debug(TeamColor.PCW + "AdminCheckFilter 브라우저 접속" + TeamColor.TEXT_RESET);
 			session = ((HttpServletRequest)request).getSession();
-			if((int)session.getAttribute("sessionLevel") == 4) { // 레벨 값이 4가 아니면 학생 or 강사 or 행정
+			if((int)session.getAttribute("sessionLevel") != 4) { // 총관리자가 아니라면
 				log.debug(TeamColor.PCW + "총 관리자 제외 접근 불가합니다" + TeamColor.TEXT_RESET);
 				((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/loginCheck/index");
 				return;
