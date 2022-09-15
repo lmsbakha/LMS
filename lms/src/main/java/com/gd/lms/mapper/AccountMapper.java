@@ -12,5 +12,6 @@ public interface AccountMapper {
 	Account selectLogin(Account account);
 	
 	// 계정 추가에 사용되는 메소드
+	// 파라미터 : account
 	int insertAccount(Account account);
 }

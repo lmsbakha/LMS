@@ -15,6 +15,6 @@
 	<insert id="insertAccount" parameterType="com.gd.lms.vo.Account">
 		INSERT INTO account (
 		account_id, account_pw, account_state, account_level, create_date, update_date)
-		VALUES(#{account_id}, PASSWORD(#{account_pw}, #{account_state}, #{account_level}, now(), now() );
+		VALUES(#{account_id}, PASSWORD('1234'}, '대기', #{account_level}, now(), now() );
 	</insert>
 </mapper>
