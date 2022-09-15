@@ -1,3 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.lms.mapper.MemberMapper"></mapper>
+<mapper namespace="com.gd.lms.mapper.MemberMapper">
+
+<!-- 회원가입 시 계정 생성 -->
+	<insert id="insertMember" parameterType="com.gd.lms.vo.Member">
+      INSERT INTO
+      member (
+      account_id, member_name, member_gender, member_birth,
+      member_email, member_phone, member_address,
+      member_detail_address, update_date, create_date,
+      member_military, member_marry, member_graduate, manager_id_access
+      ) VALUES (
+      #{accountId}, #{memberName}, #{memberGender}, #{memberBirth},
+      #{memberEmail},#{memberPhone},#{memberAddress},
+      #{memberDetailAddress}, now(), now(),
+      #{memberMilitary},#{memberMarry},#{memberGraduate},#{managerIdAccess}
+      );
+   </insert>
+
+
+
+	<!-- 중복검사
+
+	<select id="IdCheck" parameterType="String" resultType="boolean">
+	SELECT if(COUNT(*)>0, 'true', 'false)
+	FROM member
+	WHERE account_id = #{account_id}
+
+	
+	</select>
+
+ -->
+
+
+
+
+
+
+
+</mapper>
