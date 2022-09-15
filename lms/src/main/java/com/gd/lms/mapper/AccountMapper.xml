@@ -6,7 +6,7 @@
 		SELECT 
 			account_id accountId, account_level accountLevel, account_state accountState 
 		FROM account 
-		WHERE account_id = #{accountId} AND account_pw = #{accountPw} 
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw}) 
 	</select>
 	<!-- /로그인 -->
 </mapper>

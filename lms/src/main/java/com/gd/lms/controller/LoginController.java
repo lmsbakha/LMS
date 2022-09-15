@@ -72,7 +72,7 @@ public class LoginController {
 			return "redirect:/login";
 		}
 
-		// session에 로그인한 아이디 값과 레벨값 셋팅해주기
+		// session에 로그인한 accountId값과 accountLevel값 셋팅해주기
 		session.setAttribute("sessionId", loginAccount.getAccountId());
 		session.setAttribute("sessionLevel", loginAccount.getAccountLevel());
 
