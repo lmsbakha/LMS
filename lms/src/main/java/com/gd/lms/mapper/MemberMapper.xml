@@ -7,13 +7,11 @@
       member (
       account_id, member_name, member_gender, member_birth,
       member_email, member_phone, member_address,
-      member_detail_address, update_date, create_date,
-      member_military, member_marry, member_graduate, manager_id_access
+      member_detail_address, update_date, create_date
       ) VALUES (
-      #{account_id}, #{member_name}, #{member_gender}, #{member_birth},
-      #{member_email},#{member_phone},#{member_address},
-      #{member_detail_address}, now(), now(),
-      #{member_military},#{member_marry},#{member_graduate},#{manager_id_access}
+      #{accountId}, #{memberName}, #{memberGender}, #{memberBirth},
+      #{memberEmail},#{memberPhone},#{memberAddress},
+      #{memberDetailAddress}, now(), now()
       )
    </insert>
 	<!-- 회원가입 시 계정 생성 -->
