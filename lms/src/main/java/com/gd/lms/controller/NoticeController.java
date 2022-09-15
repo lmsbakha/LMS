@@ -19,42 +19,39 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class NoticeController {
-	@Autowired NoticeService noticeService;
-	
+	@Autowired
+	NoticeService noticeService;
+
 	// 공지 리스트 페이지
 	@GetMapping("/noticeList")
 	public String noticeList(Model model) {
-		
+
 		List<Map<String, Object>> list = noticeService.getNoticeList();
 		// model에 데이터 세팅
 		model.addAttribute("list", list);
-		
-		return "noticeList";	// ("countriesList").forward(request, response);
+
+		return "noticeList"; // ("countriesList").forward(request, response);
 	}
-	
+
 	// 공지글 작성 폼
 	@GetMapping("/newNotice")
 	public String addNoticeForm() {
 		return "addNotice";
 	}
-	
+
 	// 공지글 작성 액션
 	@GetMapping("/addNotice")
 	public String addNotice(Notice notice, @RequestParam(value = "notice") Notice newNotice) {
-		
-		
-		
-		
-		
+
 		// service 리턴값
 		int row = noticeService.addNotice(notice);
 		// 디버깅
 		if (row != 0) { // 성공
-			log.debug(TeamColor.debuging+" add 성공" + TeamColor.LHN + TeamColor.TEXT_RESET);
+			log.debug(TeamColor.debuging + " add 성공" + TeamColor.LHN + TeamColor.TEXT_RESET);
 		} else { // 실패
-			log.debug(TeamColor.debuging+" add 실패" + TeamColor.LHN + TeamColor.TEXT_RESET);
+			log.debug(TeamColor.debuging + " add 실패" + TeamColor.LHN + TeamColor.TEXT_RESET);
 		}
 		return "redirect:/noticeList";
 	}
-	
+
 }

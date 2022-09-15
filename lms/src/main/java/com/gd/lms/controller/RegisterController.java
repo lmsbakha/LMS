@@ -14,4 +14,7 @@ public class RegisterController {
 	public String login(HttpSession session) {
 		return "register";
 	}
+	
+	// register.jsp
+	
 }
