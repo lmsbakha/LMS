@@ -10,7 +10,8 @@ public interface MemberMapper {
 	// 파라미터 : member 
 	int insertMember(Member member);
 	
-	// 회원가입 시 아이디 중복검사
-	
+	// memberEmail 중복 검사하기위해 memberEmail Cnt 받기
+	// 파라미터 : emck
+	int selectMemberEmailCnt(String emck);
 }
 

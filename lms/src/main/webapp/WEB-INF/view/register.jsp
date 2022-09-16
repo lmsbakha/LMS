@@ -78,59 +78,89 @@
 						<form action="${pageContext.request.contextPath}/register" id="registerForm" method="post">
 							<div class="row">
 								<div class="form-group col-lg-12">
-								<input type="hidden" name="accountLevel" id="accountLevel" value="${accountLevel}">
-									<label for="accountId">아이디</label>
-									<input class="form-control" placeholder="사용하실 아이디를 입력해주세요" id="accountId" name="accountId" required="required">
+								<input type="hidden" name="accountLevel" id="accountLevel" value="${param.accountLevel}">
+									<label for="idck">아이디</label> 
+									<input type="text" placeholder="ID 입력해주세요" name="idck" id="idck"
+										class="form-control">
+									<span id="idinfo"></span>										
 									<br>
-									<button type="button" class="btn btn-success btn-block" id="idCkBtn" style="margin-bottom: 5px;">
-										<b>중복검사</b>
+									<button type="button" class="btn btn-success btn-block" id="idckBtn" style="margin-bottom: 5px;">
+										<b>아이디 중복검사</b>
 									</button>
 								</div>
 								<div class="form-group col-lg-12">
-									<label for="memberName">이름</label> <input class="form-control" placeholder="이름을 입력해주세요" id="memberName" name="memberName" required="required">
+									<label for="memberName">아이디</label> 
+									<input type="text" class="form-control"  id="accountId" name="accountId" readonly="readonly">
+								</div>
+								<div class="form-group col-lg-12">
+									<label for="emck">이메일</label> 
+									<input type="text" placeholder="email 입력해주세요" name="emck" id="emck"
+										class="form-control"> 
+									<span id="eminfo"></span>	
+									<br>
+									<button type="button" class="btn btn-success btn-block" id="emckBtn" style="margin-bottom: 5px;">
+										<b>이메일 중복검사</b>
+									</button>
+								</div>
+								<div class="form-group col-lg-12">
+									<label for="memberName">이메일</label> 
+									<input type="email" class="form-control" id="memberEmail" name="memberEmail" readonly="readonly">
+								</div>
+								<div class="form-group col-lg-12">
+									<label for="memberName">이름</label> 
+									<input class="form-control" placeholder="이름을 입력해주세요" id="memberName" name="memberName">
+									<span id="nameinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12 ">
-									<label for="memberName">성별&nbsp;&nbsp;</label> <input type="radio" id="여" name="memberGender" value="여">   <label for="여">여자&nbsp;</label> <input type="radio" id="남" name="memberGender" value="남">   <label for="남">남자</label><br>
+									<label for="memberGender">성별</label>
+								            <select class="form-control" name="memberGender" id="memberGender">
+								             	<option value="default">===선택해주세요===</option>
+							                    <option value="남자">남자</option>
+							                    <option value="여자">여자</option>
+					                  		</select>
+									<br>
 								</div>
 								<div class="form-group col-lg-12">
-									<label>생년월일</label><input class="form-control" type="date" id="memberBirth" name="memberBirth" required="required">
+									<label>생년월일</label>
+									<input class="form-control" type="date" id="memberBirth" name="memberBirth">
+									<span id="birthinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12">
-									<label>이메일</label> <input class="form-control" type="text" id="memberEmail" name="memberEmail" required="required">
-								</div>
-								<div class="form-group col-lg-12">
-									<label>전화번호</label> <input class="form-control" type="tel" id="memberPhone" name="memberPhone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required="required">
+									<label>전화번호</label> 
+									<input class="form-control" type="tel" id="memberPhone" name="memberPhone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
+									<span id="phoneinfo"></span>
 								</div>
 								<div class="form-group col-lg-12">
 									<label>주소</label>
 									<input style="margin-bottom: 5px" class="form-control" id="memberAddress" name="memberAddress" type="text" readonly="readonly" placeholder="주소" /> 
+									<span id="addrinfo"></span>
 									<button type="button" class="btn btn-success btn-block form-group" id="addrBtn" style="margin-bottom: 5px">
 										<b>주소검색</b>
 									</button>
-									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소" />
+									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요" />
+									<span id="detailaddrinfo"></span>
 								</div>
-								<!-- 학생만 accountLevel = 1 -->
-						            <c:if test="${accountLevel eq 1}">
-							            <div class="form-group">
-								            <label>학력</label>
-								            <select class="form-control" name="graduate">
-								             	<option>고졸</option>
-							                    <option>초대졸</option>
-							                    <option>대졸</option>
-					                  		</select>
-							            </div>
-						            </c:if>
 						            <!-- 학생만 accountLevel = 1 -->
-						            <c:if test="${accountLevel eq 1}">
+						            <c:if test="${param.accountLevel eq 1}">
 							            <div class="form-group">
-								            <label>병역 여부</label>
-								            <select class="form-control" name="military">
-								             	<option>해당없음</option>
-							                    <option>군필</option>
-							                    <option>미필</option>
+								            <label for="memberMilitary">병역 여부</label>
+								            <select class="form-control" name="memberMilitary" id="memberMilitary">
+								             	<option value="default">===선택해주세요===</option>
+								             	<option value="해당없음">해당없음</option>
+							                    <option value="군필">군필</option>
+							                    <option value="미필">미필</option>
 					                  		</select>
 							            </div>
-							       </c:if>     
+							            <div class="form-group">
+								            <label for="memberGraduate">학력</label>
+								            <select class="form-control" name="memberGraduate" id="memberGraduate">
+								             	<option value="default">===선택해주세요===</option>
+								             	<option value="고졸">고졸</option>
+							                    <option value="초대졸">초대졸</option>
+							                    <option value="대졸">대졸</option>
+					                  		</select>
+							            </div>
+						            </c:if>  
 								<!-- /////////////////////////////////////// -->
 								<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 								<div id="layer" style="display: none; position: fixed; overflow: hidden; z-index: 1; -webkit-overflow-scrolling: touch;">
@@ -139,8 +169,10 @@
 								<!-- /////////////////////////////////////// -->
 							</div>
 							<div class="text-center">
-								<button type="submit" class="btn btn-success loginbtn">Register</button>
-								<button class="btn btn-default">Cancel</button>
+								<button type="reset" class="btn btn-warning btn-block">초기화</button>
+								<button type="submit" class="btn btn-success btn-block loginbtn">회원가입</button>
+								<br>
+								<button type="reset" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/login';">Home</button>
 							</div>
 						</form>
 					</div>
@@ -203,13 +235,123 @@
       ============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
+<script>
+// 아이디 중복검사
+	$('#idckBtn').click(function() {
+		if ($('#idck').val().length < 4) {
+			$('#idinfo').text('※ 아이디는 4자 이상 입력해주셔야합니다.');
+		} else {
+			// 비동기 호출
+			$.ajax({
+				type :'get',
+				url : '${pageContext.request.contextPath}/idck',
+				data : {
+					idck : $('#idck').val()
+				},
+				success : function(id) {
+					console.log('id :', id);
+					if (id == 'false') {
+						$('#idinfo').text('※ 이미 사용중인 아이디 입니다.');
+						$('#accountId').val('');
+					} else {
+						$('#idinfo').text('※ 사용가능한 아이디 입니다.');
+						$('#idck').val(id);
+						$('#accountId').val(id);
+					}
+				}
+			})
+		}
+	});
+// 이메일 중복검사
+	$('#emckBtn').click(function() {
+		if ($('#emck').val().length < 10) {
+			$('#eminfo').text('※ 이메일은 10자 이상 입력해주셔야합니다.');
+		} else {
+			// 비동기 호출
+			$.ajax({
+				type :'get',
+				url : '${pageContext.request.contextPath}/emck',
+				data : {
+					emck : $('#emck').val()
+				},
+				success : function(em) {
+					console.log('em :', em);
+					if (em == 'false') {
+						$('#eminfo').text('※ 이미 사용중인 이메일 입니다.');
+						$('#memberEmail').val('');
+					} else {
+						$('#eminfo').text('※ 사용 가능한 이메일 입니다.');
+						$('#emck').val(em);
+						$('#memberEmail').val(em);
+					}
+				}
+			})
+		}
+	});
+	//유효성 
+	$('#emck').blur(function() {
+ 		if($('#emck').val()=='') {
+ 			$('#memberEmail').val('');
+ 			$('#eminfo').text('이메일을 입력해주세요.');
+ 		} else if($('#emck').val().indexOf('@') == -1 || $('#emck').val().indexOf('.') == -1) {
+ 			$('#memberEmail').val('');
+ 			$('#eminfo').text('이메일 형식이 아닙니다.');	
+ 		} else {
+ 			$('#eminfo').text('');
+ 		}
+  	})
+  	
+  	$('#memberName').blur(function() {
+  		if($('#memberName').val()=='') {
+  			$('#nameinfo').text('※ 이름을 입력해주세요.');
+  		} else {
+  			$('#nameinfo').text('');
+  		}
+  	})
+  	
+  	
+  	$('#memberBirth').blur(function() {
+  		if($('#memberBirth').val()=='') {
+  			$('#birthinfo').text('생년월일을 입력해주세요.');
+  		} else {
+  			$('#birthinfo').text('');
+  		}
+  	})
+  	
+  	$('#memberPhone').blur(function() {
+  		if($('#memberPhone').val()=='') {
+  			$('#phoneinfo').text('※ 전화번호를 입력해주세요.');
+  		} else {
+  			$('#phoneinfo').text('');
+  		}
+  	})
+  	
+  	
+  	$('#memberAddress').blur(function() {
+  		if($('#memberAddress').val()=='') {
+  			$('#addrinfo').text('주소를 검색해주세요.');
+  		} else {
+  			$('#addrinfo').text('');
+  		}
+  	})
+  	
+  	$('#memberDetailAddress').blur(function() {
+  		if($('#memberDetailAddress').val()=='') {
+  			$('#deaddrinfo').text('상세 주소를 입력해주세요.');
+  		} else {
+  			$('#deaddrinfo').text('');
+  		}
+  	})
+	
+	
+	
+</script>
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$('#addrBtn').click(function() {
 		sample2_execDaumPostcode();
 	});
-</script>
-<script>
 	// 우편번호 찾기 화면을 넣을 element
 	var element_layer = document.getElementById('layer');
 

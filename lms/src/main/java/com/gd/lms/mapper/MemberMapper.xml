@@ -3,16 +3,45 @@
 <mapper namespace="com.gd.lms.mapper.MemberMapper">
 	<!-- 회원가입 시 계정 생성 -->
    <insert id="insertMember" parameterType="com.gd.lms.vo.Member">
-      INSERT INTO
-      member (
-      account_id, member_name, member_gender, member_birth,
-      member_email, member_phone, member_address,
-      member_detail_address, update_date, create_date
-      ) VALUES (
-      #{accountId}, #{memberName}, #{memberGender}, #{memberBirth},
-      #{memberEmail},#{memberPhone},#{memberAddress},
-      #{memberDetailAddress}, now(), now()
+      INSERT INTO member 
+      	(
+      		account_id, 
+      		member_name, 
+      		member_gender, 
+      		member_birth,
+      		member_email, 
+      		member_phone, 
+      		member_address,
+      		member_detail_address, 
+      		member_military, 
+      		member_graduate,  
+      		update_date, 
+      		create_date
+      ) 
+      VALUES 
+      (
+      	#{accountId}, 
+      	#{memberName}, 
+      	#{memberGender}, 
+      	#{memberBirth},
+     	#{memberEmail},
+     	#{memberPhone},
+     	#{memberAddress},
+      	#{memberDetailAddress}, 
+      	#{memberMilitary}, 
+      	#{memberGraduate},
+      	NOW(),
+      	NOW()
       )
    </insert>
 	<!-- 회원가입 시 계정 생성 -->
+	<!-- email 중복 체크 위해 email cnt 받기 -->
+		<select id="selectMemberEmailCnt" parameterType="String"
+		resultType="int">
+		SELECT
+			count(*)
+		FROM member
+		WHERE member_email = #{emck}
+	</select>
+	<!-- email 중복 체크 위해 email cnt 받기 -->
 </mapper>

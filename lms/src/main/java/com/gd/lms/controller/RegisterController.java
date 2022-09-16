@@ -41,6 +41,8 @@ public class RegisterController {
 			@RequestParam(value = "memberPhone") String memberPhone,
 			@RequestParam(value = "memberAddress") String memberAddress,
 			@RequestParam(value = "memberDetailAddress") String memberDetailAddress,
+			@RequestParam(value = "memberMilitary", required = false) String memberMilitary,
+			@RequestParam(value = "memberGraduate" , required = false) String memberGraduate,
 			@RequestParam(value = "accountLevel") int accountLevel) {
 		// 요청받은 값 Map 객체에 셋팅
 		Map<String, Object> paramMap = new HashMap<>();
@@ -52,6 +54,8 @@ public class RegisterController {
 		paramMap.put("memberPhone", memberPhone);
 		paramMap.put("memberAddress", memberAddress);
 		paramMap.put("memberDetailAddress", memberDetailAddress);
+		paramMap.put("memberMilitary", memberMilitary);
+		paramMap.put("memberGraduate", memberGraduate);
 		paramMap.put("accountLevel", accountLevel);
 		// 디버깅
 		log.debug(TeamColor.PSY + paramMap + "<-- paramMap" + TeamColor.TEXT_RESET);
