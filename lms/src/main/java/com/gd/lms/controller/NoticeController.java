@@ -1,13 +1,13 @@
 package com.gd.lms.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
@@ -29,6 +29,7 @@ public class NoticeController {
 		int rowPerPage = 10;						// 페이지 당 게시글 수
 		int beginRow = (currentPage-1)*rowPerPage;	// 시작 페이지
 		int totalNotice = noticeService.countTotalNotice();	// 총 공지 수
+		int lastPage = totalNotice/rowPerPage; 		// 전체 페이지 수
 		
 		List<Notice> noticeList = noticeService.getNoticeList(beginRow, rowPerPage);	// 리스트 불러오기
 		
@@ -38,17 +39,15 @@ public class NoticeController {
 		return "noticeList";
 	}
 	
-	
 	// 공지글 작성 폼
-	@GetMapping("/newNotice")
+	@GetMapping("/addNotice")
 	public String addNoticeForm() {
 		return "addNotice";
 	}
 
 	// 공지글 작성 액션
-	@GetMapping("/addNotice")
+	@GetMapping("/addNoticeOne")
 	public String addNotice(Notice notice, @RequestParam(value = "notice") Notice newNotice) {
-
 		// service 리턴값
 		int row = noticeService.addNotice(notice);
 		// 디버깅
@@ -59,5 +58,33 @@ public class NoticeController {
 		}
 		return "redirect:/noticeList";
 	}
+	
+	// 공지사항 상세보기
+	@GetMapping("/NoticeOne/{noticeNo}")
+	public String NoticeOne(Model model, @PathVariable(name="noticeNo") int noticeNo) {
+		noticeService.updateNoticeCount(noticeNo);
+		return null;
+	}
+	
+	// 공지글 수정
+	
+	@GetMapping("/updateNoticeOne/{lectNoticeNo}") 
+	public String updateLecNoticeOne(Model model, @PathVariable(name="noticeNo") int noticeNo) {
+		Notice notice = noticeService.showNoticeOne(noticeNo);
 
+	 model.addAttribute("notice", notice); 
+	 return "/updatenoticeOne";
+	 }
+
+	@PostMapping("/notice/updateNoticeOne") 
+	public String updateNoticeOne(Notice notice) {
+		noticeService.updateNotice(notice);
+
+	 return "/updateLecNoticeOne";
+
+	 }
+	
+	// 공지글 수정 액션
+	
+	
 }

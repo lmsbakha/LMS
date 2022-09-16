@@ -18,10 +18,20 @@
 
 	<!-- 공지사항 신규 작성 -->
 	<insert id="insertNotice" parameterType="com.gd.lms.vo.Notice">
-		INSERT INTO notice(
-		account_id, notice_title, notice_content, notice_count, create_date, update_date
-		) VALUES
-		(#{accountId}, #{noticeTitle}, #{noticeContent}, #{noticeCount}, NOW(), NOW())
+		INSERT INTO notice(		
+					account_id, 
+					notice_title, 
+					notice_content, 
+					notice_count, 
+					create_date, 
+					update_date
+		) VALUES(				
+					#{accountId}, 
+					#{noticeTitle}, 
+					#{noticeContent}, 
+					#{noticeCount}, 
+					NOW(), 
+					NOW())
 	</insert>
 	
 	<!-- 전체 공지글 갯수 -->
@@ -29,6 +39,39 @@
 		SELECT count(*) From notice
 	</select>
 	
+	<!-- 공지사항 조회수 반영 -->
+	<update id="updateNoticeCount" parameterType="com.gd.lms.vo.Notice">
+		UPDATE	lms_notice
+		SET		lms_notice_count = #{noticeCount}+1
+		WHERE	lms_notice_no = #{noticeNo}
+	</update>
+	
+	<!-- 공지사항 상세보기 -->
+	<select id="selectNoticeOne" parameterType="int" resultType="com.gd.lms.vo.Notice">
+		SELECT 
+			notice_no noticeNo,
+			account_id accountId,
+			notice_title noticeTitle,
+			notice_content noticeContent,
+			create_date createDate,
+			update_date updateDate,
+		FROM	notice
+		WHERE	notice_no = #{noticeNo}
+	</select>
+	
 	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="com.gd.lms.vo.Notice">
+		UPDATE notice
+		SET
+			notice_title = #{noticeTitle},
+			notice_content = #{noticeContent},
+			update_date = now()
+		WHERE
+			notice_no = #{noticeNo}
+	</update>
+	
+	
+	
+	
 	<!-- 공지사항 삭제 -->
 </mapper>

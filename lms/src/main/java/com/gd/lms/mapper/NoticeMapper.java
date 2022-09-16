@@ -18,7 +18,11 @@ public interface NoticeMapper {
 	// 공지글 상세보기
 	public Notice selectNoticeOne(int noticeNo);
 	// 조회수 증가
-	// 수정
+	public int updateNoticeCount(Notice notice);
+	
+	// 수정 액션
+	public int updateNotice(Notice notice);
+	
 	// 삭제
 	
 }

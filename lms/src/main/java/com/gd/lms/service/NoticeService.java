@@ -37,10 +37,10 @@ public class NoticeService {
 		return noticeMapper.selectNoticeList(noticeMap);
 	}
 	
-	
-	
-	
-	
+	// 공지사항 상세보기
+	public Notice showNoticeOne(int noticeNo) {
+		return noticeMapper.selectNoticeOne(noticeNo);
+	}
 	
 	// 공지사항 신규 작성
 	public int addNotice(Notice notice) {
@@ -48,6 +48,19 @@ public class NoticeService {
 		log.debug(TeamColor.debuging+" addNotice 실행" + TeamColor.LHN + TeamColor.TEXT_RESET);
 		return noticeMapper.insertNotice(notice);
 	}
-	// 공지글 조회수 증가	
 	
+	// 공지글 조회수 증가	
+	public int updateNoticeCount(int noticeNo) {
+		return 0;	
+	}
+	
+	// 공지글 수정 폼
+	public int updateNoticeForm(Notice notice) {
+		return noticeMapper.updateNotice(notice);
+	}
+	
+	// 공지글 수정 액션
+	public int updateNotice(Notice notice) {
+		return noticeMapper.updateNotice(notice);
+	}
 }
