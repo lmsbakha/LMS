@@ -17,8 +17,6 @@ import com.gd.lms.service.MultiplechoiceExampleService;
 import com.gd.lms.service.MultiplechoiceService;
 import com.gd.lms.service.ShortanswerQuestionService;
 import com.gd.lms.service.SubjectService;
-import com.gd.lms.vo.Multiplechoice;
-import com.gd.lms.vo.MultiplechoiceExample;
 import com.gd.lms.vo.Subject;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,8 +44,19 @@ public class ExamController {
 	@Autowired
 	private SubjectService subjectService;
 
+	// 문제은행 페이지를 보여주는 메소드
+	// 파라미터 : 객관식 문제/단답형 문제를 담은 List를 view로 전송할 Model
+	// 리턴값: 객관식,단답형 문제 리스트를 보여줄 examList.jsp로 이동
+	@GetMapping("/examList")
+	String examList(Model model) {
+		// 시험 문제들을 담을 리스트 생성
+		List<Map<String, Object>> examList = new ArrayList<>();
+		
+		return "examList";
+	}
+	
 	// addExam 폼
-	// 파라미터 : List<subject>
+	// 파라미터 : List<subject>를 담아둘 Model
 	// 리턴값: 시험문제를 출제하기 위한 form인 addExam.jsp로 이동
 	@GetMapping("/addExam")
 	String addExam(Model model) {
@@ -62,7 +71,7 @@ public class ExamController {
 
 	// MultiplechoiceService에서 객관식 문제를 추가한 후 객관식 보기 추가
 	// 파라미터 : Map<String, Object>에 파라미터 담아서 서비스로 전송
-	// 리턴값 :
+	// 리턴값 : addExam.jsp
 	@PostMapping("/addMultipleChoice")
 	String addExam(@RequestParam(value = "subjectName") String subjectName,
 			@RequestParam(value = "multiplechoiceQuestion") String multiplechoiceQuestion,

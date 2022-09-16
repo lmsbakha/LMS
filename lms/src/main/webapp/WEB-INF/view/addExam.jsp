@@ -89,6 +89,8 @@
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">시험</a> <span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">시험 출제</span></li>
 									</ul>
 								</div>

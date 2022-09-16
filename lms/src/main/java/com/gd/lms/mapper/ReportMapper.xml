@@ -3,15 +3,14 @@
 <mapper namespace="com.gd.lms.mapper.ReportMapper">
 
 	<!-- 전체 과제 리스트 조회하는 메소드 -->
-	<!-- <select id="selectReportList" resultType="com.gd.lms.vo.Report"> 
-	SELECT 
+	<!-- <select id="selectReportList" resultType="com.gd.lms.vo.Report"> SELECT 
 		report_no reportNo, subject_name subjectName, report_title reportTitle, report_content 
 		reportContent, report_start_date reportStartDate, report_end_date reportEndDate, 
 		update_date updateDate, create_date createDate FROM report ORDER BY create_date 
 		DESC </select> 전체 과제 리스트 조회하는 메소드 -->
 
 	<!-- select 결과물이 vo이면 resultMap 아니면 resultType -->
-	<resultMap type="com.gd.lms.vo.Report" id="resultReport">
+<!-- 	<resultMap type="com.gd.lms.vo.Report" id="resultReport">
 		<id column="report_no" property="reportNo" />
 		<result column="subject_name" property="subjectName" />
 		<result column="report_title" property="reportTitle" />
@@ -20,25 +19,27 @@
 		<result column="report_end_date" property="reportEndDate" />
 		<result column="update_date" property="updateDate" />
 		<result column="create_date" property="createDate" />
-	</resultMap>
-	
-	<select id="selectReportList" parameterType="Map" resultMap="resultReport">
-		SELECT
-		report_no,
-		subject_name,
-		report_title,
-		report_content,
-		report_start_date,
-		report_end_date,
-		update_date,
-		create_date
-		FROM report
-		ORDER BY reate_date DESC
+	</resultMap> -->
+
+	<select id="selectReportList" parameterType="Map" resultType="com.gd.lms.vo.Report">
+		SELECT 
+		report_no reportNo
+		, subject_name subjectName
+		, report_title reportTitle
+		, report_content reportContent
+		, report_start_date reportStartDate
+		, report_end_date reportEndDate
+		, update_date updateDate
+		, create_date createDate 
+		FROM report 
+		ORDER BY 
+		create_date DESC 
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 
 	<select id="selectReportTotalCount" resultType="int">
-		SELECT COUNT(*) FROM report
+		SELECT COUNT(*)
+		FROM report
 	</select>
 
 

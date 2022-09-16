@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.MultiplechoiceMapper">
 	<!-- 객관식 문제 추가 -->
-	<insert id="insertMultiplechoice"
-		parameterType="com.gd.lms.vo.Multiplechoice">
+	<insert id="insertMultiplechoice" parameterType="com.gd.lms.vo.Multiplechoice">
 		INSERT INTO multiplechoice 
 		(subject_name, multiplechoice_question, multiplechoice_answer) 
 		VALUES 
@@ -13,9 +12,8 @@
 		</selectKey>
 	</insert>
 
-	<!-- 특정과목과 관련된 객관식 문제 리스트 -->
-	<select id="selectMultiplechoiceList" parameterType="String"
-		resultType="com.gd.lms.vo.Multiplechoice">
+	<!-- 특정과목과 관련된 객관식 문제 리스트. 단, 검색어가 null또는 공백일 경우 WHERE 절이 없음 -->
+	<select id="selectMultiplechoiceList" parameterType="String" resultType="com.gd.lms.vo.Multiplechoice">
 		SELECT 
 		subject_name subjectName
 		, multiplechoice_question multiplechoiceQuestion
@@ -23,12 +21,13 @@
 		, update_date updateDate
 		, create_date createDate
 		FROM multiplechoice 
-		WHERE subject_name =#{subjectName}
+		<if test='value != null or value !="" '>
+			WHERE subject_name = #{value}
+		</if>
 	</select>
 
 	<!-- 객관식 문제 수정 -->
-	<update id="updateMultiplechoice"
-		parameterType="com.gd.lms.vo.Multiplechoice">
+	<update id="updateMultiplechoice" parameterType="com.gd.lms.vo.Multiplechoice">
 		UPDATE multiplechoice 
 		SET 
 		multiplechoice_question=#{multiplechoiceQuestion}
