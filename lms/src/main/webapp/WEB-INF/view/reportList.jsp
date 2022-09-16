@@ -81,67 +81,91 @@
 	<!-- End tobbar -->
 
 	<!-- Main Contents -->
-	<div class="product-status mg-b-15">
-		<div class="container-fluid">
-			<%-- <form action="${pageContext.request.contextPath}/reportList"
-				id="reportListForm" method="post">
-			 --%>
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="product-status-wrap drp-lst">
-						<h4>Departments List</h4>
-						<div class="add-product">
-							<a href="${pageContext.request.contextPath}/addReport">과제 추가</a>
-						</div>
-						<div class="asset-inner">
-							<table>
-								<tr>
-									<th>reportNo</th>
-									<th>subjectName</th>
-									<th>reportTitle</th>
-									<th>createDate</th>
-									<th>Setting</th>
-								</tr>
-								<c:forEach var="report" items="${reportList}">
-									<tr>
-										<td>${report.reportNo}</td>
-										<td>${report.subjectName}</td>
-										<td>${report.reportTitle}</td>
-										<td>${report.createDate}</td>
-										<td>
-											<button data-toggle="tooltip" title="Edit"
-												class="pd-setting-ed">
-												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-											</button>
-											<button data-toggle="tooltip" title="Trash"
-												class="pd-setting-ed">
-												<i class="fa fa-trash-o" aria-hidden="true"></i>
-											</button>
-										</td>
-									</tr>
-								</c:forEach>
-							</table>
-						</div>
-						<div class="custom-pagination">
-							<nav aria-label="Page navigation example">
-								<ul class="pagination">
-									<c:if test="${currentPage > 1}">
-										<li class="page-item"><a class="page-link"
-											href="/reportList?currentPage=${currentPage-1}">이전</a></li>
-									</c:if>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<c:if test="${currentPage < lastPage}">
-										<li class="page-item"><a class="page-link"
-											href="/reportList?currentPage=${currentPage+1}">다음</a></li>
-									</c:if>
-								</ul>
-							</nav>
+	<div class="header-advance-area">
+		<!-- Mobile Menu end -->
+		<div class="breadcome-area">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="breadcome-list single-page-breadcome">
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+									<ul class="breadcome-menu" style="float: left;">
+										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="product-status mg-b-15">
+		<div class="container-fluid">
+			<form action="${pageContext.request.contextPath}/reportList"
+				id="reportListForm" method="post">
+
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="product-status-wrap drp-lst">
+							<h4>Report List</h4>
+							<div class="add-product">
+								<a href="${pageContext.request.contextPath}/addReport">과제 추가</a>
+							</div>
+							<div class="asset-inner">
+								<table>
+									<tr>
+										<th>reportNo</th>
+										<th>subjectName</th>
+										<th>reportTitle</th>
+										<th>createDate</th>
+										<th>Setting</th>
+									</tr>
+									<c:forEach var="report" items="${reportList}">
+										<tr>
+											<td>${report.reportNo}</td>
+											<td>${report.subjectName}</td>
+											<td>${report.reportTitle}</td>
+											<td>${report.createDate}</td>
+											<td>
+												<button data-toggle="tooltip" title="Edit"
+													class="pd-setting-ed">
+													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+												</button>
+												<button data-toggle="tooltip" title="Trash"
+													class="pd-setting-ed">
+													<i class="fa fa-trash-o" aria-hidden="true"></i>
+												</button>
+											</td>
+										</tr>
+									</c:forEach>
+								</table>
+							</div>
+							<div class="custom-pagination">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<c:if test="${currentPage > 1}">
+											<li class="page-item"><a class="page-link"
+												href="/reportList?currentPage=${currentPage-1}">이전</a></li>
+										</c:if>
+										<li class="page-item"><a class="page-link" href="#">1</a></li>
+										<li class="page-item"><a class="page-link" href="#">2</a></li>
+										<li class="page-item"><a class="page-link" href="#">3</a></li>
+										<c:if test="${currentPage < lastPage}">
+										
+											<li class="page-item"><a class="page-link"
+												href="/reportList?currentPage=${currentPage+1}">다음</a></li>
+										</c:if>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
 			<!-- </form> -->
 		</div>
 	</div>
