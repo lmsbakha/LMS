@@ -10,7 +10,7 @@ import com.gd.lms.vo.Multiplechoice;
 public interface MultiplechoiceMapper {
 	// 객관식 문제를 추가하는 메소드
 	// 파라미터 : Multiplechoice
-	// 리턴값 : 정상적으로 추가되었음을 확인시켜줄 int
+	// 리턴값 : 정상적으로 추가되었음을 확인시켜줄 int와 multiplechoice_no값
 	int insertMultiplechoice(Multiplechoice multiplechoice);
 	
 	// 특정 과목과 연관된 객관식 문제 리스트

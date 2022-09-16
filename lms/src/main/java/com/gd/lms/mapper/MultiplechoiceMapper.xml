@@ -8,6 +8,9 @@
 		(subject_name, multiplechoice_question, multiplechoice_answer) 
 		VALUES 
 		(#{subjectName}, #{multiplechoiceQuestion}, #{multiplechoiceAnswer})
+		<selectKey resultType="int" keyProperty="multiplechoiceNo" order="AFTER">
+			SELECT LAST_INSERT_ID()	
+		</selectKey>
 	</insert>
 
 	<!-- 특정과목과 관련된 객관식 문제 리스트 -->

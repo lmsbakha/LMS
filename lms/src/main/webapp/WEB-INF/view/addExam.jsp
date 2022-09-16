@@ -111,137 +111,102 @@
 						</ul>
 						<div id="myTabContent" class="tab-content custom-product-edit">
 							<div class="product-tab-list tab-pane fade active in" id="multiplechoice">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="review-content-section">
-											<div class="row">
-												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-													<div class="devit-card-custom">
-														<!-- 과목선택 -->
-														<div class="form-group-inner">
-															<div class="row">
-																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-																	<label class="login2 pull-right pull-right-pro">시험을 출제할 과목을 선택하세요</label>
-																</div>
-																<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-																	<div class="form-select-list">
-																		<select class="form-control custom-select-value" name="subjectName" id="subjectName">
-																			<option value="defalut">-----과목선택-----</option>
-																			<option value="saab">Saab</option>
-																			<option value="opel">Opel</option>
-																			<option value="audi">Audi</option>
-																		</select>
+								<form action="${pageContext.request.contextPath}/addMultipleChoice" method="post">
+									<fieldset>
+										<div class="row">
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												<div class="review-content-section">
+													<div class="row">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="devit-card-custom">
+																<!-- 과목선택 -->
+																<div class="form-group-inner">
+																	<div class="row">
+																		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																			<label class="login2 pull-right pull-right-pro">시험을 출제할 과목을 선택하세요</label>
+																		</div>
+																		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																			<div class="form-select-list">
+																				<select class="form-control custom-select-value" name="subjectName" id="subjectName" required="required">
+																					<option value="defalut">-----과목선택-----</option>
+																					<c:forEach var="s" items="${subjectList}">
+																						<option value="${s.subjectName }">${s.subjectName }</option>
+																					</c:forEach>
+																				</select>
+																			</div>
+																		</div>
 																	</div>
 																</div>
-															</div>
-														</div>
-														<!-- 문제 지문 -->
-														<div class="form-group-inner">
-															<div class="row">
-																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-																	<label class="login2 pull-right pull-right-pro">문제를 입력하세요</label>
-																</div>
-																<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-																	<input type="text" class="form-control" id="multiplechoiceQuestion" name="multiplechoiceQuestion" placeholder="문제 지문" />
-																</div>
-															</div>
-														</div>
-														<!-- 보기 -->
-														<div class="form-group-inner">
-															<div class="row">
-																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-																	<label class="login2 pull-right pull-right-pro">보기 지문을 입력 후 정답에 체크해주세요</label>
-																</div>
-																<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-																	<div class="input-group">
-																		<span class="input-group-addon">1번</span> 
-																		<input type="text" class="form-control"> 
-																		<span class="input-group-addon"> <input type="checkbox"> </span>
+																<!-- 문제 지문 -->
+																<div class="form-group-inner">
+																	<div class="row">
+																		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																			<label class="login2 pull-right pull-right-pro">문제를 입력하세요</label>
+																		</div>
+																		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																			<input type="text" class="form-control" id="multiplechoiceQuestion" name="multiplechoiceQuestion" required="required" placeholder="문제 지문" />
+																		</div>
 																	</div>
 																</div>
-															</div>
-															<div class="row">
-																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-																</div>
-																<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-																	<div class="input-group">
-																		<span class="input-group-addon">2번</span> 
-																		<input type="text" class="form-control"> 
-																		<span class="input-group-addon"> <input type="checkbox"> </span>
+																<!-- 보기 -->
+																<div class="form-group-inner">
+																	<div class="row">
+																		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																			<label class="login2 pull-right pull-right-pro">보기 지문을 입력 후 정답에 체크해주세요</label>
+																		</div>
+																		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																			<div class="input-group">
+																				<span class="input-group-addon">1번</span> <input type="text" class="form-control" id="answer1" name="answer1" required="required"> <span class="input-group-addon"> <input type="checkbox" id="multiplechoiceAnswer" name="multiplechoiceAnswer" value="1">
+																				</span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"></div>
+																		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																			<div class="input-group">
+																				<span class="input-group-addon">2번</span> <input type="text" class="form-control" id="answer2" name="answer2" required="required"> <span class="input-group-addon"> <input type="checkbox" id="multiplechoiceAnswer" name="multiplechoiceAnswer" value="2">
+																				</span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"></div>
+																		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																			<div class="input-group">
+																				<span class="input-group-addon">3번</span> <input type="text" class="form-control" id="answer3" name="answer3" required="required"> <span class="input-group-addon"> <input type="checkbox" id="multiplechoiceAnswer" name="multiplechoiceAnswer" value="3">
+																				</span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"></div>
+																		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																			<div class="input-group">
+																				<span class="input-group-addon">4번</span> <input type="text" class="form-control" id="answer4" name="answer4" required="required"> <span class="input-group-addon"> <input type="checkbox" id="multiplechoiceAnswer" name="multiplechoiceAnswer" value="4">
+																				</span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"></div>
+																		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																			<div class="input-group">
+																				<span class="input-group-addon">5번</span> <input type="text" class="form-control" id="answer5" name="answer5" required="required"> <span class="input-group-addon"> <input type="checkbox" id="multiplechoiceAnswer" name="multiplechoiceAnswer" value="5">
+																				</span>
+																			</div>
+																		</div>
 																	</div>
 																</div>
-															</div>
-															<div class="row">
-																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-																</div>
-																<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-																	<div class="input-group">
-																		<span class="input-group-addon">3번</span> 
-																		<input type="text" class="form-control"> 
-																		<span class="input-group-addon"> <input type="checkbox"> </span>
-																	</div>
-																</div>
-															</div>
-															<div class="row">
-																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-																</div>
-																<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-																	<div class="input-group">
-																		<span class="input-group-addon">4번</span> 
-																		<input type="text" class="form-control"> 
-																		<span class="input-group-addon"> <input type="checkbox"> </span>
-																	</div>
-																</div>
-															</div>
-															<div class="row">
-																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-																</div>
-																<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-																	<div class="input-group">
-																		<span class="input-group-addon">5번</span> 
-																		<input type="text" class="form-control"> 
-																		<span class="input-group-addon"> <input type="checkbox"> </span>
-																	</div>
-																</div>
+																<button class="btn btn-primary waves-effect waves-light" type=""> Submit</button>
 															</div>
 														</div>
-														<br>
-														<!-- multiplechoice_question -->
-														문제를 입력하세요.
-														<div class="form-group">
-															<input type="number" class="form-control" id="multiplechoice_question" name="multiplechoice_question" placeholder="문제를 입력하세요">
-														</div>
-														<!-- 보기 -->
-														문제의 보기를 입력하세요.
-														<div class="form-group">
-															<input type="password" class="form-control" required="required" placeholder="1번 보기">
-														</div>
-														<div class="form-group">
-															<input type="password" class="form-control" required="required" placeholder="2번 보기">
-														</div>
-														<div class="form-group">
-															<input type="password" class="form-control" required="required" placeholder="3번 보기">
-														</div>
-														<div class="form-group">
-															<input type="password" class="form-control" required="required" placeholder="4번 보기">
-														</div>
-														<div class="form-group">
-															<input type="password" class="form-control" required="required" placeholder="5번 보기">
-														</div>
-														<!--/보기  -->
-														<div class="form-group">
-															<input type="password" class="form-control" placeholder="Password">
-														</div>
-														<div class="form-group">
-															<input type="password" class="form-control" placeholder="Confirm Password">
-														</div>
-														<a href="#!" class="btn btn-primary waves-effect waves-light">Submit</a>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
+									</fieldset>
+								</form>
 							</div>
 							<div class="product-tab-list tab-pane fade" id="shortAnswer">
 								<div class="row">

@@ -1,3 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.lms.mapper.SubjectMapper"></mapper>
+<mapper namespace="com.gd.lms.mapper.SubjectMapper">
+	<!-- 전체 과목 리스트 가져오기 -->
+	<select id="selectSujectList" resultType="com.gd.lms.vo.Subject">
+		SELECT subject_name subjectName FROM subject
+	</select>
+</mapper>
