@@ -14,4 +14,8 @@ public interface AccountMapper {
 	// 계정 추가에 사용되는 메소드
 	// 파라미터 : account
 	int insertAccount(Account account);
+	
+	// accountId 중복 검사하기위해 accountId Cnt 받기
+	// 파라미터 : idck
+	int selectAccountIdCnt(String idck);
 }

@@ -19,11 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MemberService {
 	// MemberMapper 객체 주입
-	@Autowired
-	private MemberMapper memberMapper;
+	@Autowired private MemberMapper memberMapper;
 	// AccountMapper 객체 주입
-	@Autowired
-	private AccountMapper accountMapper;
+	@Autowired private AccountMapper accountMapper;
 
 	public int addMember(Map<String, Object> paramMap) {
 		// 파라미터 디버깅
@@ -46,6 +44,8 @@ public class MemberService {
 		paramMember.setMemberPhone((String) paramMap.get("memberPhone"));
 		paramMember.setMemberAddress((String) paramMap.get("memberAddress"));
 		paramMember.setMemberDetailAddress((String) paramMap.get("memberDetailAddress"));
+		paramMember.setMemberMilitary((String) paramMap.get("memberMilitary"));
+		paramMember.setMemberGraduate((String) paramMap.get("memberGraduate"));
 
 		// Mapper call
 		// Account table에 먼저 추가 --> Member table에 추가
@@ -64,4 +64,15 @@ public class MemberService {
 		}
 		return addMember;
 	}
+	
+	// memberEmail 중복 체크
+		public int MemberEmailCheck(String emck) {
+			// Mapper call
+			// memberEmail 중복 검사하기위해 memberEmail Cnt 받기
+			int count = memberMapper.selectMemberEmailCnt(emck);
+			// 디버깅
+			log.debug(TeamColor.PCW + "MemberService / MemberEmailCheck / count" + TeamColor.TEXT_RESET);
+			
+			return count;
+		}
 }

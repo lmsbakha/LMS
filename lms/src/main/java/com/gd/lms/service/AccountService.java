@@ -27,7 +27,7 @@ public class AccountService {
 		// Mapper call
 		Account account = accountMapper.selectLogin(paramAccount);
 		// Mapper에서 받아온 account(id, level)값 디버깅
-		log.debug(TeamColor.PSJ + account + "<-- account" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSJ + account + "<-- AccountService / getLogin / account" + TeamColor.TEXT_RESET);
 		return account;
 	}
 
@@ -41,5 +41,16 @@ public class AccountService {
 		// Mapper에서 받아온 account 값 디버깅
 		log.debug(TeamColor.PSY + account + "<-- account" + TeamColor.TEXT_RESET);
 		return row;
+	}
+	
+	// accountId 중복 체크
+	public int AccountIdCheck(String idck) {
+		// Mapper call
+		// accountId 중복 검사하기위해 accountId Cnt 받기
+		int count = accountMapper.selectAccountIdCnt(idck);
+		// 디버깅
+		log.debug(TeamColor.PCW + "<-- AccountService / AccountIdCheck / count" + TeamColor.TEXT_RESET);
+		
+		return count;
 	}
 }

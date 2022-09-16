@@ -87,10 +87,10 @@
                           	    <span class="help-block small">대문자, 소문자, 특수문자가 포함된 10자리 비밀번호</span>
                             </div><br>
                             <button  type="submit" class="btn btn-success btn-block loginbtn"><b>Login</b></button>
-                            <a type="button" href="${pageContext.request.contextPath}/register?accountLevel=1" class="btn btn-default btn-block">학생 회원가입</a>
-                            <a type="button" href="${pageContext.request.contextPath}/register?accountLevel=2" class="btn btn-default btn-block">강사 회원가입</a>
-                            <a type="button" href="${pageContext.request.contextPath}/register?accountLevel=3" class="btn btn-default btn-block">행정 회원가입</a>
-                        </form>
+	                            <a style="background:#adb2b5;"  href="${pageContext.request.contextPath}/register?accountLevel=1" class="btn btn-default btn-block form-control">학생 회원가입</a>
+	                            <a style="background:#adb2b5;" href="${pageContext.request.contextPath}/register?accountLevel=2" class="btn btn-default btn-block form-control">강사 회원가입</a>
+	                            <a style="background:#adb2b5;" href="${pageContext.request.contextPath}/register?accountLevel=3" class="btn btn-default btn-block form-control">행정 회원가입</a>
+	                        </form>
                     </div>
                 </div>
 			</div>
