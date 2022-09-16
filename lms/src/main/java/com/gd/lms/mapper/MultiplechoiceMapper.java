@@ -13,7 +13,7 @@ public interface MultiplechoiceMapper {
 	// 리턴값 : 정상적으로 추가되었음을 확인시켜줄 int와 multiplechoice_no값
 	int insertMultiplechoice(Multiplechoice multiplechoice);
 	
-	// 특정 과목과 연관된 객관식 문제 리스트
+	// 검색어(특정 과목)와 연관된 객관식 문제 리스트
 	// 파라미터 : subjectName
 	// 리턴값 : Multiplechoice
 	List<Multiplechoice> selectMultiplechoiceList(String subjectName);
