@@ -75,12 +75,12 @@
 			<div class="content-error">
 				<div class="hpanel">
 					<div class="panel-body">
-						<form action="${pageContext.request.contextPath}/register" id="registerForm" method="post">
+						<form id="registerForm" action="${pageContext.request.contextPath}/register" id="registerForm" method="post">
 							<div class="row">
 								<div class="form-group col-lg-12">
 								<input type="hidden" name="accountLevel" id="accountLevel" value="${param.accountLevel}">
 									<label for="idck">아이디</label> 
-									<input type="text" placeholder="ID 입력해주세요" name="idck" id="idck"
+									<input type="text" placeholder="ID 입력해주세요" name="idck" id="idck" required="required"
 										class="form-control">
 									<span id="idinfo"></span>										
 									<br>
@@ -94,7 +94,7 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="emck">이메일</label> 
-									<input type="text" placeholder="email 입력해주세요" name="emck" id="emck"
+									<input type="text" placeholder="email 입력해주세요" name="emck" id="emck" required="required"
 										class="form-control"> 
 									<span id="eminfo"></span>	
 									<br>
@@ -108,56 +108,56 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberName">이름</label> 
-									<input class="form-control" placeholder="이름을 입력해주세요" id="memberName" name="memberName">
+									<input class="form-control" placeholder="이름을 입력해주세요" id="memberName" name="memberName" required="required">
 									<span id="nameinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12 ">
 									<label for="memberGender">성별</label>
 								            <select class="form-control" name="memberGender" id="memberGender">
 								             	<option value="default">===선택해주세요===</option>
-							                    <option value="남자">남자</option>
-							                    <option value="여자">여자</option>
+							                    <option value="남">남자</option>
+							                    <option value="여">여자</option>
 					                  		</select>
 									<br>
 								</div>
 								<div class="form-group col-lg-12">
 									<label>생년월일</label>
-									<input class="form-control" type="date" id="memberBirth" name="memberBirth">
+									<input class="form-control" type="date" id="memberBirth" name="memberBirth" required="required">
 									<span id="birthinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12">
 									<label>전화번호</label> 
-									<input class="form-control" type="tel" id="memberPhone" name="memberPhone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
+									<input class="form-control" type="tel" id="memberPhone" name="memberPhone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required="required">
 									<span id="phoneinfo"></span>
 								</div>
 								<div class="form-group col-lg-12">
 									<label>주소</label>
-									<input style="margin-bottom: 5px" class="form-control" id="memberAddress" name="memberAddress" type="text" readonly="readonly" placeholder="주소" /> 
+									<input style="margin-bottom: 5px" class="form-control" id="memberAddress" name="memberAddress" type="text" readonly="readonly" placeholder="주소" required="required" /> 
 									<span id="addrinfo"></span>
 									<button type="button" class="btn btn-success btn-block form-group" id="addrBtn" style="margin-bottom: 5px">
 										<b>주소검색</b>
 									</button>
-									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요" />
+									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요" required="required" />
 									<span id="detailaddrinfo"></span>
 								</div>
 						            <!-- 학생만 accountLevel = 1 -->
 						            <c:if test="${param.accountLevel eq 1}">
-							            <div class="form-group">
-								            <label for="memberMilitary">병역 여부</label>
-								            <select class="form-control" name="memberMilitary" id="memberMilitary">
-								             	<option value="default">===선택해주세요===</option>
-								             	<option value="해당없음">해당없음</option>
-							                    <option value="군필">군필</option>
-							                    <option value="미필">미필</option>
-					                  		</select>
-							            </div>
-							            <div class="form-group">
+							            <div class="form-group col-lg-12">
 								            <label for="memberGraduate">학력</label>
 								            <select class="form-control" name="memberGraduate" id="memberGraduate">
 								             	<option value="default">===선택해주세요===</option>
 								             	<option value="고졸">고졸</option>
 							                    <option value="초대졸">초대졸</option>
 							                    <option value="대졸">대졸</option>
+					                  		</select>
+							            </div>
+							            <div class="form-group col-lg-12">
+								            <label for="memberMilitary">병역 여부</label>
+								            <select class="form-control" name="memberMilitary" id="memberMilitary">
+								             	<option value="default">===선택해주세요===</option>
+								             	<option value="해당없음">해당없음</option>
+							                    <option value="군필">군필</option>
+							                    <option value="미필">미필</option>
 					                  		</select>
 							            </div>
 						            </c:if>  
@@ -170,7 +170,7 @@
 							</div>
 							<div class="text-center">
 								<button type="reset" class="btn btn-warning btn-block">초기화</button>
-								<button type="submit" class="btn btn-success btn-block loginbtn">회원가입</button>
+								<button id="registerBtn" type="button" class="btn btn-success btn-block loginbtn">회원가입</button>
 								<br>
 								<button type="reset" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/login';">Home</button>
 							</div>
@@ -288,14 +288,14 @@
 			})
 		}
 	});
-	//유효성 
+// 유효성 
 	$('#emck').blur(function() {
  		if($('#emck').val()=='') {
  			$('#memberEmail').val('');
- 			$('#eminfo').text('이메일을 입력해주세요.');
+ 			$('#eminfo').text('※ 이메일을 입력해주세요.');
  		} else if($('#emck').val().indexOf('@') == -1 || $('#emck').val().indexOf('.') == -1) {
  			$('#memberEmail').val('');
- 			$('#eminfo').text('이메일 형식이 아닙니다.');	
+ 			$('#eminfo').text('※ 이메일 형식이 아닙니다.');	
  		} else {
  			$('#eminfo').text('');
  		}
@@ -312,7 +312,7 @@
   	
   	$('#memberBirth').blur(function() {
   		if($('#memberBirth').val()=='') {
-  			$('#birthinfo').text('생년월일을 입력해주세요.');
+  			$('#birthinfo').text('※ 생년월일을 입력해주세요.');
   		} else {
   			$('#birthinfo').text('');
   		}
@@ -329,7 +329,7 @@
   	
   	$('#memberAddress').blur(function() {
   		if($('#memberAddress').val()=='') {
-  			$('#addrinfo').text('주소를 검색해주세요.');
+  			$('#addrinfo').text('※ 주소를 검색해주세요.');
   		} else {
   			$('#addrinfo').text('');
   		}
@@ -337,14 +337,70 @@
   	
   	$('#memberDetailAddress').blur(function() {
   		if($('#memberDetailAddress').val()=='') {
-  			$('#deaddrinfo').text('상세 주소를 입력해주세요.');
+  			$('#detailaddrinfo').text('※ 상세 주소를 입력해주세요.');
   		} else {
-  			$('#deaddrinfo').text('');
+  			$('#detailaddrinfo').text('');
   		}
   	})
-	
-	
-	
+// 버튼 눌렀을때 유효성 검사
+  	$('#registerBtn').click(function() {
+  		if($('#idck').val()=='') {
+  			alert('아이디를 입력해주세요');
+  		} else if($('#accountId').val()=='') {
+  			alert('아이디 중복 검사를 해주세요');
+  		} else if($('#emck').val()==''){
+  			alert('이메일을 입력해주세요');
+  		} else if($('#memberEmail').val()=='') {
+  			alert('이메일 중복 검사를 해주세요');
+  		} else if($('#memberName').val()=='') {
+  			alert('이름을 입력해주세요');
+  		} else if($('#memberGender').val()=='default') {
+  			alert('성별을 선택해주세요');
+  		} else if($('#memberBirth').val() == '') {
+  			alert('생년월일을 입력해주세요');
+  		} else if($('#memberAddress').val()=='') {
+  			alert('주소를 검색해주세요');
+  		} else if($('#memberDetailAddress').val()=='') {
+  			alert('상세주소를 입력해주세요');
+  		}else if($('#memberGraduate').val()=='default') {
+			alert('학력을 선택해주세요');
+  		}else if($('#memberMilitary').val()=='default') {
+  			alert('병역여부를 선택해주세요');
+  		} else {
+  			$('#registerForm').submit();
+  		}
+  	});
+// 엔터키 눌렀을때 유효성 검사
+	$(document).keypress(function(e) {
+	  if(e.which == 13) {
+  			event.preventDefault();
+				if ($('#idck').val() == '') {
+					alert('아이디를 입력해주세요');
+				} else if ($('#accountId').val() == '') {
+					alert('아이디 중복 검사를 해주세요');
+				} else if ($('#emck').val() == '') {
+					alert('이메일을 입력해주세요');
+				} else if ($('#memberEmail').val() == '') {
+					alert('이메일 중복 검사를 해주세요');
+				} else if ($('#memberName').val() == '') {
+					alert('이름을 입력해주세요');
+				} else if ($('#memberGender').val() == 'default') {
+					alert('성별을 선택해주세요');
+				} else if ($('#memberBirth').val() == '') {
+					alert('생년월일을 입력해주세요');
+				} else if ($('#memberAddress').val() == '') {
+					alert('주소를 검색해주세요');
+				} else if ($('#memberDetailAddress').val() == '') {
+					alert('상세주소를 입력해주세요');
+				} else if ($('#memberGraduate').val() == 'default') {
+					alert('학력을 선택해주세요');
+				} else if ($('#memberMilitary').val() == 'default') {
+					alert('병역여부를 선택해주세요');
+				} else {
+					$('#registerForm').submit();
+				}
+		}
+	});
 </script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
