@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.MultiplechoiceExampleMapper">
+	<!-- 객관식 문제 보기 추가 -->
+	<insert id="insertMultiplechoiceExample"
+		parameterType="com.gd.lms.vo.MultiplechoiceExample">
+		INSERT INTO multiplechoice_example 
+		(multiplechoice_no, multiplechoice_example_id, multiplechoice_example_content, update_date, create_date) 
+		VALUES 
+		(#{multiplechoiceNo}, #{multiplechoiceExampleId}, #{multiplechoiceExampleContent}, NOW(), NOW())
+	</insert>
+	
+	
 </mapper>
