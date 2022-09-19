@@ -1,6 +1,7 @@
 package com.gd.lms.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,7 +17,7 @@ public interface MultiplechoiceMapper {
 	// 검색어(특정 과목)와 연관된 객관식 문제 리스트
 	// 파라미터 : subjectName
 	// 리턴값 : Multiplechoice
-	List<Multiplechoice> selectMultiplechoiceList(String subjectName);
+	List<Map<String, Object>> selectMultiplechoiceList(String subjectName);
 	
 	// 객관식 문제를 수정하는 메소드
 	// 파라미터 : Multiplechoice 

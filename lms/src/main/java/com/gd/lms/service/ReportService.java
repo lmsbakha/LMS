@@ -1,6 +1,5 @@
 package com.gd.lms.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.ReportMapper;
@@ -33,6 +33,9 @@ public class ReportService {
 		log.debug(TeamColor.PSY + currentPage + "<-- currentPage" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + rowPerPage + "<-- rowPerPage" + TeamColor.TEXT_RESET);
 
+		// 리턴값 받아올 객체 생성
+		Map<String, Object> returnMap = new HashMap<>();
+		
 		// ReportMapper에 넣어줄 매개변수 설정
 		Map<String, Object> paramMap = new HashMap<>();
 
@@ -40,7 +43,7 @@ public class ReportService {
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// beginRow값 디버깅
 		log.debug(TeamColor.PSY + paramMap.get("beginRow") + "<-- beginRow" + TeamColor.TEXT_RESET);
-		
+
 		// paramMap에 값 넣어주기
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
@@ -52,8 +55,6 @@ public class ReportService {
 		// 디버깅
 		log.debug(TeamColor.PSY + reportList.toString() + "<-- reportList" + TeamColor.TEXT_RESET);
 
-		// 리턴값 받아올 객체 생성
-		Map<String, Object> returnMap = new HashMap<>();
 		// 마지막 페이지 변수
 		int lastPage = 0;
 		// 총 과제 수
@@ -77,5 +78,24 @@ public class ReportService {
 		log.debug(TeamColor.PSY + returnMap.get("lastPage") + "<-- lastPage" + TeamColor.TEXT_RESET);
 
 		return reportList;
-	}
+	} // end getReportList
+
+	// 과제 출제하는 메소드
+	// 파라미터 : Report
+	// 리턴값 : int
+	public int addReport(Report report, @RequestParam(value = "Report") Report paramReport) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+		
+		// 리턴값 받아올 변수
+		int addReport = 0;
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
+		// Mapper call
+		addReport = reportMapper.insertReport(paramReport);
+		// Mapper에서 받아온 account 값 디버깅
+		log.debug(TeamColor.PSY + report + "<-- report" + TeamColor.TEXT_RESET);
+
+		return addReport;
+	} // end addReport
 }

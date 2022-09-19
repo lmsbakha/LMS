@@ -22,7 +22,7 @@ public interface ReportMapper {
 	// 리턴값 : int
 	int selectReportTotalCount();
 	
-	// 과제 추가하는 메소드
+	// 과제 출제하는 메소드
 	// 파라미터 : Report
 	// 리턴값 : int
 	int insertReport(Report report);

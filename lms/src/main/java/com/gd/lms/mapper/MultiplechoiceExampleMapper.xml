@@ -5,9 +5,9 @@
 	<insert id="insertMultiplechoiceExample"
 		parameterType="com.gd.lms.vo.MultiplechoiceExample">
 		INSERT INTO multiplechoice_example 
-		(multiplechoice_no, multiplechoice_example_id, multiplechoice_example_content, update_date, create_date) 
+		(question_no, multiplechoice_example_id, multiplechoice_example_content, update_date, create_date) 
 		VALUES 
-		(#{multiplechoiceNo}, #{multiplechoiceExampleId}, #{multiplechoiceExampleContent}, NOW(), NOW())
+		(#{questionNo}, #{multiplechoiceExampleId}, #{multiplechoiceExampleContent}, NOW(), NOW())
 	</insert>
 	
 	
