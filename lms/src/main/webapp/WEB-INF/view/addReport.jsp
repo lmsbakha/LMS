@@ -93,7 +93,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
+										<li><a href="#">과제</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">출제</span></li>
 									</ul>
 								</div>
 							</div>
@@ -105,65 +106,53 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/reportList"
-				id="reportListForm" method="post">
+			<form action="${pageContext.request.contextPath}/addReport"
+				id="addReportForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst">
-							<h4>Report List</h4>
+							<h4>Add Report</h4>
 							<hr>
-							<div class="add-product">
-								<a href="${pageContext.request.contextPath}/addReport">과제 추가</a>
+							<div class="form-group">
+								<label for="reportNo">reportNo</label> <input name="reportNo"
+									type="text" class="form-control" id="reportNo">
 							</div>
-							<div class="asset-inner">
-								<table>
-									<tr>
-										<th>reportNo</th>
-										<th>subjectName</th>
-										<th>reportTitle</th>
-										<th>createDate</th>
-										<th>Setting</th>
-									</tr>
-									<c:forEach var="report" items="${reportList}">
-										<tr>
-											<td>${report.reportNo}</td>
-											<td>${report.subjectName}</td>
-											<td>${report.reportTitle}</td>
-											<td>${report.createDate}</td>
-											<td>
-												<button data-toggle="tooltip" title="Edit"
-													class="pd-setting-ed">
-													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-												</button>
-												<button data-toggle="tooltip" title="Trash"
-													class="pd-setting-ed">
-													<i class="fa fa-trash-o" aria-hidden="true"></i>
-												</button>
-											</td>
-										</tr>
+
+							<div class="form-group">
+								<label for="subjectName">subjectName</label> <select
+									class="form-control">
+									<c:forEach var="subject" items="${subjectList}">
+										<option value="${subject.subjectName}">${subject.subjectName}</option>
 									</c:forEach>
-								</table>
+								</select>
 							</div>
-							<div class="custom-pagination">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<c:if test="${currentPage > 1}">
-											<li class="page-item"><a class="page-link"
-												href="/reportList?currentPage=${currentPage-1}">이전</a></li>
-										</c:if>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<c:if test="${currentPage < lastPage}">
-										
-											<li class="page-item"><a class="page-link"
-												href="/reportList?currentPage=${currentPage+1}">다음</a></li>
-										</c:if>
-									</ul>
-								</nav>
+							<div class="form-group">
+								<label for="reportTitle">reportTitle</label> <input
+									name="reportTitle" id="reportTitle" type="text"
+									class="form-control">
+							</div>
+							<div class="form-group edit-ta-resize res-mg-t-15">
+								<label for="reportContent">reportContent</label>
+								<textarea name="reportContent" id="reportContent"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="reportStartDate">reportStartDate</label> <input
+									name="reportStartDate" id="reportStartDate" type="date"
+									class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="reportEndDate">reportEndDate</label> <input
+									name="reportEndDate" id="reportEndDate" type="date"
+									class="form-control">
 							</div>
 						</div>
+						<div class="payment-adress">
+							<button type="submit"
+								class="btn btn-primary waves-effect waves-light"
+								style="float: right; margin-top:3%; margin-right:3%;">Submit</button>
+						</div>
 					</div>
+
 				</div>
 			</form>
 			<!-- </form> -->

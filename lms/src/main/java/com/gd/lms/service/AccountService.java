@@ -35,7 +35,7 @@ public class AccountService {
 	// 파라미터 : account 
 	public int addAccount(Account account, @RequestParam(value = "Account")Account paraAccount) {
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + account + "<-- paramAccount" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + paraAccount + "<-- paramAccount" + TeamColor.TEXT_RESET);
 		// Mapper call
 		int row = accountMapper.insertAccount(paraAccount);
 		// Mapper에서 받아온 account 값 디버깅

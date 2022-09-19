@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ReportService;
+import com.gd.lms.service.SubjectService;
 import com.gd.lms.vo.Report;
+import com.gd.lms.vo.Subject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,6 +24,9 @@ public class ReportController {
 	// ReportService 객체 주입
 	@Autowired
 	ReportService reportService;
+	// SubjectService 객체 주입
+	@Autowired
+	SubjectService subjectService;
 
 	// ROW_PER_PAGE의 개수가 변하지 않도록 상수로 선언
 	private final int ROW_PER_PAGE = 10;
@@ -62,6 +67,26 @@ public class ReportController {
 			// 인덱스로 리다이렉트
 			return "redirect:/index";
 		}
+	} // end reportdList 
+	
 
-	}
+	// 과제 출제하는 메소드
+	// addReport 폼
+	// 파라미터 : List<subject>를 담아둘 Model
+	// 리턴값: 과제를 출제하기 위한 form인 addReport.jsp로 이동
+	@GetMapping("/addReport")
+	String addReport(Model model) {
+		// subject 리스트 model값으로 보내기
+		List<Subject> subjectList = subjectService.getSubjectList();
+		// 디버깅
+		log.debug(TeamColor.PSY + subjectList + "<-- subjectList" + TeamColor.TEXT_RESET);
+		// 모델단에 전체과목리스트를 addAttribute해서 폼으로 전달한
+		model.addAttribute("subjectList", subjectList);
+		return "addReport";
+	} // end addReport
+
+	// 파라미터 : Report
+	// 파라미터 : 
+	// 리턴값 : int
+	
 }
