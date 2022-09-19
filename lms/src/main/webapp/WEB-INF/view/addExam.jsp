@@ -115,40 +115,40 @@
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<div class="all-form-element-inner">
 											<form action="${pageContext.request.contextPath}/addExam">
-											<div class="form-group-inner">
+												<div class="form-group-inner">
 													<div class="row">
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 															<label class="login2 pull-right pull-right-pro">강사명</label>
 														</div>
 														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-															<input type="text" class="form-control" value="${sessionId }" readonly="readonly" />
+															<input type="text" class="form-control" value="${infoAboutTeacher.teacherName }" readonly="readonly" />
 														</div>
 													</div>
 												</div>
 												<div class="form-group-inner">
 													<div class="row">
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">시험을 출제할 강의를 선택하세요</label>
+															<label class="login2 pull-right pull-right-pro">lectureName(강의명)</label>
+														</div>
+														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+															<input type="text" class="form-control" value="${infoAboutTeacher.lectureName }" readonly="readonly" />
+														</div>
+													</div>
+												</div>
+												<div class="form-group-inner">
+													<div class="row">
+														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+															<label class="login2 pull-right pull-right-pro">시험을 출제할 과목(subject)를 선택하세요</label>
 														</div>
 														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 															<div class="form-select-list">
 																<select class="form-control custom-select-value" name="lectureListByTeacher" id="lectureListByTeacher" required="required">
-																	<option value="defalut">-----강의선택-----</option>
-																	<c:forEach var="l" items="${lectureListByTeacher}">
-																		<option value="${l.lectureName }">${l.lectureName }</option>
+																	<option value="defalut">-----과목선택-----</option>
+																	<c:forEach var="l" items="${lectureSubjectList}">
+																		<option value="${l.subjectName }">${l.subjectName }</option>
 																	</c:forEach>
 																</select>
 															</div>
-														</div>
-													</div>
-												</div>
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">시험명을 작성하세요 (예시: 중간고사, 월말평가...)</label>
-														</div>
-														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-															<input type="text" class="form-control" name="examTitle" id="examTitle" required="required" />
 														</div>
 													</div>
 												</div>
@@ -188,7 +188,7 @@
 															<label class="login2 pull-right pull-right-pro">시험 응시 시작일</label>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="date"  class="form-control" name="examStartDate" ID="examStartDate" required="required" />
+															<input type="date"  class="form-control" name="examStartDate" ID="examStartDate" min="${infoAboutTeacher.lectureStartDate }" max="${infoAboutTeacher.lectureEndDate }" required="required" />
 														</div>
 													</div>
 												</div>
@@ -198,7 +198,7 @@
 															<label class="login2 pull-right pull-right-pro">시험 응시 마감일</label>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="date" class="form-control" id="examEndDate" name="examEndDate"  required="required" />
+															<input type="date" class="form-control" id="examEndDate" name="examEndDate" min="${infoAboutTeacher.lectureStartDate }" max="${infoAboutTeacher.lectureEndDate }" required="required" />
 														</div>
 													</div>
 												</div>
