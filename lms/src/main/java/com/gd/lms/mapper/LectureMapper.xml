@@ -4,7 +4,7 @@
 	<!-- 특정 강사가 강의하는 lecture의 리스트 -->
 	<select id="selectLectureListByTeacher" parameterType="String" resultType="Map">
 		SELECT 
-		l.lecture_name lecture_name
+		l.lecture_name lectureName
 		,l.lecture_start_date lectureStartDate
 		,l.lecture_end_date lectureEndDate
 		,ls.subject_name subjectName

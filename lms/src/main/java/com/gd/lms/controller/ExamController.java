@@ -79,10 +79,12 @@ public class ExamController {
 		String accountId= (String) session.getAttribute("sessionId");
 		// 로그인한 강사의 아이디 확인
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+		
 		// 특정 강사가 강의하는 리스트 가져오기
 		List<Map<String, Object>> lectureListByTeacher = lectureService.getLectureListByTeacher(accountId);
 		// 디버깅 
 		log.debug(TeamColor.PSJ + lectureListByTeacher + "<-- lectureListByTeacher" + TeamColor.TEXT_RESET);
+		
 		// 모델단에 전체과목리스트를 addAttribute해서 폼으로 전달한
 		model.addAttribute("lectureListByTeacher", lectureListByTeacher);
 		return "addExam";
