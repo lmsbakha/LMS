@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.MemberService;
-import com.gd.lms.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
