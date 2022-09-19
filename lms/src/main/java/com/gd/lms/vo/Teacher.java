@@ -13,6 +13,7 @@ public class Teacher {
 	private String teacherPhone; 		// 강사 전화번호
 	private String teacherGraduate;		// 강사 최종학력
 	private String teacherMajor;		// 강사 전공
+	private String teacherLastLogin;    // 강사 마지막 로그인날짜
 	private String createDate;			// 강사 등록일
 	private String updateData; 			// 강사 수정일
 }

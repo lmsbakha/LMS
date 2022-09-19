@@ -14,6 +14,7 @@ public class Student {
 	private String studentGraduate;		// 학생 최종학력
 	private String studentMajor;		// 학생 전공
 	private String studentMilitary;		// 학생 병역여부
+	private String studentLastLogin;    // 학생 마지막 로그인날짜
 	private String createDate;			// 학생 등록일
 	private String updateData; 			// 학생 수정일
 }
