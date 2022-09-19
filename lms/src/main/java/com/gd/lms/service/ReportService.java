@@ -1,5 +1,6 @@
 package com.gd.lms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.mapper.LectureSubjectMapper;
 import com.gd.lms.mapper.ReportMapper;
+import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +26,13 @@ public class ReportService {
 	@Autowired
 	ReportMapper reportMapper;
 
+	// LectureSubjectMapper 객체 주입
+	@Autowired
+	LectureSubjectMapper lectureSubjectMapper; 
+
 	// 전체 과제 리스트 조회하는 메소드
 	// 파라미터 : currentPage , rowPerPage
-	// 리턴값 boardList, lastPage
+	// 리턴값 : boardList, lastPage
 	public List<Report> getReportList(int currentPage, int rowPerPage) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
@@ -80,22 +87,89 @@ public class ReportService {
 		return reportList;
 	} // end getReportList
 
+	/*
+	 * // 강사 가르치는 과목 리스트 조회하는 메서드 // 파라미터 : X // 리턴값 : lecureSubjectList
+	 * List<LectureSubject> getLectureSubjectList(){ // 디버깅 영역구분
+	 * log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+	 * 
+	 * // 리턴값 받아올 객체 생성 List<LectureSubject> lecureSubjectList = new ArrayList<>();
+	 * 
+	 * // 강사가 가르치는 과목 리스트 조회하기 lecureSubjectList = lectureSubjectMapper.
+	 * 
+	 * return lecureSubjectList; } // end getLectureSubjectList
+	 */
 	// 과제 출제하는 메소드
 	// 파라미터 : Report
 	// 리턴값 : int
-	public int addReport(Report report, @RequestParam(value = "Report") Report paramReport) {
+	public int addReport(Report report) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
 		
 		// 리턴값 받아올 변수
 		int addReport = 0;
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
-		// Mapper call
-		addReport = reportMapper.insertReport(paramReport);
+		log.debug(TeamColor.PSY + report + "<-- paramReport" + TeamColor.TEXT_RESET);
+		// Mapper call 
+		addReport = reportMapper.insertReport(report);
 		// Mapper에서 받아온 account 값 디버깅
-		log.debug(TeamColor.PSY + report + "<-- report" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + addReport + "<-- addReport" + TeamColor.TEXT_RESET);
 
 		return addReport;
 	} // end addReport
+	
+	// 하나의 과제를 조회하는 메소드
+	// 파라미터 : reportNo
+	// 리턴값 : Report
+	public Report getReportOne(int reportNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+		// 리턴값 받아올 변수
+		Report getReportOne = null;
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
+		
+		// Mapper call 
+		getReportOne = reportMapper.selectReportOne(reportNo);
+		// Mapper에서 받아온 account 값 디버깅
+		log.debug(TeamColor.PSY + getReportOne + "<-- getReportOne" + TeamColor.TEXT_RESET);
+		
+		return getReportOne;
+	} // end getReportOne
+	
+	// 출제한 과제 수정하는 메소드
+	// 파라미터 : Report
+	// 리턴값 : int
+	public int modifyReport(Report paramReport) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+		// 리턴값 받아올 변수
+		int modifyReport = 0;
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
+		// Mapper call
+		modifyReport = reportMapper.updateReport(paramReport);
+		// Mapper에서 받아온 account 값 디버깅
+		log.debug(TeamColor.PSY + modifyReport + "<-- addReport" + TeamColor.TEXT_RESET);
+		
+		return modifyReport;
+	} // modifyReport
+	
+	// 행정용 출제한 과제 삭제하는 메소드
+	// 파라미터 : reportNo
+	// 리턴값 : int
+	public int removeReport(int paramReportNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+		// 리턴값 받아올 변수
+		int removeReport = 0;
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + paramReportNo + "<-- paramReportNo" + TeamColor.TEXT_RESET);
+		// Mapper call
+		removeReport = reportMapper.deleteReport(paramReportNo);
+		// Mapper에서 받아온 account 값 디버깅
+		log.debug(TeamColor.PSY + removeReport + "<-- deleteReport" + TeamColor.TEXT_RESET);
+		
+		return removeReport;	
+	} // removeReport
+	
 }

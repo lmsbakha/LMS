@@ -132,11 +132,11 @@
 											<td>${report.createDate}</td>
 											<td>
 												<button data-toggle="tooltip" title="Edit"
-													class="pd-setting-ed">
+													class="pd-setting-ed" id="modifyBtn">
 													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 												</button>
 												<button data-toggle="tooltip" title="Trash"
-													class="pd-setting-ed">
+													class="pd-setting-ed" id="deleteBtn">
 													<i class="fa fa-trash-o" aria-hidden="true"></i>
 												</button>
 											</td>
@@ -155,7 +155,7 @@
 										<li class="page-item"><a class="page-link" href="#">2</a></li>
 										<li class="page-item"><a class="page-link" href="#">3</a></li>
 										<c:if test="${currentPage < lastPage}">
-										
+
 											<li class="page-item"><a class="page-link"
 												href="/reportList?currentPage=${currentPage+1}">다음</a></li>
 										</c:if>
@@ -226,5 +226,12 @@
 		============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
+<script>
+$('#modifyBtn').click(function(){
+	alert('과제를 수정하시겠습니까?');
+	$(location).attr('href', '${pageContext.request.contextPath}/modifyReport')
+});
+
+</script>
 
 </html>

@@ -106,39 +106,36 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/addReport"
+			<form action="${pageContext.request.contextPath}/modifyReport"
 				id="addReportForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst">
-							<h4>Add Report</h4>
+							<h4>Modify Report</h4>
 							<hr>
 							<div class="form-group">
-								<label for="subjectName">subjectName</label> <select
-									class="form-control">
-									<c:forEach var="subject" items="${subjectList}">
-										<option value="${subject.subjectName}">${subject.subjectName}</option>
-									</c:forEach>
-								</select>
+								<label for="subjectName">subjectName</label>
+									<input name="subjectName" id="subjectName" type="text"
+									class="form-control" value="${subjectName}" readonly>
 							</div>
 							<div class="form-group">
 								<label for="reportTitle">reportTitle</label> <input
 									name="reportTitle" id="reportTitle" type="text"
-									class="form-control">
+									class="form-control"  value="${reportTitle}" >
 							</div>
 							<div class="form-group edit-ta-resize res-mg-t-15">
 								<label for="reportContent">reportContent</label>
-								<textarea name="reportContent" id="reportContent"></textarea>
+								<textarea name="reportContent" id="reportContent" >${reportContent}</textarea>
 							</div>
 							<div class="form-group">
 								<label for="reportStartDate">reportStartDate</label> <input
 									name="reportStartDate" id="reportStartDate" type="date"
-									class="form-control">
+									class="form-control" value="${reportStartDate}">
 							</div>
 							<div class="form-group">
 								<label for="reportEndDate">reportEndDate</label> <input
 									name="reportEndDate" id="reportEndDate" type="date"
-									class="form-control">
+									class="form-control" value="${reportEndDate}">
 							</div>
 						</div>
 						<div class="payment-adress">

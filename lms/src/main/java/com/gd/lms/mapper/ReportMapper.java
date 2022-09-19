@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
 
 @Mapper
@@ -17,6 +19,11 @@ public interface ReportMapper {
 	// 리턴값 : List<Report>
 	List<Report> selectReportList(Map<String, Object> map);
 	
+	// 하나의 과제를 조회하는 메소드
+	// 파라미터 : reportNo
+	// 리턴값 : Report
+	Report selectReportOne(int reportNo);
+
 	// report 전체 과제 수를 추출하는 메소드
 	// 파라미터 : X
 	// 리턴값 : int
@@ -27,13 +34,13 @@ public interface ReportMapper {
 	// 리턴값 : int
 	int insertReport(Report report);
 	
-	// 과제 수정하는 메소드
+	// 출제한 과제 수정하는 메소드
 	// 파라미터 : Report
 	// 리턴값 : int
 	int updateReport(Report report);
 	
-	// 행정용 과제 삭제 
-
-	
-	
+	// 행정용 출제한 과제 삭제하는 메소드
+	// 파라미터 : reportNo
+	// 리턴값 : int
+	int deleteReport(int reportNo);
 }
