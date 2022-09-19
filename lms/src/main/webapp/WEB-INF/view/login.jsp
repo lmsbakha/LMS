@@ -87,10 +87,22 @@
                           	    <span class="help-block small">대문자, 소문자, 특수문자가 포함된 10자리 비밀번호</span>
                             </div><br>
                             <button  type="submit" class="btn btn-success btn-block loginbtn"><b>Login</b></button>
-	                            <a style="background:#adb2b5;"  href="${pageContext.request.contextPath}/register?accountLevel=1" class="btn btn-default btn-block form-control">학생 회원가입</a>
-	                            <a style="background:#adb2b5;" href="${pageContext.request.contextPath}/register?accountLevel=2" class="btn btn-default btn-block form-control">강사 회원가입</a>
-	                            <a style="background:#adb2b5;" href="${pageContext.request.contextPath}/register?accountLevel=3" class="btn btn-default btn-block form-control">행정 회원가입</a>
-	                        </form>
+                            <br>
+	                     </form>
+	                     <form method="Get" action="${pageContext.request.contextPath}/register?memberCheck?${memberCheck}">
+                             <div class="form-group">
+								<label for="memberCheck">회원 가입을 하실 분은 선택해주세요.</label>
+							    	<select class="form-control" name="memberCheck" id="memberCheck">
+						             	<option value="default">===선택해주세요===</option>
+					                    <option value="student">학생</option>
+					                    <option value="teacher">강사</option>
+					                    <option value="manager">행정</option>
+				                  	</select>
+				                  	<br>
+				                  	<button  type="submit" class="btn btn-success btn-block"><b>회원가입</b></button>
+								<br>
+							</div>   
+	                     </form> 
                     </div>
                 </div>
 			</div>

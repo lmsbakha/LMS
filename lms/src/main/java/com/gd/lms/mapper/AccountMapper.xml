@@ -1,29 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.AccountMapper">
+	<!-- 계정 활성화 상태값 -->
+	<select id="selectAccountState" parameterType="com.gd.lms.vo.Account"
+		resultType="String">
+		SELECT
+			account_state accountState
+		FROM account
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
+	</select>
+	<!-- /계정 활성화 상태값 -->
+	
 	<!-- 로그인 -->
 	<select id="selectLogin" parameterType="com.gd.lms.vo.Account"
 		resultType="com.gd.lms.vo.Account">
 		SELECT
-		account_id accountId, account_level accountLevel, account_state accountState
+			 account_id accountId
+		   , account_level accountLevel
 		FROM account
-		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
+		WHERE account_state = '활성화' AND account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
 	</select>
 	<!-- /로그인 -->
-	<!-- 계정 추가 -->
-	<insert id="insertAccount" parameterType="com.gd.lms.vo.Account">
-		INSERT INTO account (
-		account_id, account_pw, account_level, create_date, update_date)
-		VALUES(#{accountId}, PASSWORD('1234'), #{accountLevel}, now(), now() )
+	
+	<!-- 마지막 로그인날짜 업데이트 -->
+	<update id="updateLastLoginDate" parameterType="String">
+		UPDATE account
+		SET last_login_date = NOW()
+		WHERE account_id = #{accountId}
+	</update>
+	<!-- /마지막 로그인날짜 업데이트 -->
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="com.gd.lms.vo.Member">
+		<!-- 행정테이블에 추가 -->
+		<if test="'manager'.equals(memberCheck)">
+			INSERT INTO manager
+		</if>
+		<!-- 강사테이블에 추가 -->
+		<if test="'teacher'.equals(memberCheck)">
+			INSERT INTO teacher
+		</if>
+		<!-- 학생테이블에 추가 -->
+		<if test="'student'.equals(memberCheck)">
+			INSERT INTO student
+		</if>
+			VALUES(
+			  #{accountId}
+			, #{memberName}
+			, #{memberGender}
+			, #{memberBirth}
+			, #{memberEmail}
+			, #{memberAddress}
+			, #{memberDetailAddress}
+			, #{memberPhone}
+		<if test="'manager'.equals(memberCheck)">
+			, #{memberDpet}
+		</if>
+		<if test="'student'.equals(memberCheck)">
+			, #{memberGraduate}
+			, #{memberMajor}
+			, #{memberMilitary}
+		</if>
+			, NOW()
+			, NOW()
+		)
 	</insert>
-	<!-- 계정 추가 -->
-	<!-- id 중복 체크 위해 id 받기 -->
-	<select id="selectAccountIdCnt" parameterType="String"
-		resultType="int">
-		SELECT
-			count(*)
-		FROM account
-		WHERE account_id = #{idck}
-	</select>
-	<!-- id 중복 체크 위해 id 받기 -->
+	<!-- /회원가입 -->
+	
+	<!--  account 테이블에 추가 -->
+	<insert id="insertAccount" parameterType="com.gd.lms.vo.Member">
+		INSERT INTO account
+		VALUES(
+		  #{accountId}
+		, PASSWORD(#{accountPw})
+		, '대기'
+		, #{accountLevel}
+		, NOW()
+		, NOW()
+		, NOW()
+		)
+	</insert>
+	<!--  /account 테이블에 추가 -->
 </mapper>

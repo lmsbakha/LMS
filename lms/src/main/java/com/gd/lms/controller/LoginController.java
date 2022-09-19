@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.AccountService;
 import com.gd.lms.vo.Account;
+import com.gd.lms.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,14 +20,15 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class LoginController {
 	// AccountService 객체 주입
-	@Autowired AccountService accountService;
-	
-	// login.jsp 접속시 나타나는 로그인 폼
-	// 파라미터 : HttpSession(sessionLevel)
-	// 리턴값 : 로그인 폼
+	@Autowired
+	AccountService accountService;
+
+	// 로그인 Form
 	@GetMapping("/login")
 	public String login(HttpSession session) {
-		// 기존에 로그인되어 있는 상태(sessionLevel값이 null이 아니면)에서 로그인 폼으로 들어왔을 경우, 인덱스 페이지로 이동
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(/login)" + TeamColor.TEXT_RESET);
+		// 기존에 로그인되어 있는 상태(session값이 null이 아니면)에서 로그인 폼으로 들어왔을 경우, 인덱스 페이지로 이동
 		if (session.getAttribute("sessionLevel") != null) {
 			return "redirect:/loginCheck/index";
 		} else { // 로그인이 되어있지 않았을 경우
@@ -33,68 +36,90 @@ public class LoginController {
 		}
 	}
 
-	// login.jsp에서 Login 버튼을 클릭시 로그인 액션을 처리하는 메소드
-	// 파라미터 : HttpSession, accountId, accountPw
-	// 리턴값 : index 페이지로 이동
 	@PostMapping("/login")
-	public String login(HttpSession session, @RequestParam(value = "accountId") String accountId,
-			@RequestParam(value = "accountPw") String accountPw) {
-		// 파라미터 디버깅
-		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PSJ + accountPw + "<-- accountPw" + TeamColor.TEXT_RESET);
-		// 요청받은 값들을 account 객체에 셋팅
-		Account paramAccount = new Account();
-		paramAccount.setAccountId(accountId);
-		paramAccount.setAccountPw(accountPw);
-
-		// Service call
-		// 서비스에서 계정 조회 결과(accountId, accountLevel, accountState) 가져오기
-		Account loginAccount = accountService.getLogin(paramAccount);
+	public String login(Model model, HttpSession session, Account paramAccount) {
 		// 디버깅
-		log.debug(TeamColor.PSJ + loginAccount + "<-- loginAccount" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "LoginController PostMapping(login)" + TeamColor.TEXT_RESET);
 
-		// 계정이 없는 경우 또는 로그인 정보를 잘못 입력했을 경우
-		if (loginAccount.getAccountId().isEmpty() == true) {
-			log.debug(TeamColor.PSJ + "로그인 정보를 확인해주세요" + TeamColor.TEXT_RESET);
+		Account account = accountService.getLogin(paramAccount);
+
+		if (account == null) {
+			// 디버깅
+			log.debug(TeamColor.PCW + "로그인 정보가 일치하지 않습니다." + TeamColor.TEXT_RESET);
 			return "redirect:/login";
 		}
 
-		// accountState 상태 값(대기,탈퇴, 거절)에 따라서 처리
-		if (loginAccount.getAccountState().equals("대기")) { // 대기 상태
-			log.debug(TeamColor.PSJ + "계정 승인 대기중입니다." + TeamColor.TEXT_RESET);
-			return "redirect:/login";
-		} else if (loginAccount.getAccountState().equals("탈퇴")) { // 탈퇴 상태
-			log.debug(TeamColor.PSJ + "탈퇴된 계정입니다." + TeamColor.TEXT_RESET);
-			return "redirect:/login";
-		} else if (loginAccount.getAccountState().equals("거절")) { // 회원가입 승인 거절 상태
-			log.debug(TeamColor.PSJ + "회원가입 승인이 거절된 계정입니다." + TeamColor.TEXT_RESET);
-			return "redirect:/login";
+		String accountState = accountService.getAccountState(paramAccount);
+		log.debug(TeamColor.PSY + accountState + "dfasdfasgegasegsaeg" + TeamColor.TEXT_RESET);
+		if (!accountState.equals("활성화")) {
+			// 디버깅
+			log.debug(TeamColor.PCW + "계정이 활성화 되지 않았습니다." + TeamColor.TEXT_RESET);
+			model.addAttribute("accountState", accountState);
+			return "login";
 		}
 
-		// session에 로그인한 accountId값과 accountLevel값 셋팅해주기
-		session.setAttribute("sessionId", loginAccount.getAccountId());
-		session.setAttribute("sessionLevel", loginAccount.getAccountLevel());
+		session.setAttribute("sessionId", account.getAccountId());
+		session.setAttribute("sessionLevel", account.getAccountLevel());
 
-		// 리다이렉트
-		// loginCheck에서 sessionId 값을 확인
 		return "redirect:/loginCheck/index";
 	}
-	
-	// 로그인 액션을 거쳐서 index.jsp로 이동하는 메소드
-	@GetMapping("/loginCheck/index")
-	public String index() {
-		return "index";
-	}
-	
-	// 로그아웃을 위한 기능 메소드
-	// 매개변수: 세션값(sessionId, sessionLevel)
-	// 리턴값: login.jsp (로그인이 되어 있지 않은 상태)
-	@GetMapping("/logout")
+
+	@GetMapping("/loginCheck/logout")
 	public String logout(HttpSession session) {
-		if (session.getAttribute("sessionId") != null) { // 세션에 sessionId 값이 null이 아니라면
-			session.invalidate(); // 세션 초기화
-			log.debug(TeamColor.PSJ + "[로그아웃] session값을 초기화합니다" + TeamColor.TEXT_RESET);
-		}
+
+		// 로그아웃하면 세션 끊기
+		session.invalidate();
+		// 디버깅
+		log.debug(TeamColor.PCW + "계정이 로그아웃 되었습니다." + TeamColor.TEXT_RESET);
+
 		return "redirect:/login";
 	}
+
+	// 로그인 액션을 거쳐서 index.jsp로 이동하는 메소드
+	@GetMapping("/loginCheck/index")
+	public String index(HttpSession session) {
+		return "/index";
+	}
+	
+	// 회원가입 Form
+	@GetMapping("/register")
+	public String register(Model model, @RequestParam(value="memberCheck", defaultValue="student") String memberCheck) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(register)" + TeamColor.TEXT_RESET);
+		model.addAttribute("memberCheck", memberCheck);
+		
+		return "register";
+	}
+	
+	// 회원가입 Action
+	@PostMapping("/register")
+	public String register(HttpSession session, Member paramMember) {
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController PostMapping(register)" + TeamColor.TEXT_RESET);
+		accountService.addMember(paramMember);
+		
+		return "redirect:/login";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

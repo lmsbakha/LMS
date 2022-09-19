@@ -78,7 +78,7 @@
 						<form id="registerForm" action="${pageContext.request.contextPath}/register" id="registerForm" method="post">
 							<div class="row">
 								<div class="form-group col-lg-12">
-								<input type="hidden" name="accountLevel" id="accountLevel" value="${param.accountLevel}">
+								<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
 									<label for="idck">아이디</label> 
 									<input type="text" placeholder="ID 입력해주세요" name="idck" id="idck" required="required"
 										class="form-control">
@@ -90,7 +90,16 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberName">아이디</label> 
-									<input type="text" class="form-control"  id="accountId" name="accountId" readonly="readonly">
+									<input type="text" class="form-control"  id="accountId" name="accountId">
+								</div>
+								<div class="form-group col-lg-12">
+									<label for="memberPw">비밀번호 (비밀번호는 8자 이상, 특수문자 포함해주셔야 합니다.)</label> 
+									<input type="password" class="form-control" id="memberPw" name="memberPw">
+								</div>
+								<div class="form-group col-lg-12">
+									<label for="memberPw">비밀번호 확인</label> 
+									<input type="password" class="form-control" id="memberPwCk" name="memberPwCk">
+									<span id="passwordinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="emck">이메일</label> 
@@ -104,7 +113,7 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberName">이메일</label> 
-									<input type="email" class="form-control" id="memberEmail" name="memberEmail" readonly="readonly">
+									<input type="email" class="form-control" id="memberEmail" name="memberEmail">
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberName">이름</label> 
@@ -140,37 +149,53 @@
 									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요" required="required" />
 									<span id="detailaddrinfo"></span>
 								</div>
-						            <!-- 학생만 accountLevel = 1 -->
-						            <c:if test="${param.accountLevel eq 1}">
-							            <div class="form-group col-lg-12">
-								            <label for="memberGraduate">학력</label>
-								            <select class="form-control" name="memberGraduate" id="memberGraduate">
-								             	<option value="default">===선택해주세요===</option>
-								             	<option value="고졸">고졸</option>
-							                    <option value="초대졸">초대졸</option>
-							                    <option value="대졸">대졸</option>
-					                  		</select>
-							            </div>
-							            <div class="form-group col-lg-12">
-								            <label for="memberMilitary">병역 여부</label>
-								            <select class="form-control" name="memberMilitary" id="memberMilitary">
-								             	<option value="default">===선택해주세요===</option>
-								             	<option value="해당없음">해당없음</option>
-							                    <option value="군필">군필</option>
-							                    <option value="미필">미필</option>
-					                  		</select>
-							            </div>
-						            </c:if>  
+					            <!-- 학생만 accountLevel = 1 -->
+					            <c:if test="${memberCheck eq 'student'}">
+						            <div class="form-group col-lg-12">
+							            <label for="memberGraduate">학력</label>
+							            <select class="form-control" name="memberGraduate" id="memberGraduate">
+							             	<option value="default">===선택해주세요===</option>
+							             	<option value="고졸">고졸</option>
+						                    <option value="초대졸">초대졸</option>
+						                    <option value="대졸">대졸</option>
+				                  		</select>
+						            </div>
+							    <div class="form-group col-lg-12">
+									<label for="memberMajor">전공</label> 
+									<input class="form-control" placeholder="전공을 입력해주세요" id="memberMajor" name="memberMajor" required="required">
+									<span id="majorinfo"></span>	
+								</div>       
+						            <div class="form-group col-lg-12">
+							            <label for="memberMilitary">병역 여부</label>
+							            <select class="form-control" name="memberMilitary" id="memberMilitary">
+							             	<option value="default">===선택해주세요===</option>
+							             	<option value="해당없음">해당없음</option>
+						                    <option value="군필">군필</option>
+						                    <option value="미필">미필</option>
+				                  		</select>
+						            </div>
+					            </c:if>
+						        <c:if test="${memberCheck eq 'manager'}">
+						            <div class="form-group col-lg-12">
+							            <label for="memberDept">부서</label>
+							            <select class="form-control" name="memberDept" id="memberDept">
+							             	<option value="default">===선택해주세요===</option>
+							             	<option value="교무행정">교무행정</option>
+						                    <option value="능력개발">능력개발</option>
+						                    <option value="취업지원">취업지원</option>
+				                  		</select>
+						            </div>
+						        </c:if>       
 								<!-- /////////////////////////////////////// -->
 								<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 								<div id="layer" style="display: none; position: fixed; overflow: hidden; z-index: 1; -webkit-overflow-scrolling: touch;">
 									<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor: pointer; position: absolute; right: -3px; top: -3px; z-index: 1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 								</div>
-								<!-- /////////////////////////////////////// -->
+								<!-- ////////////id="registerBtn" type="button"/////////////////////////// -->
 							</div>
 							<div class="text-center">
 								<button type="reset" class="btn btn-warning btn-block">초기화</button>
-								<button id="registerBtn" type="button" class="btn btn-success btn-block loginbtn">회원가입</button>
+								<button type="submit" class="btn btn-success btn-block loginbtn">회원가입</button>
 								<br>
 								<button type="reset" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/login';">Home</button>
 							</div>
@@ -235,7 +260,7 @@
       ============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
-<script>
+<!-- <script>
 // 아이디 중복검사
 	$('#idckBtn').click(function() {
 		if ($('#idck').val().length < 4) {
@@ -401,7 +426,7 @@
 				}
 		}
 	});
-</script>
+</script> -->
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
