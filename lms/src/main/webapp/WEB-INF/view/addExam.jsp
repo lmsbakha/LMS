@@ -63,7 +63,6 @@
 <!-- modernizr JS
       ============================================ -->
 <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-
 </head>
 <body>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -89,7 +88,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">시험</span></li>
+										<li><a href="#">시험</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">시험출제</span></li>
 									</ul>
 								</div>
 							</div>
@@ -155,10 +155,10 @@
 												<div class="form-group-inner">
 													<div class="row">
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">시험명을 작성하세요 (예시: 중간고사, 월말평가...)</label>
+															<label class="login2 pull-right pull-right-pro">시험명을 작성하세요</label>
 														</div>
 														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-															<input type="text" class="form-control" name="examTitle" id="examTitle" required="required" />
+															<input type="text" class="form-control" name="examTitle" id="examTitle" placeholder="중간고사, 월말평가...." required="required" />
 														</div>
 													</div>
 												</div>
@@ -178,14 +178,17 @@
 															<label class="login2 pull-right pull-right-pro">해당 시험의 총 문제 수를 선택하세요</label>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="number" class="form-control" name="examTotalCnt" id="examTotalCnt" min="1" required="required" />
+															<input type="number" class="form-control" placeholder="객관식" name="examTotalCnt" id="examTotalCnt" min="0" required="required" />
+														</div>
+														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+															<input type="number" class="form-control" placeholder="단답형" name="examTotalCnt" id="examTotalCnt" min="0" required="required" />
 														</div>
 													</div>
 												</div>
 												<div class="form-group-inner">
 													<div class="row">
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">시험 응시 시작일</label>
+															<label class="login2 pull-right pull-right-pro">시험 시작일</label>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 															<input type="date"  class="form-control" name="examStartDate" ID="examStartDate" min="${infoAboutTeacher.lectureStartDate }" max="${infoAboutTeacher.lectureEndDate }" required="required" />
@@ -195,7 +198,7 @@
 												<div class="form-group-inner">
 													<div class="row">
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">시험 응시 마감일</label>
+															<label class="login2 pull-right pull-right-pro">시험 마감일</label>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 															<input type="date" class="form-control" id="examEndDate" name="examEndDate" min="${infoAboutTeacher.lectureStartDate }" max="${infoAboutTeacher.lectureEndDate }" required="required" />
@@ -270,5 +273,6 @@
 	<!-- tawk chat JS
       ============================================ -->
 	<script src="js/tawk-chat.js"></script>
+
 </body>
 </html>

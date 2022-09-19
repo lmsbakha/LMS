@@ -112,7 +112,7 @@
 							<a href="${pageContext.request.contextPath}/addQuestionInBank">문제 추가</a>
 						</div>
 						<div class="asset-inner">
-							<table>
+							<table class="table table-hover">
 								<tr>
 									<th>questionNo</th>
 									<th>questionTitle</th>
