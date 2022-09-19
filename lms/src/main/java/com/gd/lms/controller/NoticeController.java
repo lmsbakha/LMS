@@ -95,10 +95,17 @@ public class NoticeController {
 	}
 	
 	// 공지사항 상세보기
-	@GetMapping("/NoticeOne/{noticeNo}")
+	@GetMapping("/noticeOne/{noticeNo}")
 	public String NoticeOne(Model model, @PathVariable(name="noticeNo") int noticeNo) {
 		noticeService.updateNoticeCount(noticeNo);
+		noticeService.showNoticeOne(noticeNo);
 		return null;
+	}
+	
+	@GetMapping("/noticeOne")
+	public String NoticeOne(Model model) {
+		
+		return ("/noticeOne");
 	}
 	
 	// 공지글 수정

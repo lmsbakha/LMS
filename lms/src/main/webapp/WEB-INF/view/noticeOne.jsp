@@ -3,11 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Library Assets | Kiaalap - Kiaalap Admin Template</title>
+    <title>Course Info | Kiaalap - Kiaalap Admin Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -68,13 +67,14 @@
 </head>
 
 <body>
+
 	<!-- sidebar -->
 	<jsp:include page="inc/sidebar.jsp" />
 	<!-- topbar -->
 	<jsp:include page="inc/topbar.jsp" />
-
+	
     <!-- Start Welcome area -->
-       <div class="breadcome-area">
+        <div class="breadcome-area">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -104,69 +104,34 @@
                     </div>
                 </div>
             </div>
-        <div class="product-status mg-b-15">
+        <div class="blog-details-area mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="product-status-wrap">
-                            <h4>Library List</h4>
-                            <div class="add-product">
-                                <a href="/lms/addNotice">글쓰기</a>
-                            </div>
-                            <div class="asset-inner">
-                                <table>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Content</th>
-                                        <th>Counts</th>
-                                        <th>CreateDate</th>
-                                        <th>UpdateDAte</th>
-                                        <th>Setting</th>
-                                    </tr>
-                                    <c:forEach var="notice" items="${noticeList}">
-                                    <tr>
-                                    	<td>${notice.noticeNo}</td>
-                                    	<td>${notice.accountId}</td>
-                                    	<td>${notice.noticeTitle}</td>
-                                    	<td>${notice.noticeContent}</td>
-                                    	<td>${notice.noticeCount}</td>
-                                    	<td>${notice.createDate}</td>
-                                    	<td>${notice.updateDate}</td>
-                                    	<td>
-                                            <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                            <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                        </td>
-                                    </tr>
-                                  	</c:forEach>
-                                </table>
-                            </div>
-                            <div class="custom-pagination">
-                            	<ul class="pagination">
-                            	<c:if test="${currentPage > 1}">
-											<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage-1}">이전</a></li>
-								</c:if>
-									<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">Next</a></li>
-								<c:if test="${currentPage < lastPage}">
-									<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage+1}">다음</a></li>
-								</c:if>
-								</ul>
+                        <div class="blog-details-inner">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="latest-blog-single blog-single-full-view">
+                                        <div class="blog-details blog-sig-details">
+                                        <c:forEach var="notice" items="${noticeList}">
+                                            <div class="details-blog-dt blog-sig-details-dt courses-info mobile-sm-d-n">
+                                                <span><i class="fa fa-comments-o"></i> <b>작성자:</b> ${notice.accountId}</span>
+                                            </div>
+                                            <h1 class="blog-ht" ><!-- 제목 -->${notice.noticeTitle}</h1>
+                                            <p><!-- 본문 --> ${notice.noticeContent}</p>
+                                        </c:forEach>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    
+ 
     <!-- footer -->
 	<jsp:include page="inc/footer.jsp" />
-
 
     <!-- jquery
 		============================================ -->
@@ -209,6 +174,22 @@
     <script src="js/calendar/moment.min.js"></script>
     <script src="js/calendar/fullcalendar.min.js"></script>
     <script src="js/calendar/fullcalendar-active.js"></script>
+    <!-- maskedinput JS
+		============================================ -->
+    <script src="js/jquery.maskedinput.min.js"></script>
+    <script src="js/masking-active.js"></script>
+    <!-- datepicker JS
+		============================================ -->
+    <script src="js/datepicker/jquery-ui.min.js"></script>
+    <script src="js/datepicker/datepicker-active.js"></script>
+    <!-- form validate JS
+		============================================ -->
+    <script src="js/form-validation/jquery.form.min.js"></script>
+    <script src="js/form-validation/jquery.validate.min.js"></script>
+    <script src="js/form-validation/form-active.js"></script>
+    <!-- tab JS
+		============================================ -->
+    <script src="js/tab.js"></script>
     <!-- plugins JS
 		============================================ -->
     <script src="js/plugins.js"></script>
