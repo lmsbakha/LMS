@@ -54,7 +54,7 @@
 			, #{memberDetailAddress}
 			, #{memberPhone}
 		<if test="'manager'.equals(memberCheck)">
-			, #{memberDpet}
+			, #{memberDept}
 		</if>
 		<if test="'student'.equals(memberCheck)">
 			, #{memberGraduate}

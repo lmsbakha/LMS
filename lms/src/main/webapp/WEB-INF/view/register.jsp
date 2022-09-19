@@ -93,8 +93,8 @@
 									<input type="text" class="form-control"  id="accountId" name="accountId">
 								</div>
 								<div class="form-group col-lg-12">
-									<label for="memberPwCk">비밀번호 (비밀번호는 8자 이상, 특수문자 포함해주셔야 합니다.)</label> 
-									<input type="password" class="form-control" id="memberPw" name="memberPw">
+									<label for="accountPw">비밀번호 (비밀번호는 8자 이상, 특수문자 포함해주셔야 합니다.)</label> 
+									<input type="password" class="form-control" id="accountPw" name="accountPw">
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberPw">비밀번호 확인</label> 

@@ -77,7 +77,7 @@ public class LoginController {
 
 	// 로그인 액션을 거쳐서 index.jsp로 이동하는 메소드
 	@GetMapping("/loginCheck/index")
-	public String index(HttpSession session) {
+	public String index() {
 		return "/index";
 	}
 	

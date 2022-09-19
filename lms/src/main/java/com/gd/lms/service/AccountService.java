@@ -43,15 +43,15 @@ public class AccountService {
 	}
 	
 	// 회원가입 메서드
-	public void addMember(Member member) {
+	public void addMember(Member paramMember) {
 		// 디버깅
 		log.debug(TeamColor.PCW + "AccountService addMember" +TeamColor.TEXT_RESET);
 		
 		// 레벨 변수 선언
 		String level = "";
-		if("manager".equals(member.getMemberCheck())) { // memberCheck 매니저인지
+		if("manager".equals(paramMember.getMemberCheck())) { // memberCheck 매니저인지
 			level = "3";
-		} else if("teacher".equals(member.getMemberCheck())) { // memberCheck 강사인지
+		} else if("teacher".equals(paramMember.getMemberCheck())) { // memberCheck 강사인지
 			level = "2";
 		} else { // memberCheck 학생
 			level = "1";
@@ -59,11 +59,11 @@ public class AccountService {
 		// 디버깅
 		log.debug(TeamColor.PCW + "AccountService addMember level :" + level +TeamColor.TEXT_RESET);
 		// Member level 부여
-		member.setAccountLevel(level);
+		paramMember.setAccountLevel(level);
 		
 		// account 테이블 insert
-		accountMapper.insertAccount(member);
+		accountMapper.insertAccount(paramMember);
 		// member 테이블 insert
-		accountMapper.insertMember(member);
+		accountMapper.insertMember(paramMember);
 	}
 }

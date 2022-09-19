@@ -79,7 +79,7 @@
                         <form method="post" action="${pageContext.request.contextPath}/login" id="loginForm">
                             <div class="form-group">
                                 <label class="control-label" for="accountId">아이디</label>
-                                <input type="text" placeholder="Please enter you username" required="required" value="" name="accountId" id="accountId" class="form-control">
+                                <input type="text" placeholder="Please enter you Id" required="required" value="" name="accountId" id="accountId" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="accountPw">비밀번호</label>
