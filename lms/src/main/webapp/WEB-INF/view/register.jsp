@@ -89,11 +89,11 @@
 									</button>
 								</div>
 								<div class="form-group col-lg-12">
-									<label for="memberName">아이디</label> 
+									<label for="accountId">아이디</label> 
 									<input type="text" class="form-control"  id="accountId" name="accountId">
 								</div>
 								<div class="form-group col-lg-12">
-									<label for="memberPw">비밀번호 (비밀번호는 8자 이상, 특수문자 포함해주셔야 합니다.)</label> 
+									<label for="memberPwCk">비밀번호 (비밀번호는 8자 이상, 특수문자 포함해주셔야 합니다.)</label> 
 									<input type="password" class="form-control" id="memberPw" name="memberPw">
 								</div>
 								<div class="form-group col-lg-12">
@@ -103,7 +103,7 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="emck">이메일</label> 
-									<input type="text" placeholder="email 입력해주세요" name="emck" id="emck" required="required"
+									<input type="email" placeholder="email 입력해주세요" name="emck" id="emck" required="required"
 										class="form-control"> 
 									<span id="eminfo"></span>	
 									<br>
@@ -112,7 +112,7 @@
 									</button>
 								</div>
 								<div class="form-group col-lg-12">
-									<label for="memberName">이메일</label> 
+									<label for="memberEmail">이메일</label> 
 									<input type="email" class="form-control" id="memberEmail" name="memberEmail">
 								</div>
 								<div class="form-group col-lg-12">
@@ -130,22 +130,23 @@
 									<br>
 								</div>
 								<div class="form-group col-lg-12">
-									<label>생년월일</label>
+									<label for="memberBirth">생년월일</label>
 									<input class="form-control" type="date" id="memberBirth" name="memberBirth" required="required">
 									<span id="birthinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12">
-									<label>전화번호</label> 
+									<label for="memberPhone">전화번호</label> 
 									<input class="form-control" type="tel" id="memberPhone" name="memberPhone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required="required">
 									<span id="phoneinfo"></span>
 								</div>
 								<div class="form-group col-lg-12">
-									<label>주소</label>
+									<label for="memberAddress">주소</label>
 									<input style="margin-bottom: 5px" class="form-control" id="memberAddress" name="memberAddress" type="text" readonly="readonly" placeholder="주소" required="required" /> 
 									<span id="addrinfo"></span>
 									<button type="button" class="btn btn-success btn-block form-group" id="addrBtn" style="margin-bottom: 5px">
 										<b>주소검색</b>
 									</button>
+									<label for="memberDetailAddress">상세주소</label>
 									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요" required="required" />
 									<span id="detailaddrinfo"></span>
 								</div>

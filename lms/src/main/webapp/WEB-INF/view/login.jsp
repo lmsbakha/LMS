@@ -89,7 +89,7 @@
                             <button  type="submit" class="btn btn-success btn-block loginbtn"><b>Login</b></button>
                             <br>
 	                     </form>
-	                     <form method="Get" action="${pageContext.request.contextPath}/register?memberCheck?${memberCheck}">
+	                     <form method="get" action="${pageContext.request.contextPath}/register?memberCheck?${memberCheck}">
                              <div class="form-group">
 								<label for="memberCheck">회원 가입을 하실 분은 선택해주세요.</label>
 							    	<select class="form-control" name="memberCheck" id="memberCheck">
