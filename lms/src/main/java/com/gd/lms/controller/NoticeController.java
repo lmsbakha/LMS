@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.NoticeFileService;
 import com.gd.lms.service.NoticeService;
 import com.gd.lms.vo.Notice;
 
@@ -21,45 +22,48 @@ import lombok.extern.slf4j.Slf4j;
 public class NoticeController {
 	@Autowired
 	NoticeService noticeService;
-
+	NoticeFileService noticeFileService;
+	
 	// 공지 리스트 페이지
-	@GetMapping("/noticeList/{currentPage}")
-	public String noticeList(Model model, @PathVariable(name="currentPage") int currentPage) {
+	@GetMapping("/noticeList")
+	public String noticeList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
 		
 		// 페이지 당 게시글 수
-		int rowPerPage = 10;				
+		final int ROW_PER_PAGE = 10;				
 		// 시작 페이지
-		int beginRow = (currentPage-1)*rowPerPage;	
+		int beginRow = (currentPage-1)*ROW_PER_PAGE;	
 		// 총 공지 수
 		int totalNotice = noticeService.countTotalNotice();	
 		// 전체 페이지 수
-		int totalPage = totalNotice/rowPerPage; 		
+		int totalPage = totalNotice/ROW_PER_PAGE; 		
 		
-		List<Notice> noticeList = noticeService.getNoticeList(beginRow, rowPerPage);	// 리스트 불러오기
+		// 리스트 불러오기
+		List<Notice> noticeList = noticeService.getNoticeList(beginRow, ROW_PER_PAGE);	
+		log.debug(TeamColor.debuging + TeamColor.LHN + "noticeList: " + noticeList + TeamColor.TEXT_RESET);
 		
 		// 페이지 내비게이션 바
 		// 첫번째 페이지 
-		int firstPage = currentPage - (currentPage % rowPerPage) + 1;	
+		int firstPage = currentPage - (currentPage % ROW_PER_PAGE) + 1;	
 				
 		// 내비게이션 마지막 페이지
-		int lastPage = firstPage + rowPerPage - 1;
+		int lastPage = firstPage + ROW_PER_PAGE - 1;
 				
 		// 10으로 나누어 떨어지는 경우 처리하는 코드
-		if (currentPage % rowPerPage == 0 && currentPage != 0) {
-			firstPage = firstPage - rowPerPage;
-			lastPage = lastPage - rowPerPage;
+		if (currentPage % ROW_PER_PAGE == 0 && currentPage != 0) {
+			firstPage = firstPage - ROW_PER_PAGE;
+			lastPage = lastPage - ROW_PER_PAGE;
 		}
 				
 		// 현재 페이지에 대한 이전 페이지
 		int prePage;
-		if (currentPage > 10) {
-			prePage = currentPage - (currentPage % rowPerPage) + 1 - 10;
+		if (currentPage > 10) { 
+			prePage = currentPage - (currentPage % ROW_PER_PAGE) + 1 - 10;
 		} else {
 			prePage = 1;
 		}
 				
 		// 현재 페이지에 대한 다음 페이지
-		int nextPage = currentPage - (currentPage % rowPerPage) + 1 + 10;
+		int nextPage = currentPage - (currentPage % ROW_PER_PAGE) + 1 + 10;
 		if (nextPage > totalPage) {
 			nextPage = totalPage;
 			}

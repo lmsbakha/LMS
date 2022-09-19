@@ -35,7 +35,7 @@
 	</insert>
 	
 	<!-- 전체 공지글 갯수 -->
-	<select id="selectTotalNotice" parameterType="int">
+	<select id="selectTotalNotice" resultType="int" >
 		SELECT count(*) From notice
 	</select>
 	
