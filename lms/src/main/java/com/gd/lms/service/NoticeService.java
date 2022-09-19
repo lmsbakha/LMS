@@ -37,13 +37,12 @@ public class NoticeService {
 
 		return noticeMapper.selectNoticeList(noticeMap);
 	}
-
+	
 	// 공지사항 상세보기
 	public Notice showNoticeOne(int noticeNo) {
 		return noticeMapper.selectNoticeOne(noticeNo);
 	}
 	
-
 	// 공지사항 신규 작성
 	public int addNotice(Notice notice) {
 		// 디버깅
@@ -53,7 +52,9 @@ public class NoticeService {
 	
 	// 공지글 조회수 증가	
 	public int updateNoticeCount(int noticeNo) {
-		return 0;	
+		Notice notice = noticeMapper.selectNoticeOne(noticeNo);
+		log.debug(TeamColor.LHN + "조회수 증가" + notice);
+		return noticeMapper.updateNoticeCount(notice);
 	}
 	
 	// 공지글 수정 폼
@@ -64,6 +65,11 @@ public class NoticeService {
 	// 공지글 수정 액션
 	public int updateNotice(Notice notice) {
 		return noticeMapper.updateNotice(notice);
+	}
+
+	// 공지글 삭제
+	public int deleteNoticeOne(int noticeNo) {
+		return noticeMapper.deleteNotice(noticeNo);
 	}
 
 }

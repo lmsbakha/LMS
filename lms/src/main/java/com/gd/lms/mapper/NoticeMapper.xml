@@ -41,9 +41,9 @@
 	
 	<!-- 공지사항 조회수 반영 -->
 	<update id="updateNoticeCount" parameterType="com.gd.lms.vo.Notice">
-		UPDATE	lms_notice
-		SET		lms_notice_count = #{noticeCount}+1
-		WHERE	lms_notice_no = #{noticeNo}
+		UPDATE	notice
+		SET		notice_count = #{noticeCount}+1
+		WHERE	notice_no = #{noticeNo}
 	</update>
 	
 	<!-- 공지사항 상세보기 -->
@@ -69,9 +69,13 @@
 		WHERE
 			notice_no = #{noticeNo}
 	</update>
-	
-	
-	
-	
+		
 	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="int">
+	DELETE TABLE notice 
+	WHERE notice_no = #{noticeNo}
+	</delete>	
+	
+	
+	
 </mapper>

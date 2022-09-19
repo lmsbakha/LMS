@@ -26,12 +26,43 @@ public class NoticeController {
 	@GetMapping("/noticeList/{currentPage}")
 	public String noticeList(Model model, @PathVariable(name="currentPage") int currentPage) {
 		
-		int rowPerPage = 10;						// 페이지 당 게시글 수
-		int beginRow = (currentPage-1)*rowPerPage;	// 시작 페이지
-		int totalNotice = noticeService.countTotalNotice();	// 총 공지 수
-		int lastPage = totalNotice/rowPerPage; 		// 전체 페이지 수
+		// 페이지 당 게시글 수
+		int rowPerPage = 10;				
+		// 시작 페이지
+		int beginRow = (currentPage-1)*rowPerPage;	
+		// 총 공지 수
+		int totalNotice = noticeService.countTotalNotice();	
+		// 전체 페이지 수
+		int totalPage = totalNotice/rowPerPage; 		
 		
 		List<Notice> noticeList = noticeService.getNoticeList(beginRow, rowPerPage);	// 리스트 불러오기
+		
+		// 페이지 내비게이션 바
+		// 첫번째 페이지 
+		int firstPage = currentPage - (currentPage % rowPerPage) + 1;	
+				
+		// 내비게이션 마지막 페이지
+		int lastPage = firstPage + rowPerPage - 1;
+				
+		// 10으로 나누어 떨어지는 경우 처리하는 코드
+		if (currentPage % rowPerPage == 0 && currentPage != 0) {
+			firstPage = firstPage - rowPerPage;
+			lastPage = lastPage - rowPerPage;
+		}
+				
+		// 현재 페이지에 대한 이전 페이지
+		int prePage;
+		if (currentPage > 10) {
+			prePage = currentPage - (currentPage % rowPerPage) + 1 - 10;
+		} else {
+			prePage = 1;
+		}
+				
+		// 현재 페이지에 대한 다음 페이지
+		int nextPage = currentPage - (currentPage % rowPerPage) + 1 + 10;
+		if (nextPage > totalPage) {
+			nextPage = totalPage;
+			}
 		
 		// model에 데이터 세팅
 		model.addAttribute("noticeList", noticeList);
@@ -68,23 +99,29 @@ public class NoticeController {
 	
 	// 공지글 수정
 	
-	@GetMapping("/updateNoticeOne/{lectNoticeNo}") 
-	public String updateLecNoticeOne(Model model, @PathVariable(name="noticeNo") int noticeNo) {
+	@GetMapping("/updateNoticeOne/{noticeNo}") 
+	public String updateNoticeOne(Model model, @PathVariable(name="noticeNo") int noticeNo) {
 		Notice notice = noticeService.showNoticeOne(noticeNo);
 
 	 model.addAttribute("notice", notice); 
-	 return "/updatenoticeOne";
+	 return "updatenoticeOne";
 	 }
 
 	@PostMapping("/notice/updateNoticeOne") 
 	public String updateNoticeOne(Notice notice) {
 		noticeService.updateNotice(notice);
 
-	 return "/updateLecNoticeOne";
+	 return "/updateNoticeOne";
 
 	 }
 	
-	// 공지글 수정 액션
-	
+	// 공지글 삭제 액션
+	@GetMapping("deleteNotice/{noticeNo}")
+	public String deleteNotice(@RequestParam(name="noticeNo") int noticeNo) {
+		noticeService.deleteNoticeOne(noticeNo);
+		 log.debug(TeamColor.LHN + noticeNo);
+		return "redirect:/noticeList/1";
+		
+	}
 	
 }
