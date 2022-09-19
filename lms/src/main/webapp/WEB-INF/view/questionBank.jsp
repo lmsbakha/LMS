@@ -1,3 +1,5 @@
+<!-- 문제은행 페이지 -->
+<!-- 문제은행 페이지 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -63,8 +65,8 @@
 <!-- modernizr JS
       ============================================ -->
 <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-
 </head>
+
 <body>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
@@ -89,7 +91,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">시험</span></li>
+										<li><a href="${pageContext.request.contextPath}/exam">시험</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/questionBank"><span class="bread-blod" style="font-weight: bold;">문제은행</span></a></li>
 									</ul>
 								</div>
 							</div>
@@ -103,102 +106,55 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="sparkline12-list">
-						<div class="sparkline12-hd">
-							<div class="main-sparkline12-hd">
-								<h1>시험 출제하기</h1><hr>
-							</div>
+					<div class="product-status-wrap drp-lst">
+						<h4>문제은행</h4>
+						<div class="add-product">
+							<a href="${pageContext.request.contextPath}/addQuestionInBank">문제 추가</a>
 						</div>
-						<div class="sparkline12-graph">
-							<div class="basic-login-form-ad">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="all-form-element-inner">
-											<form action="${pageContext.request.contextPath}/addExam">
-											<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">강사명</label>
-														</div>
-														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-															<input type="text" class="form-control" value="${sessionId }" readonly="readonly" />
-														</div>
-													</div>
-												</div>
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">시험을 출제할 과목을 선택하세요</label>
-														</div>
-														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-															<div class="form-select-list">
-																<select class="form-control custom-select-value" name="subjectName" id="subjectName" required="required">
-																	<option value="defalut">-----과목선택-----</option>
-																	<c:forEach var="s" items="${subjectList}">
-																		<option value="${s.subjectName }">${s.subjectName }</option>
-																	</c:forEach>
-																</select>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">시험명을 작성하세요 (예시: 중간고사, 월말평가...)</label>
-														</div>
-														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-															<input type="text" class="form-control" name="examTitle" id="examTitle" required="required" />
-														</div>
-													</div>
-												</div>
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">해당 시험에 대한 설명을 입력해주세요</label>
-														</div>
-														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-															<input type="text" class="form-control" name="examContent" id="examContent" required="required" />
-														</div>
-													</div>
-												</div>
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">해당 시험의 총 문제 수를 선택하세요</label>
-														</div>
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="number" class="form-control" name="examTotalCnt" id="examTotalCnt" min="1" required="required" />
-														</div>
-													</div>
-												</div>
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">시험 응시 시작일</label>
-														</div>
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="date"  class="form-control" name="examStartDate" ID="examStartDate" min="" required="required" />
-														</div>
-													</div>
-												</div>
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">시험 응시 마감일</label>
-														</div>
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="date" class="form-control" id="examEndDate" name="examEndDate" required="required" />
-														</div>
-													</div>
-												</div>
-
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
+						<div class="asset-inner">
+							<table>
+								<tr>
+									<th>questionNo</th>
+									<th>questionTitle</th>
+									<th>subjectName</th>
+									<th>updateDate</th>
+									<th>createDate</th>
+									<th>Setting</th>
+								</tr>
+								<c:forEach var="map" items="${examList}">
+									<tr>
+										<td>${map.questionNo}</td>
+										<td>${map.questionTitle}</td>
+										<td>${map.subjectName}</td>
+										<td>${map.updateDate}</td>
+										<td>${map.createDate}</td>
+										<td>
+											<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
+												<a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+											</button>
+											<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
+												<a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+											</button>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
 						</div>
+						<%-- <div class="custom-pagination">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<c:if test="${currentPage > 1}">
+										<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage-1}">이전</a></li>
+									</c:if>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<c:if test="${currentPage < lastPage}">
+										<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage+1}">다음</a></li>
+									</c:if>
+								</ul>
+							</nav>
+						</div> --%>
 					</div>
 				</div>
 			</div>
@@ -261,4 +217,5 @@
       ============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
+
 </html>

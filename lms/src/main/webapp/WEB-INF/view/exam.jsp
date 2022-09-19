@@ -1,5 +1,3 @@
-<!-- 문제은행 페이지 -->
-<!-- 문제은행 페이지 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -65,8 +63,8 @@
 <!-- modernizr JS
       ============================================ -->
 <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-</head>
 
+</head>
 <body>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
@@ -91,8 +89,7 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="#">시험</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">문제은행</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">시험</span></li>
 									</ul>
 								</div>
 							</div>
@@ -104,62 +101,66 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/reportList" id="reportListForm" method="post">
-
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="product-status-wrap drp-lst">
-							<h4>Report List</h4>
-							<div class="add-product">
-								<a href="${pageContext.request.contextPath}/addReport">과제 추가</a>
-							</div>
-							<div class="asset-inner">
-								<table>
-									<tr>
-										<th>reportNo</th>
-										<th>subjectName</th>
-										<th>reportTitle</th>
-										<th>createDate</th>
-										<th>Setting</th>
-									</tr>
-									<c:forEach var="report" items="${reportList}">
-										<tr>
-											<td>${report.reportNo}</td>
-											<td>${report.subjectName}</td>
-											<td>${report.reportTitle}</td>
-											<td>${report.createDate}</td>
-											<td>
-												<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
-													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-												</button>
-												<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
-													<i class="fa fa-trash-o" aria-hidden="true"></i>
-												</button>
-											</td>
-										</tr>
-									</c:forEach>
-								</table>
-							</div>
-							<div class="custom-pagination">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<c:if test="${currentPage > 1}">
-											<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage-1}">이전</a></li>
-										</c:if>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<c:if test="${currentPage < lastPage}">
-											<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage+1}">다음</a></li>
-										</c:if>
-									</ul>
-								</nav>
-							</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="product-status-wrap drp-lst">
+						<h4>시험</h4>
+						<div class="add-product">
+							<a href="${pageContext.request.contextPath}/addExam">시험출제</a>
+							<a href="${pageContext.request.contextPath}/examList">문제은행</a>
 						</div>
+						<!-- 문제 출제 하기 -->
+						<div class="asset-inner">
+							<table>
+								<tr>
+									<th>questionNo</th>
+									<th>questionTitle</th>
+									<th>subjectName</th>
+									<th>updateDate</th>
+									<th>createDate</th>
+									<th>Setting</th>
+								</tr>
+								<c:forEach var="map" items="${examList}">
+									<tr>
+										<td>${map.questionNo}</td>
+										<td>${map.questionTitle}</td>
+										<td>${map.subjectName}</td>
+										<td>${map.updateDate}</td>
+										<td>${map.createDate}</td>
+										<td>
+											<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
+												<a href="">
+													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+												</a>
+											</button>
+											<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
+												<a href="">
+													<i class="fa fa-trash-o" aria-hidden="true"></i>
+												</a>
+											</button>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
+						<%-- <div class="custom-pagination">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<c:if test="${currentPage > 1}">
+										<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage-1}">이전</a></li>
+									</c:if>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<c:if test="${currentPage < lastPage}">
+										<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage+1}">다음</a></li>
+									</c:if>
+								</ul>
+							</nav>
+						</div> --%>
 					</div>
 				</div>
-			</form>
-			<!-- </form> -->
+			</div>
 		</div>
 	</div>
 	<!-- Start tobbar -->
@@ -219,5 +220,4 @@
       ============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
-
 </html>

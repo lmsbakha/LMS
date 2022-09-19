@@ -30,9 +30,11 @@ public class MultiplechoiceService {
 	// 검색어와 관련된 객관식 문제 리스트 가져오기
 	// 파라미터 : subjectName 
 	// 리턴값 : List<Multiplechoice>
-	public List<Multiplechoice> getMultipleChoiceList(String subjectName){
+	public List<Map<String, Object>> getMultipleChoiceList(String subjectName){
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + subjectName + "<-- subjectName" + TeamColor.TEXT_RESET);
 		// MultiplechoiceMapper call으로 전체 객관식 문제 리스트 가져오기
-		List<Multiplechoice> multiplechoiceList = multiplechoiceMapper.selectMultiplechoiceList(subjectName);
+		List<Map<String, Object>> multiplechoiceList = multiplechoiceMapper.selectMultiplechoiceList(subjectName);
 		// 디버깅
 		log.debug(TeamColor.PSJ + multiplechoiceList + "<-- multiplechoiceList" + TeamColor.TEXT_RESET);
 		return multiplechoiceList;
@@ -49,8 +51,8 @@ public class MultiplechoiceService {
 		// MultiplechoiceMapper에 전송할 파라미터 셋팅
 		Multiplechoice paramMultiplechoice = new Multiplechoice();
 		paramMultiplechoice.setSubjectName((String) paramMap.get("subjectName"));
-		paramMultiplechoice.setMultiplechoiceQuestion((String) paramMap.get("multiplechoiceQuestion"));
-		paramMultiplechoice.setMultiplechoiceAnswer((String) paramMap.get("multiplechoiceAnswer"));
+		paramMultiplechoice.setQuestionTitle((String) paramMap.get("questionTitle"));
+		paramMultiplechoice.setQuestionAnswer((String) paramMap.get("questionAnswer"));
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + paramMultiplechoice + "<-- paramMultiplechoice" + TeamColor.TEXT_RESET);
 
@@ -58,9 +60,9 @@ public class MultiplechoiceService {
 		int addMultiplechoice = multiplechoiceMapper.insertMultiplechoice(paramMultiplechoice);
 
 		// DB에 insert하고 전송받은 Pk값을 지역변수로 저장
-		int multiplechioceNo = paramMultiplechoice.getMultiplechoiceNo();
+		int questionNo = paramMultiplechoice.getQuestionNo();
 		// 디버깅
-		log.debug(TeamColor.PSJ + multiplechioceNo + "<-- multiplechioceNo" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSJ + questionNo + "<-- questionNo" + TeamColor.TEXT_RESET);
 
 		// 전송받은 보기 지문을 list 생성 후 넣기
 		List<String> paramExampleList = new ArrayList<>();
@@ -76,7 +78,7 @@ public class MultiplechoiceService {
 		// 해당 문제의 1
 		for (int i = 1; i <= 5; i++) {
 			MultiplechoiceExample paramMultiplechoiceExample = new MultiplechoiceExample();
-			paramMultiplechoiceExample.setMultiplechoiceNo(multiplechioceNo);
+			paramMultiplechoiceExample.setQuestionNo(questionNo);
 			paramMultiplechoiceExample.setMultiplechoiceExampleId(i+"");
 			paramMultiplechoiceExample.setMultiplechoiceExampleContent(paramExampleList.get(i-1));
 			paramMultiplechoiceExampleList.add(i-1, paramMultiplechoiceExample);
