@@ -1,3 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.lms.mapper.LectureSubjectMapper"></mapper>
+<mapper namespace="com.gd.lms.mapper.LectureSubjectMapper">
+	<!-- lecture와 관련된 subject 가져오기 -->
+	<select id="selectLectureSubjectList" parameterType="String" resultType="Map">
+		SELECT subject_name subjectName
+		FROM lecture_subject 
+		WHERE lecture_name=#{lectureName}
+	</select>
+</mapper>

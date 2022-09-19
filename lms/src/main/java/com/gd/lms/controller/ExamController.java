@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.mapper.TeacherMapper;
 import com.gd.lms.service.LectureService;
+import com.gd.lms.service.LectureSubjectService;
 import com.gd.lms.service.MultiplechoiceExampleService;
 import com.gd.lms.service.MultiplechoiceService;
 import com.gd.lms.service.ShortanswerQuestionService;
 import com.gd.lms.service.SubjectService;
+import com.gd.lms.service.TeacherService;
 import com.gd.lms.vo.Subject;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,11 +49,14 @@ public class ExamController {
 
 	// LectureService 객체 주입
 	@Autowired
-	private LectureService lectureService;
+	private LectureSubjectService lectureSubjectService;
 
 	// SubjectService 객체 주입
 	@Autowired
 	private SubjectService subjectService;
+
+	@Autowired
+	private TeacherService teacherService;
 
 	// [강사전용] 문제은행 페이지를 보여주는 메소드
 	// 파라미터 : 객관식 문제/단답형 문제를 담은 List를 view로 전송할 Model, 검색어 subjectName
@@ -76,17 +82,23 @@ public class ExamController {
 	// 리턴값: 시험문제를 출제하기 위한 form인 addExam.jsp로 이동
 	@GetMapping("/addExam")
 	String exam(HttpSession session, Model model) {
-		String accountId= (String) session.getAttribute("sessionId");
+		String accountId = (String) session.getAttribute("sessionId");
 		// 로그인한 강사의 아이디 확인
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-		
-		// 특정 강사가 강의하는 리스트 가져오기
-		List<Map<String, Object>> lectureListByTeacher = lectureService.getLectureListByTeacher(accountId);
-		// 디버깅 
-		log.debug(TeamColor.PSJ + lectureListByTeacher + "<-- lectureListByTeacher" + TeamColor.TEXT_RESET);
-		
+
+		// 로그인한 아이디의 강사 정보 받아오기
+		Map<String, Object> infoAboutTeacher = teacherService.getInfoAboutTeacher(accountId);
+		// 디버깅
+		log.debug(TeamColor.PSJ + infoAboutTeacher + "<-- infoAboutTeacher" + TeamColor.TEXT_RESET);
+
+		// 특정 강사가 강의하는 과목 리스트 가져오기
+		List<Map<String, Object>> lectureSubjectList = lectureSubjectService .getLectureSubjectList((String) infoAboutTeacher.get("lectureName"));
+		// 디버깅
+		log.debug(TeamColor.PSJ + lectureSubjectList + "<-- lectureSubjectList" + TeamColor.TEXT_RESET);
+
 		// 모델단에 전체과목리스트를 addAttribute해서 폼으로 전달한
-		model.addAttribute("lectureListByTeacher", lectureListByTeacher);
+		model.addAttribute("lectureSubjectList", lectureSubjectList);
+		model.addAttribute("infoAboutTeacher", infoAboutTeacher);
 		return "addExam";
 	}
 
