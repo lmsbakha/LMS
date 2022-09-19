@@ -128,17 +128,27 @@
 												<div class="form-group-inner">
 													<div class="row">
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">시험을 출제할 과목을 선택하세요</label>
+															<label class="login2 pull-right pull-right-pro">시험을 출제할 강의를 선택하세요</label>
 														</div>
 														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 															<div class="form-select-list">
-																<select class="form-control custom-select-value" name="subjectName" id="subjectName" required="required">
-																	<option value="defalut">-----과목선택-----</option>
-																	<c:forEach var="s" items="${subjectList}">
-																		<option value="${s.subjectName }">${s.subjectName }</option>
+																<select class="form-control custom-select-value" name="lectureListByTeacher" id="lectureListByTeacher" required="required">
+																	<option value="defalut">-----강의선택-----</option>
+																	<c:forEach var="l" items="${lectureListByTeacher}">
+																		<option value="${l.lectureName }">${l.lectureName }</option>
 																	</c:forEach>
 																</select>
 															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group-inner">
+													<div class="row">
+														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+															<label class="login2 pull-right pull-right-pro">시험명을 작성하세요 (예시: 중간고사, 월말평가...)</label>
+														</div>
+														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+															<input type="text" class="form-control" name="examTitle" id="examTitle" required="required" />
 														</div>
 													</div>
 												</div>
@@ -178,7 +188,7 @@
 															<label class="login2 pull-right pull-right-pro">시험 응시 시작일</label>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="date"  class="form-control" name="examStartDate" ID="examStartDate" min="" required="required" />
+															<input type="date"  class="form-control" name="examStartDate" ID="examStartDate" required="required" />
 														</div>
 													</div>
 												</div>
@@ -188,7 +198,7 @@
 															<label class="login2 pull-right pull-right-pro">시험 응시 마감일</label>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="date" class="form-control" id="examEndDate" name="examEndDate" required="required" />
+															<input type="date" class="form-control" id="examEndDate" name="examEndDate"  required="required" />
 														</div>
 													</div>
 												</div>
