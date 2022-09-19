@@ -12,6 +12,7 @@ public class Manager {
 	private String managerAddress; 		// 행정 주소
 	private String managerPhone; 		// 행정 전화번호
 	private String managerPosition;		// 행정 직급
+	private String managerLastLogin;    // 행정 마지막 로그인날짜
 	private String createDate;			// 행정 등록일
 	private String updateData; 			// 행정 수정일
 }
