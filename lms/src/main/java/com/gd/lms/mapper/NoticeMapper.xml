@@ -52,15 +52,16 @@
 			notice_title noticeTitle,
 			notice_content noticeContent,
 			create_date createDate,
-			update_date updateDate,
+			update_date updateDate
 		FROM	notice
 		WHERE	notice_no = #{noticeNo}
 	</select>
 	
 	<!-- 공지사항 수정 폼-->
 	<select id="updateNoticeForm" resultType="com.gd.lms.vo.Notice" parameterType="int">
-	SELECT	notice_title noticeTitle,
-			notice_content noticeContent,
+	SELECT	notice_no noticeNo,
+			notice_title noticeTitle,
+			notice_content noticeContent
 	FROM 	notice 
 	WHERE 	notice_no = #{noticeNo};
 	</select>

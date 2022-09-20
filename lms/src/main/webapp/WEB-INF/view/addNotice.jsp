@@ -138,8 +138,6 @@
                                                         <div class="dz-message needsclick download-custom">
                                                         	<i class="fa fa-download edudropnone" aria-hidden="true"></i>
                                                         	<h2 class="edudropnone">드래그 또는 클릭하여 파일 첨부</h2>
-                                                          	<p class="edudropnone"><span class="note needsclick">(This is just a demo dropzone. Selected image is <strong>not</strong> actually uploaded.)</span>
-                                                            </p>
                                                             <input name="noticeFile" id="noticeFile" class="hd-pro-img" type="text">
                                                         </div>
                                                         <div class="row">

@@ -92,10 +92,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">Home</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><a href="/lms/noticeList">공지사항</a> <span class="bread-slash">/</span>
-                                            </li>
-                                            <li><a href="/lms/addNotice">글쓰기</a> <span class="bread-slash"></span>
-                                            </li>
+                                            <li><a href="/lms/noticeList">공지사항</a> <span class="bread-slash"></span>
                                         </ul>
                                     </div>
                                 </div>
@@ -135,9 +132,11 @@
                                     	<td>${notice.createDate}</td>
                                     	<td>${notice.updateDate}</td>
                                     	<td>
-                                    		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" href="${pageContext.request.contextPath}/updateNoticeOne?noticeNo=${notice.noticeNo}">
+                                    		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" 
+                                    		href="${pageContext.request.contextPath}/modifyNoticeForm?noticeNo=${notice.noticeNo}">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
-                                            <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" href="${pageContext.request.contextPath}/removeNotice?noticeNo=${notice.noticeNo}">
+                                            <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" 
+                                            href="${pageContext.request.contextPath}/removeNotice?noticeNo=${notice.noticeNo}">
                                             <i class="fa fa-trash-o" aria-hidden="true" ></i></a>
                                         </td>
                                     </tr>

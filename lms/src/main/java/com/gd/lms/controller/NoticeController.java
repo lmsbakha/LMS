@@ -106,13 +106,13 @@ public class NoticeController {
 	
 	// 공지사항 상세보기
 	
-	@GetMapping("/noticeOne/{noticeNo}")
-	public String NoticeOne(Model model, @PathVariable(name="noticeNo") int noticeNo) {
+	@GetMapping("/noticeOne")
+	public String NoticeOne(Model model, @RequestParam("noticeNo") int noticeNo) {
+		log.debug(TeamColor.LHN + "게시글 상세보기: " + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo + TeamColor.TEXT_RESET);
 		noticeService.updateNoticeCount(noticeNo);
 		noticeService.showNoticeOne(noticeNo);
-		log.debug(TeamColor.LHN + "게시글 상세보기: " + noticeNo + TeamColor.TEXT_RESET);
-		
-		return null;
+		return "noticeOne";
 	}
 	
 	
@@ -126,18 +126,18 @@ public class NoticeController {
 		// 객체 적용
 		Notice notice = noticeService.modifyNoticeForm(noticeNo);
 		model.addAttribute("notice", notice); 
-		return "updateNoticeOne";
+		return "modifyNotice";
 		}
 	
 	
 	// 수정 액션
-	@PostMapping("/updateNotice")
+	@PostMapping("/modifyNotice")
 	public String modifyList(Model model, @RequestParam("noticeNo") int noticeNo,
 			@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContent") String noticeContent) {
 		
 		log.debug(TeamColor.LHN + "공지 수정 액션" + TeamColor.TEXT_RESET);
 
-		// 받아온 값 paramReport에 셋팅
+		// 받아온 값 notice에 세팅
 		Notice notice = new Notice();
 		notice.setNoticeNo(noticeNo);
 		notice.setNoticeTitle(noticeTitle);

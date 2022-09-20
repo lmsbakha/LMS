@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Course Info | Kiaalap - Kiaalap Admin Template</title>
+    <title>Add Library Assets | Kiaalap - Kiaalap Admin Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -41,6 +41,9 @@
     <!-- educate icon CSS
 		============================================ -->
     <link rel="stylesheet" href="css/educate-custon-icon.css">
+    <!-- dropzone CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/dropzone/dropzone.css">
     <!-- morrisjs CSS
 		============================================ -->
     <link rel="stylesheet" href="css/morrisjs/morris.css">
@@ -55,6 +58,9 @@
 		============================================ -->
     <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
     <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+    <!-- forms CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/form/all-type-forms.css">
     <!-- style CSS
 		============================================ -->
     <link rel="stylesheet" href="style.css">
@@ -67,14 +73,13 @@
 </head>
 
 <body>
-
-	<!-- sidebar -->
+    <!-- sidebar -->
 	<jsp:include page="inc/sidebar.jsp" />
 	<!-- topbar -->
 	<jsp:include page="inc/topbar.jsp" />
-	
+
     <!-- Start Welcome area -->
-        <div class="breadcome-area">
+            <div class="breadcome-area">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -94,7 +99,7 @@
                                             </li>
                                             <li><a href="/lms/noticeList">공지사항</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><a href="/lms/addNotice">상세보기</a> <span class="bread-slash"></span>
+                                            <li><a href="/lms/addNotice">공지 수정</a> <span class="bread-slash"></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -104,25 +109,49 @@
                     </div>
                 </div>
             </div>
-         <div class="blog-details-area mg-b-15">
+        <!-- Single pro tab review Start-->
+        <div class="single-pro-review-area mt-t-30 mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="blog-details-inner">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="latest-blog-single blog-single-full-view">
-                                        <c:forEach var="notice" items="${noticeList}">
-                                        <div class="blog-details blog-sig-details">
-                                            <h1><a class="blog-ht" href="#"><!-- 제목 --> ${notice.noticeTitle}</a></h1>
-                                            <hr>
-                                            <div style="font-size:12px; text-align:right;">작성일: ${notice.createDate}</div>
-                                            <div style="font-size:12px; text-align:right;">수정일: ${notice.updateDate}</div>
-                                            <hr>
-                                            <p><!-- 본문 --> ${noticeNo.noticeContent}</p>
+                        <div class="product-payment-inner-st">
+                            <ul id="myTabedu1" class="tab-review-design">
+                                <li class="active"><a href="#description">공지 작성</a></li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content custom-product-edit">
+                                <div class="product-tab-list tab-pane fade active in" id="description">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="review-content-section">
+                                                <div id="dropzone1" class="pro-ad addcoursepro">
+                                                    <form action="${pageContext.request.contextPath}/modifyNotice" id="modifyNoticeForm" method="post">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label for="noticeTitle">제목</label> <input name="noticeTitle" id="noticeTitle" type="text" class="form-control" value="${notice.noticeTitle}">
+                                                                    <input name="noticeNo" type="hidden" value="${notice.noticeNo}">
+                                                                </div>
+                                                                <div class="form-group edit-ta-resize res-mg-t-15">
+                                                                    <label for="noticeContent">본문</label> <textarea name="noticeContent" id="noticeContent" type="text" class="form-control" style="resize: none;" >${notice.noticeContent}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="dz-message needsclick download-custom">
+                                                        	<i class="fa fa-download edudropnone" aria-hidden="true"></i>
+                                                        	<h2 class="edudropnone">드래그 또는 클릭하여 파일 첨부</h2>
+                                                            <input name="noticeFile" id="noticeFile" class="hd-pro-img" type="text">
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="payment-adress">
+                                                                    <button type="submit" id="modifyNoticeSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
-                                        </c:forEach>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -131,9 +160,7 @@
                 </div>
             </div>
         </div>
-        
-        
-    <!-- footer -->
+            <!-- footer -->
 	<jsp:include page="inc/footer.jsp" />
 
     <!-- jquery
@@ -190,6 +217,9 @@
     <script src="js/form-validation/jquery.form.min.js"></script>
     <script src="js/form-validation/jquery.validate.min.js"></script>
     <script src="js/form-validation/form-active.js"></script>
+    <!-- dropzone JS
+		============================================ -->
+    <script src="js/dropzone/dropzone.js"></script>
     <!-- tab JS
 		============================================ -->
     <script src="js/tab.js"></script>
