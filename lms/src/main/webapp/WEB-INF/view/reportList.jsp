@@ -131,14 +131,16 @@
 											<td>${report.reportTitle}</td>
 											<td>${report.createDate}</td>
 											<td>
+												<a href="${pageContext.request.contextPath}/modifyReport?reportNo=${report.reportNo}">
 												<button data-toggle="tooltip" title="Edit"
-													class="pd-setting-ed" id="modifyBtn">
+													class="pd-setting-ed" type="button">
 													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-												</button>
+												</button></a>
+												<a href="${pageContext.request.contextPath}/removeReport?reportNo=${report.reportNo}">
 												<button data-toggle="tooltip" title="Trash"
-													class="pd-setting-ed" id="deleteBtn">
+													class="pd-setting-ed" type="button">
 													<i class="fa fa-trash-o" aria-hidden="true"></i>
-												</button>
+												</button></a>
 											</td>
 										</tr>
 									</c:forEach>
@@ -226,12 +228,4 @@
 		============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
-<script>
-$('#modifyBtn').click(function(){
-	alert('과제를 수정하시겠습니까?');
-	$(location).attr('href', '${pageContext.request.contextPath}/modifyReport')
-});
-
-</script>
-
 </html>

@@ -1,6 +1,5 @@
 package com.gd.lms.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,12 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LectureSubjectMapper;
 import com.gd.lms.mapper.ReportMapper;
-import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +25,7 @@ public class ReportService {
 
 	// LectureSubjectMapper 객체 주입
 	@Autowired
-	LectureSubjectMapper lectureSubjectMapper; 
+	LectureSubjectMapper lectureSubjectMapper;
 
 	// 전체 과제 리스트 조회하는 메소드
 	// 파라미터 : currentPage , rowPerPage
@@ -42,7 +39,7 @@ public class ReportService {
 
 		// 리턴값 받아올 객체 생성
 		Map<String, Object> returnMap = new HashMap<>();
-		
+
 		// ReportMapper에 넣어줄 매개변수 설정
 		Map<String, Object> paramMap = new HashMap<>();
 
@@ -104,20 +101,22 @@ public class ReportService {
 	public int addReport(Report report) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
-		
+
 		// 리턴값 받아올 변수
 		int addReport = 0;
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + report + "<-- paramReport" + TeamColor.TEXT_RESET);
-		// Mapper call 
+		// Mapper call
 		addReport = reportMapper.insertReport(report);
 		// Mapper에서 받아온 account 값 디버깅
 		log.debug(TeamColor.PSY + addReport + "<-- addReport" + TeamColor.TEXT_RESET);
 
 		return addReport;
 	} // end addReport
-	
-	// 하나의 과제를 조회하는 메소드
+
+
+	// 출제한 과제 수정하는 메소드
+	// 수정 폼
 	// 파라미터 : reportNo
 	// 리턴값 : Report
 	public Report getReportOne(int reportNo) {
@@ -127,16 +126,17 @@ public class ReportService {
 		Report getReportOne = null;
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
-		
-		// Mapper call 
+
+		// Mapper call
 		getReportOne = reportMapper.selectReportOne(reportNo);
 		// Mapper에서 받아온 account 값 디버깅
 		log.debug(TeamColor.PSY + getReportOne + "<-- getReportOne" + TeamColor.TEXT_RESET);
-		
+
 		return getReportOne;
 	} // end getReportOne
 	
-	// 출제한 과제 수정하는 메소드
+	
+	// 수정 액션
 	// 파라미터 : Report
 	// 리턴값 : int
 	public int modifyReport(Report paramReport) {
@@ -150,10 +150,10 @@ public class ReportService {
 		modifyReport = reportMapper.updateReport(paramReport);
 		// Mapper에서 받아온 account 값 디버깅
 		log.debug(TeamColor.PSY + modifyReport + "<-- addReport" + TeamColor.TEXT_RESET);
-		
+
 		return modifyReport;
 	} // modifyReport
-	
+
 	// 행정용 출제한 과제 삭제하는 메소드
 	// 파라미터 : reportNo
 	// 리턴값 : int
@@ -168,8 +168,10 @@ public class ReportService {
 		removeReport = reportMapper.deleteReport(paramReportNo);
 		// Mapper에서 받아온 account 값 디버깅
 		log.debug(TeamColor.PSY + removeReport + "<-- deleteReport" + TeamColor.TEXT_RESET);
-		
-		return removeReport;	
+
+		return removeReport;
 	} // removeReport
-	
+
+
+
 }

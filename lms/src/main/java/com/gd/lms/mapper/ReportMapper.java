@@ -19,10 +19,6 @@ public interface ReportMapper {
 	// 리턴값 : List<Report>
 	List<Report> selectReportList(Map<String, Object> map);
 	
-	// 하나의 과제를 조회하는 메소드
-	// 파라미터 : reportNo
-	// 리턴값 : Report
-	Report selectReportOne(int reportNo);
 
 	// report 전체 과제 수를 추출하는 메소드
 	// 파라미터 : X
@@ -35,6 +31,12 @@ public interface ReportMapper {
 	int insertReport(Report report);
 	
 	// 출제한 과제 수정하는 메소드
+	// 수정 폼
+	// 파라미터 : reportNo
+	// 리턴값 : Report
+	Report selectReportOne(int reportNo);
+
+	// 수정 액션
 	// 파라미터 : Report
 	// 리턴값 : int
 	int updateReport(Report report);

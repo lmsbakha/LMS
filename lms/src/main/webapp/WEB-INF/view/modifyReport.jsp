@@ -114,28 +114,31 @@
 							<h4>Modify Report</h4>
 							<hr>
 							<div class="form-group">
-								<label for="subjectName">subjectName</label>
-									<input name="subjectName" id="subjectName" type="text"
-									class="form-control" value="${subjectName}" readonly>
+								<input name="reportNo" type="hidden" value="${reportOne.reportNo}">
+							</div>
+							<div class="form-group">
+								<label for="subjectName">subjectName</label> <input
+									name="subjectName" id="subjectName" type="text"
+									class="form-control" value="${reportOne.subjectName}" readonly>
 							</div>
 							<div class="form-group">
 								<label for="reportTitle">reportTitle</label> <input
 									name="reportTitle" id="reportTitle" type="text"
-									class="form-control"  value="${reportTitle}" >
+									class="form-control" value="${reportOne.reportTitle}">
 							</div>
 							<div class="form-group edit-ta-resize res-mg-t-15">
 								<label for="reportContent">reportContent</label>
-								<textarea name="reportContent" id="reportContent" >${reportContent}</textarea>
+								<textarea name="reportContent" id="reportContent">${reportOne.reportContent}</textarea>
 							</div>
 							<div class="form-group">
 								<label for="reportStartDate">reportStartDate</label> <input
 									name="reportStartDate" id="reportStartDate" type="date"
-									class="form-control" value="${reportStartDate}">
+									class="form-control" value="${reportOne.reportStartDate}">
 							</div>
 							<div class="form-group">
 								<label for="reportEndDate">reportEndDate</label> <input
 									name="reportEndDate" id="reportEndDate" type="date"
-									class="form-control" value="${reportEndDate}">
+									class="form-control" value="${reportOne.reportEndDate}">
 							</div>
 						</div>
 						<div class="payment-adress">

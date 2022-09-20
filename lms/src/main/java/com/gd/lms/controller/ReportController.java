@@ -33,7 +33,7 @@ public class ReportController {
 	@GetMapping("/reportList")
 	public String reportdList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + currentPage + "<-- currentPage" + TeamColor.TEXT_RESET);
 
@@ -48,7 +48,7 @@ public class ReportController {
 		log.debug(TeamColor.PSY + reportList + "<--reportList" + TeamColor.TEXT_RESET);
 
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
 
 		// reportList로 값 넘겨주기
 		model.addAttribute("reportList", reportList);
@@ -90,7 +90,7 @@ public class ReportController {
 			@RequestParam("reportStartDate") String reportStartDate,
 			@RequestParam("reportEndDate") String reportEndDate) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@addReport Controller" + TeamColor.TEXT_RESET);
 
 		// 받아온 값 paramReport에 셋팅
 		Report paramReport = new Report();
@@ -124,13 +124,67 @@ public class ReportController {
 	String modifyReport(Model model, @RequestParam("reportNo") int reportNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
 
 		// reportOne 리스트 model값으로 보내기
 		Report reportOne = reportService.getReportOne(reportNo);
 		// 디버깅
 		log.debug(TeamColor.PSY + "<-- lecureSubjectList" + TeamColor.TEXT_RESET);
+
 		// 모델단에 reportOne을 addAttribute해서 폼으로 전달
 		model.addAttribute("reportOne", reportOne);
+
 		return "modifyReport";
-	} // end addReport
+	} // end modifyReport @GetMapping
+
+	// 나라 수정 Action
+	@PostMapping("/modifyReport")
+	public String modifyList(Model model, @RequestParam("reportTitle") String reportTitle,
+			@RequestParam("reportContent") String reportContent,
+			@RequestParam("reportStartDate") String reportStartDate,
+			@RequestParam("reportEndDate") String reportEndDate) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+
+		// 받아온 값 paramReport에 셋팅
+		Report paramReport = new Report();
+		paramReport.setReportContent(reportContent);
+		paramReport.setReportEndDate(reportEndDate);
+		paramReport.setReportStartDate(reportStartDate);
+		paramReport.setReportTitle(reportTitle);
+		// 셋팅값 디버깅
+		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
+
+		int modifyReport = reportService.modifyReport(paramReport);
+		// 디버깅
+		System.out.println("modifyReport");
+
+		return "redirect:/reportList";
+	}
+
+	// 행정용 출제한 과제 삭제하는 메소드
+	// 파라미터 : reportNo
+	// 리턴값 : reportList.jsp로 이동
+	@GetMapping("/removeReport")
+	public String removeReport(@RequestParam("reportNo") int reportNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
+
+		int removeReport = reportService.removeReport(reportNo);
+		// 파라미터
+		log.debug(TeamColor.PSY + removeReport + "<-- removeReport" + TeamColor.TEXT_RESET);
+
+		if (removeReport != 0) {
+			// 성공
+			log.debug(TeamColor.PSY + " 과제 삭제 성공" + TeamColor.TEXT_RESET);
+		} else {
+			// 실패
+			log.debug(TeamColor.PSY + " 과제 삭제 실패" + TeamColor.TEXT_RESET);
+		}
+		// reportList로 리다이렉트
+		return "redirect:/reportList";
+	}
 }
