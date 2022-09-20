@@ -106,7 +106,8 @@
 					<div class="sparkline12-list">
 						<div class="sparkline12-hd">
 							<div class="main-sparkline12-hd">
-								<h1>시험 출제하기</h1><hr>
+								<h1>시험 출제하기</h1>
+								<hr>
 							</div>
 						</div>
 						<div class="sparkline12-graph">
@@ -114,7 +115,7 @@
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<div class="all-form-element-inner">
-											<form action="${pageContext.request.contextPath}/addExam">
+											<form action="${pageContext.request.contextPath}/addExam" method="post" id="addExamForm">
 												<div class="form-group-inner">
 													<div class="row">
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -142,7 +143,7 @@
 														</div>
 														<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 															<div class="form-select-list">
-																<select class="form-control custom-select-value" name="lectureListByTeacher" id="lectureListByTeacher" required="required">
+																<select class="form-control custom-select-value" name="subjectName" id="subjectName" required="required">
 																	<option value="defalut">-----과목선택-----</option>
 																	<c:forEach var="l" items="${lectureSubjectList}">
 																		<option value="${l.subjectName }">${l.subjectName }</option>
@@ -178,10 +179,10 @@
 															<label class="login2 pull-right pull-right-pro">해당 시험의 총 문제 수를 선택하세요</label>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="number" class="form-control" placeholder="객관식" name="examTotalCnt" id="examTotalCnt" min="0" required="required" />
+															<input type="number" class="form-control" placeholder="객관식" name="multipleCnt" id="multipleCnt" min="0" required="required" />
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="number" class="form-control" placeholder="단답형" name="examTotalCnt" id="examTotalCnt" min="0" required="required" />
+															<input type="number" class="form-control" placeholder="단답형" name="shortAnswerCnt" id="shortAnswerCnt" min="0" required="required" />
 														</div>
 													</div>
 												</div>
@@ -191,7 +192,7 @@
 															<label class="login2 pull-right pull-right-pro">시험 시작일</label>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<input type="date"  class="form-control" name="examStartDate" ID="examStartDate" min="${infoAboutTeacher.lectureStartDate }" max="${infoAboutTeacher.lectureEndDate }" required="required" />
+															<input type="date" class="form-control" name="examStartDate" ID="examStartDate" min="${infoAboutTeacher.lectureStartDate }" max="${infoAboutTeacher.lectureEndDate }" required="required" />
 														</div>
 													</div>
 												</div>
@@ -205,7 +206,19 @@
 														</div>
 													</div>
 												</div>
-
+												<div class="form-group-inner">
+													<div class="login-btn-inner">
+														<div class="row">
+															<div class="col-lg-3"></div>
+															<div class="col-lg-9">
+																<div class="login-horizental cancel-wp pull-left form-bc-ele">
+																	<button class="btn btn-white" type="reset">Cancel</button>
+																	<button class="btn btn-sm btn-primary login-submit-cs" id="addExamBtn" type="submit">시험출제</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 											</form>
 										</div>
 									</div>
@@ -273,6 +286,19 @@
 	<!-- tawk chat JS
       ============================================ -->
 	<script src="js/tawk-chat.js"></script>
-
 </body>
+<script type="text/javascript">
+/*
+	시험출제 버튼을 눌렀을 때 객관식 문항 + 단답형 문항이 10개 초과또는 미만일 경우 alert();
+*/
+	$('#addExamBtn').click(function() {
+		if (Number(document.getElementById('multipleCnt').value)+ Number(document.getElementById('shortAnswerCnt').value) == 10) {
+			 $( '#addExamForm' ).submit();
+			 return;
+		} else {
+			alert('총 문제 수를 10 문항으로 맞춰주세요');
+			return false;
+		}
+	});
+</script>
 </html>

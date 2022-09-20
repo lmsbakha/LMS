@@ -12,6 +12,18 @@
 		</selectKey>
 	</insert>
 
+	<!-- 특정과목과 관련된 객관식 문제 랜덤하게 뽑기-->
+	<select id="selectMultiplechoiceListByRandom" parameterType="Map" resultType="Map">
+		SELECT 
+		subject_name subjectName
+		, question_no questionNo
+		, question_title questionTitle
+		, question_answer questionAnswer
+		FROM multiplechoice 
+		WHERE subject_name = #{subjectName}
+		ORDER BY RAND() LIMIT #{multipleCnt}
+	</select>
+
 	<!-- 특정과목과 관련된 객관식 문제 리스트. 단, 검색어가 null 또는 공백일 경우 WHERE 절이 없음 -->
 	<select id="selectMultiplechoiceList" parameterType="String" resultType="Map">
 		SELECT 

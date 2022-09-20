@@ -9,6 +9,14 @@ import com.gd.lms.vo.Multiplechoice;
 
 @Mapper
 public interface MultiplechoiceMapper {
+	/*
+	 * 랜덤하게 문제 뽑기
+	 * 파라미터 : subjectName, multichoiceCnt Map<String, Object>
+	 * 리턴값 : Map<String, Object>
+	 * */
+	List<Map<String, Object>> selectMultiplechoiceListByRandom(Map<String, Object> paramRandom);
+	
+	
 	// 객관식 문제를 추가하는 메소드
 	// 파라미터 : Multiplechoice
 	// 리턴값 : 정상적으로 추가되었음을 확인시켜줄 int와 multiplechoice_no값

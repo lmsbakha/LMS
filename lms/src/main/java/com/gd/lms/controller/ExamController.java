@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.TeacherMapper;
+import com.gd.lms.service.ExamService;
 import com.gd.lms.service.LectureService;
 import com.gd.lms.service.LectureSubjectService;
 import com.gd.lms.service.MultiplechoiceExampleService;
@@ -24,6 +25,7 @@ import com.gd.lms.service.MultiplechoiceService;
 import com.gd.lms.service.ShortanswerQuestionService;
 import com.gd.lms.service.SubjectService;
 import com.gd.lms.service.TeacherService;
+import com.gd.lms.vo.Exam;
 import com.gd.lms.vo.Subject;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,14 +41,6 @@ public class ExamController {
 	@Autowired
 	private MultiplechoiceService multiplechoiceService;
 
-	// MultiplechoiceExampleService 객체 주입
-	@Autowired
-	private MultiplechoiceExampleService multiplechoiceExampleService;
-
-	// ShortanswerQuestionService 객체 주입
-	@Autowired
-	private ShortanswerQuestionService shortanswerQuestionService;
-
 	// LectureService 객체 주입
 	@Autowired
 	private LectureSubjectService lectureSubjectService;
@@ -55,8 +49,13 @@ public class ExamController {
 	@Autowired
 	private SubjectService subjectService;
 
+	// TeacherService 객체 주입
 	@Autowired
 	private TeacherService teacherService;
+
+	// ExamService 객체 주입
+	@Autowired
+	private ExamService examService;
 
 	// [강사전용] 문제은행 페이지를 보여주는 메소드
 	// 파라미터 : 객관식 문제/단답형 문제를 담은 List를 view로 전송할 Model, 검색어 subjectName
@@ -81,7 +80,7 @@ public class ExamController {
 	// 파라미터 : List<Map<String, Object>를 담아둘 Model
 	// 리턴값: 시험문제를 출제하기 위한 form인 addExam.jsp로 이동
 	@GetMapping("/addExam")
-	String exam(HttpSession session, Model model) {
+	String addExam(HttpSession session, Model model) {
 		String accountId = (String) session.getAttribute("sessionId");
 		// 로그인한 강사의 아이디 확인
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
@@ -92,7 +91,8 @@ public class ExamController {
 		log.debug(TeamColor.PSJ + infoAboutTeacher + "<-- infoAboutTeacher" + TeamColor.TEXT_RESET);
 
 		// 특정 강사가 강의하는 과목 리스트 가져오기
-		List<Map<String, Object>> lectureSubjectList = lectureSubjectService .getLectureSubjectList((String) infoAboutTeacher.get("lectureName"));
+		List<Map<String, Object>> lectureSubjectList = lectureSubjectService
+				.getLectureSubjectList((String) infoAboutTeacher.get("lectureName"));
 		// 디버깅
 		log.debug(TeamColor.PSJ + lectureSubjectList + "<-- lectureSubjectList" + TeamColor.TEXT_RESET);
 
@@ -102,7 +102,44 @@ public class ExamController {
 		return "addExam";
 	}
 
-	// addQuestionInBank 폼
+	/*
+	 * [강사전용] 시험을 출제하는 액션 메소드 
+	 * 파라미터 : 
+	 * 리턴 값 : addExam으로 이동하고 alertMsg로 성공 실패 여부 보내주기
+	 */
+	@PostMapping("/addExam")
+	String addExam(Model model, 
+			@RequestParam(value = "subjectName") String subjectName,
+			@RequestParam(value = "examTitle") String examTitle,
+			@RequestParam(value = "examContent") String examContent,
+			@RequestParam(value = "multipleCnt") int multipleCnt,
+			@RequestParam(value = "shortAnswerCnt") int shortAnswerCnt,
+			@RequestParam(value = "examStartDate") String examStartDate,
+			@RequestParam(value = "examEndDate") String examEndDate) {
+		// 파라미터를 Map 객체 생성 후 셋팅
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("subjectName", subjectName);
+		paramMap.put("examTitle", examTitle);
+		paramMap.put("examContent", examContent);
+		paramMap.put("multipleCnt", multipleCnt);
+		paramMap.put("shortAnswerCnt", shortAnswerCnt);
+		paramMap.put("examStartDate", examStartDate);
+		paramMap.put("examEndDate", examEndDate);;
+		// 디버깅
+		log.debug(TeamColor.PSJ + paramMap + "<-- paramMap" + TeamColor.TEXT_RESET);
+
+		// Exam service call
+		int row = examService.addExam(paramMap);
+		
+		if(row != 0) {
+			model.addAttribute("alertMsg", "[Success] 문제 출제에 성공하였습니다");
+		} else {
+			model.addAttribute("alertMsg", "[Fail] 문제 출제에 실패하였습니다.");
+		}
+		return "redirect:/addExam";
+	}
+
+	// [강사전용] addQuestionInBank 폼
 	// 파라미터 : List<subject>를 담아둘 Model
 	// 리턴값: 문제 은행에 문제 추가하기 위한 form인 addQuestionInBank.jsp로 이동
 	@GetMapping("/addQuestionInBank")
@@ -116,7 +153,7 @@ public class ExamController {
 		return "addQuestionInBank";
 	}
 
-	// MultiplechoiceService에서 객관식 문제를 추가한 후 객관식 보기 추가
+	// [강사전용] MultiplechoiceService에서 객관식 문제를 추가한 후 객관식 보기 추가
 	// 파라미터 : Map<String, Object>에 파라미터 담아서 서비스로 전송
 	// 리턴값 : addExam.jsp
 	@PostMapping("/addMultipleChoice")
