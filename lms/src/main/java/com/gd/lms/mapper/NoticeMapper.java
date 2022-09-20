@@ -16,11 +16,13 @@ public interface NoticeMapper {
 	// 공지사항 작성 액션
 	int insertNotice(Notice notice);
 	// 공지글 상세보기
-	public Notice selectNoticeOne(int noticeNo);
+	Notice selectNoticeOne(int noticeNo);
 	// 조회수 증가
-	public int updateNoticeCount(Notice notice);
+	int updateNoticeCount(Notice notice);
+	//수정 폼
+	Notice updateNoticeForm(int noticeNo);
 	// 수정 액션
-	public int updateNotice(Notice notice);
+	int updateNotice(Notice notice);
 	// 삭제
-	public int deleteNotice(int noticeNo);
+	int deleteNotice(int noticeNo);
 }

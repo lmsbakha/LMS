@@ -59,9 +59,18 @@
 		WHERE	notice_no = #{noticeNo}
 	</select>
 	
-	<!-- 공지사항 수정 -->
+	<!-- 공지사항 수정 폼-->
+	<select id="updateNoticeForm" resultType="com.gd.lms.vo.Notice" parameterType="int">
+	SELECT	notice_title noticeTitle,
+			notice_content noticeContent,
+	FROM 	notice 
+	WHERE 	notice_no = #{noticeNo};
+	</select>
+	
+	
+	<!-- 공지사항 수정 액션-->
 	<update id="updateNotice" parameterType="com.gd.lms.vo.Notice">
-		UPDATE notice
+		UPDATE notice 
 		SET
 			notice_title = #{noticeTitle},
 			notice_content = #{noticeContent},
@@ -69,10 +78,11 @@
 		WHERE
 			notice_no = #{noticeNo}
 	</update>
-		
+	
+	
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice" parameterType="int">
-	DELETE TABLE notice 
+	DELETE FROM notice 
 	WHERE notice_no = #{noticeNo}
 	</delete>	
 	

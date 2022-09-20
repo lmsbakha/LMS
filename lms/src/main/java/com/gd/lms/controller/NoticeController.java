@@ -39,7 +39,7 @@ public class NoticeController {
 		
 		// 리스트 불러오기
 		List<Notice> noticeList = noticeService.getNoticeList(beginRow, ROW_PER_PAGE);	
-		log.debug(TeamColor.debuging + TeamColor.LHN + "noticeList: " + noticeList + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "\n\n@noticeList Controller" + TeamColor.TEXT_RESET);
 		
 		// 페이지 내비게이션 바
 		// 첫번째 페이지 
@@ -87,9 +87,9 @@ public class NoticeController {
 		int row = noticeService.addNotice(notice);
 		// 디버깅
 		if (row != 0) { // 성공
-			log.debug(TeamColor.debuging + " add 성공" + TeamColor.LHN + TeamColor.TEXT_RESET);
+			log.debug(TeamColor.LHN + " add 성공" + TeamColor.TEXT_RESET);
 		} else { // 실패
-			log.debug(TeamColor.debuging + " add 실패" + TeamColor.LHN + TeamColor.TEXT_RESET);
+			log.debug(TeamColor.LHN + " add 실패" + TeamColor.TEXT_RESET);
 		}
 		return "redirect:/noticeList";
 	}
@@ -100,58 +100,46 @@ public class NoticeController {
 	public String NoticeOne(Model model, @PathVariable(name="noticeNo") int noticeNo) {
 		noticeService.updateNoticeCount(noticeNo);
 		noticeService.showNoticeOne(noticeNo);
+		log.debug(TeamColor.LHN + "게시글 상세보기: " + noticeNo + TeamColor.TEXT_RESET);
+		
 		return null;
 	}
 	
-	@GetMapping("/noticeOne")
-	public String NoticeOne(Model model) {
-		
-		return ("/noticeOne");
-	}
-	/*
-	
-	 @GetMapping("/noticeOne/")
-	 public String noticeOne(Model model, @RequestParam(value="noticeNo") int noticeNo) {
-		 
-		 log.debug(TeamColor.debuging + " noticeNo: " + noticeNo +TeamColor.LHN + TeamColor.TEXT_RESET);
-		 
-		 noticeService.updateNoticeCount(noticeNo); 
-		 Notice notice = noticeService.showNoticeOne(noticeNo);
-		 			
-		 model.addAttribute("notice",notice); 
-		 log.debug(TeamColor.debuging + " notice: " + notice +TeamColor.LHN + TeamColor.TEXT_RESET);
-		 
-		 return "/noticeOne/"; 
-	 
-	 }
-	*/
 	
 	
+	// 공지글 수정 폼
 	
-	// 공지글 수정
+	@GetMapping("/updateNoticeOne") 
+	public String updateNoticeOne(Model model, @RequestParam("noticeNo") int noticeNo) {
+		log.debug(TeamColor.LHN + "공지글 수정 폼 " + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + noticeNo +  ": noticeNo " + TeamColor.TEXT_RESET);
+		// 객체 적용
+		Notice notice = noticeService.updateNoticeForm(noticeNo);
+		model.addAttribute("notice", notice); 
+		return "updateNoticeOne";
+		}
 	
-	@GetMapping("/updateNoticeOne/{noticeNo}") 
-	public String updateNoticeOne(Model model, @PathVariable(name="noticeNo") int noticeNo) {
-		Notice notice = noticeService.showNoticeOne(noticeNo);
-
-	 model.addAttribute("notice", notice); 
-	 return "updatenoticeOne";
-	 }
-
 	@PostMapping("/notice/updateNoticeOne") 
-	public String updateNoticeOne(Notice notice) {
+		public String updateNoticeOne(Notice notice) {
 		noticeService.updateNotice(notice);
 
-	 return "/updateNoticeOne";
+		return "/updateNoticeOne";
 
 	 }
 	
 	// 공지글 삭제 액션
-	@GetMapping("deleteNotice/{noticeNo}")
+	@GetMapping("/removeNotice")
 	public String deleteNotice(@RequestParam(name="noticeNo") int noticeNo) {
-		noticeService.deleteNoticeOne(noticeNo);
-		 log.debug(TeamColor.LHN + noticeNo);
-		return "redirect:/noticeList/1";
+		log.debug(TeamColor.LHN + noticeNo +  ": noticeNo " + TeamColor.TEXT_RESET);
+		
+		int removeNotice = noticeService.removeNoticeOne(noticeNo);
+		log.debug(TeamColor.LHN + removeNotice+ ": removeNotice " + TeamColor.TEXT_RESET);
+		if(removeNotice!=0) {
+			log.debug(TeamColor.LHN +" 삭제 성공 " + TeamColor.TEXT_RESET);
+		}
+			log.debug(TeamColor.LHN +" 삭제 실패 " + TeamColor.TEXT_RESET);
+		
+		return "redirect:/noticeList";
 		
 	}
 	

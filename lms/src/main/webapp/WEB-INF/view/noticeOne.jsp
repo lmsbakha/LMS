@@ -117,8 +117,8 @@
                                             <div class="details-blog-dt blog-sig-details-dt courses-info mobile-sm-d-n">
                                                 <span><i class="fa fa-comments-o"></i> <b>작성자:</b> ${notice.accountId}</span>
                                             </div>	<!-- 조회수 등 반영하기 -->
-                                            <h1 class="blog-ht" ><!-- 제목 -->${notice.noticeTitle}</h1>
-                                            <p><!-- 본문 --> ${notice.noticeContent}</p>
+                                            <h1 class="blog-ht" >제목:  ${notice.noticeTitle}</h1>
+                                            <p>((본문)) ${notice.noticeContent}</p>
                                         </c:forEach>
                                         </div>
                                     </div>

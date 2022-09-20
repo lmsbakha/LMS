@@ -127,16 +127,18 @@
                                     </tr>
                                     <c:forEach var="notice" items="${noticeList}">
                                     <tr>
-                                    	<td><a href="${pageContext.request.contextPath}/noticeOne/${notice.noticeNo}">${notice.noticeNo}</a></td>
+                                    	<td><a href="${pageContext.request.contextPath}/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeNo}</a></td>
                                     	<td>${notice.accountId}</td>
-                                    	<td><a href="${pageContext.request.contextPath}/noticeOne/${notice.noticeNo}">${notice.noticeTitle}</a></td>
-                                    	<td><a href="${pageContext.request.contextPath}/noticeOne/${notice.noticeNo}">${notice.noticeContent}</a></td>
+                                    	<td><a href="${pageContext.request.contextPath}/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
+                                    	<td><a href="${pageContext.request.contextPath}/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeContent}</a></td>
                                     	<td>${notice.noticeCount}</td>
                                     	<td>${notice.createDate}</td>
                                     	<td>${notice.updateDate}</td>
                                     	<td>
-                                            <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                            <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" a href="${pageContext.request.contextPath}/updateNoticeOne?noticeNo=${notice.noticeNo}">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
+                                            <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" href="${pageContext.request.contextPath}/removeNotice?noticeNo=${notice.noticeNo}">
+                                            <i class="fa fa-trash-o" aria-hidden="true" ></i></a>
                                         </td>
                                     </tr>
                                   	</c:forEach>

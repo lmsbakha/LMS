@@ -133,6 +133,7 @@
                                                                 <div>
                                                                 	<textarea name="content" placeholder="본문" rows="8" cols="70" ></textarea>
                                                                 </div>
+                                                                <!--  
                                                                 <div class="form-group alert-up-pd">
                                                                     <div class="dz-message needsclick download-custom">
                                                                         <i class="fa fa-download edudropnone" aria-hidden="true"></i>
@@ -142,12 +143,13 @@
                                                                         <input name="imageico" class="hd-pro-img" type="text" />
                                                                     </div>
                                                                 </div>
+                                                                -->
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="payment-adress">
-                                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">제출</button>
                                                                 </div>
                                                             </div>
                                                         </div>

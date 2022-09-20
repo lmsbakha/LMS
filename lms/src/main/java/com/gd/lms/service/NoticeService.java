@@ -32,8 +32,9 @@ public class NoticeService {
 		noticeMap.put("beginRow", beginRow);
 		noticeMap.put("rowPerPage", rowPerPage);
 		// 디버그
-		log.debug(TeamColor.LHN + "beginRow" + beginRow);
-		log.debug(TeamColor.LHN + "rowPerPage" + rowPerPage);
+		log.debug(TeamColor.LHN + "beginRow" + beginRow+ TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "rowPerPage" + rowPerPage+ TeamColor.TEXT_RESET);
+
 
 		return noticeMapper.selectNoticeList(noticeMap);
 	}
@@ -46,20 +47,28 @@ public class NoticeService {
 	// 공지사항 신규 작성
 	public int addNotice(Notice notice) {
 		// 디버깅
-		log.debug(TeamColor.debuging + " addNotice 실행" + TeamColor.LHN + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + " addNotice 실행" + TeamColor.TEXT_RESET);
 		return noticeMapper.insertNotice(notice);
 	}
 	
 	// 공지글 조회수 증가	
 	public int updateNoticeCount(int noticeNo) {
 		Notice notice = noticeMapper.selectNoticeOne(noticeNo);
-		log.debug(TeamColor.LHN + "조회수 증가" + notice);
+		log.debug(TeamColor.LHN + " 조회수 증가" + TeamColor.TEXT_RESET);
 		return noticeMapper.updateNoticeCount(notice);
 	}
 	
 	// 공지글 수정 폼
-	public int updateNoticeForm(Notice notice) {
-		return noticeMapper.updateNotice(notice);
+	public Notice updateNoticeForm(int noticeNo) {
+		log.debug(TeamColor.LHN + "updateNoticeForm 호출" + TeamColor.TEXT_RESET);
+		// 수정할 객체
+		Notice noticeOne = null;
+		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo +  TeamColor.TEXT_RESET);
+		// 매퍼 적용
+		noticeOne = noticeMapper.updateNoticeForm(noticeNo);
+		log.debug(TeamColor.LHN+ "noticeOne: " +noticeOne + TeamColor.TEXT_RESET);
+
+		return noticeOne;
 	}
 	
 	// 공지글 수정 액션
@@ -68,8 +77,15 @@ public class NoticeService {
 	}
 
 	// 공지글 삭제
-	public int deleteNoticeOne(int noticeNo) {
-		return noticeMapper.deleteNotice(noticeNo);
+	public int removeNoticeOne(int noticeNo) {
+		log.debug(TeamColor.LHN + "게시글 삭제" + TeamColor.TEXT_RESET);
+		
+		int removeNotice = 0;
+		log.debug(TeamColor.LHN + noticeNo + ": 게시글 번호" + TeamColor.TEXT_RESET);
+		// 매퍼 적용
+		removeNotice = noticeMapper.deleteNotice(noticeNo);
+		log.debug(TeamColor.LHN + removeNotice + ": 삭제여부" + TeamColor.TEXT_RESET);
+		return removeNotice;
 	}
 
 }
