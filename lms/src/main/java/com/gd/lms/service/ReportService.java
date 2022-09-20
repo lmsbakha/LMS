@@ -1,5 +1,6 @@
 package com.gd.lms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LectureSubjectMapper;
 import com.gd.lms.mapper.ReportMapper;
+import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +34,7 @@ public class ReportService {
 	// 리턴값 : boardList, lastPage
 	public List<Report> getReportList(int currentPage, int rowPerPage) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@getReportList Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + currentPage + "<-- currentPage" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + rowPerPage + "<-- rowPerPage" + TeamColor.TEXT_RESET);
@@ -87,25 +89,44 @@ public class ReportService {
 	/*
 	 * // 강사 가르치는 과목 리스트 조회하는 메서드 // 파라미터 : X // 리턴값 : lecureSubjectList
 	 * List<LectureSubject> getLectureSubjectList(){ // 디버깅 영역구분
-	 * log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+	 * log.debug(TeamColor.PSY + "\n\n@getLectureSubjectList Service" +
+	 * TeamColor.TEXT_RESET);
 	 * 
 	 * // 리턴값 받아올 객체 생성 List<LectureSubject> lecureSubjectList = new ArrayList<>();
 	 * 
 	 * // 강사가 가르치는 과목 리스트 조회하기 lecureSubjectList = lectureSubjectMapper.
 	 * 
-	 * return lecureSubjectList; } // end getLectureSubjectList
 	 */
+
+	// lectureSubject의 subjectName 가져오기
+	// 파라미터 : X
+	// 리턴값 : List<LectureSubject>
+	public List<LectureSubject> getlectureSubject() {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@getlectureSubject Service" + TeamColor.TEXT_RESET);
+		// 리턴값 받아올 객체 생성
+		List<LectureSubject> lecureSubjectList = new ArrayList<>();
+
+		// Mapper call
+		lecureSubjectList = lectureSubjectMapper.selectsubjectNameList();
+		// Mapper에서 받아온 account 값 디버깅
+		log.debug(TeamColor.PSY + lecureSubjectList + "<-- lecureSubjectList" + TeamColor.TEXT_RESET);
+		
+		return lecureSubjectList;
+	}// end getlectureSubject
+
 	// 과제 출제하는 메소드
 	// 파라미터 : Report
 	// 리턴값 : int
 	public int addReport(Report report) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@addReport Service" + TeamColor.TEXT_RESET);
 
 		// 리턴값 받아올 변수
 		int addReport = 0;
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + report + "<-- paramReport" + TeamColor.TEXT_RESET);
+
 		// Mapper call
 		addReport = reportMapper.insertReport(report);
 		// Mapper에서 받아온 account 값 디버깅
@@ -114,14 +135,13 @@ public class ReportService {
 		return addReport;
 	} // end addReport
 
-
-	// 출제한 과제 수정하는 메소드
-	// 수정 폼
+	// 출제한 과제 수정하는 메소드 폼
 	// 파라미터 : reportNo
 	// 리턴값 : Report
 	public Report getReportOne(int reportNo) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@getReportOne Service" + TeamColor.TEXT_RESET);
+
 		// 리턴값 받아올 변수
 		Report getReportOne = null;
 		// 파라미터 디버깅
@@ -134,18 +154,19 @@ public class ReportService {
 
 		return getReportOne;
 	} // end getReportOne
-	
-	
-	// 수정 액션
+
+	// 출제한 과제 수정하는 메소드 액션
 	// 파라미터 : Report
 	// 리턴값 : int
 	public int modifyReport(Report paramReport) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@modifyReport Service" + TeamColor.TEXT_RESET);
+
 		// 리턴값 받아올 변수
 		int modifyReport = 0;
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
+
 		// Mapper call
 		modifyReport = reportMapper.updateReport(paramReport);
 		// Mapper에서 받아온 account 값 디버깅
@@ -159,7 +180,7 @@ public class ReportService {
 	// 리턴값 : int
 	public int removeReport(int paramReportNo) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Service" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@removeReport Service" + TeamColor.TEXT_RESET);
 		// 리턴값 받아올 변수
 		int removeReport = 0;
 		// 파라미터 디버깅
@@ -171,7 +192,5 @@ public class ReportService {
 
 		return removeReport;
 	} // removeReport
-
-
 
 }

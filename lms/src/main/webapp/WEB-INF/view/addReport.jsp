@@ -116,7 +116,7 @@
 							<div class="form-group">
 								<label for="subjectName">subjectName</label> <select
 									class="form-control">
-									<c:forEach var="subject" items="${subjectList}">
+									<c:forEach var="subject" items="${subjectNameList}">
 										<option value="${subject.subjectName}">${subject.subjectName}</option>
 									</c:forEach>
 								</select>
@@ -130,25 +130,30 @@
 								<label for="reportContent">reportContent</label>
 								<textarea name="reportContent" id="reportContent"></textarea>
 							</div>
-							<div class="form-group">
-								<label for="reportStartDate">reportStartDate</label> <input
-									name="reportStartDate" id="reportStartDate" type="date"
-									class="form-control">
+							<div class="form-group-inner">
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<label for="reportStartDate">reportStartDate</label> <input
+											name="reportStartDate" id="reportStartDate" type="date"
+											class="form-control">
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<label for="reportEndDate">reportEndDate</label> <input
+											name="reportEndDate" id="reportEndDate" type="date"
+											class="form-control">
+									</div>
+								</div>
+								<!-- row -->
 							</div>
-							<div class="form-group">
-								<label for="reportEndDate">reportEndDate</label> <input
-									name="reportEndDate" id="reportEndDate" type="date"
-									class="form-control">
-							</div>
-						</div>
-						<div class="payment-adress">
-							<button type="submit"
-								class="btn btn-primary waves-effect waves-light"
-								style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
 						</div>
 					</div>
-
+					<div class="payment-adress">
+						<button type="submit"
+							class="btn btn-primary waves-effect waves-light"
+							style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
+					</div>
 				</div>
+				<!-- row -->
 			</form>
 			<!-- </form> -->
 		</div>

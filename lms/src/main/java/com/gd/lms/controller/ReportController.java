@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ReportService;
+import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
 
 import lombok.extern.slf4j.Slf4j;
@@ -67,19 +68,24 @@ public class ReportController {
 		}
 	} // end reportdList @GetMapping
 
-	/*
-	 * // 과제 출제하는 메소드 // addReport 폼 // 파라미터 : List<subject>를 담아둘 Model // 리턴값: 과제를
-	 * 출제하기 위한 form인 addReport.jsp로 이동
-	 * 
-	 * @GetMapping("/addReport") String addReport(Model model) { // 디버깅 영역구분
-	 * log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
-	 * 
-	 * // subject 리스트 model값으로 보내기 List<Subject> lecureSubjectList =
-	 * lectureSubjectService. // 디버깅 log.debug(TeamColor.PSY + lecureSubjectList +
-	 * "<-- lecureSubjectList" + TeamColor.TEXT_RESET); // 모델단에 전체과목리스트를
-	 * addAttribute해서 폼으로 전달 model.addAttribute("lecureSubjectList",
-	 * lecureSubjectList); return "addReport"; } // end addReport
-	 */
+	// 과제 출제하는 메소드
+	// addReport 폼
+	// 파라미터 : List<LectureSubject>를 담아둘 Model
+	// 리턴값: 과제를 출제하기 위한 form인 addReport.jsp로 이동
+	@GetMapping("/addReport")
+	String addReport(Model model) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+
+		// lectureSubject 리스트 model값으로 보내기
+		List<LectureSubject> subjectNameList = reportService.getlectureSubject();
+		// 디버깅
+		log.debug(TeamColor.PSY + subjectNameList + "<-- subjectNameList" + TeamColor.TEXT_RESET);
+		
+		// 모델단에 전체과목리스트를 addAttribute해서 폼으로 전달
+		model.addAttribute("subjectNameList", subjectNameList);
+		return "addReport";
+	} // end addReport
 
 	// addReport 액션
 	// 파라미터 : Report
@@ -123,14 +129,14 @@ public class ReportController {
 	@GetMapping("/modifyReport")
 	String modifyReport(Model model, @RequestParam("reportNo") int reportNo) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@modifyReport Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
 
 		// reportOne 리스트 model값으로 보내기
 		Report reportOne = reportService.getReportOne(reportNo);
 		// 디버깅
-		log.debug(TeamColor.PSY + "<-- lecureSubjectList" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportOne + "<-- reportOne" + TeamColor.TEXT_RESET);
 
 		// 모델단에 reportOne을 addAttribute해서 폼으로 전달
 		model.addAttribute("reportOne", reportOne);
@@ -140,19 +146,20 @@ public class ReportController {
 
 	// 나라 수정 Action
 	@PostMapping("/modifyReport")
-	public String modifyList(Model model, @RequestParam("reportTitle") String reportTitle,
-			@RequestParam("reportContent") String reportContent,
+	public String modifyList(Model model, @RequestParam("reportNo") int reportNo,
+			@RequestParam("reportTitle") String reportTitle, @RequestParam("reportContent") String reportContent,
 			@RequestParam("reportStartDate") String reportStartDate,
 			@RequestParam("reportEndDate") String reportEndDate) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@modifyReport Controller" + TeamColor.TEXT_RESET);
 
 		// 받아온 값 paramReport에 셋팅
 		Report paramReport = new Report();
+		paramReport.setReportNo(reportNo);
+		paramReport.setReportTitle(reportTitle);
 		paramReport.setReportContent(reportContent);
 		paramReport.setReportEndDate(reportEndDate);
 		paramReport.setReportStartDate(reportStartDate);
-		paramReport.setReportTitle(reportTitle);
 		// 셋팅값 디버깅
 		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
 
@@ -169,7 +176,7 @@ public class ReportController {
 	@GetMapping("/removeReport")
 	public String removeReport(@RequestParam("reportNo") int reportNo) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@removeReport Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
 

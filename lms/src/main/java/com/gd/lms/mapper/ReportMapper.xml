@@ -31,6 +31,12 @@
 	</select>
 	<!-- report 전체 과제 수를 추출하는 메소드 -->
 
+	<!-- lectureSubject의 subjectName 가져오기 -->
+	<select id="selectLectureSubjectName" resultType="List">
+		SELECT subject_name subjectName FROM lecture_subject;
+	</select>
+	<!-- lectureSubject의 subjectName 가져오기 -->
+
 	<!-- 과제 출제하는 메소드 -->
 	<insert id="insertReport" parameterType="com.gd.lms.vo.Report">
 		INSERT INTO
@@ -46,11 +52,14 @@
 	<!-- 출제한 과제 수정하는 폼 -->
 	<select id="selectReportOne" resultType="com.gd.lms.vo.Report"
 		parameterType="int">
-		SELECT subject_name subjectName, report_title reportTitle,
+		SELECT report_no reportNo, subject_name subjectName,
+		report_title reportTitle,
 		report_content reportContent,
-		report_start_date reportStartDate, report_end_date reportEndDate, update_date
+		report_start_date reportStartDate, report_end_date reportEndDate,
+		update_date
 		updateDate, create_date createDate
-		FROM report WHERE report_no = #{reportNo};
+		FROM report WHERE
+		report_no = #{reportNo};
 	</select>
 	<!-- 출제한 과제 수정하는 폼 -->
 
@@ -58,7 +67,8 @@
 	<update id="updateReport" parameterType="com.gd.lms.vo.Report">
 		UPDATE report SET
 		report_title = #{reportTitle}, report_content = #{reportContent},
-		report_start_date  = #{reportStartDate}, report_end_date = #{reportEndDate}, update_date = now()
+		report_start_date = #{reportStartDate}, report_end_date =
+		#{reportEndDate}, update_date = now()
 		WHERE report_no = #{reportNo}
 	</update>
 	<!-- 출제한 과제 수정하는 액션 -->

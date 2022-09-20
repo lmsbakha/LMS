@@ -7,4 +7,10 @@
 		FROM lecture_subject 
 		WHERE lecture_name=#{lectureName}
 	</select>
+	
+	<select id="selectsubjectNameList" resultType="com.gd.lms.vo.LectureSubject">
+		SELECT
+			subject_name subjectName
+		FROM lecture_subject
+	</select>
 </mapper>
