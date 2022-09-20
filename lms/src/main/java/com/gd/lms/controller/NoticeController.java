@@ -95,6 +95,7 @@ public class NoticeController {
 	}
 	
 	// 공지사항 상세보기
+	
 	@GetMapping("/noticeOne/{noticeNo}")
 	public String NoticeOne(Model model, @PathVariable(name="noticeNo") int noticeNo) {
 		noticeService.updateNoticeCount(noticeNo);
@@ -107,6 +108,25 @@ public class NoticeController {
 		
 		return ("/noticeOne");
 	}
+	/*
+	
+	 @GetMapping("/noticeOne/")
+	 public String noticeOne(Model model, @RequestParam(value="noticeNo") int noticeNo) {
+		 
+		 log.debug(TeamColor.debuging + " noticeNo: " + noticeNo +TeamColor.LHN + TeamColor.TEXT_RESET);
+		 
+		 noticeService.updateNoticeCount(noticeNo); 
+		 Notice notice = noticeService.showNoticeOne(noticeNo);
+		 			
+		 model.addAttribute("notice",notice); 
+		 log.debug(TeamColor.debuging + " notice: " + notice +TeamColor.LHN + TeamColor.TEXT_RESET);
+		 
+		 return "/noticeOne/"; 
+	 
+	 }
+	*/
+	
+	
 	
 	// 공지글 수정
 	

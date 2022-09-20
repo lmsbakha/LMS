@@ -127,10 +127,10 @@
                                     </tr>
                                     <c:forEach var="notice" items="${noticeList}">
                                     <tr>
-                                    	<td>${notice.noticeNo}</td>
+                                    	<td><a href="${pageContext.request.contextPath}/noticeOne/${notice.noticeNo}">${notice.noticeNo}</a></td>
                                     	<td>${notice.accountId}</td>
-                                    	<td>${notice.noticeTitle}</td>
-                                    	<td>${notice.noticeContent}</td>
+                                    	<td><a href="${pageContext.request.contextPath}/noticeOne/${notice.noticeNo}">${notice.noticeTitle}</a></td>
+                                    	<td><a href="${pageContext.request.contextPath}/noticeOne/${notice.noticeNo}">${notice.noticeContent}</a></td>
                                     	<td>${notice.noticeCount}</td>
                                     	<td>${notice.createDate}</td>
                                     	<td>${notice.updateDate}</td>
