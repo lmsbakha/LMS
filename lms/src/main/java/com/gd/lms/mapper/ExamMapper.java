@@ -1,5 +1,8 @@
 package com.gd.lms.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.Exam;
@@ -12,4 +15,9 @@ public interface ExamMapper {
 	 * 리턴값: 추가 여부 int 
 	 */
 	int insertExam(Exam paramExam);
+	
+	// 선택된 lecture의 examList를 받아오는 메소드
+	// 파라미터 : lectureName
+	// 리턴값 : List<Map<String, Object>>
+	List<Map<String, Object>> selectExamListByLecture(String lectureName);
 }

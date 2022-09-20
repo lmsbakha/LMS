@@ -27,6 +27,7 @@ import com.gd.lms.service.ShortanswerQuestionService;
 import com.gd.lms.service.SubjectService;
 import com.gd.lms.service.TeacherService;
 import com.gd.lms.vo.Exam;
+import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Subject;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ExamController {
 	// MultiplechoiceService 객체 주입
-	@Autowired 
+	@Autowired
 	private MultiplechoiceService multiplechoiceService;
 
 	// LectureService 객체 주입
@@ -60,26 +61,59 @@ public class ExamController {
 	@Autowired
 	private ExamService examService;
 
+	//LectureService 객체 주입
+	@Autowired
+	private LectureService lectureService;
+
 	/*
-	 * [강사전용] 시험 메인페이지로 이동하는 메소드
-	 * 파라미터 : 시험 출제했던 이전 리스트 
-	 * 리턴값 : exam.jsp
-	 * */
+	 * [강사전용] 시험 메인페이지로 이동하는 메소드 
+	 * 파라미터 : sessionId
+	 * Model 리턴값 : lectureListByTeacher
+	 * exam.jsp
+	 */
 	@GetMapping("/exam")
-	String exam() {
-		return "exam";
+	String exam(HttpSession session, Model model) {
+		// 세션에 저장된 값을 지역변수로 저장
+		String accountId = (String) session.getAttribute("sessionId");
+		// 디버깅
+		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+
+		//LectureService에서 lectureList가져오기
+		List<Lecture> lectureListByTeacher = lectureService.getLectureListByAccoutId(accountId);
+		// model 단에 값 저장해서 보내줌
+		model.addAttribute("lectureListByTeacher", lectureListByTeacher);
+
+		return "exam"; // forwarding으로 보내줌
 	}
-	
+
 	/*
-	 * [강사전용] 문제은행 페이지를 보여주는 메소드
-	 * 파라미터 : 객관식 문제/단답형 문제를 담은 List를 view로 전송할 Model, 검색어 subjectName
+	 * [강사전용] 시험 메인페이지로 이동하는 메소드 
+	 * 파라미터 : 사용자가 선택한 lectureName 
+	 * 리턴값 : lecture에서 출제된 시험리스트
+	 */
+	@PostMapping("/lectureListByTeacher")
+	String lectureListByTeacher(RedirectAttributes redirectAttributes, @RequestParam(value = "lectureName") String lectureName) {
+		// 디버깅
+		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
+
+		// ExamList 가져오기
+		List<Map<String, Object>> examListByLecture = examService.getExamListByLecture(lectureName);
+		// model 단에 값 저장해서 보내줌
+		redirectAttributes.addFlashAttribute("examListByLecture", examListByLecture);
+
+		return "redirect:/exam"; 
+	}
+
+	/*
+	 * [강사전용] 문제은행 페이지를 보여주는 메소드 
+	 * 파라미터 : 객관식 문제/단답형 문제를 담은 List를 view로 전송할 Model, 검색어 subjectName 
 	 * 리턴값: 객관식,단답형 문제 리스트를 보여줄 문제 은행 view --> questionBank.jsp로 이동
 	 */
 	@GetMapping("/questionBank")
 	String examList(Model model, @RequestParam(value = "subjectName", required = false) String subjectName) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + subjectName + "<-- subjectName" + TeamColor.TEXT_RESET);
-		
+
 		// 단답형 문제와 객관식 문제들이 들어 있는 문제 리스트 객체 생성
 		List<Map<String, Object>> examList = new ArrayList<>();
 		// 객관식 문제 리스트 가져오기
@@ -87,16 +121,16 @@ public class ExamController {
 		examList.addAll(multichoiceList);
 		// 단답형 문제 리스트를 가져오기
 		log.debug(TeamColor.PSJ + examList + "<-- examList" + TeamColor.TEXT_RESET);
-		
+
 		// 모델 단으로 전송하기
 		model.addAttribute("examList", examList);
 		return "questionBank";
 	}
-	
+
 	/*
-	 * [강사전용] 시험을 출제하는 페이지를 보여주는 메소드
-	 * 파라미터 : List<Map<String, Object>를 담아둘 Model
-	 * 리턴값: 시험문제를 출제하기 위한 form인 addExam.jsp로 이동
+	 * [강사전용] 시험을 출제하는 페이지를 보여주는 메소드 
+	 * 파라미터 : List<Map<String, Object>를 담아둘 Model 
+	 * 리턴값:시험문제를 출제하기 위한 form인 addExam.jsp로 이동
 	 */
 	@GetMapping("/addExam")
 	String addExam(HttpSession session, Model model) {
@@ -126,9 +160,14 @@ public class ExamController {
 	 * 리턴 값 : addExam으로 이동하고 alertMsg로 성공 실패 여부 보내주기
 	 */
 	@PostMapping("/addExam")
-	String addExam(RedirectAttributes redirectAttributes, @RequestParam(value = "subjectName") String subjectName, @RequestParam(value = "examTitle") String examTitle, @RequestParam(value = "examContent") String examContent,
-			@RequestParam(value = "multipleCnt") int multipleCnt, @RequestParam(value = "shortAnswerCnt") int shortAnswerCnt, @RequestParam(value = "examStartDate") String examStartDate,
-			@RequestParam(value = "examEndDate") String examEndDate) {
+	String addExam(RedirectAttributes redirectAttributes
+			, @RequestParam(value = "subjectName") String subjectName
+			, @RequestParam(value = "examTitle") String examTitle
+			, @RequestParam(value = "examContent") String examContent
+			, @RequestParam(value = "multipleCnt") int multipleCnt
+			, @RequestParam(value = "shortAnswerCnt") int shortAnswerCnt
+			, @RequestParam(value = "examStartDate") String examStartDate
+			, @RequestParam(value = "examEndDate") String examEndDate) {
 		// 파라미터를 Map 객체 생성 후 셋팅
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("subjectName", subjectName);
@@ -168,13 +207,12 @@ public class ExamController {
 	}
 
 	/*
-	 * [강사전용] MultiplechoiceService에서 객관식 문제를 추가한 후 객관식 보기 추가 파라미터 : Map<String,
-	 * Object>에 파라미터 담아서 서비스로 전송 리턴값 : 문제 추가 유무를 알리는 msg, 문제 제출 폼
-	 * addQuestionInBank.jsp으로 이동
+	 * [강사전용] MultiplechoiceService에서 객관식 문제를 추가한 후 객관식 보기 추가 
+	 * 파라미터 : Map<String,Object>에 파라미터 담아서 서비스로 전송 
+	 * 리턴값 : 문제 추가 유무를 알리는 msg, 문제 제출 폼 addQuestionInBank.jsp으로 이동
 	 * 
-	 * model 대신 RedirectAttributes 사용 --> redirect로 할거여서 model단에 알람메시지를
-	 * addAttribute하면 전달이 안되기 때문에 addFlashAttribute --> 1회성으로 메세지를 보여주면 되기 때문에
-	 * addAttribute을 사용하지 않고 addFlashAttribute 사용함
+	 * model 대신 RedirectAttributes 사용 --> redirect로 할거여서 model단에 알람메시지를 addAttribute하면 전달이 안되기 때문에
+	 * addFlashAttribute --> 1회성으로 메세지를 보여주면 되기 때문에 addAttribute을 사용하지 않고 addFlashAttribute 사용함
 	 */
 	@PostMapping("/addMultipleChoice")
 	String addExam(RedirectAttributes redirectAttributes, @RequestParam(value = "subjectName") String subjectName, @RequestParam(value = "questionTitle") String questionTitle, @RequestParam(value = "questionAnswer") String questionAnswer,

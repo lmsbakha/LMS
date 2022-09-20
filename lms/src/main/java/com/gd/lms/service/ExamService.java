@@ -33,6 +33,21 @@ public class ExamService {
 	@Autowired
 	private ExamQuestionMapper examQuestionMapper;
 
+	// lecture에 출제된 ExamList
+	// 파라미터 : lectureName
+	// 리턴값 : List<Map<String, Object>>
+	public List<Map<String, Object>> getExamListByLecture(String lectureName) {
+		//파라미터 디버깅
+		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
+
+		// ExamMapper에서 examList 가져오기
+		List<Map<String, Object>> examListByLecture = examMapper.selectExamListByLecture(lectureName);
+		// 디버깅
+		log.debug(TeamColor.PSJ + examListByLecture + "<-- examListByLecture" + TeamColor.TEXT_RESET);
+		
+		return examListByLecture;
+	}
+
 	/*
 	 * 시험을 출제하는 메소드 파라미터 : subjectName,
 	 * examTitle,examContent,multipleCnt,shortAnswerCnt,examStartDate,examEndDate
@@ -69,7 +84,7 @@ public class ExamService {
 		Map<String, Object> paramRandom = new HashMap<>();
 		paramRandom.put("subjectName", paramMap.get("subjectName"));
 		paramRandom.put("multipleCnt", paramMap.get("multipleCnt"));
-		
+
 		List<Map<String, Object>> multiplechoiceExamList = multiplechoiceMapper.selectMultiplechoiceListByRandom(paramRandom);
 		// 디버깅
 		log.debug(TeamColor.PSJ + multiplechoiceExamList + "<-- multiplechoiceExamList" + TeamColor.TEXT_RESET);

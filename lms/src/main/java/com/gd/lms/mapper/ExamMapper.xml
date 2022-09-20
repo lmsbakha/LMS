@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.ExamMapper">
+	<!-- 시험 추가하기 -->
 	<insert id="insertExam" parameterType="com.gd.lms.vo.Exam">
 		INSERT INTO exam 
 		(subject_name
@@ -22,4 +23,19 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+	
+	<!-- 선택된 lecture의 시험 리스트 가져오기 -->
+	<select id="selectExamListByLecture" parameterType="String" resultType="Map">
+		SELECT 
+			e.exam_no examNo
+			, ls.lecture_name lectureName
+			, e.subject_name subjectName
+			, e.exam_title examTitle
+			, e.exam_start_date examStartDate
+			, e.exam_end_date examEndDate
+		FROM exam e
+		INNER JOIN lecture_subject ls
+		USING(subject_name)
+		WHERE ls.lecture_name=#{lectureName}
+	</select>
 </mapper>
