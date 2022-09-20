@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ReportService;
+import com.gd.lms.service.TeacherService;
 import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
 
@@ -24,6 +27,10 @@ public class ReportController {
 	// ReportService 객체 주입
 	@Autowired
 	ReportService reportService;
+	
+	// TeacherService 객체 주입
+	@Autowired
+	TeacherService teacherService;
 
 	// ROW_PER_PAGE의 개수가 변하지 않도록 상수로 선언
 	private final int ROW_PER_PAGE = 10;
@@ -69,25 +76,36 @@ public class ReportController {
 	} // end reportdList @GetMapping
 
 	// 과제 출제하는 메소드
-	// addReport 폼
+	// addReport Form
 	// 파라미터 : List<LectureSubject>를 담아둘 Model
 	// 리턴값: 과제를 출제하기 위한 form인 addReport.jsp로 이동
 	@GetMapping("/addReport")
-	String addReport(Model model) {
+	String addReport(Model model, HttpSession session) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
 
+		String accountId = (String) session.getAttribute("sessionId");
+		// 로그인한 강사의 아이디 확인
+		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+
+		// 로그인한 아이디의 강사 정보 받아오기
+		Map<String, Object> infoAboutTeacher = teacherService.getInfoAboutTeacher(accountId);
+		// 디버깅
+		log.debug(TeamColor.PSY + infoAboutTeacher + "<-- infoAboutTeacher" + TeamColor.TEXT_RESET);
+		
 		// lectureSubject 리스트 model값으로 보내기
 		List<LectureSubject> subjectNameList = reportService.getlectureSubject();
 		// 디버깅
 		log.debug(TeamColor.PSY + subjectNameList + "<-- subjectNameList" + TeamColor.TEXT_RESET);
 		
-		// 모델단에 전체과목리스트를 addAttribute해서 폼으로 전달
+		// 모델단에 전체과목리스트와 과목과정 기간을 addAttribute해서 폼으로 전달
 		model.addAttribute("subjectNameList", subjectNameList);
+		model.addAttribute("infoAboutTeacher", infoAboutTeacher);
+		
 		return "addReport";
 	} // end addReport
 
-	// addReport 액션
+	// addReport Action
 	// 파라미터 : Report
 	// 리턴값 : reportList.jsp로 이동
 	@PostMapping("/addReport")
@@ -123,7 +141,7 @@ public class ReportController {
 	} // end addReport @PostMapping
 
 	// 출제한 과제 수정하는 메소드
-	// modifyReport 폼
+	// modifyReport form
 	// 파라미터 : Report 담아둘 Model , reportNo
 	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동
 	@GetMapping("/modifyReport")
@@ -133,7 +151,7 @@ public class ReportController {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
 
-		// reportOne 리스트 model값으로 보내기
+		// reportOne 리스트 model값으로 보내기 Service Call
 		Report reportOne = reportService.getReportOne(reportNo);
 		// 디버깅
 		log.debug(TeamColor.PSY + reportOne + "<-- reportOne" + TeamColor.TEXT_RESET);
@@ -144,9 +162,11 @@ public class ReportController {
 		return "modifyReport";
 	} // end modifyReport @GetMapping
 
-	// 나라 수정 Action
+	// modifyReport Action
+	// 파라미터 : Report 담아둘 Model , 받아온 Report
+	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동
 	@PostMapping("/modifyReport")
-	public String modifyList(Model model, @RequestParam("reportNo") int reportNo,
+	public String modifyReport(Model model, @RequestParam("reportNo") int reportNo,
 			@RequestParam("reportTitle") String reportTitle, @RequestParam("reportContent") String reportContent,
 			@RequestParam("reportStartDate") String reportStartDate,
 			@RequestParam("reportEndDate") String reportEndDate) {
@@ -162,13 +182,21 @@ public class ReportController {
 		paramReport.setReportStartDate(reportStartDate);
 		// 셋팅값 디버깅
 		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
-
+		
+		// 과제 수정 service call
 		int modifyReport = reportService.modifyReport(paramReport);
 		// 디버깅
 		System.out.println("modifyReport");
-
+		if (modifyReport != 0) {
+			// 성공
+			log.debug(TeamColor.PSY + " 과제 수정 성공" + TeamColor.TEXT_RESET);
+		} else {
+			// 실패
+			log.debug(TeamColor.PSY + " 과제 수정 실패" + TeamColor.TEXT_RESET);
+		}
+		// reportList로 리다이렉트
 		return "redirect:/reportList";
-	}
+	} // end modifyReport @PostMapping
 
 	// 행정용 출제한 과제 삭제하는 메소드
 	// 파라미터 : reportNo
@@ -179,7 +207,8 @@ public class ReportController {
 		log.debug(TeamColor.PSY + "\n\n@removeReport Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
-
+		
+		// 과제 삭제 service call
 		int removeReport = reportService.removeReport(reportNo);
 		// 파라미터
 		log.debug(TeamColor.PSY + removeReport + "<-- removeReport" + TeamColor.TEXT_RESET);

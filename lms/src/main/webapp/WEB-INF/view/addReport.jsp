@@ -141,12 +141,16 @@
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 										<label for="reportStartDate">reportStartDate</label> <input
 											name="reportStartDate" id="reportStartDate" type="date"
-											class="form-control" >
+											class="form-control"
+											min="${infoAboutTeacher.lectureStartDate}"
+											max="${infoAboutTeacher.lectureEndDate}" required="required">
 									</div>
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 										<label for="reportEndDate">reportEndDate</label> <input
 											name="reportEndDate" id="reportEndDate" type="date"
-											class="form-control">
+											class="form-control"
+											min="${infoAboutTeacher.lectureStartDate }"
+											max="${infoAboutTeacher.lectureEndDate }" required="required">
 									</div>
 								</div>
 								<!-- row -->
@@ -221,5 +225,16 @@
 		============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
-
+<!-- reportStartDate 달력의 value값 현재 날짜로 적용 -->
+<script>
+	document.getElementById('reportStartDate').value = new Date().toISOString()
+			.substring(0, 10);
+	;
+</script>
+<!-- reportEndDate 달력의 value값 현재 날짜로 적용 -->
+<script>
+	document.getElementById('reportEndDate').value = new Date().toISOString()
+			.substring(0, 10);
+	;
+</script>
 </html>
