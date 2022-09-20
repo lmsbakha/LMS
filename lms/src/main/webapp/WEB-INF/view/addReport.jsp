@@ -114,12 +114,18 @@
 							<h4>Add Report</h4>
 							<hr>
 							<div class="form-group">
-								<label for="subjectName">subjectName</label> <select
-									class="form-control">
-									<c:forEach var="subject" items="${subjectNameList}">
-										<option value="${subject.subjectName}">${subject.subjectName}</option>
-									</c:forEach>
-								</select>
+								<div class="row">
+									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+										<label for="subjectName">subjectName</label> <select
+											class="form-control custom-select-value" name="subjectName"
+											id="subjectName" required="required">
+											<option value="defalut">::::::::: 과목선택 :::::::::</option>
+											<c:forEach var="subject" items="${subjectNameList}">
+												<option value="${subject.subjectName}">${subject.subjectName}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
 							</div>
 							<div class="form-group">
 								<label for="reportTitle">reportTitle</label> <input
@@ -135,7 +141,7 @@
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 										<label for="reportStartDate">reportStartDate</label> <input
 											name="reportStartDate" id="reportStartDate" type="date"
-											class="form-control">
+											class="form-control" >
 									</div>
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 										<label for="reportEndDate">reportEndDate</label> <input

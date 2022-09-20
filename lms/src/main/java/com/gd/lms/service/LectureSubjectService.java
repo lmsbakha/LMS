@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LectureSubjectMapper;
 import com.gd.lms.mapper.TeacherMapper;
+import com.gd.lms.vo.LectureSubject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,8 +21,6 @@ public class LectureSubjectService {
 	// LectureSubjectMapper 객체 주입
 	@Autowired
 	private LectureSubjectMapper lectureSubjectMapper;
-	
-
 
 	// 강사가 강의하는 lecture 리스트 가져오기 위한 메소드
 	// 파라미터 : 로그인한 강사 아이디(accountId)
@@ -36,5 +35,13 @@ public class LectureSubjectService {
 		log.debug(TeamColor.PSJ + lectureSubjectList + "<-- lectureSubjectList" + TeamColor.TEXT_RESET);
 
 		return lectureSubjectList;
+	}
+
+	// addReport에 필요한 subjecteName 가져오기
+	// 파라미터 : X
+	// 리턴값 : LectureSubject
+	public List<LectureSubject> getSubjectNameList(){
+		
+		return lectureSubjectMapper.selectLectureSubjectName();
 	}
 }

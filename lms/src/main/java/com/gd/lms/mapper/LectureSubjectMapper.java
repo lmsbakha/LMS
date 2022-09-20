@@ -13,5 +13,8 @@ public interface LectureSubjectMapper {
 	// 리턴값 : 강의 리스트(Map<String, Object>)
 	List<Map<String, Object>> selectLectureSubjectList(String lectureName);
 	
-	List<LectureSubject>selectsubjectNameList();
+	// addReport에 필요한 subjecteName, lectureStartDate , lectureEndDate 가져오기 
+	// 파라미터 : X
+	// 리턴값 : 강의 정보 (List<LectureSubject>)
+	List<LectureSubject>selectLectureSubjectName();
 }

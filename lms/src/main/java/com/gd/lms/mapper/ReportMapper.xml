@@ -59,7 +59,7 @@
 		update_date
 		updateDate, create_date createDate
 		FROM report WHERE
-		report_no = #{reportNo};
+		report_no = #{reportNo}
 	</select>
 	<!-- 출제한 과제 수정하는 폼 -->
 

@@ -2,15 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.LectureSubjectMapper">
 	<!-- lecture와 관련된 subject 가져오기 -->
-	<select id="selectLectureSubjectList" parameterType="String" resultType="Map">
+	<select id="selectLectureSubjectList" parameterType="String"
+		resultType="Map">
 		SELECT subject_name subjectName
-		FROM lecture_subject 
-		WHERE lecture_name=#{lectureName}
+		FROM lecture_subject
+		WHERE
+		lecture_name=#{lectureName}
 	</select>
-	
-	<select id="selectsubjectNameList" resultType="com.gd.lms.vo.LectureSubject">
+
+	<!-- addReport에 필요한 subjecteName 가져오기 -->
+	<select id="selectLectureSubjectName"
+		resultType="com.gd.lms.vo.LectureSubject">
 		SELECT
-			subject_name subjectName
+		subject_name subjectName
 		FROM lecture_subject
 	</select>
+	<!-- addReport에 필요한 subjecteName 가져오기 -->
 </mapper>

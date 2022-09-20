@@ -1,6 +1,5 @@
 package com.gd.lms.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,21 +60,22 @@ public class ReportService {
 		// 디버깅
 		log.debug(TeamColor.PSY + reportList.toString() + "<-- reportList" + TeamColor.TEXT_RESET);
 
-		// 마지막 페이지 변수
-		int lastPage = 0;
 		// 총 과제 수
 		int totalCount = reportMapper.selectReportTotalCount();
 		// 디버깅
 		log.debug(TeamColor.PSY + totalCount + "<-- totalCount" + TeamColor.TEXT_RESET);
+		
 		// 마지막 페이지 구하기
-		lastPage = totalCount / rowPerPage;
+		int lastPage = totalCount / rowPerPage;
 		// 디버깅
 		log.debug(TeamColor.PSY + lastPage + "<-- lastPage" + TeamColor.TEXT_RESET);
+		
 		// rowPerPage = 한 페이지당 보여질 과제 개수
 		// rowPerPage로 나눠 떨어지지 않는다면 마지막 페이지에 +1
 		if (totalCount % rowPerPage != 0) {
 			lastPage += 1;
 		}
+		
 		// list에 값 넣어주기
 		returnMap.put("reportList", reportList);
 		returnMap.put("lastPage", lastPage);
@@ -86,29 +86,14 @@ public class ReportService {
 		return reportList;
 	} // end getReportList
 
-	/*
-	 * // 강사 가르치는 과목 리스트 조회하는 메서드 // 파라미터 : X // 리턴값 : lecureSubjectList
-	 * List<LectureSubject> getLectureSubjectList(){ // 디버깅 영역구분
-	 * log.debug(TeamColor.PSY + "\n\n@getLectureSubjectList Service" +
-	 * TeamColor.TEXT_RESET);
-	 * 
-	 * // 리턴값 받아올 객체 생성 List<LectureSubject> lecureSubjectList = new ArrayList<>();
-	 * 
-	 * // 강사가 가르치는 과목 리스트 조회하기 lecureSubjectList = lectureSubjectMapper.
-	 * 
-	 */
-
-	// lectureSubject의 subjectName 가져오기
+	// addReport에 필요한 subjecteName, lectureStartDate , lectureEndDate 가져오기
 	// 파라미터 : X
 	// 리턴값 : List<LectureSubject>
-	public List<LectureSubject> getlectureSubject() {
+	public  List<LectureSubject>getlectureSubject() {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@getlectureSubject Service" + TeamColor.TEXT_RESET);
-		// 리턴값 받아올 객체 생성
-		List<LectureSubject> lecureSubjectList = new ArrayList<>();
-
 		// Mapper call
-		lecureSubjectList = lectureSubjectMapper.selectsubjectNameList();
+		 List<LectureSubject> lecureSubjectList = lectureSubjectMapper.selectLectureSubjectName();
 		// Mapper에서 받아온 account 값 디버깅
 		log.debug(TeamColor.PSY + lecureSubjectList + "<-- lecureSubjectList" + TeamColor.TEXT_RESET);
 		
@@ -121,14 +106,11 @@ public class ReportService {
 	public int addReport(Report report) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReport Service" + TeamColor.TEXT_RESET);
-
-		// 리턴값 받아올 변수
-		int addReport = 0;
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + report + "<-- paramReport" + TeamColor.TEXT_RESET);
 
 		// Mapper call
-		addReport = reportMapper.insertReport(report);
+		int addReport = reportMapper.insertReport(report);
 		// Mapper에서 받아온 account 값 디버깅
 		log.debug(TeamColor.PSY + addReport + "<-- addReport" + TeamColor.TEXT_RESET);
 
@@ -141,14 +123,11 @@ public class ReportService {
 	public Report getReportOne(int reportNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@getReportOne Service" + TeamColor.TEXT_RESET);
-
-		// 리턴값 받아올 변수
-		Report getReportOne = null;
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
 
 		// Mapper call
-		getReportOne = reportMapper.selectReportOne(reportNo);
+		Report  getReportOne = reportMapper.selectReportOne(reportNo);
 		// Mapper에서 받아온 account 값 디버깅
 		log.debug(TeamColor.PSY + getReportOne + "<-- getReportOne" + TeamColor.TEXT_RESET);
 
@@ -161,14 +140,11 @@ public class ReportService {
 	public int modifyReport(Report paramReport) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@modifyReport Service" + TeamColor.TEXT_RESET);
-
-		// 리턴값 받아올 변수
-		int modifyReport = 0;
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
 
 		// Mapper call
-		modifyReport = reportMapper.updateReport(paramReport);
+		int modifyReport = reportMapper.updateReport(paramReport);
 		// Mapper에서 받아온 account 값 디버깅
 		log.debug(TeamColor.PSY + modifyReport + "<-- addReport" + TeamColor.TEXT_RESET);
 
@@ -181,12 +157,11 @@ public class ReportService {
 	public int removeReport(int paramReportNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@removeReport Service" + TeamColor.TEXT_RESET);
-		// 리턴값 받아올 변수
-		int removeReport = 0;
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + paramReportNo + "<-- paramReportNo" + TeamColor.TEXT_RESET);
+		
 		// Mapper call
-		removeReport = reportMapper.deleteReport(paramReportNo);
+		int removeReport = reportMapper.deleteReport(paramReportNo);
 		// Mapper에서 받아온 account 값 디버깅
 		log.debug(TeamColor.PSY + removeReport + "<-- deleteReport" + TeamColor.TEXT_RESET);
 
