@@ -109,7 +109,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-status-wrap">
-                            <h4>Library List</h4>
+                            <h4>Notice List</h4>
                             <div class="add-product">
                                 <a href="/lms/addNotice">글쓰기</a>
                             </div>
@@ -117,7 +117,7 @@
                                 <table>
                                     <tr>
                                         <th>No</th>
-                                        <th>Id</th>
+                                        <!-- <th>Id</th> -->
                                         <th>Title</th>
                                         <th>Content</th>
                                         <th>Counts</th>
@@ -128,14 +128,14 @@
                                     <c:forEach var="notice" items="${noticeList}">
                                     <tr>
                                     	<td><a href="${pageContext.request.contextPath}/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeNo}</a></td>
-                                    	<td>${notice.accountId}</td>
+                                    	<!-- <td>${notice.accountId}</td> -->
                                     	<td><a href="${pageContext.request.contextPath}/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
                                     	<td><a href="${pageContext.request.contextPath}/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeContent}</a></td>
                                     	<td>${notice.noticeCount}</td>
                                     	<td>${notice.createDate}</td>
                                     	<td>${notice.updateDate}</td>
                                     	<td>
-                                    		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" a href="${pageContext.request.contextPath}/updateNoticeOne?noticeNo=${notice.noticeNo}">
+                                    		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" href="${pageContext.request.contextPath}/updateNoticeOne?noticeNo=${notice.noticeNo}">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
                                             <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" href="${pageContext.request.contextPath}/removeNotice?noticeNo=${notice.noticeNo}">
                                             <i class="fa fa-trash-o" aria-hidden="true" ></i></a>

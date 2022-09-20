@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.NoticeMapper;
 import com.gd.lms.vo.Notice;
+import com.gd.lms.vo.Report;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,11 +45,18 @@ public class NoticeService {
 		return noticeMapper.selectNoticeOne(noticeNo);
 	}
 	
-	// 공지사항 신규 작성
+	//공지사항 신규 작성 액션	
 	public int addNotice(Notice notice) {
 		// 디버깅
 		log.debug(TeamColor.LHN + " addNotice 실행" + TeamColor.TEXT_RESET);
-		return noticeMapper.insertNotice(notice);
+		int addNotice = 0;	// 리턴값
+		log.debug(TeamColor.LHN + "Notice: " + notice + TeamColor.TEXT_RESET);
+		// 매퍼 실행
+		addNotice = noticeMapper.insertNotice(notice);
+		
+		// 디버깅
+		log.debug(TeamColor.PSY + "addNotice: "+ addNotice  + TeamColor.TEXT_RESET);
+		return addNotice;
 	}
 	
 	// 공지글 조회수 증가	
@@ -59,20 +67,19 @@ public class NoticeService {
 	}
 	
 	// 공지글 수정 폼
-	public Notice updateNoticeForm(int noticeNo) {
+	public Notice modifyNoticeForm(int noticeNo) {
 		log.debug(TeamColor.LHN + "updateNoticeForm 호출" + TeamColor.TEXT_RESET);
 		// 수정할 객체
-		Notice noticeOne = null;
+		Notice notice = null;
 		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo +  TeamColor.TEXT_RESET);
 		// 매퍼 적용
-		noticeOne = noticeMapper.updateNoticeForm(noticeNo);
-		log.debug(TeamColor.LHN+ "noticeOne: " +noticeOne + TeamColor.TEXT_RESET);
-
-		return noticeOne;
+		notice = noticeMapper.updateNoticeForm(noticeNo);
+		log.debug(TeamColor.LHN+ "notice : " +notice + TeamColor.TEXT_RESET);
+		return notice;
 	}
 	
 	// 공지글 수정 액션
-	public int updateNotice(Notice notice) {
+	public int modifyNotice(Notice notice) {
 		return noticeMapper.updateNotice(notice);
 	}
 

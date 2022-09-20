@@ -14,6 +14,7 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.NoticeFileService;
 import com.gd.lms.service.NoticeService;
 import com.gd.lms.vo.Notice;
+import com.gd.lms.vo.Report;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -76,23 +77,32 @@ public class NoticeController {
 	
 	// 공지글 작성 폼
 	@GetMapping("/addNotice")
-	public String addNoticeForm() {
+	public String addNoticeForm(Model model) {
 		return "addNotice";
 	}
 
 	// 공지글 작성 액션
-	@GetMapping("/addNoticeOne")
-	public String addNotice(Notice notice, @RequestParam(value = "notice") Notice newNotice) {
-		// service 리턴값
-		int row = noticeService.addNotice(notice);
-		// 디버깅
-		if (row != 0) { // 성공
-			log.debug(TeamColor.LHN + " add 성공" + TeamColor.TEXT_RESET);
-		} else { // 실패
-			log.debug(TeamColor.LHN + " add 실패" + TeamColor.TEXT_RESET);
+	@PostMapping("/addNotice")
+	String addReport(Model model, @RequestParam("noticeTitle") String noticeTitle,
+			@RequestParam("noticeContent") String noticeContent) {
+		log.debug(TeamColor.PSY + "게시글 작성" + TeamColor.TEXT_RESET);
+
+		// 입력 내용 notice 적용
+		Notice notice = new Notice();
+		notice.setNoticeTitle(noticeTitle);
+		notice.setNoticeContent(noticeContent);
+		
+		log.debug(TeamColor.LHN + "paramNotice" + notice +  TeamColor.TEXT_RESET);
+		int addNotice = noticeService.addNotice(notice);
+		if (addNotice != 0) {// 작성 성공
+			log.debug(TeamColor.LHN + "게시글 등록 성공" + TeamColor.TEXT_RESET);
+		} else {// 작성 실패
+			log.debug(TeamColor.LHN + "게시글 등록 실패" + TeamColor.TEXT_RESET);
 		}
+		
+		// 공지 리스트로
 		return "redirect:/noticeList";
-	}
+	} 
 	
 	// 공지사항 상세보기
 	
@@ -109,23 +119,36 @@ public class NoticeController {
 	
 	// 공지글 수정 폼
 	
-	@GetMapping("/updateNoticeOne") 
+	@GetMapping("/modifyNoticeForm") 
 	public String updateNoticeOne(Model model, @RequestParam("noticeNo") int noticeNo) {
 		log.debug(TeamColor.LHN + "공지글 수정 폼 " + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + noticeNo +  ": noticeNo " + TeamColor.TEXT_RESET);
 		// 객체 적용
-		Notice notice = noticeService.updateNoticeForm(noticeNo);
+		Notice notice = noticeService.modifyNoticeForm(noticeNo);
 		model.addAttribute("notice", notice); 
 		return "updateNoticeOne";
 		}
 	
-	@PostMapping("/notice/updateNoticeOne") 
-		public String updateNoticeOne(Notice notice) {
-		noticeService.updateNotice(notice);
+	
+	// 수정 액션
+	@PostMapping("/updateNotice")
+	public String modifyList(Model model, @RequestParam("noticeNo") int noticeNo,
+			@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContent") String noticeContent) {
+		
+		log.debug(TeamColor.LHN + "공지 수정 액션" + TeamColor.TEXT_RESET);
 
-		return "/updateNoticeOne";
-
-	 }
+		// 받아온 값 paramReport에 셋팅
+		Notice notice = new Notice();
+		notice.setNoticeNo(noticeNo);
+		notice.setNoticeTitle(noticeTitle);
+		notice.setNoticeContent(noticeContent);
+		
+		log.debug(TeamColor.LHN + "modifyNotice: " +notice +  TeamColor.TEXT_RESET);
+		int modifyNotice = noticeService.modifyNotice(notice);
+		// 디버깅
+		log.debug(TeamColor.LHN + "수정완료" + TeamColor.TEXT_RESET);
+		return "redirect:/noticeList";
+	}
 	
 	// 공지글 삭제 액션
 	@GetMapping("/removeNotice")
