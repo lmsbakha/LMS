@@ -1,5 +1,7 @@
 package com.gd.lms.service;
 
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,4 +68,71 @@ public class AccountService {
 		// member 테이블 insert
 		accountMapper.insertMember(paramMember);
 	}
+	
+	// 아이디 중복체크
+	public int accountIdCheck(String idck) {
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService accountIdCheck" +TeamColor.TEXT_RESET);
+		
+		// 해당 아이디 있는지 값 체크하고 일치한다면 Cnt 받아오기
+		int cnt = accountMapper.selectAccountIdCnt(idck);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService accountIdCheck cnt : " + cnt + TeamColor.TEXT_RESET);
+		
+		return cnt;
+		
+	}
+	
+	// 이메일 중복체크 - student
+	public int studentEmailCheck(String email) {
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService memberEmailCheck - student" +TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService memberEmailCheck email : "+ email +TeamColor.TEXT_RESET);
+		
+		// 해당 이메일 있는지 값 체크하고 일치한다면 Cnt 받아오기
+		int cnt = accountMapper.selectStudentEmailCnt(email);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService studentEmailCheck cnt : "+ cnt + TeamColor.TEXT_RESET);
+		
+		return cnt;
+	}
+	
+	// 이메일 중복체크 - teacher
+	public int teacherEmailCheck(String email) {
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService memberEmailCheck - teacher" +TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService memberEmailCheck email : "+ email +TeamColor.TEXT_RESET);
+		
+		// 해당 이메일 있는지 값 체크하고 일치한다면 Cnt 받아오기
+		int cnt = accountMapper.selectTeacherEmailCnt(email);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService teacherEmailCheck cnt : "+ cnt + TeamColor.TEXT_RESET);
+		
+		return cnt;
+	}
+	
+	// 이메일 중복체크 - manager
+	public int managerEmailCheck(String email) {
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService memberEmailCheck -manager" +TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService memberEmailCheck email : "+ email +TeamColor.TEXT_RESET);
+		
+		// 해당 이메일 있는지 값 체크하고 일치한다면 Cnt 받아오기
+		int cnt = accountMapper.selectManagerEmailCnt(email);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService managerEmailCheck cnt : "+ cnt + TeamColor.TEXT_RESET);
+		
+		return cnt;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
