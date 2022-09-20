@@ -263,7 +263,6 @@
 	<!-- tawk chat JS
       ============================================ -->
 	<script src="js/tawk-chat.js"></script>
-</body>
 <script>
 // 아이디 중복검사
 	$('#idckBtn').click(function() {
@@ -580,4 +579,5 @@
 				+ 'px';
 	}
 </script>
+</body>
 </html>

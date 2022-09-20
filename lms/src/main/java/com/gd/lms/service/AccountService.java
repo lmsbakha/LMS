@@ -31,6 +31,7 @@ public class AccountService {
 	
 	// 로그인에 사용되는 메서드
 	public Account getLogin(Account paramAccount) {
+		// 디버깅
 		log.debug(TeamColor.PCW + "AccountService getLogin paramAccount" +TeamColor.TEXT_RESET);
 		
 		// 로그인 정보 대입해서 맞다면 로그인 아이디와 해당 level, state 가지고오기

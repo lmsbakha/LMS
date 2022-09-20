@@ -50,20 +50,22 @@ public class LoginController {
 		}
 
 		String accountState = accountService.getAccountState(paramAccount);
-		log.debug(TeamColor.PSY + accountState + "dfasdfasgegasegsaeg" + TeamColor.TEXT_RESET);
+		// 디버깅
+		log.debug(TeamColor.PCW + accountState + "상태입니다" + TeamColor.TEXT_RESET);
 		if (!accountState.equals("활성화")) {
 			// 디버깅
 			log.debug(TeamColor.PCW + "계정이 활성화 되지 않았습니다." + TeamColor.TEXT_RESET);
 			model.addAttribute("accountState", accountState);
 			return "login";
-		}
-
+		} 
+		
 		session.setAttribute("sessionId", account.getAccountId());
 		session.setAttribute("sessionLevel", account.getAccountLevel());
 
 		return "redirect:/loginCheck/index";
 	}
-
+	
+	// 로그아웃
 	@GetMapping("/loginCheck/logout")
 	public String logout(HttpSession session) {
 

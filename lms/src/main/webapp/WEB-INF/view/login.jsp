@@ -83,9 +83,11 @@
                             <div class="form-group">
                                 <label class="control-label" for="accountPw">비밀번호</label>
                                 <input type="password" placeholder="Please enter your password" required="required" name="accountPw" id="accountPw" class="form-control">
+                          	    <input type="hidden" name="accountState" id="accountState" value="${accountState}">
                           	    <span class="help-block small">대문자, 소문자, 특수문자가 포함된 10자리 비밀번호</span>
-                            </div><br>
-                            <button  type="submit" class="btn btn-success btn-block loginbtn"><b>Login</b></button>
+                            </div>
+                            <br>
+                            <button  type="submit" class="btn btn-success btn-block loginbtn" onclick="doAction()"><b>Login</b></button>
                             <br>
 	                     </form>
 	                     <form method="get" action="${pageContext.request.contextPath}/register?memberCheck?${memberCheck}">
@@ -158,6 +160,14 @@
     <!-- tawk chat JS
 		============================================ -->
     <script src="js/tawk-chat.js"></script>
+    
+    <script>
+    function doAction() {
+   		if ($('#accountState').val() == '대기') {
+			alert('회원님의 계정이 승인 대기상태입니다.');
+		} 
+    }  
+ </script>
 </body>
 
 </html>
