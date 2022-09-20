@@ -104,11 +104,54 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<h4>시험</h4>
-						<div class="add-product">
-							<a href="${pageContext.request.contextPath}/addExam">시험출제</a>
-							<a href="${pageContext.request.contextPath}/examList">문제은행</a>
+						<h4>시험조회</h4>
+						<hr>
+						<div class="sparkline12-graph">
+							<div class="basic-login-form-ad">
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="all-form-element-inner">
+											<!-- 해당 lecture 조회 -->
+											<form action="${pageContext.request.contextPath}/getLectureList" method="post">
+												<div class="form-group-inner">
+													<div class="row">
+														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+															<label class="login2 pull-right pull-right-pro">Lecture 조회</label>
+														</div>
+														<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+															<div class="form-select-list">
+																<select class="form-control custom-select-value" name="lectureName" id="lectureName" required="required">
+																	<option value="defalut">-----과목선택-----</option>
+																	<c:forEach var="l" items="${lectureList}">
+																		<option value="${l.lectureName }">${l.lectureName }</option>
+																	</c:forEach>
+																</select>
+															</div>
+														</div>
+														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+															<button type="submit" class="btn btn-custon-rounded-two btn-primary">강좌선택</button>
+														</div>
+													</div>
+												</div>
+
+											</form>
+											<!-- /해당 lecture 조회 -->
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="product-status mg-b-15">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="product-status-wrap drp-lst">
+						<h4>시험</h4>
 						<!-- 문제 출제 하기 -->
 						<div class="asset-inner">
 							<table>
@@ -143,21 +186,6 @@
 								</c:forEach>
 							</table>
 						</div>
-						<%-- <div class="custom-pagination">
-							<nav aria-label="Page navigation example">
-								<ul class="pagination">
-									<c:if test="${currentPage > 1}">
-										<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage-1}">이전</a></li>
-									</c:if>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<c:if test="${currentPage < lastPage}">
-										<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage+1}">다음</a></li>
-									</c:if>
-								</ul>
-							</nav>
-						</div> --%>
 					</div>
 				</div>
 			</div>

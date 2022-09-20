@@ -4,9 +4,9 @@
 	<!-- 객관식 문제 추가 -->
 	<insert id="insertMultiplechoice" parameterType="com.gd.lms.vo.Multiplechoice">
 		INSERT INTO multiplechoice 
-		(subject_name, question_title, question_answer) 
+		(subject_name, question_title, question_answer, update_date, create_date) 
 		VALUES 
-		(#{subjectName}, #{questionTitle}, #{questionAnswer})
+		(#{subjectName}, #{questionTitle}, #{questionAnswer}, NOW(), NOW())
 		<selectKey resultType="int" keyProperty="questionNo" order="AFTER">
 			SELECT LAST_INSERT_ID()	
 		</selectKey>

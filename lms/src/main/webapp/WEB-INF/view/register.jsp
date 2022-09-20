@@ -93,21 +93,23 @@
 									<input type="text" class="form-control"  id="accountId" name="accountId">
 								</div>
 								<div class="form-group col-lg-12">
-									<label for="accountPw">비밀번호 (비밀번호는 8자 이상, 특수문자 포함해주셔야 합니다.)</label> 
+									<label for="accountPw">비밀번호</label><br>
+									<span>(비밀번호는 영어 대소문자, 숫자, 특수문자를 포함해 최소 8문자 입력해 주셔야 합니다.)</span> 
 									<input type="password" class="form-control" id="accountPw" name="accountPw">
-								</div>
-								<div class="form-group col-lg-12">
-									<label for="memberPw">비밀번호 확인</label> 
-									<input type="password" class="form-control" id="memberPwCk" name="memberPwCk">
 									<span id="passwordinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12">
-									<label for="emck">이메일</label> 
-									<input type="email" placeholder="email 입력해주세요" name="emck" id="emck" required="required"
+									<label for="accountPwCk">비밀번호 확인</label> 
+									<input type="password" class="form-control" id="accountPwCk" name="accountPwCk">
+									<span id="passwordckinfo"></span>
+								</div>
+								<div class="form-group col-lg-12">
+									<label for="email">이메일</label> 
+									<input type="email" placeholder="email 입력해주세요"  name="email" id="email" required="required"
 										class="form-control"> 
 									<span id="eminfo"></span>	
 									<br>
-									<button type="button" class="btn btn-success btn-block" id="emckBtn" style="margin-bottom: 5px;">
+									<button type="button" class="btn btn-success btn-block" id="emailBtn" style="margin-bottom: 5px;">
 										<b>이메일 중복검사</b>
 									</button>
 								</div>
@@ -150,7 +152,7 @@
 									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요" required="required" />
 									<span id="detailaddrinfo"></span>
 								</div>
-					            <!-- 학생만 accountLevel = 1 -->
+					            <!-- 학생만 memberCheck eq 'student' -->
 					            <c:if test="${memberCheck eq 'student'}">
 						            <div class="form-group col-lg-12">
 							            <label for="memberGraduate">학력</label>
@@ -176,6 +178,7 @@
 				                  		</select>
 						            </div>
 					            </c:if>
+					            <!-- 행정만 memberCheck eq 'manager' -->
 						        <c:if test="${memberCheck eq 'manager'}">
 						            <div class="form-group col-lg-12">
 							            <label for="memberDept">부서</label>
@@ -261,7 +264,7 @@
       ============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
-<!-- <script>
+<script>
 // 아이디 중복검사
 	$('#idckBtn').click(function() {
 		if ($('#idck').val().length < 4) {
@@ -289,16 +292,20 @@
 		}
 	});
 // 이메일 중복검사
-	$('#emckBtn').click(function() {
-		if ($('#emck').val().length < 10) {
+	var reg_email = /^[0-9a-zA-Z]+(.[_a-z0-9-]+)*@(?:\w+\.)+\w+$/;
+
+	$('#emailBtn').click(function() {
+		if ($('#email').val().length < 10) {
 			$('#eminfo').text('※ 이메일은 10자 이상 입력해주셔야합니다.');
-		} else {
+		}else if(!reg_email.test($("#email").val())) {
+ 			$('#eminfo').text('※ 이메일 형식이 아닙니다.');	
+ 		} else {
 			// 비동기 호출
 			$.ajax({
 				type :'get',
-				url : '${pageContext.request.contextPath}/emck',
+				url : '${pageContext.request.contextPath}/email',
 				data : {
-					emck : $('#emck').val()
+					email : $('#email').val(), memberCheck : $('#memberCheck').val()
 				},
 				success : function(em) {
 					console.log('em :', em);
@@ -307,7 +314,7 @@
 						$('#memberEmail').val('');
 					} else {
 						$('#eminfo').text('※ 사용 가능한 이메일 입니다.');
-						$('#emck').val(em);
+						$('#email').val(em);
 						$('#memberEmail').val(em);
 					}
 				}
@@ -315,119 +322,164 @@
 		}
 	});
 // 유효성 
-	$('#emck').blur(function() {
- 		if($('#emck').val()=='') {
- 			$('#memberEmail').val('');
- 			$('#eminfo').text('※ 이메일을 입력해주세요.');
- 		} else if($('#emck').val().indexOf('@') == -1 || $('#emck').val().indexOf('.') == -1) {
- 			$('#memberEmail').val('');
- 			$('#eminfo').text('※ 이메일 형식이 아닙니다.');	
- 		} else {
- 			$('#eminfo').text('');
- 		}
+	// 비밀번호 유효성
+	var reg_pass = /(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w]).{8,}/;
+	
+	$('#accountPw').blur(function() {
+		if ($('#accountPw').val() == '') {
+			$('#passwordinfo').text('※ 비밀번호를 입력해주세요.');
+		} else if (!reg_pass.test($("#accountPw").val())) {
+			$('#accountPw').val('');
+			$('#passwordinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해주세요.');
+		} else {
+			$('#passwordinfo').text('');
+		}
+	})
+	$('#accountPwCk').blur(function() {
+  		 if($('#accountPwCk').val()=='') {
+   			$('#passwordckinfo').text('※ 비밀번호 재확인을 위해 입력해주세요.');
+  		 } else if($('#accountPw').val() != $('#accountPwCk').val()) {
+   			$('#passwordckinfo').text('※ 비밀번호와 일치하지 않습니다.');
+  		 } else {
+  			$('#passwordckinfo').text('');
+  		 }
   	})
-  	
-  	$('#memberName').blur(function() {
-  		if($('#memberName').val()=='') {
-  			$('#nameinfo').text('※ 이름을 입력해주세요.');
-  		} else {
-  			$('#nameinfo').text('');
-  		}
-  	})
-  	
-  	
-  	$('#memberBirth').blur(function() {
-  		if($('#memberBirth').val()=='') {
-  			$('#birthinfo').text('※ 생년월일을 입력해주세요.');
-  		} else {
-  			$('#birthinfo').text('');
-  		}
-  	})
-  	
-  	$('#memberPhone').blur(function() {
-  		if($('#memberPhone').val()=='') {
-  			$('#phoneinfo').text('※ 전화번호를 입력해주세요.');
-  		} else {
-  			$('#phoneinfo').text('');
-  		}
-  	})
-  	
-  	
-  	$('#memberAddress').blur(function() {
-  		if($('#memberAddress').val()=='') {
-  			$('#addrinfo').text('※ 주소를 검색해주세요.');
-  		} else {
-  			$('#addrinfo').text('');
-  		}
-  	})
-  	
-  	$('#memberDetailAddress').blur(function() {
-  		if($('#memberDetailAddress').val()=='') {
-  			$('#detailaddrinfo').text('※ 상세 주소를 입력해주세요.');
-  		} else {
-  			$('#detailaddrinfo').text('');
-  		}
-  	})
-// 버튼 눌렀을때 유효성 검사
-  	$('#registerBtn').click(function() {
-  		if($('#idck').val()=='') {
-  			alert('아이디를 입력해주세요');
-  		} else if($('#accountId').val()=='') {
-  			alert('아이디 중복 검사를 해주세요');
-  		} else if($('#emck').val()==''){
-  			alert('이메일을 입력해주세요');
-  		} else if($('#memberEmail').val()=='') {
-  			alert('이메일 중복 검사를 해주세요');
-  		} else if($('#memberName').val()=='') {
-  			alert('이름을 입력해주세요');
-  		} else if($('#memberGender').val()=='default') {
-  			alert('성별을 선택해주세요');
-  		} else if($('#memberBirth').val() == '') {
-  			alert('생년월일을 입력해주세요');
-  		} else if($('#memberAddress').val()=='') {
-  			alert('주소를 검색해주세요');
-  		} else if($('#memberDetailAddress').val()=='') {
-  			alert('상세주소를 입력해주세요');
-  		}else if($('#memberGraduate').val()=='default') {
+
+	$('#email').blur(function() {
+		if ($('#email').val() == '') {
+			$('#memberEmail').val('');
+			$('#eminfo').text('※ 이메일을 입력해주세요.');
+		} else if (!reg_email.test($("#email").val())) {
+			$('#memberEmail').val('');
+			$('#eminfo').text('※ 이메일 형식이 아닙니다.');
+		} else {
+			$('#eminfo').text('');
+		}
+	})
+
+	$('#memberName').blur(function() {
+		if ($('#memberName').val() == '') {
+			$('#nameinfo').text('※ 이름을 입력해주세요.');
+		} else {
+			$('#nameinfo').text('');
+		}
+	})
+
+	$('#memberBirth').blur(function() {
+		if ($('#memberBirth').val() == '') {
+			$('#birthinfo').text('※ 생년월일을 입력해주세요.');
+		} else {
+			$('#birthinfo').text('');
+		}
+	})
+
+	$('#memberPhone').blur(function() {
+		if ($('#memberPhone').val() == '') {
+			$('#phoneinfo').text('※ 전화번호를 입력해주세요.');
+		} else {
+			$('#phoneinfo').text('');
+		}
+	})
+
+	$('#memberAddress').blur(function() {
+		if ($('#memberAddress').val() == '') {
+			$('#addrinfo').text('※ 주소를 검색해주세요.');
+		} else {
+			$('#addrinfo').text('');
+		}
+	})
+
+	$('#memberDetailAddress').blur(function() {
+		if ($('#memberDetailAddress').val() == '') {
+			$('#detailaddrinfo').text('※ 상세 주소를 입력해주세요.');
+		} else {
+			$('#detailaddrinfo').text('');
+		}
+	})
+
+	$('#memberMajor').blur(function() {
+		if ($('#memberMajor').val() == '') {
+			$('#majorinfo').text('※ 전공을 입력해주세요.');
+		} else {
+			$('#majorinfo').text('');
+		}
+	})
+	// 버튼 눌렀을때 유효성 검사
+	$('#registerBtn').click(function() {
+		if ($('#idck').val() == '') {
+			alert('아이디를 입력해주세요');
+		} else if ($('#accountId').val() == '') {
+			alert('아이디 중복 검사를 해주세요');
+		} else if ($('#accountPw').val() == '') {
+			alert('비밀번호를 입력해주세요');
+		} else if ($('#accountPwCk').val() == '') {
+			alert('비밀번호 재확인을윌해 입력해주세요');
+		} else if ($('#email').val() == '') {
+			alert('이메일을 입력해주세요');
+		} else if ($('#memberEmail').val() == '') {
+			alert('이메일 중복 검사를 해주세요');
+		} else if ($('#memberName').val() == '') {
+			alert('이름을 입력해주세요');
+		} else if ($('#memberGender').val() == 'default') {
+			alert('성별을 선택해주세요');
+		} else if ($('#memberBirth').val() == '') {
+			alert('생년월일을 입력해주세요');
+		} else if ($('#memberAddress').val() == '') {
+			alert('주소를 검색해주세요');
+		} else if ($('#memberDetailAddress').val() == '') {
+			alert('상세주소를 입력해주세요');
+		} else if ($('#memberGraduate').val() == 'default') {
 			alert('학력을 선택해주세요');
-  		}else if($('#memberMilitary').val()=='default') {
-  			alert('병역여부를 선택해주세요');
-  		} else {
-  			$('#registerForm').submit();
-  		}
-  	});
-// 엔터키 눌렀을때 유효성 검사
-	$(document).keypress(function(e) {
-	  if(e.which == 13) {
-  			event.preventDefault();
-				if ($('#idck').val() == '') {
-					alert('아이디를 입력해주세요');
-				} else if ($('#accountId').val() == '') {
-					alert('아이디 중복 검사를 해주세요');
-				} else if ($('#emck').val() == '') {
-					alert('이메일을 입력해주세요');
-				} else if ($('#memberEmail').val() == '') {
-					alert('이메일 중복 검사를 해주세요');
-				} else if ($('#memberName').val() == '') {
-					alert('이름을 입력해주세요');
-				} else if ($('#memberGender').val() == 'default') {
-					alert('성별을 선택해주세요');
-				} else if ($('#memberBirth').val() == '') {
-					alert('생년월일을 입력해주세요');
-				} else if ($('#memberAddress').val() == '') {
-					alert('주소를 검색해주세요');
-				} else if ($('#memberDetailAddress').val() == '') {
-					alert('상세주소를 입력해주세요');
-				} else if ($('#memberGraduate').val() == 'default') {
-					alert('학력을 선택해주세요');
-				} else if ($('#memberMilitary').val() == 'default') {
-					alert('병역여부를 선택해주세요');
-				} else {
-					$('#registerForm').submit();
-				}
+		} else if ($('#memberMajor').val() == '') {
+			alert('전공을 입력해주세');
+		} else if ($('#memberMilitary').val() == 'default') {
+			alert('병역여부를 선택해주세요');
+		} else if ($('#memberDept').val() == 'default') {
+			alert('부서를 선택해주세요');
+		} else {
+			$('#registerForm').submit();
 		}
 	});
-</script> -->
+	// 엔터키 눌렀을때 유효성 검사
+	$(document).keypress(function(e) {
+		if (e.which == 13) {
+			event.preventDefault();
+			if ($('#idck').val() == '') {
+				alert('아이디를 입력해주세요');
+			} else if ($('#accountId').val() == '') {
+				alert('아이디 중복 검사를 해주세요');
+			} else if ($('#accountPw').val() == '') {
+				alert('비밀번호를 입력해주세요');
+			} else if ($('#accountPwCk').val() == '') {
+				alert('비밀번호 재확인을 위해 입력해주세요');
+			} else if ($('#email').val() == '') {
+				alert('이메일을 입력해주세요');
+			} else if ($('#memberEmail').val() == '') {
+				alert('이메일 중복 검사를 해주세요');
+			} else if ($('#memberName').val() == '') {
+				alert('이름을 입력해주세요');
+			} else if ($('#memberGender').val() == 'default') {
+				alert('성별을 선택해주세요');
+			} else if ($('#memberBirth').val() == '') {
+				alert('생년월일을 입력해주세요');
+			} else if ($('#memberAddress').val() == '') {
+				alert('주소를 검색해주세요');
+			} else if ($('#memberDetailAddress').val() == '') {
+				alert('상세주소를 입력해주세요');
+			} else if ($('#memberGraduate').val() == 'default') {
+				alert('학력을 선택해주세요');
+			} else if ($('#memberMajor').val() == '') {
+				alert('전공을 입력해주세요');
+			} else if ($('#memberMilitary').val() == 'default') {
+				alert('병역여부를 선택해주세요');
+			} else if ($('#memberDept').val() == 'default') {
+				alert('부서를 선택해주세요');
+			} else {
+				$('#registerForm').submit();
+			}
+		}
+	});
+</script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

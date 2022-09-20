@@ -71,7 +71,6 @@
 		<div class="error-page-int">
 			<div class="text-center m-b-md custom-login">
 				<h3>PLEASE LOGIN TO LMS</h3>
-				<p>설명부분이다~</p>
 			</div>
 			<div class="content-error">
 				<div class="hpanel">
@@ -79,11 +78,11 @@
                         <form method="post" action="${pageContext.request.contextPath}/login" id="loginForm">
                             <div class="form-group">
                                 <label class="control-label" for="accountId">아이디</label>
-                                <input type="text" placeholder="Please enter you Id" required="required" value="" name="accountId" id="accountId" class="form-control">
+                                <input type="text" placeholder="Please enter you Id" required="required" name="accountId" id="accountId" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="accountPw">비밀번호</label>
-                                <input type="password" placeholder="Please enter your password" required="required" value="" name="accountPw" id="accountPw" class="form-control">
+                                <input type="password" placeholder="Please enter your password" required="required" name="accountPw" id="accountPw" class="form-control">
                           	    <span class="help-block small">대문자, 소문자, 특수문자가 포함된 10자리 비밀번호</span>
                             </div><br>
                             <button  type="submit" class="btn btn-success btn-block loginbtn"><b>Login</b></button>

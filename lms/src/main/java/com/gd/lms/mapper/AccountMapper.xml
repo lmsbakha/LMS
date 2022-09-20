@@ -81,4 +81,36 @@
 		)
 	</insert>
 	<!--  /account 테이블에 추가 -->
+	
+	<!-- 아이디 중복체크 -->
+	<select id="selectAccountIdCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM account
+		WHERE account_id = #{idck}
+	</select>
+	<!-- /아이디 중복체크 -->
+	
+	<!-- 이메일 중복체크 / student -->
+	<select id="selectStudentEmailCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+			FROM student
+			WHERE student_email=#{email}
+	</select>
+	<!-- /이메일 중복체크 / student -->	
+	
+	<!-- 이메일 중복체크 / teacher -->
+	<select id="selectTeacherEmailCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+			FROM teacher
+			WHERE teacher_email=#{email}
+	</select>
+	<!-- /이메일 중복체크 / teacher -->	
+	
+	<!-- 이메일 중복체크 / manager -->
+	<select id="selectManagerEmailCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+			FROM manager
+			WHERE manager_email=#{email}
+	</select>
+	<!-- /이메일 중복체크 / manager -->
 </mapper>

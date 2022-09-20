@@ -90,7 +90,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="#">시험</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pagecontext.request.contextpath }/exam">시험</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pagecontext.request.contextpath }/questionBank">문제은행</a> <span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">시험 출제</span></li>
 									</ul>
 								</div>
@@ -200,8 +201,8 @@
 																		</div>
 																	</div>
 																</div>
-																<div style="color: red;">${alertMessage}</div>
 																<button class="btn btn-primary waves-effect waves-light" type="submit">Submit</button>
+																<div style="color: red;">${alertMessage}</div>
 															</div>
 														</div>
 													</div>
@@ -212,31 +213,64 @@
 								</form>
 							</div>
 							<div class="product-tab-list tab-pane fade" id="shortAnswer">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="review-content-section">
-											<div class="row">
-												<div class="col-lg-12">
-													<div class="devit-card-custom">
-														<div class="form-group">
-															<input type="url" class="form-control" placeholder="Facebook URL">
+								<form action="${pageContext.request.contextPath}/addShortAnswer" method="post">
+									<fieldset>
+										<div class="row">
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												<div class="review-content-section">
+													<div class="row">
+														<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div class="devit-card-custom">
+																<!-- 과목선택 -->
+																<div class="form-group-inner">
+																	<div class="row">
+																		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																			<label class="login2 pull-right pull-right-pro">시험을 출제할 과목을 선택하세요</label>
+																		</div>
+																		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																			<div class="form-select-list">
+																				<select class="form-control custom-select-value" name="subjectName" id="subjectName" required="required">
+																					<option value="defalut">-----과목선택-----</option>
+																					<c:forEach var="s" items="${subjectList}">
+																						<option value="${s.subjectName }">${s.subjectName }</option>
+																					</c:forEach>
+																				</select>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<!-- 문제 지문 -->
+																<div class="form-group-inner">
+																	<div class="row">
+																		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																			<label class="login2 pull-right pull-right-pro">문제를 입력하세요</label>
+																		</div>
+																		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																			<input type="text" class="form-control" id="questionTitle" name="questionTitle" required="required" placeholder="문제의 지문을 입력하세요" />
+																		</div>
+																	</div>
+																</div>
+																<!-- 문제 정답 -->
+																<div class="form-group-inner">
+																	<div class="row">
+																		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																			<label class="login2 pull-right pull-right-pro">정답을 입력하세요</label>
+																		</div>
+																		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																			<input type="text" class="form-control" id="questionAnswer" name="questionAnswer" required="required" placeholder="해당 문제의 정답" />
+																		</div>
+																	</div>
+																</div>
+																<button class="btn btn-primary waves-effect waves-light" type="submit">Submit</button>
+																<div style="color: red;">${alertMessage}</div>
+															</div>
 														</div>
-														<div class="form-group">
-															<input type="url" class="form-control" placeholder="Twitter URL">
-														</div>
-														<div class="form-group">
-															<input type="url" class="form-control" placeholder="Google Plus">
-														</div>
-														<div class="form-group">
-															<input type="url" class="form-control" placeholder="Linkedin URL">
-														</div>
-														<button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
+									</fieldset>
+								</form>
 							</div>
 						</div>
 					</div>
