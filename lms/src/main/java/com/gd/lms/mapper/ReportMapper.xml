@@ -2,34 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.ReportMapper">
 
-	<!-- 전체 과제 리스트 조회하는 메소드 -->
+	<!-- 전체 과제 리스트 조회하기 -->
 	<select id="selectReportList" parameterType="Map"
 		resultType="com.gd.lms.vo.Report">
 		SELECT
 		report_no reportNo
 		, subject_name subjectName
-		,
-		report_title reportTitle
+		, report_title reportTitle
 		, report_content reportContent
-		,
-		report_start_date reportStartDate
+		, report_start_date reportStartDate
 		, report_end_date reportEndDate
-		,
-		update_date updateDate
+		, update_date updateDate
 		, create_date createDate
 		FROM report
 		ORDER BY
 		create_date DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
-	<!-- 전체 과제 리스트 조회하는 메소드 -->
+	<!-- 전체 과제 리스트 조회하기 -->
 
-	<!-- report 전체 과제 수를 추출하는 메소드 -->
+	<!-- report 전체 과제 수를 추출하기 -->
 	<select id="selectReportTotalCount" resultType="int">
 		SELECT COUNT(*)
 		FROM report
 	</select>
-	<!-- report 전체 과제 수를 추출하는 메소드 -->
+	<!-- report 전체 과제 수 추출하기-->
 
 	<!-- lectureSubject의 subjectName 가져오기 -->
 	<select id="selectLectureSubjectName" resultType="List">
@@ -37,7 +34,7 @@
 	</select>
 	<!-- lectureSubject의 subjectName 가져오기 -->
 
-	<!-- 과제 출제하는 메소드 -->
+	<!-- 과제 출제하기-->
 	<insert id="insertReport" parameterType="com.gd.lms.vo.Report">
 		INSERT INTO
 		report(
@@ -47,9 +44,9 @@
 		#{reportTitle}, #{reportContent},
 		#{reportStartDate},#{reportEndDate},now(),now())
 	</insert>
-	<!-- 과제 출제하는 메소드 -->
+	<!-- 과제 출제하기-->
 
-	<!-- 출제한 과제 수정하는 폼 -->
+	<!-- 출제한 과제 상세보기 -->
 	<select id="selectReportOne" resultType="com.gd.lms.vo.Report"
 		parameterType="int">
 		SELECT report_no reportNo, subject_name subjectName,
@@ -61,9 +58,9 @@
 		FROM report WHERE
 		report_no = #{reportNo}
 	</select>
-	<!-- 출제한 과제 수정하는 폼 -->
+	<!-- 출제한 과제 상세보기 -->
 
-	<!-- 출제한 과제 수정하는 액션 -->
+	<!-- 출제한 과제 수정하기 -->
 	<update id="updateReport" parameterType="com.gd.lms.vo.Report">
 		UPDATE report SET
 		report_title = #{reportTitle}, report_content = #{reportContent},
@@ -71,12 +68,12 @@
 		#{reportEndDate}, update_date = now()
 		WHERE report_no = #{reportNo}
 	</update>
-	<!-- 출제한 과제 수정하는 액션 -->
+	<!-- 출제한 과제 수정하기 -->
 
-	<!-- 행정용 출제한 과제 삭제하는 메소드 -->
+	<!-- 행정용 출제한 과제 삭제하기 -->
 	<delete id="deleteReport">
 		DELETE FROM report WHERE report_no = #{reportNo}
 	</delete>
-	<!-- 행정용 출제한 과제 삭제하는 메소드 -->
+	<!-- 행정용 출제한 과제 삭제하기 -->
 
 </mapper>

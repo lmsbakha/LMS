@@ -106,64 +106,49 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/addReport"
-				id="addReportForm" method="post">
+			<form action="${pageContext.request.contextPath}/modifyReport"
+				id="modifyReportForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst">
-							<h4>Add Report</h4>
+							<h4>Modify Report</h4>
 							<hr>
 							<div class="form-group">
-								<div class="row">
-									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-										<label for="subjectName">subjectName</label> <select
-											class="form-control custom-select-value" name="subjectName"
-											id="subjectName" required="required">
-											<option value="defalut">::::::::: 과목선택 :::::::::</option>
-											<c:forEach var="subject" items="${subjectNameList}">
-												<option value="${subject.subjectName}">${subject.subjectName}</option>
-											</c:forEach>
-										</select>
-									</div>
-								</div>
+								<input name="reportNo" type="hidden" value="${reportOne.reportNo}">
+							</div>
+							<div class="form-group">
+								<label for="subjectName">subjectName</label> <input
+									name="subjectName" id="subjectName" type="text"
+									class="form-control" value="${reportOne.subjectName}" readonly>
 							</div>
 							<div class="form-group">
 								<label for="reportTitle">reportTitle</label> <input
 									name="reportTitle" id="reportTitle" type="text"
-									class="form-control">
+									class="form-control" value="${reportOne.reportTitle}" readonly>
 							</div>
 							<div class="form-group edit-ta-resize res-mg-t-15">
 								<label for="reportContent">reportContent</label>
-								<textarea name="reportContent" id="reportContent"></textarea>
+								<textarea name="reportContent" id="reportContent" readonly>${reportOne.reportContent}</textarea>
 							</div>
-							<div class="form-group-inner">
-								<div class="row">
-									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<label for="reportStartDate">reportStartDate</label> <input
-											name="reportStartDate" id="reportStartDate" type="date"
-											class="form-control"
-											min="${infoAboutTeacher.lectureStartDate}"
-											max="${infoAboutTeacher.lectureEndDate}" required="required">
-									</div>
-									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<label for="reportEndDate">reportEndDate</label> <input
-											name="reportEndDate" id="reportEndDate" type="date"
-											class="form-control"
-											min="${infoAboutTeacher.lectureStartDate }"
-											max="${infoAboutTeacher.lectureEndDate }" required="required">
-									</div>
-								</div>
-								<!-- row -->
+							<div class="form-group">
+								<label for="reportStartDate">reportStartDate</label> <input
+									name="reportStartDate" id="reportStartDate" type="date"
+									class="form-control" value="${reportOne.reportStartDate}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="reportEndDate">reportEndDate</label> <input
+									name="reportEndDate" id="reportEndDate" type="date"
+									class="form-control" value="${reportOne.reportEndDate}" readonly>
 							</div>
 						</div>
+						<div class="payment-adress">
+							<button type="button" id="modifyReportBtn"
+								class="btn btn-primary waves-effect waves-light"
+								style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
+						</div>
 					</div>
-					<div class="payment-adress">
-						<button type="button" id="addReportBtn"
-							class="btn btn-primary waves-effect waves-light"
-							style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
-					</div>
+
 				</div>
-				<!-- row -->
 			</form>
 			<!-- </form> -->
 		</div>
@@ -225,30 +210,4 @@
 		============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
-<!-- reportStartDate 달력의 value값 현재 날짜로 적용 -->
-<script>
-	document.getElementById('reportStartDate').value = new Date().toISOString()
-			.substring(0, 10);
-	;
-</script>
-<!-- reportEndDate 달력의 value값 현재 날짜로 적용 -->
-<script>
-	document.getElementById('reportEndDate').value = new Date().toISOString()
-			.substring(0, 10);
-	;
-</script>
-<script>
-$('#addReportBtn').click(function() {
-	if ($('#reportTitle').val() == '') {
-		alert('reportTitle를 입력해주세요.');
-		$('#reportTitle').focus();
-	}else if ($('#reportContent').val() == '') {
-		alert('reportContent를 입력해주세요.');
-		$('#reportContent').focus();
-	}else {
-		alert('과제를 출제하시겠습니까?');
-		 $( '#addReportForm' ).submit();
-	}
-});
-</script>
 </html>

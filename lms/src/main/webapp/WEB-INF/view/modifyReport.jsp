@@ -107,7 +107,7 @@
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<form action="${pageContext.request.contextPath}/modifyReport"
-				id="addReportForm" method="post">
+				id="modifyReportForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst">
@@ -142,7 +142,7 @@
 							</div>
 						</div>
 						<div class="payment-adress">
-							<button type="submit"
+							<button type="button" id="modifyReportBtn"
 								class="btn btn-primary waves-effect waves-light"
 								style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
 						</div>
@@ -210,5 +210,18 @@
 		============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
-
+<script>
+$('#modifyReportBtn').click(function() {
+	if ($('#reportTitle').val() == '') {
+		alert('reportTitle를 입력해주세요.');
+		$('#reportTitle').focus();
+	}else if ($('#reportContent').val() == '') {
+		alert('reportContent를 입력해주세요.');
+		$('#reportContent').focus();
+	}else {
+		alert('과제를 수정하시겠습니까?');
+		 $( '#modifyReportForm' ).submit();
+	}
+});
+</script>
 </html>

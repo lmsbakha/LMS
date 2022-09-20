@@ -128,39 +128,44 @@
 										<tr>
 											<td>${report.reportNo}</td>
 											<td>${report.subjectName}</td>
-											<td>${report.reportTitle}</td>
-											<td>${report.createDate}</td>
 											<td>
-												<a href="${pageContext.request.contextPath}/modifyReport?reportNo=${report.reportNo}">
-												<button data-toggle="tooltip" title="Edit"
-													class="pd-setting-ed" type="button">
-													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-												</button></a>
-												<a href="${pageContext.request.contextPath}/removeReport?reportNo=${report.reportNo}">
-												<button data-toggle="tooltip" title="Trash"
-													class="pd-setting-ed" type="button">
-													<i class="fa fa-trash-o" aria-hidden="true"></i>
-												</button></a>
+											<a href="${pageContext.request.contextPath}/reportOne?reportNo=${report.reportNo}">
+											${report.reportTitle}
+											</a>
 											</td>
+											<td>${report.createDate}</td>
+											<td><a
+												href="${pageContext.request.contextPath}/modifyReport?reportNo=${report.reportNo}">
+													<button data-toggle="tooltip" title="Edit"
+														class="pd-setting-ed" type="button">
+														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+													</button>
+											</a> <a
+												href="${pageContext.request.contextPath}/removeReport?reportNo=${report.reportNo}">
+													<button data-toggle="tooltip" title="Trash"
+														class="pd-setting-ed" type="button">
+														<i class="fa fa-trash-o" aria-hidden="true"></i>
+													</button>
+											</a></td>
 										</tr>
 									</c:forEach>
 								</table>
 							</div>
+							<div>
+								<c:if test="${currentPage > 1}">
+									<a href="${pageContext.request.contextPath}/reportList?currentPage=${currentPage-1}">이전</a>
+								</c:if>
+								<c:if test="${currentPage < lastPage}">
+									<a href="${pageContext.request.contextPath}/reportList?currentPage=${currentPage+1}">다음</a>
+								</c:if>
+							</div>
 							<div class="custom-pagination">
 								<nav aria-label="Page navigation example">
 									<ul class="pagination">
-										<c:if test="${currentPage > 1}">
-											<li class="page-item"><a class="page-link"
-												href="/reportList?currentPage=${currentPage-1}">이전</a></li>
-										</c:if>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<c:if test="${currentPage < lastPage}">
+										<li class="page-item"><a class="page-link" href="">Previous</a></li>
+										<!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
 
-											<li class="page-item"><a class="page-link"
-												href="/reportList?currentPage=${currentPage+1}">다음</a></li>
-										</c:if>
+										<li class="page-item"><a class="page-link" href="">Next</a></li>
 									</ul>
 								</nav>
 							</div>
@@ -228,4 +233,5 @@
 		============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
+
 </html>

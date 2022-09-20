@@ -71,9 +71,9 @@ public class ReportController {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 리스트 조회실패" + TeamColor.TEXT_RESET);
 			// index로 리다이렉트
-			return "redirect:/index";
+			return "redirect:/loginCheck/index";
 		}
-	} // end reportdList @GetMapping
+	} // end reportList @GetMapping
 
 	// 과제 출제하는 메소드
 	// addReport Form
@@ -83,7 +83,8 @@ public class ReportController {
 	String addReport(Model model, HttpSession session) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
-
+		
+		// 세션 받아오기
 		String accountId = (String) session.getAttribute("sessionId");
 		// 로그인한 강사의 아이디 확인
 		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);

@@ -47,7 +47,7 @@ public class ReportService {
 		// 시작하는 행 구하기
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// beginRow값 디버깅
-		log.debug(TeamColor.PSY + paramMap.get("beginRow") + "<-- beginRow" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY +  + beginRow + "<-- beginRow" + TeamColor.TEXT_RESET);
 
 		// paramMap에 값 넣어주기
 		paramMap.put("beginRow", beginRow);
@@ -86,6 +86,11 @@ public class ReportService {
 		return reportList;
 	} // end getReportList
 
+	// 출제한 과제 상세보기 메소드
+	// 파라미터 : Report
+	// 리턴값 : int
+	
+	
 	// addReport에 필요한 subjecteName, lectureStartDate , lectureEndDate 가져오기
 	// 파라미터 : X
 	// 리턴값 : List<LectureSubject>

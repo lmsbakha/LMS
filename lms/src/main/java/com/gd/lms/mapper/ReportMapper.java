@@ -16,7 +16,7 @@ public interface ReportMapper {
 	List<Report> selectReportList(Map<String, Object> map);
 
 	// report 전체 과제 수를 추출하는 메소드
-	// 파라미터 : X
+	// 파라미터 : reportNo
 	// 리턴값 : int
 	int selectReportTotalCount();
 	
@@ -30,7 +30,7 @@ public interface ReportMapper {
 	// 리턴값 : int
 	int insertReport(Report report);
 	
-	// 출제한 과제 수정하는 메소드 폼
+	// 출제한 과제 상세보기 메소드
 	// 파라미터 : reportNo
 	// 리턴값 : Report
 	Report selectReportOne(int reportNo);
