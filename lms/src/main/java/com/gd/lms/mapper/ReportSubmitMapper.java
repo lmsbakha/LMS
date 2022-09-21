@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.gd.lms.vo.Report;
+import com.gd.lms.vo.ReportSubmit;
 
 /**
  * @author  박소연
@@ -23,23 +23,18 @@ public interface ReportSubmitMapper {
 	// 리턴값 : List<Map<String,Object>>
 	List<Map<String,Object>> selectReportListById(String accountId);
 
-	// 출제한 과제 상세보기 메소드
-	// 파라미터 : reportNo
-	// 리턴값 : Report
-	Report selectReportOne(int reportNo);
-
 	// 과제 제출하기 메소드
 	// 파라미터 : Report
 	// 리턴값 : int
-	int insertReportSubmit(Report report);
+	int insertReportSubmit(ReportSubmit reportSubmit);
 	
 	// 제출한 과제 수정하는 메소드 action
 	// 파라미터 : Report
 	// 리턴값 : int
-	int updateReportSubmit(Report report);
+	int updateReportSubmit(ReportSubmit reportSubmit);
 
 	// 제출한 과제 삭제하는 메소드
 	// 파라미터 : reportNo
 	// 리턴값 : int
-	int deleteReportSubmit(int reportNo);
+	int deleteReportSubmit(int reportSubmitNo);
 }

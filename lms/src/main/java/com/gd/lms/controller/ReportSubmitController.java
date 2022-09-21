@@ -88,7 +88,7 @@ public class ReportSubmitController {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportSubmitListById Controller" + TeamColor.TEXT_RESET);
 
-		// getReportListById 값 넘겨주기
+		// sessionId 값 넘겨주기
 		String acountId = ((String) session.getAttribute("sessionId"));
 		// accountId 디버깅
 		log.debug(TeamColor.PSY + acountId + "<--acountId" + TeamColor.TEXT_RESET);
@@ -106,7 +106,7 @@ public class ReportSubmitController {
 			log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
 		} else {
 			// 실패
-			log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회실패" + TeamColor.TEXT_RESET);
+			log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회 실패" + TeamColor.TEXT_RESET);
 		}
 
 		return "report/reportSubmitListById";
@@ -123,7 +123,7 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + reportNo + "<--reportNo" + TeamColor.TEXT_RESET);
 
 		// reportOne 리스트 model값으로 보내기 Service Call
-		Report reportOne = reportSubmitService.getReportOne(reportNo);
+		Report reportOne = reportService.getReportOne(reportNo);
 		// 디버깅
 		log.debug(TeamColor.PSY + reportOne + "<-- reportOne" + TeamColor.TEXT_RESET);
 

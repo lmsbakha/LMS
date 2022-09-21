@@ -15,12 +15,14 @@
 		report_no = #{reportNo}
 	</select>
 	<!-- 과제 상세보기 -->
-	
+
 	<!-- 학생이 제출한 과제 리스트 조회 메소드 -->
-	<select id="selectReportListById" parameterType="String" resultType="com.gd.lms.vo.ReportSubmit">
+	<select id="selectReportListById" parameterType="String"
+		resultType="com.gd.lms.vo.ReportSubmit">
 		SELECT
 		rs.report_submit_no reportSubmitNo,
-		r.subject_name subjectName,
+		r.subject_name
+		subjectName,
 		rs.report_submit_title reportSubmitTitle,
 		rs.report_submit_score reportScore,
 		rs.create_date createDate
@@ -31,7 +33,8 @@
 		#{accountId}
 	</select>
 	<!-- 학생이 제출한 과제 리스트 조회 메소드 -->
-	
+
+
 	<!-- 제출한 과제 삭제하기 -->
 	<delete id="deleteReportSubmit" parameterType="int">
 		DELETE FROM
