@@ -105,15 +105,15 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-status-wrap drp-lst">
-                                <h4>add Notice</h4>
+                                <h4>Add Notice</h4>
                                 <hr>
                             <div id="myTabContent" class="tab-content custom-product-edit">
                                 <div class="product-tab-list tab-pane fade active in" id="description">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="review-content-section">
-                                                <div id="dropzone1" class="pro-ad addcoursepro">
-                                                    <form action="${pageContext.request.contextPath}/addNotice" id="addNoticeForm" method="post">
+                                            <div class="review-content-section" >
+                                                <div id="dropzone1" class="pro-ad addcoursepro" >
+                                                    <form action="${pageContext.request.contextPath}/addNotice" id="addNoticeForm" method="post" >
                                                         <div class="row">
                                                             <div class="form-group edit-ta-resize res-mg-t-15">
                                                                 <div class="form-group">
@@ -124,18 +124,23 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="dz-message needsclick download-custom">
-                                                        	<i class="fa fa-download edudropnone" aria-hidden="true"></i>
-                                                        	<h2 class="edudropnone">드래그 또는 클릭하여 파일 첨부</h2>
-                                                            <input name="noticeFile" id="noticeFile" class="hd-pro-img" type="text">
-                                                        </div>
+                                                        <div class="form-group alert-up-pd">
+                                                       		<div class="dz-message needsclick download-custom">
+                                                        		<i class="fa fa-download edudropnone" aria-hidden="true"></i>
+                                                        			<h2 class="edudropnone">드래그 또는 클릭하여 파일 첨부</h2>
+                                                        			<input name="imageico" class="hd-pro-img" type="text">
+                                                        	</div>
+                                                      	</div>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="payment-adress">
                                                                     <button type="submit" id="addNoticeSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
                                                                 </div>
                                                             </div>
-                                                        </div>
+          <a class="nav-link dropdown-toggle" href="<%=request.getContextPath()%>/theme/fileuploadForm.jsp">
+                           Insert
+                          </a>
+                                                    	</div>
                                                     </form>
                                                 </div>
                                             </div>

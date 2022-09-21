@@ -100,6 +100,8 @@ public class NoticeController {
 			log.debug(TeamColor.LHN + "게시글 등록 실패" + TeamColor.TEXT_RESET);
 		}
 		
+		// 첨부파일 있을 경우 저장
+		
 		// 공지 리스트로
 		return "redirect:/noticeList";
 	} 
