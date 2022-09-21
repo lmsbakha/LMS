@@ -37,11 +37,14 @@ public class MultiplechoiceService {
 		log.debug(TeamColor.PSJ + questionNo + "<-- questionNo" + TeamColor.TEXT_RESET);
 
 		// 리턴값을 담을 객체 생성
-		Map<String, Object> multiplechoiceOne = multiplechoiceMapper.selectMultiplechoiceOne(questionNo);
+		Map<String, Object> multiplechoiceOne = new HashMap<>();
 		// MultiplechoiceMapper에서 객관식 문제 정보 받아오기
-		//multiplechoiceOne.put("multiplechoiceQuestion", multiplechoiceMapper.selectMultiplechoiceOne(questionNo));
+		multiplechoiceOne.put("multiplechoiceQuestion", multiplechoiceMapper.selectMultiplechoiceOne(questionNo));
+		log.debug(TeamColor.PSJ + "객관식 문제 정보 가져오기 성공" + TeamColor.TEXT_RESET);
+		
 		// MultiplechoiceExampleMapper에서 해당 객관식 문제의 보기 지문 받아오기
-		//multiplechoiceOne.put("multiplechoiceExample", multiplechoiceExampleMapper.selectMultiplechoiceExampleList(questionNo));
+		multiplechoiceOne.put("multiplechoiceExample", multiplechoiceExampleMapper.selectMultiplechoiceExampleList(questionNo));
+		log.debug(TeamColor.PSJ + "해당 객관식 문제의 보기 가져오기 성공" + TeamColor.TEXT_RESET);
 		
 		return multiplechoiceOne;
 		

@@ -22,4 +22,11 @@
 			WHERE question_no = #{questionNo} 
 			ORDER BY multiplechoice_example_id ASC
 	</select>
+	
+	<!-- 지문 보기 수정하기  -->
+	<update id="updateMultiplechoiceExample" parameterType="com.gd.lms.vo.MultiplechoiceExample">
+		UPDATE multiplechoice_example
+			SET multiplechoice_example_content = #{multiplechoiceExampleContent}, update_date =NOW()
+		WHERE question_no = #{questionNo} AND multiplechoice_example_id =#{multiplechoiceExampleId}
+	</update>
 </mapper>

@@ -31,7 +31,9 @@ public class MultichoiceController {
 		Map<String, Object> multiplechoiceOne = multiplechoiceService.getMultiplechoiceOne(questionNo);
 		// 디버깅
 		log.debug(TeamColor.PSJ + multiplechoiceOne + "<-- multiplechoiceOne" + TeamColor.TEXT_RESET);
-		model.addAttribute("multiplechoiceOne", multiplechoiceOne);
+		// 모델값에 넣어서 보내주기
+		model.addAttribute("multiplechoiceQuestion", multiplechoiceOne.get("multiplechoiceQuestion"));
+		model.addAttribute("multiplechoiceExample", multiplechoiceOne.get("multiplechoiceExample"));
 		
 		return "multiplechoiceOne";
 	}

@@ -17,4 +17,9 @@ public interface MultiplechoiceExampleMapper {
 	// 파라미터 : questionNo
 	// 리턴값 : List<MultiplechoiceExample>
 	List<MultiplechoiceExample> selectMultiplechoiceExampleList(int questionNo);
+	
+	// 보기 지문 수정하는 메소드
+	// 파라미터 : MultiplechoiceExample
+	// 리턴값 : 정상적으로 수정되었는지 확인할 int
+	int updateMultiplechoiceExample(MultiplechoiceExample multiplechoiceExample);
 }
