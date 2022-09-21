@@ -40,7 +40,7 @@
 	<!-- 공지사항 조회수 반영 -->
 	<update id="updateNoticeCount" parameterType="com.gd.lms.vo.Notice">
 		UPDATE	notice
-		SET		notice_count = #{noticeCount}+1
+		SET		notice_count = notice_count+1
 		WHERE	notice_no = #{noticeNo}
 	</update>
 	

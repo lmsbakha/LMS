@@ -18,7 +18,7 @@ public interface NoticeMapper {
 	// 공지글 상세보기
 	Notice selectNoticeOne(int noticeNo);
 	// 조회수 증가
-	int updateNoticeCount(Notice notice);
+	int updateNoticeCount(int noticeNo);
 	//수정 폼
 	Notice updateNoticeForm(int noticeNo);
 	// 수정 액션

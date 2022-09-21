@@ -68,9 +68,8 @@ public class NoticeService {
 	
 	// 공지글 조회수 증가	
 	public int updateNoticeCount(int noticeNo) {
-		Notice notice = noticeMapper.selectNoticeOne(noticeNo);
 		log.debug(TeamColor.LHN + " 조회수 증가" + TeamColor.TEXT_RESET);
-		return noticeMapper.updateNoticeCount(notice);
+		return noticeMapper.updateNoticeCount(noticeNo);
 	}
 	
 	// 공지글 수정 폼
