@@ -104,7 +104,7 @@
 			<form action="${pageContext.request.contextPath}/loginCheck/reportList"
 				id="reportListForm" method="post">
 				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:1%;">
 						<div class="product-status-wrap drp-lst">
 							<h4>Report List</h4>
 							<hr>

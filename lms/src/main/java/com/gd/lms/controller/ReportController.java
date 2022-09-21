@@ -27,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
  * 과제 출제 Controller
  * */
 
-
 @Slf4j
 @Controller
 public class ReportController {
@@ -134,8 +133,11 @@ public class ReportController {
 		paramReport.setSubjectName(subjectName);
 		// 셋팅값 디버깅
 		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
-
-		// 과제 출제 service call
+		
+		// 과제 제출 첨부파일 업로드 service Call
+		
+		
+		// 과제 제출 service call
 		int row = reportService.addReport(paramReport);
 
 		if (row != 0) {

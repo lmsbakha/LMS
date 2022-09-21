@@ -112,7 +112,7 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="#">과제</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">과제</a> <span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">제출</span></li>
 									</ul>
 								</div>
@@ -131,101 +131,42 @@
 						<div id="dropzone1" class="pro-ad">
 							<form action="${pageContext.request.contextPath}/loginCheck/addReportSubmit"
 								class="dropzone dropzone-custom needsclick add-professors"
-								id="addReportSubmitForm">
+								id="demo1-upload">
 								<div class="row">
-									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="padding:2%;">
+										<h4>Report Submit</h4>
+										<hr>
 										<div class="form-group">
-											<input name="number" type="text" class="form-control"
-												placeholder="Fly Zend" value="Fly Zend">
+											<label for="subjectName">subjectName</label> <input
+												name="subjectName" id="subjectName" type="text"
+												class="form-control" value="${reportOne.subjectName}"
+												readonly> <input type="hidden" name="educationNo">
+											<input type="hidden" name="reportNo"> <input
+												type="hidden" name="accountId"> <input type="hidden"
+												name="reportSubmitScore">
 										</div>
 										<div class="form-group">
-											<input type="text" class="form-control"
-												placeholder="E104, catn-2, UK." value="E104, catn-2, UK.">
+											<label for="reportSubmitTitle">reportSubmitTitle</label> <input
+												type="text" class="form-control" id="reportSubmitTitle">
 										</div>
-										<div class="form-group">
-											<input type="text" class="form-control"
-												placeholder="12/10/1993" value="12/10/1993">
-										</div>
-										<div class="form-group">
-											<input type="number" class="form-control" placeholder="1213"
-												value="1213">
-										</div>
-										<div class="form-group">
-											<input type="number" class="form-control"
-												placeholder="01962067309" value="01962067309">
+										<div class="form-group edit-ta-resize res-mg-t-15">
+											<label for="reportSubmitContent">reportSubmitContent</label>
+											<textarea name="reportSubmitContent" id="reportSubmitContent"></textarea>
 										</div>
 										<div class="form-group alert-up-pd">
 											<div class="dz-message needsclick download-custom">
 												<i class="fa fa-download edudropnone" aria-hidden="true"></i>
-												<h2 class="edudropnone">Drop image here or click to
+												<h2 class="edudropnone">Drop file here or click to
 													upload.</h2>
-												<p class="edudropnone">
-													<span class="note needsclick">(This is just a demo
-														dropzone. Selected image is <strong>not</strong> actually
-														uploaded.)
-													</span>
-												</p>
 												<input name="imageico" class="hd-pro-img" type="text" />
 											</div>
-										</div>
-									</div>
-									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="CSE"
-												value="CSE">
-										</div>
-										<div class="form-group edit-ta-resize res-mg-t-15">
-											<textarea name="description">Lorem ipsum dolor sit amet of, consectetur adipiscing elitable. Vestibulum tincidunt est vitae ultrices accumsan.</textarea>
-										</div>
-										<div class="form-group">
-											<select class="form-control">
-												<option>Male</option>
-												<option>Male</option>
-												<option>Female</option>
-											</select>
-										</div>
-										<div class="form-group">
-											<select class="form-control">
-												<option>Nepal</option>
-												<option>India</option>
-												<option>Pakistan</option>
-												<option>Amerika</option>
-												<option>China</option>
-												<option>Dubai</option>
-												<option>Nepal</option>
-											</select>
-										</div>
-										<div class="form-group">
-											<select class="form-control">
-												<option>Maharastra</option>
-												<option>Gujarat</option>
-												<option>Maharastra</option>
-												<option>Rajastan</option>
-												<option>Maharastra</option>
-												<option>Rajastan</option>
-												<option>Gujarat</option>
-											</select>
-										</div>
-										<div class="form-group">
-											<select class="form-control">
-												<option>Baroda</option>
-												<option>Surat</option>
-												<option>Baroda</option>
-												<option>Navsari</option>
-												<option>Baroda</option>
-												<option>Surat</option>
-											</select>
-										</div>
-										<div class="form-group">
-											<input type="text" class="form-control"
-												placeholder="www.uttara.com" value="www.uttara.com">
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="payment-adress">
-											<button type="submit"
+											<button type="submit" style="float: right; margin-top: 3%; margin-left:2%;"
 												class="btn btn-primary waves-effect waves-light">Submit</button>
 										</div>
 									</div>
@@ -236,128 +177,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="product-tab-list tab-pane fade" id="reviews">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="review-content-section">
-						<div class="row">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<div class="devit-card-custom">
-									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Email"
-											value="Admin@gmail.com">
-									</div>
-									<div class="form-group">
-										<input type="number" class="form-control" placeholder="Phone"
-											value="01962067309">
-									</div>
-									<div class="form-group">
-										<input type="password" class="form-control"
-											placeholder="Password" value="#123#123">
-									</div>
-									<div class="form-group">
-										<input type="password" class="form-control"
-											placeholder="Confirm Password" value="#123#123">
-									</div>
-									<a href="#!" class="btn btn-primary waves-effect waves-light">Submit</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="product-tab-list tab-pane fade" id="INFORMATION">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="review-content-section">
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="devit-card-custom">
-									<div class="form-group">
-										<input type="url" class="form-control"
-											placeholder="Facebook URL" value="http://www.facebook.com">
-									</div>
-									<div class="form-group">
-										<input type="url" class="form-control"
-											placeholder="Twitter URL" value="http://www.twitter.com">
-									</div>
-									<div class="form-group">
-										<input type="url" class="form-control"
-											placeholder="Google Plus" value="http://www.google-plus.com">
-									</div>
-									<div class="form-group">
-										<input type="url" class="form-control"
-											placeholder="Linkedin URL" value="http://www.Linkedin.com">
-									</div>
-									<button type="submit"
-										class="btn btn-primary waves-effect waves-light">Submit</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	id="addReportSubmitForm" method="post">
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<div class="product-status-wrap drp-lst">
-				<h4>Report Submit</h4>
-				<hr>
-				<div class="form-group">
-					<div class="row">
-						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-							<label for="subjectName">subjectName</label> <select
-								class="form-control custom-select-value" name="subjectName"
-								id="subjectName" required="required">
-								<option value="defalut">::::::::: 과목선택 :::::::::</option>
-								<c:forEach var="subject" items="${subjectNameList}">
-									<option value="${subject.subjectName}">${subject.subjectName}</option>
-								</c:forEach>
-							</select>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="reportTitle">reportTitle</label> <input
-						name="reportTitle" id="reportTitle" type="text"
-						class="form-control">
-				</div>
-				<div class="form-group edit-ta-resize res-mg-t-15">
-					<label for="reportContent">reportContent</label>
-					<textarea name="reportContent" id="reportContent"></textarea>
-				</div>
-				<div class="form-group-inner">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-							<label for="reportStartDate">reportStartDate</label> <input
-								name="reportStartDate" id="reportStartDate" type="date"
-								class="form-control" min="${infoAboutTeacher.lectureStartDate}"
-								max="${infoAboutTeacher.lectureEndDate}" required="required">
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-							<label for="reportEndDate">reportEndDate</label> <input
-								name="reportEndDate" id="reportEndDate" type="date"
-								class="form-control" min="${infoAboutTeacher.lectureStartDate }"
-								max="${infoAboutTeacher.lectureEndDate }" required="required">
-						</div>
-					</div>
-					<!-- row -->
-				</div>
-			</div>
-		</div>
-		<div class="payment-adress">
-			<button type="button" id="addReportSubmitBtn"
-				class="btn btn-primary waves-effect waves-light"
-				style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
-		</div>
-	</div>
-	<!-- row -->
-	</form>
-	<!-- </form> -->
-	</div>
 	</div>
 	<!-- Start footer -->
 	<jsp:include page="../inc/footer.jsp" />
@@ -435,6 +254,13 @@
 		src="${pageContext.request.contextPath}/js/calendar/fullcalendar.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script>
+	<!-- dropzone JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/dropzone/dropzone.js"></script>
+	<!-- tab JS
+		============================================ -->
+	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 	<!-- plugins JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/plugins.js"></script>

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.ReportSubmitMapper;
 import com.gd.lms.vo.Report;
+import com.gd.lms.vo.ReportSubmit;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,8 +48,25 @@ public class ReportSubmitService {
 
 		// list에 값 넣어주기
 		returnMap.put("getReportListById", getReportListById);
-		
+
 		return getReportListById;
 	} // end getReportListById
-	
+
+	// 과제 제출하기 메소드
+	// 파라미터 : ReportSubmit
+	// 리턴값 : int
+	public int addReportSubmit(ReportSubmit reportSubmit) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Service" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
+
+		// Mapper call
+		int addReportSubmit = reportSubmitMapper.insertReportSubmit(reportSubmit);
+		// Mapper에서 받아온 account 값 디버깅
+		log.debug(TeamColor.PSY + addReportSubmit + "<-- addReport" + TeamColor.TEXT_RESET);
+
+		return addReportSubmit;
+	} // end addReportSubmit
+
 }

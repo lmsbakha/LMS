@@ -133,7 +133,7 @@
 											</td>
 											<td>${report.createDate}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/addReportSubject?reportNo=${report.reportNo}">
+												href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
 													<button data-toggle="tooltip" title="submit"
 														class="pd-setting-ed" type="button">
 														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
