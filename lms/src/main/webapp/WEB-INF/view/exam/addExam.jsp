@@ -10,69 +10,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon
       ============================================ -->
-<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico">
 <!-- Google Fonts
       ============================================ -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
 <!-- Bootstrap CSS
       ============================================ -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <!-- Bootstrap CSS
       ============================================ -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 <!-- owl.carousel CSS
       ============================================ -->
-<link rel="stylesheet" href="css/owl.carousel.css">
-<link rel="stylesheet" href="css/owl.theme.css">
-<link rel="stylesheet" href="css/owl.transitions.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.transitions.css">
 <!-- animate CSS
       ============================================ -->
-<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <!-- normalize CSS
       ============================================ -->
-<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css">
 <!-- meanmenu icon CSS
       ============================================ -->
-<link rel="stylesheet" href="css/meanmenu.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/meanmenu.min.css">
 <!-- main CSS
       ============================================ -->
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 <!-- educate icon CSS
       ============================================ -->
-<link rel="stylesheet" href="css/educate-custon-icon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/educate-custon-icon.css">
 <!-- morrisjs CSS
       ============================================ -->
-<link rel="stylesheet" href="css/morrisjs/morris.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/morrisjs/morris.css">
 <!-- mCustomScrollbar CSS
       ============================================ -->
-<link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/scrollbar/jquery.mCustomScrollbar.min.css">
 <!-- metisMenu CSS
       ============================================ -->
-<link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
-<link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/metisMenu/metisMenu.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/metisMenu/metisMenu-vertical.css">
 <!-- calendar CSS
       ============================================ -->
-<link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
-<link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar/fullcalendar.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar/fullcalendar.print.min.css">
 <!-- style CSS
       ============================================ -->
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
 <!-- responsive CSS
       ============================================ -->
-<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
 <!-- modernizr JS
       ============================================ -->
-<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<!-- Start sidebar -->
-	<jsp:include page="inc/sidebar.jsp" />
+	<jsp:include page="../inc/sidebar.jsp" />
 	<!-- End sidebar -->
 
 	<!-- Start tobbar -->
-	<jsp:include page="inc/topbar.jsp" />
+	<jsp:include page="../inc/topbar.jsp" />
 	<!-- End tobbar -->
 
 	<!-- Main Contents -->
@@ -86,9 +86,9 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
-										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/index">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="#">시험</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/exam">시험</a> <span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">시험출제</span></li>
 									</ul>
 								</div>
@@ -106,6 +106,30 @@
 					<div class="sparkline12-list">
 						<div class="sparkline12-hd">
 							<div class="main-sparkline12-hd">
+								<!-- 시험 출제가 정상적으로 작동했을 때 -->
+								<c:if test="${alertMsg eq 'Success'}">
+									<div class="alert alert-success alert-success-style1">
+										<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+											<span class="icon-sc-cl" aria-hidden="true">&times;</span>
+										</button>
+										<i class="fa fa-check edu-checked-pro admin-check-pro" aria-hidden="true"></i>
+										<p>
+											<strong>Success!</strong> 시험 출제에 성공하였습니다.
+										</p>
+									</div>
+								</c:if>
+								<!-- 시험 출제가 실패했을 때 -->
+								<c:if test="${alertMsg eq 'Fail'}">
+									<div class="alert alert-danger alert-mg-b alert-success-style4">
+										<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+											<span class="icon-sc-cl" aria-hidden="true">&times;</span>
+										</button>
+										<i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
+										<p>
+											<strong>Fail!</strong> 시험 출제에 실패하였습니다.
+										</p>
+									</div>
+								</c:if>
 								<h1>시험 출제하기</h1>
 								<hr>
 							</div>
@@ -115,7 +139,7 @@
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<div class="all-form-element-inner">
-											<form action="${pageContext.request.contextPath}/addExam" method="post" id="addExamForm">
+											<form action="${pageContext.request.contextPath}/loginCheck/addExam" method="post" id="addExamForm">
 												<div class="form-group-inner">
 													<div class="row">
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -231,74 +255,78 @@
 		</div>
 	</div>
 	<!-- Start tobbar -->
-	<jsp:include page="inc/footer.jsp" />
+	<jsp:include page="../inc/footer.jsp" />
 	<!-- End tobbar -->
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<!-- jquery
       ============================================ -->
-	<script src="js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/vendor/jquery-1.12.4.min.js"></script>
 	<!-- bootstrap JS
       ============================================ -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 	<!-- wow JS
       ============================================ -->
-	<script src="js/wow.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
 	<!-- price-slider JS
       ============================================ -->
-	<script src="js/jquery-price-slider.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-price-slider.js"></script>
 	<!-- meanmenu JS
       ============================================ -->
-	<script src="js/jquery.meanmenu.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.meanmenu.js"></script>
 	<!-- owl.carousel JS
       ============================================ -->
-	<script src="js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
 	<!-- sticky JS
       ============================================ -->
-	<script src="js/jquery.sticky.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
 	<!-- scrollUp JS
       ============================================ -->
-	<script src="js/jquery.scrollUp.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.scrollUp.min.js"></script>
 	<!-- mCustomScrollbar JS
       ============================================ -->
-	<script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/scrollbar/mCustomScrollbar-active.js"></script>
 	<!-- metisMenu JS
       ============================================ -->
-	<script src="js/metisMenu/metisMenu.min.js"></script>
-	<script src="js/metisMenu/metisMenu-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/metisMenu/metisMenu.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/metisMenu/metisMenu-active.js"></script>
 	<!-- morrisjs JS
       ============================================ -->
-	<script src="js/sparkline/jquery.sparkline.min.js"></script>
-	<script src="js/sparkline/jquery.charts-sparkline.js"></script>
+	<script src="${pageContext.request.contextPath}/js/sparkline/jquery.sparkline.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/sparkline/jquery.charts-sparkline.js"></script>
 	<!-- calendar JS
       ============================================ -->
-	<script src="js/calendar/moment.min.js"></script>
-	<script src="js/calendar/fullcalendar.min.js"></script>
-	<script src="js/calendar/fullcalendar-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/calendar/moment.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/calendar/fullcalendar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script>
 	<!-- plugins JS
       ============================================ -->
-	<script src="js/plugins.js"></script>
+	<script src="${pageContext.request.contextPath}/js/plugins.js"></script>
 	<!-- main JS
       ============================================ -->
-	<script src="js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 	<!-- tawk chat JS
       ============================================ -->
-	<script src="js/tawk-chat.js"></script>
+	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
 </body>
 <script type="text/javascript">
-/*
-	시험출제 버튼을 눌렀을 때 객관식 문항 + 단답형 문항이 10개 초과또는 미만일 경우 alert();
-*/
-	$('#addExamBtn').click(function() {
-		if (Number(document.getElementById('multipleCnt').value)+ Number(document.getElementById('shortAnswerCnt').value) == 10) {
-			 $( '#addExamForm' ).submit();
-			 return;
-		} else {
-			alert('총 문제 수를 10 문항으로 맞춰주세요');
-			return false;
-		}
-	});
+	/*
+	 시험출제 버튼을 눌렀을 때 객관식 문항 + 단답형 문항이 10개 초과또는 미만일 경우 alert();
+	 */
+	$('#addExamBtn')
+			.click(
+					function() {
+						if (Number(document.getElementById('multipleCnt').value)
+								+ Number(document
+										.getElementById('shortAnswerCnt').value) == 10) {
+							$('#addExamForm').submit();
+							return;
+						} else {
+							alert('총 문제 수를 10 문항으로 맞춰주세요');
+							return false;
+						}
+					});
 </script>
 </html>

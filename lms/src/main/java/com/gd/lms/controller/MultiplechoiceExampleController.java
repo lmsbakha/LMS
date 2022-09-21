@@ -25,27 +25,32 @@ public class MultiplechoiceExampleController {
 	// 해당 문제의 보기 지문 수정폼을 보여주는 메소드
 	// 파라미터 : questionNo
 	// 리턴 값 : 지문 리스트 상세보기 보여주기 
-	@GetMapping("modifyMultiplechoiceExample")
-	public String modifyMultiplechoiceExample(Model model, @RequestParam(value = "questionNo") int questionNo) {
+	@GetMapping("/loginCheck/modifyMultiplechoiceExample")
+	public String modifyMultiplechoiceExample(Model model
+			, RedirectAttributes redirectAttributes
+			, @RequestParam(value = "questionNo") int questionNo
+			, @RequestParam(value = "alertMsg", required = false) String alertMsg) {
 		// 현재 위치 디버깅
 		log.debug(TeamColor.PSJ + "@modifyMultiplechoiceExample" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + questionNo + "<-- questionNo" + TeamColor.TEXT_RESET);
-
 		//Service에서 리스트 값 받아오기
 		List<MultiplechoiceExample> MultiplechoiceListByQuestionNo = multiplechoiceExampleService.getMultiplechoiceExampleListByQuestionNo(questionNo);
 		//디버깅
 		log.debug(TeamColor.PSJ + MultiplechoiceListByQuestionNo + "<-- MultiplechoiceListByQuestionNo" + TeamColor.TEXT_RESET);
-
+		
 		model.addAttribute("MultiplechoiceListByQuestionNo", MultiplechoiceListByQuestionNo);
-
-		return "modifyMultiplechoiceExample";
+		if(alertMsg != null && !(alertMsg.equals("null")) && alertMsg != ""){	
+			log.debug(TeamColor.PSJ + alertMsg + "<-- alertMsg" + TeamColor.TEXT_RESET);
+			redirectAttributes.addFlashAttribute("alertMsg", alertMsg);
+		}
+		return "exam/modifyMultiplechoiceExample";
 	}
 
 	// 지문 수정하는 메소드
 	// 파라미터 : questionNo, multiplechoice_example_id, multiplechoice_example_content
 	// 리턴값 : modifyMultiplechoiceExample. jsp
-	@PostMapping("modifyMultiplechoiceExample")
+	@PostMapping("/loginCheck/modifyMultiplechoiceExample")
 	public String modifyMultiplechoiceExample(RedirectAttributes redirectAttributes
 			, @RequestParam(value = "questionNo") int questionNo
 			, @RequestParam(value = "multiplechoiceExampleId") String multiplechoiceExampleId
@@ -64,11 +69,13 @@ public class MultiplechoiceExampleController {
 		if (row != 0) {
 			// 디버깅
 			log.debug(TeamColor.PSJ + "[Success]지문 수정 성공" + TeamColor.TEXT_RESET);
+			redirectAttributes.addFlashAttribute("alertMsg", "Success");
 		} else {
 			// 디버깅
 			log.debug(TeamColor.PSJ + "[Fail]지문 수정 실패"  + TeamColor.TEXT_RESET);
+			redirectAttributes.addFlashAttribute("alertMsg", "Fail" );
 		}
 		redirectAttributes.addAttribute("questionNo", questionNo);
-		return "redirect:/modifyMultiplechoiceExample";
+		return "redirect:/loginCheck/modifyMultiplechoiceExample";
 	}
 }

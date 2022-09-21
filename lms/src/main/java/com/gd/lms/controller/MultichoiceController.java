@@ -22,7 +22,7 @@ public class MultichoiceController {
 	// 객관식 문제 상세보기
 	// 파라미터 : questionNo
 	// 리턴값 : 객관식 문제와 보기 답안을 multiplechoiceOne에서 보여주기
-	@GetMapping("/multiplechoiceOne")
+	@GetMapping("/loginCheck/multiplechoiceOne")
 	public String multiplechoiceOne(Model model, @RequestParam(value = "questionNo") int questionNo) {
 		//파라미터 디버깅
 		log.debug(TeamColor.PSJ + questionNo + "<-- questionNo" + TeamColor.TEXT_RESET);
@@ -35,12 +35,19 @@ public class MultichoiceController {
 		model.addAttribute("multiplechoiceQuestion", multiplechoiceOne.get("multiplechoiceQuestion"));
 		model.addAttribute("multiplechoiceExample", multiplechoiceOne.get("multiplechoiceExample"));
 		
-		return "multiplechoiceOne";
+		return "exam/multiplechoiceOne";
 	}
 
 	// 객관식 문제 수정
 	// 파라미터 : questionNo
 	// 리턴값 : 수정된 question 데이터 받아서 뷰에서 보여주기
 
-	// 객관식 문제 삭제
+	// 객관식 문제 삭제하는 메소드
+	// 파라미터 : 
+	// 리턴값 : questionBank 페이지로 이동
+	@GetMapping("/loginCheck/removeMultiplechoiceOne")
+	public String removeMultiplechoiceOne() {
+		return "redirect:/exam/questionBank";
+	}
+	
 }

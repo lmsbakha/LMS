@@ -1,7 +1,5 @@
 package com.gd.lms.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,16 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.lms.commons.TeamColor;
-import com.gd.lms.mapper.TeacherMapper;
 import com.gd.lms.service.ExamService;
 import com.gd.lms.service.LectureService;
 import com.gd.lms.service.LectureSubjectService;
-import com.gd.lms.service.MultiplechoiceExampleService;
 import com.gd.lms.service.MultiplechoiceService;
-import com.gd.lms.service.ShortanswerQuestionService;
 import com.gd.lms.service.SubjectService;
 import com.gd.lms.service.TeacherService;
-import com.gd.lms.vo.Exam;
 import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Subject;
 
@@ -71,7 +65,7 @@ public class ExamController {
 	 * Model 리턴값 : lectureListByTeacher
 	 * exam.jsp
 	 */
-	@GetMapping("/exam")
+	@GetMapping("/loginCheck/exam")
 	public String exam(HttpSession session, Model model) {
 		// 세션에 저장된 값을 지역변수로 저장
 		String accountId = (String) session.getAttribute("sessionId");
@@ -83,33 +77,17 @@ public class ExamController {
 		// model 단에 값 저장해서 보내줌
 		model.addAttribute("lectureListByTeacher", lectureListByTeacher);
 
-		return "exam"; // forwarding으로 보내줌
+		return "exam/exam"; // forwarding으로 보내줌
 	}
 
-	/*
-	 * [강사전용] 시험 메인페이지로 이동하는 메소드 
-	 * 파라미터 : 사용자가 선택한 lectureName 
-	 * 리턴값 : lecture에서 출제된 시험리스트
-	 */
-	@PostMapping("/lectureListByTeacher")
-	public String lectureListByTeacher(RedirectAttributes redirectAttributes, @RequestParam(value = "lectureName") String lectureName) {
-		// 디버깅
-		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
-
-		// ExamList 가져오기
-		List<Map<String, Object>> examListByLecture = examService.getExamListByLecture(lectureName);
-		// model 단에 값 저장해서 보내줌
-		redirectAttributes.addFlashAttribute("examListByLecture", examListByLecture);
-
-		return "redirect:/exam"; 
-	}
+	
 
 	/*
 	 * [강사전용] 문제은행 페이지를 보여주는 메소드 
 	 * 파라미터 : 객관식 문제를 담은 List를 view로 전송할 Model, 검색어 subjectName 
 	 * 리턴값: 객관식 문제 리스트를 보여줄 문제 은행 view --> questionBank.jsp로 이동
 	 */
-	@GetMapping("/questionBank")
+	@GetMapping("/loginCheck/questionBank")
 	public String examList(Model model, @RequestParam(value = "subjectName", required = false) String subjectName) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + subjectName + "<-- subjectName" + TeamColor.TEXT_RESET);
@@ -122,7 +100,7 @@ public class ExamController {
 
 		// 모델 단으로 전송하기
 		model.addAttribute("multiplechoiceList", multiplechoiceList);
-		return "questionBank";
+		return "exam/questionBank";
 	}
 
 	/*
@@ -130,7 +108,7 @@ public class ExamController {
 	 * 파라미터 : List<Map<String, Object>를 담아둘 Model 
 	 * 리턴값:시험문제를 출제하기 위한 form인 addExam.jsp로 이동
 	 */
-	@GetMapping("/addExam")
+	@GetMapping("/loginCheck/addExam")
 	public String addExam(HttpSession session, Model model) {
 		String accountId = (String) session.getAttribute("sessionId");
 		// 로그인한 강사의 아이디 확인
@@ -149,7 +127,7 @@ public class ExamController {
 		// 모델단에 전체과목리스트를 addAttribute해서 폼으로 전달한
 		model.addAttribute("lectureSubjectList", lectureSubjectList);
 		model.addAttribute("infoAboutTeacher", infoAboutTeacher);
-		return "addExam";
+		return "exam/addExam";
 	}
 
 	/*
@@ -157,7 +135,7 @@ public class ExamController {
 	 * 파라미터 : 
 	 * 리턴 값 : addExam으로 이동하고 alertMsg로 성공 실패 여부 보내주기
 	 */
-	@PostMapping("/addExam")
+	@PostMapping("/loginCheck/addExam")
 	public String addExam(RedirectAttributes redirectAttributes
 			, @RequestParam(value = "subjectName") String subjectName
 			, @RequestParam(value = "examTitle") String examTitle
@@ -183,17 +161,17 @@ public class ExamController {
 		int row = examService.addExam(paramMap);
 
 		if (row != 0) {
-			redirectAttributes.addFlashAttribute("alertMsg", "[Success] 문제 출제에 성공하였습니다");
+			redirectAttributes.addFlashAttribute("alertMsg", "Success");
 		} else {
-			redirectAttributes.addFlashAttribute("alertMsg", "[Fail] 문제 출제에 실패하였습니다.");
+			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
 		}
-		return "redirect:/addExam";
+		return "redirect:/loginCheck/addExam";
 	}
 
 	// [강사전용] addQuestionInBank 폼
 	// 파라미터 : List<subject>를 담아둘 Model
 	// 리턴값: 문제 은행에 문제 추가하기 위한 form인 addQuestionInBank.jsp로 이동
-	@GetMapping("/addQuestionInBank")
+	@GetMapping("/loginCheck/addQuestionInBank")
 	String addExam(Model model) {
 		// subject 리스트 model값으로 보내기
 		List<Subject> subjectList = subjectService.getSubjectList();
@@ -201,7 +179,7 @@ public class ExamController {
 		log.debug(TeamColor.PSJ + subjectList + "<-- subjectList" + TeamColor.TEXT_RESET);
 		// 모델단에 전체과목리스트를 addAttribute해서 폼으로 전달한
 		model.addAttribute("subjectList", subjectList);
-		return "addQuestionInBank";
+		return "exam/addQuestionInBank";
 	}
 
 	/*
@@ -212,7 +190,7 @@ public class ExamController {
 	 * model 대신 RedirectAttributes 사용 --> redirect로 할거여서 model단에 알람메시지를 addAttribute하면 전달이 안되기 때문에
 	 * addFlashAttribute --> 1회성으로 메세지를 보여주면 되기 때문에 addAttribute을 사용하지 않고 addFlashAttribute 사용함
 	 */
-	@PostMapping("/addMultipleChoice")
+	@PostMapping("/loginCheck/addMultipleChoice")
 	String addExam(RedirectAttributes redirectAttributes
 			, @RequestParam(value = "subjectName") String subjectName
 			, @RequestParam(value = "questionTitle") String questionTitle
@@ -241,11 +219,11 @@ public class ExamController {
 		// 서비스 정상적으로 작동했는지 디버깅
 		if (row != 0) {
 			log.debug(TeamColor.PSJ + "[Success] 정상적으로 객관식 문제와 해당 문제의 보기들이 추가되었습니다" + TeamColor.TEXT_RESET);
-			redirectAttributes.addFlashAttribute("alertMessage", "[Success] 문제 추가 성공");
+			redirectAttributes.addFlashAttribute("alertMsg", "Success");
 		} else {
 			log.debug(TeamColor.PSJ + "[Fail] 객관식 문제와 보기 추가에 실패하였습니다." + TeamColor.TEXT_RESET);
-			redirectAttributes.addFlashAttribute("alertMessage", "[Fail] 문제 추가 실패. 다시 시도해주세요");
+			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
 		}
-		return "redirect:/addQuestionInBank";
+		return "redirect:/loginCheck/addQuestionInBank";
 	}
 }

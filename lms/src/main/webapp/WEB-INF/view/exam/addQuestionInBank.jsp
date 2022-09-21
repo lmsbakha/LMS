@@ -1,82 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-
+<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Dashboard V.1 | Kiaalap - Kiaalap Admin Template</title>
+<title>Departments | Kiaalap - Kiaalap Admin Template</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon
-		============================================ -->
+      ============================================ -->
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico">
 <!-- Google Fonts
-		============================================ -->
+      ============================================ -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
 <!-- Bootstrap CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <!-- Bootstrap CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 <!-- owl.carousel CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.transitions.css">
 <!-- animate CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <!-- normalize CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css">
 <!-- meanmenu icon CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/meanmenu.min.css">
 <!-- main CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 <!-- educate icon CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/educate-custon-icon.css">
 <!-- morrisjs CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/morrisjs/morris.css">
 <!-- mCustomScrollbar CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/scrollbar/jquery.mCustomScrollbar.min.css">
 <!-- metisMenu CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/metisMenu/metisMenu.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/metisMenu/metisMenu-vertical.css">
 <!-- calendar CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar/fullcalendar.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar/fullcalendar.print.min.css">
 <!-- style CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
 <!-- responsive CSS
-		============================================ -->
+      ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
 <!-- modernizr JS
-		============================================ -->
+      ============================================ -->
 <script src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-
 <body>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<!-- Start sidebar -->
-	<jsp:include page="inc/sidebar.jsp" />
+	<jsp:include page="../inc/sidebar.jsp" />
 	<!-- End sidebar -->
 
-	<!-- Start topbar -->
-	<jsp:include page="inc/topbar.jsp" />
-	<!-- End topbar -->
-
+	<!-- Start tobbar -->
+	<jsp:include page="../inc/topbar.jsp" />
+	<!-- End tobbar -->
 	<!-- Main Contents -->
 	<div class="header-advance-area">
 		<!-- Mobile Menu end -->
@@ -90,8 +87,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pagecontext.request.contextpath }/exam">시험</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pagecontext.request.contextpath }/questionBank">문제은행</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/exam">시험</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/questionBank">문제은행</a> <span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">시험 출제</span></li>
 									</ul>
 								</div>
@@ -108,13 +105,37 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-payment-inner-st">
+						<!-- 시험 출제가 정상적으로 작동했을 때 -->
+						<c:if test="${alertMsg eq 'Success'}">
+							<div class="alert alert-success alert-success-style1">
+								<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+									<span class="icon-sc-cl" aria-hidden="true">&times;</span>
+								</button>
+								<i class="fa fa-check edu-checked-pro admin-check-pro" aria-hidden="true"></i>
+								<p>
+									<strong>Success!</strong> 정상적으로 객관식 문제와 해당 문제의 보기들이 추가되었습니다
+								</p>
+							</div>
+						</c:if>
+						<!-- 시험 출제가 실패했을 때 -->
+						<c:if test="${alertMsg eq 'Fail'}">
+							<div class="alert alert-danger alert-mg-b alert-success-style4">
+								<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+									<span class="icon-sc-cl" aria-hidden="true">&times;</span>
+								</button>
+								<i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
+								<p>
+									<strong>Fail!</strong> 객관식 문제와 보기 추가에 실패하였습니다.
+								</p>
+							</div>
+						</c:if>
 						<ul id="myTabedu1" class="tab-review-design">
 							<li class="active"><a href="#multiplechoice">객관식 문제</a></li>
 							<li><a href="#shortAnswer">단답형 문제</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content custom-product-edit">
 							<div class="product-tab-list tab-pane fade active in" id="multiplechoice">
-								<form action="${pageContext.request.contextPath}/addMultipleChoice" method="post">
+								<form action="${pageContext.request.contextPath}/loginCheck/addMultipleChoice" method="post">
 									<fieldset>
 										<div class="row">
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -281,7 +302,7 @@
 	<!-- /Main Contents -->
 
 	<!-- Start footer -->
-	<jsp:include page="inc/footer.jsp" />
+	<jsp:include page="../inc/footer.jsp" />
 	<!-- End footer -->
 
 
@@ -348,5 +369,4 @@
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
 </body>
-
 </html>
