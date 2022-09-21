@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -61,6 +62,7 @@
     <!-- modernizr JS
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 
 <body>
@@ -72,38 +74,37 @@
 			<div class="text-center m-b-md custom-login">
 				<h3>PLEASE LOGIN TO LMS</h3>
 			</div>
-			<div class="content-error">
+			<div class="login-error">
 				<div class="hpanel">
                     <div class="panel-body">
                         <form method="post" action="${pageContext.request.contextPath}/login" id="loginForm">
                             <div class="form-group">
                                 <label class="control-label" for="accountId">아이디</label>
                                 <input type="text" placeholder="Please enter you Id" required="required" name="accountId" id="accountId" class="form-control">
+                                <span id="idinfo"></span>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="accountPw">비밀번호</label>
                                 <input type="password" placeholder="Please enter your password" required="required" name="accountPw" id="accountPw" class="form-control">
-                          	    <input type="hidden" name="accountState" id="accountState" value="${accountState}">
                           	    <span class="help-block small">대문자, 소문자, 특수문자가 포함된 10자리 비밀번호</span>
+                          	    <span id="passinfo"></span>
+                          	    <input type="hidden" name="accountState" id="accountState">
                             </div>
+                           
+                            <c:if test="${accountState != null && accountState eq '대기'}">
+                            	<div>
+                            		<span style="font-size:15px; color:red;"><b>※ 승인 대기중인 계정입니다.</b></span>
+                            	</div>
+                            </c:if>
+                            <c:if test="${accountState != null && accountState eq '탈퇴'}">
+                          	  	<div>
+                            		<span style="font-size:15px; color:red;"><b>※ 탈퇴 계정입니다.</b></span>
+                            	</div>
+                            </c:if>
                             <br>
-                            <button  type="submit" class="btn btn-success btn-block loginbtn" onclick="doAction()"><b>Login</b></button>
-                            <br>
-	                     </form>
-	                     <form method="get" action="${pageContext.request.contextPath}/register?memberCheck?${memberCheck}">
-                             <div class="form-group">
-								<label for="memberCheck">회원 가입을 하실 분은 선택해주세요.</label>
-							    	<select class="form-control" name="memberCheck" id="memberCheck">
-						             	<option value="default">===선택해주세요===</option>
-					                    <option value="student">학생</option>
-					                    <option value="teacher">강사</option>
-					                    <option value="manager">행정</option>
-				                  	</select>
-				                  	<br>
-				                  	<button  type="submit" class="btn btn-success btn-block"><b>회원가입</b></button>
-								<br>
-							</div>   
-	                     </form> 
+                            <button  type="submit" class="btn btn-success btn-block loginbtn" id="loginBtn"><b>Login</b></button>
+                            <a class="btn btn-success  btn-block" href="${pageContext.request.contextPath}/register">회원가입</a>
+						</form>
                     </div>
                 </div>
 			</div>
@@ -162,11 +163,16 @@
     <script src="js/tawk-chat.js"></script>
     
     <script>
-    function doAction() {
-   		if ($('#accountState').val() == '대기') {
-			alert('회원님의 계정이 승인 대기상태입니다.');
-		} 
-    }  
+     $('#loginBtn').click(function() {
+  		if($('#accountId').val() == '') {
+  			$('#idinfo').text('※ 아이디를 입력하세요');
+  		} else if($('#accountPw').val() == '') {
+  			$('#idinfo').text('');
+  			$('#passinfo').text('※ 비밀번호를 입력하세요');
+  		} else {
+  			$('#loginForm').submit();
+  		}
+  	}); 
  </script>
 </body>
 

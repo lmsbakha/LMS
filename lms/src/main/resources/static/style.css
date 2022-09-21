@@ -3316,6 +3316,11 @@ td.text-right.mail-date {
     color: #444;
 	text-transform:uppercase;
 }
+.login-error h1 {
+    font-size: 35px;
+    color: #444;
+	text-transform:uppercase;
+}
 .content-error .counter {
     color: #006DF0;
 }
@@ -3333,10 +3338,33 @@ td.text-right.mail-date {
     margin: 0px 5px;
     font-size: 14px;
     font-weight: 700;
-    color: #fff;
-    padding: 10px 30px;
+    color: #000000;
     border-radius: 3px;
-    background: #006DF0;
+    background: #ebebeb;
+    padding: 10px 30px;
+    transition: all .4s ease 0s;
+}
+.login-error .counter {
+    color: #006DF0;
+}
+.login-error {
+    text-align: center;
+    margin: 0px 20px;
+}
+.login-error p {
+    font-size: 14px;
+    color: #444;
+    line-height: 24px;
+}
+.login-error a {
+    display: inline-block;
+    margin: 0px 5px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    border-radius: 3px;
+    background:#62ad3c;
+    padding: 10px 30px;
     transition: all .4s ease 0s;
 }
 .login-footer a{
@@ -4616,6 +4644,10 @@ div#sparklinehome canvas {
 	margin:5px 5px;
 	display:inline-block;
 }
+.login-error a{
+	margin:5px 5px;
+	display:inline-block;
+}
 .nk-ds-n-pro{
 	display:none;
 }
@@ -4634,7 +4666,15 @@ div#sparklinehome canvas {
 .content-error .hpanel {
 	text-align: left;
 }
+.login-error .hpanel {
+	text-align: left;
+}
 .content-error #loginForm a{
+	padding: 6px 0px;
+	margin: 5px 0px;
+	border:none;
+}
+.login-error #loginForm a{
 	padding: 6px 0px;
 	margin: 5px 0px;
 	border:none;

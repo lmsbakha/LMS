@@ -17,6 +17,12 @@ public interface AccountMapper {
 
 	// 마지막 로그인 날짜 업데이트 해주는 메서드
 	int updateLastLoginDate(String accountId);
+	
+	// (학생, 강사, 행정) 멤버 아이디 찾기 메서드
+	String selectMemberAccountId(Map<String,Object> map);
+	// (학생, 강사, 행정) 멤버 비밀번호 찾기위한 아이디와 이메일 찾고 Cnt 받기
+	
+	// (학생, 강사 ,행정) 멤버 비밀번호 변경해주는 메서드 
 
 	// 회원가입 메서드
 	int insertMember(Member paramMember);

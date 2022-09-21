@@ -8,6 +8,10 @@
 <title>Register | Kiaalap - Kiaalap Admin Template</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- favicon
       ============================================ -->
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
@@ -73,6 +77,39 @@
 				<p>This is the best app ever!</p>
 			</div>
 			<div class="content-error">
+				<!-- memberCheck 선택 -->
+				<ul class="nav nav-tabs nav-justified">
+				    <li class="nav-item">
+				      <c:choose>
+				      	 <c:when test="${memberCheck eq 'student'}">
+				     		<a class="nav-link active" href="${pageContext.request.contextPath}/register?memberCheck=student">학생</a>
+				     	 </c:when>	
+				     	 <c:otherwise>
+				     	 	<a class="nav-link" href="${pageContext.request.contextPath}/register?memberCheck=student">학생</a>
+					    </c:otherwise>
+				      </c:choose>
+				    </li>
+				    <li class="nav-item">
+				      <c:choose>
+				      	 <c:when test="${memberCheck eq 'teacher'}">
+				     		<a class="nav-link active" href="${pageContext.request.contextPath}/register?memberCheck=teacher">강사</a>
+				     	 </c:when>	
+				     	 <c:otherwise>
+				     	 	<a class="nav-link" href="${pageContext.request.contextPath}/register?memberCheck=teacher">강사</a>
+					    </c:otherwise>
+				      </c:choose>
+				    </li>
+				    <li class="nav-item">
+				     <c:choose>
+				      	 <c:when test="${memberCheck eq 'manager'}">
+				     		<a class="nav-link active" href="${pageContext.request.contextPath}/register?memberCheck=manager">행정</a>
+				     	 </c:when>	
+				     	 <c:otherwise>
+				     	 	<a class="nav-link" href="${pageContext.request.contextPath}/register?memberCheck=manager">행정</a>
+					    </c:otherwise>
+				      </c:choose>
+				    </li>
+			 	 </ul>
 				<div class="hpanel">
 					<div class="panel-body">
 						<form id="registerForm" action="${pageContext.request.contextPath}/register" id="registerForm" method="post">

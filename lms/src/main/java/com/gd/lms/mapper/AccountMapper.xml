@@ -27,8 +27,31 @@
 		UPDATE account
 		SET last_login_date = NOW()
 		WHERE account_id = #{accountId}
-	</update>
+	</update>  
 	<!-- /마지막 로그인날짜 업데이트 -->
+	
+	<!-- 멤버 아이디 찾기 -->
+	<select id="selectMemberAccountId" parameterType="map" resultType="String">
+		SELECT
+			a.account_id accountId
+		FROM account a
+		<if test="'studnet'.equals(memberCheck)">
+			INNER JOIN student s 
+			ON a.account_id = s.account_id
+			WHERE s.student_name = #{memberName} AND s.student_email = #{memberEmail}
+		</if>
+		<if test="'studnet'.equals(memberCheck)">
+			INNER JOIN student s 
+			ON a.account_id = s.account_id
+			WHERE s.student_name = #{memberName} AND s.student_email = #{memberEmail}
+		</if>
+		<if test="'studnet'.equals(memberCheck)">
+			INNER JOIN student s 
+			ON a.account_id = s.account_id
+			WHERE s.student_name = #{memberName} AND s.student_email = #{memberEmail}
+		</if>
+	</select>
+	<!-- /멤버 아이디 찾기 -->
 	
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="com.gd.lms.vo.Member">
