@@ -33,7 +33,23 @@
                             <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-apps icon-wrap"></span> <span class="mini-click-non">강의</span></a>
                             <ul class="submenu-angle app-mini-nb-dp" aria-expanded="false">
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">나의 강의</span></a></li>
-                                <li><a title="reportList" href="${pageContext.request.contextPath}/reportList"><span class="mini-sub-pro">과제</span></a></li>
+                                <li>
+                                <%
+                                if(session.getAttribute("sessionId") != null && session.getAttribute("sessionLevel").equals("2")){
+                                	System.out.println("sessionId : " + session.getAttribute("sessionId") );
+                                	System.out.println("sessionLevel : " + session.getAttribute("sessionLevel") );
+                                %>
+                                <a title="reportList" href="${pageContext.request.contextPath}/reportList"><span class="mini-sub-pro">과제</span></a>
+                                <%
+                                }else if(session.getAttribute("sessionId") != null && session.getAttribute("sessionLevel").equals("1")){
+                                	System.out.println("sessionId : " + session.getAttribute("sessionId") );
+                                	System.out.println("sessionLevel : " + session.getAttribute("sessionLevel") );
+                                %>
+                                 <a title="reportSubmitList" href="${pageContext.request.contextPath}/reportSubmitList"><span class="mini-sub-pro">과제</span></a>      
+                                <%
+                                }
+                                %>
+                                </li>
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">시험</span></a></li>
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">성적</span></a></li>
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">출결현황</span></a></li>

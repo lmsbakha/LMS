@@ -124,14 +124,20 @@
 										<th>createDate</th>
 										<th>Setting</th>
 									</tr>
+
 									<c:forEach var="report" items="${reportList}">
 										<tr>
 											<td>${report.reportNo}</td>
 											<td>${report.subjectName}</td>
 											<td>
-											<a href="${pageContext.request.contextPath}/reportOne?reportNo=${report.reportNo}">
-											${report.reportTitle}
-											</a>
+												<div class="menu">
+													<a>${report.reportTitle}</a>
+													<div>
+														<textarea name="reportContent" id="reportContent"
+															style="width: 300px; border-color: white;" readonly>
+															 ${report.reportContent}</textarea>
+													</div>
+												</div>
 											</td>
 											<td>${report.createDate}</td>
 											<td><a
@@ -153,10 +159,12 @@
 							</div>
 							<div>
 								<c:if test="${currentPage > 1}">
-									<a href="${pageContext.request.contextPath}/reportList?currentPage=${currentPage-1}">이전</a>
+									<a
+										href="${pageContext.request.contextPath}/reportList?currentPage=${currentPage-1}">이전</a>
 								</c:if>
 								<c:if test="${currentPage < lastPage}">
-									<a href="${pageContext.request.contextPath}/reportList?currentPage=${currentPage+1}">다음</a>
+									<a
+										href="${pageContext.request.contextPath}/reportList?currentPage=${currentPage+1}">다음</a>
 								</c:if>
 							</div>
 							<div class="custom-pagination">
@@ -233,5 +241,19 @@
 		============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
-
+<script>
+	    // html dom 이 다 로딩된 후 실행된다.    
+	$(document).ready(function() {
+		// menu 클래스 바로 하위에 있는 a 태그를 클릭했을때       
+		$(".menu>a").click(function() {
+			var submenu = $(this).next("div");
+			// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기           
+			if (submenu.is(":visible")) {
+				submenu.slideUp();
+			} else {
+				submenu.slideDown();
+			}
+		});
+	});
+</script>
 </html>

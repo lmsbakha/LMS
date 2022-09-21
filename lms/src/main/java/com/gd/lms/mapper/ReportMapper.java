@@ -30,12 +30,12 @@ public interface ReportMapper {
 	// 리턴값 : int
 	int insertReport(Report report);
 	
-	// 출제한 과제 상세보기 메소드
+	// 출제한 과제 수정하는 메소드 form
 	// 파라미터 : reportNo
 	// 리턴값 : Report
 	Report selectReportOne(int reportNo);
 
-	// 출제한 과제 수정하는 메소드 액션
+	// 출제한 과제 수정하는 메소드 action
 	// 파라미터 : Report
 	// 리턴값 : int
 	int updateReport(Report report);

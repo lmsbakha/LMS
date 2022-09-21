@@ -46,7 +46,7 @@
 	</insert>
 	<!-- 과제 출제하기-->
 
-	<!-- 출제한 과제 상세보기 -->
+	<!-- 출제한 과제 수정하기 form -->
 	<select id="selectReportOne" resultType="com.gd.lms.vo.Report"
 		parameterType="int">
 		SELECT report_no reportNo, subject_name subjectName,
@@ -58,7 +58,7 @@
 		FROM report WHERE
 		report_no = #{reportNo}
 	</select>
-	<!-- 출제한 과제 상세보기 -->
+	<!-- 출제한 과제 수정하기 form -->
 
 	<!-- 출제한 과제 수정하기 -->
 	<update id="updateReport" parameterType="com.gd.lms.vo.Report">
@@ -71,7 +71,7 @@
 	<!-- 출제한 과제 수정하기 -->
 
 	<!-- 행정용 출제한 과제 삭제하기 -->
-	<delete id="deleteReport">
+	<delete id="deleteReport" parameterType="int">
 		DELETE FROM report WHERE report_no = #{reportNo}
 	</delete>
 	<!-- 행정용 출제한 과제 삭제하기 -->

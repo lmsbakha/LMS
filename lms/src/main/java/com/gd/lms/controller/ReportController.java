@@ -21,6 +21,13 @@ import com.gd.lms.vo.Report;
 
 import lombok.extern.slf4j.Slf4j;
 
+/*
+ * 작성자 : 박소연
+ * 작성일 : 2022-09 ~
+ * 과제 출제 Controller
+ * */
+
+
 @Slf4j
 @Controller
 public class ReportController {
@@ -106,6 +113,7 @@ public class ReportController {
 		return "addReport";
 	} // end addReport
 
+	// 과제 출제하는 메소드
 	// addReport Action
 	// 파라미터 : Report
 	// 리턴값 : reportList.jsp로 이동
@@ -162,7 +170,8 @@ public class ReportController {
 
 		return "modifyReport";
 	} // end modifyReport @GetMapping
-
+	
+	// 출제한 과제 수정하는 메소드
 	// modifyReport Action
 	// 파라미터 : Report 담아둘 Model , 받아온 Report
 	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동

@@ -4,6 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.menu a {
+	cursor: pointer;
+}
+
+    .menu .hide {
+	display: none;
+}
+</style>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Departments | Kiaalap - Kiaalap Admin Template</title>
@@ -105,7 +114,7 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/submitReportList"
+			<form action="${pageContext.request.contextPath}/reportSubmitList"
 				id="reportListForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -113,7 +122,9 @@
 							<h4>Report List</h4>
 							<hr>
 							<div class="add-product">
-								<a href="${pageContext.request.contextPath}/submitReportListById">나의 과제 리스트</a>
+								<a
+									href="${pageContext.request.contextPath}/reportSubmitListById">나의
+									과제 제출 리스트</a>
 							</div>
 							<div class="asset-inner">
 								<table>
@@ -122,25 +133,23 @@
 										<th>subjectName</th>
 										<th>reportTitle</th>
 										<th>createDate</th>
-										<th>Setting</th>
+										<th>reportSubmit</th>
 									</tr>
-									<c:forEach var="report" items="${reportList}">
+										<c:forEach var="report" items="${reportList}">
 										<tr>
 											<td>${report.reportNo}</td>
 											<td>${report.subjectName}</td>
-											<td>${report.reportTitle}</td>
+											<td>
+											<a href="${pageContext.request.contextPath}/reportOne?reportNo=${report.reportNo}">
+											${report.reportTitle}
+											</a>
+											</td>
 											<td>${report.createDate}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/modifyReport?reportNo=${report.reportNo}">
+												href="${pageContext.request.contextPath}/addReportSubject?reportNo=${report.reportNo}">
 													<button data-toggle="tooltip" title="Edit"
 														class="pd-setting-ed" type="button">
 														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-													</button>
-											</a> <a
-												href="${pageContext.request.contextPath}/removeReport?reportNo=${report.reportNo}">
-													<button data-toggle="tooltip" title="Trash"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-trash-o" aria-hidden="true"></i>
 													</button>
 											</a></td>
 										</tr>
@@ -149,10 +158,12 @@
 							</div>
 							<div>
 								<c:if test="${currentPage > 1}">
-									<a href="${pageContext.request.contextPath}/reportList?currentPage=${currentPage-1}">이전</a>
+									<a
+										href="${pageContext.request.contextPath}/reportSubmitList?currentPage=${currentPage-1}">이전</a>
 								</c:if>
 								<c:if test="${currentPage < lastPage}">
-									<a href="${pageContext.request.contextPath}/reportList?currentPage=${currentPage+1}">다음</a>
+									<a
+										href="${pageContext.request.contextPath}/reportSubmitList?currentPage=${currentPage+1}">다음</a>
 								</c:if>
 							</div>
 							<div class="custom-pagination">
@@ -229,5 +240,4 @@
 		============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
-
 </html>
