@@ -122,8 +122,7 @@
                                             <label for="noticeContent">본문</label>
                                             <p><!-- 본문 --> ${notice.noticeContent}</p>
                                             <div class="add-product">
-                                				<a href="/lms/noticeList">목록으로</a>                                				
-                            				                            				
+                                				<a href="/lms/noticeList">목록으로</a>                           				
                             				</div>
                                         </div>
                                     </div>
