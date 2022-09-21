@@ -112,24 +112,28 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="latest-blog-single blog-single-full-view">
-                                        <c:forEach var="notice" items="${noticeList}">
                                         <div class="blog-details blog-sig-details">
-                                            <h1><a class="blog-ht" href="#"><!-- 제목 --> ${notice.noticeTitle}</a></h1>
+                                       	 	<label for="noticeTitle">제목</label>
+                                            <h1> ${notice.noticeTitle}</h1>
                                             <hr>
                                             <div style="font-size:12px; text-align:right;">작성일: ${notice.createDate}</div>
                                             <div style="font-size:12px; text-align:right;">수정일: ${notice.updateDate}</div>
                                             <hr>
-                                            <p><!-- 본문 --> ${noticeNo.noticeContent}</p>
+                                            <label for="noticeContent">본문</label>
+                                            <p><!-- 본문 --> ${notice.noticeContent}</p>
+                                            <div class="add-product">
+                                				<a href="/lms/noticeList">목록으로</a>                                				
+                            				                            				
+                            				</div>
                                         </div>
-                                        </c:forEach>
-                                        
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+               			 </div>
+                      </div>
+                 </div>  
             </div>
+            
         </div>
         
         

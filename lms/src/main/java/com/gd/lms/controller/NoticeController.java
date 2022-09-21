@@ -110,8 +110,9 @@ public class NoticeController {
 	public String NoticeOne(Model model, @RequestParam("noticeNo") int noticeNo) {
 		log.debug(TeamColor.LHN + "게시글 상세보기: " + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo + TeamColor.TEXT_RESET);
-		noticeService.updateNoticeCount(noticeNo);
-		noticeService.showNoticeOne(noticeNo);
+		// 객체 적용
+		Notice notice = noticeService.showNoticeOne(noticeNo);
+		model.addAttribute("notice", notice); 
 		return "noticeOne";
 	}
 	

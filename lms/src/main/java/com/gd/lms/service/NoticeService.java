@@ -42,7 +42,14 @@ public class NoticeService {
 	
 	// 공지사항 상세보기
 	public Notice showNoticeOne(int noticeNo) {
-		return noticeMapper.selectNoticeOne(noticeNo);
+		log.debug(TeamColor.LHN + "selectNoticeOne 호출" + TeamColor.TEXT_RESET);
+		// 수정할 객체
+		Notice notice = null;
+		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo +  TeamColor.TEXT_RESET);
+		// 매퍼 적용
+		notice = noticeMapper.selectNoticeOne(noticeNo);
+		log.debug(TeamColor.LHN+ "notice : " +notice + TeamColor.TEXT_RESET);
+		return notice;
 	}
 	
 	//공지사항 신규 작성 액션	
