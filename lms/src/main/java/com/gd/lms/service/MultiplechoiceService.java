@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,14 +24,33 @@ public class MultiplechoiceService {
 	// MultiplechoiceMapper 객체 주입
 	@Autowired
 	private MultiplechoiceMapper multiplechoiceMapper;
+
 	// MultiplechoiceExampleMapper 객체 주입
 	@Autowired
 	private MultiplechoiceExampleMapper multiplechoiceExampleMapper;
-	
+
+	// 객관식 문제 상세보기
+	// 파라미터 : questionNo
+	// 리턴값 : Map<String, Object>
+	public Map<String, Object> getMultiplechoiceOne(int questionNo) {
+		//파라미터 디버깅
+		log.debug(TeamColor.PSJ + questionNo + "<-- questionNo" + TeamColor.TEXT_RESET);
+
+		// 리턴값을 담을 객체 생성
+		Map<String, Object> multiplechoiceOne = multiplechoiceMapper.selectMultiplechoiceOne(questionNo);
+		// MultiplechoiceMapper에서 객관식 문제 정보 받아오기
+		//multiplechoiceOne.put("multiplechoiceQuestion", multiplechoiceMapper.selectMultiplechoiceOne(questionNo));
+		// MultiplechoiceExampleMapper에서 해당 객관식 문제의 보기 지문 받아오기
+		//multiplechoiceOne.put("multiplechoiceExample", multiplechoiceExampleMapper.selectMultiplechoiceExampleList(questionNo));
+		
+		return multiplechoiceOne;
+		
+	}
+
 	// 검색어와 관련된 객관식 문제 리스트 가져오기
 	// 파라미터 : subjectName 
 	// 리턴값 : List<Multiplechoice>
-	public List<Map<String, Object>> getMultipleChoiceList(String subjectName){
+	public List<Map<String, Object>> getMultipleChoiceList(String subjectName) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + subjectName + "<-- subjectName" + TeamColor.TEXT_RESET);
 		// MultiplechoiceMapper call으로 전체 객관식 문제 리스트 가져오기
@@ -39,7 +59,7 @@ public class MultiplechoiceService {
 		log.debug(TeamColor.PSJ + multiplechoiceList + "<-- multiplechoiceList" + TeamColor.TEXT_RESET);
 		return multiplechoiceList;
 	}
-	
+
 	// 객관식 문제 추가하기
 	// 로직 : 객관식 문제 추가 후 multiplechoiceNo을 전송받아서 해당 객관식 문제의 보기들을 추가
 	// 파라미터 : Map<String, Object>
@@ -66,22 +86,22 @@ public class MultiplechoiceService {
 
 		// 전송받은 보기 지문을 list 생성 후 넣기
 		List<String> paramExampleList = new ArrayList<>();
-		paramExampleList.add((String) paramMap.get("answer1"));	//인덱스 0
-		paramExampleList.add((String) paramMap.get("answer2"));	//인덱스 1
-		paramExampleList.add((String) paramMap.get("answer3"));	//인덱스 2
-		paramExampleList.add((String) paramMap.get("answer4"));	//인덱스 3
-		paramExampleList.add((String) paramMap.get("answer5"));	//인덱스 4
-		
+		paramExampleList.add((String) paramMap.get("answer1")); //인덱스 0
+		paramExampleList.add((String) paramMap.get("answer2")); //인덱스 1
+		paramExampleList.add((String) paramMap.get("answer3")); //인덱스 2
+		paramExampleList.add((String) paramMap.get("answer4")); //인덱스 3
+		paramExampleList.add((String) paramMap.get("answer5")); //인덱스 4
+
 		// MultiplechoiceExampleMapper에 전송할 파라미터를 List로 셋팅
 		List<MultiplechoiceExample> paramMultiplechoiceExampleList = new ArrayList<>();
-		
+
 		// 해당 문제의 1
 		for (int i = 1; i <= 5; i++) {
 			MultiplechoiceExample paramMultiplechoiceExample = new MultiplechoiceExample();
 			paramMultiplechoiceExample.setQuestionNo(questionNo);
-			paramMultiplechoiceExample.setMultiplechoiceExampleId(i+"");
-			paramMultiplechoiceExample.setMultiplechoiceExampleContent(paramExampleList.get(i-1));
-			paramMultiplechoiceExampleList.add(i-1, paramMultiplechoiceExample);
+			paramMultiplechoiceExample.setMultiplechoiceExampleId(i + "");
+			paramMultiplechoiceExample.setMultiplechoiceExampleContent(paramExampleList.get(i - 1));
+			paramMultiplechoiceExampleList.add(i - 1, paramMultiplechoiceExample);
 		}
 
 		// MultiplechoiceMapper 정상적으로 작동했는지 확인

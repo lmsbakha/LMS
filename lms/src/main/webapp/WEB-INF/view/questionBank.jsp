@@ -92,7 +92,9 @@
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
 										<li><a href="${pageContext.request.contextPath}/exam">시험</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pageContext.request.contextPath}/questionBank"><span class="bread-blod" style="font-weight: bold;">문제은행</span></a></li>
+										<li><a href="${pageContext.request.contextPath}/questionBank">
+												<span class="bread-blod" style="font-weight: bold;">문제은행</span>
+											</a></li>
 									</ul>
 								</div>
 							</div>
@@ -107,54 +109,97 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<h4>문제은행</h4>
+						<ul id="myTabedu1" class="tab-review-design">
+							<li class="active"><a href="#multiplechoice">객관식 문제은행</a></li>
+							<li><a href="#shortAnswer">단답형 문제은행</a></li>
+						</ul>
 						<div class="add-product">
-							<a href="${pageContext.request.contextPath}/addQuestionInBank">문제 추가</a>
+							<a href="${pageContext.request.contextPath}/addQuestionInBank">문제추가</a>
 						</div>
-						<div class="asset-inner">
-							<table class="table table-hover">
-								<tr>
-									<th>questionNo</th>
-									<th>questionTitle</th>
-									<th>subjectName</th>
-									<th>updateDate</th>
-									<th>createDate</th>
-									<th>Setting</th>
-								</tr>
-								<c:forEach var="map" items="${examList}">
-									<tr>
-										<td>${map.questionNo}</td>
-										<td>${map.questionTitle}</td>
-										<td>${map.subjectName}</td>
-										<td>${map.updateDate}</td>
-										<td>${map.createDate}</td>
-										<td>
-											<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
-												<a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-											</button>
-											<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
-												<a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-											</button>
-										</td>
-									</tr>
-								</c:forEach>
-							</table>
+						<div id="myTabContent" class="tab-content custom-product-edit">
+							<div class="product-tab-list tab-pane fade active in" id="multiplechoice">
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="review-content-section">
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="asset-inner">
+														<table class="table table-hover">
+															<tr>
+																<th>questionNo</th>
+																<th>questionTitle</th>
+																<th>subjectName</th>
+																<th>updateDate</th>
+																<th>createDate</th>
+																<th>Setting</th>
+															</tr>
+															<c:forEach var="map" items="${multiplechoiceList}">
+																<tr>
+																	<td>${map.questionNo}</td>
+																	<td>${map.questionTitle}</td>
+																	<td>${map.subjectName}</td>
+																	<td>${map.updateDate}</td>
+																	<td>${map.createDate}</td>
+																	<td><a href="${pageContext.request.contextPath}/multiplechoiceOne?questionNo=${map.questionNo}">
+																			<button data-toggle="tooltip" title="상세보기" class="pd-setting-ed">
+																				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+																			</button>
+																		</a>
+																		<button data-toggle="tooltip" title="삭제하기" class="pd-setting-ed" onclick="location.href='${pageContext.request.contextPath}/removeMultiplechoiceOne?questionNo=${map.questionNo}' ">
+																			<i class="fa fa-trash-o" aria-hidden="true"></i>
+																		</button></td>
+																</tr>
+															</c:forEach>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="product-tab-list tab-pane fade" id="shortAnswer">
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="review-content-section">
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="asset-inner">
+														<table class="table table-hover">
+															<tr>
+																<th>questionNo</th>
+																<th>questionTitle</th>
+																<th>subjectName</th>
+																<th>updateDate</th>
+																<th>createDate</th>
+																<th>Setting</th>
+															</tr>
+															<c:forEach var="map" items="${examList}">
+																<tr>
+																	<td>${map.questionNo}</td>
+																	<td>${map.questionTitle}</td>
+																	<td>${map.subjectName}</td>
+																	<td>${map.updateDate}</td>
+																	<td>${map.createDate}</td>
+																	<td>
+																		<button data-toggle="tooltip" title="Edit" class="pd-setting-ed" onclick="location.href='${pageContext.request.contextPath}/editQuestion?questionNo=${map.questionNo}' ">
+																			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+																		</button>
+																		<button data-toggle="tooltip" title="Trash" class="pd-setting-ed" onclick="location.href='${pageContext.request.contextPath}/trashQuestion?questionNo=${map.questionNo}' ">
+																			<i class="fa fa-trash-o" aria-hidden="true"></i>
+																		</button>
+																	</td>
+																</tr>
+															</c:forEach>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<%-- <div class="custom-pagination">
-							<nav aria-label="Page navigation example">
-								<ul class="pagination">
-									<c:if test="${currentPage > 1}">
-										<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage-1}">이전</a></li>
-									</c:if>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<c:if test="${currentPage < lastPage}">
-										<li class="page-item"><a class="page-link" href="/reportList?currentPage=${currentPage+1}">다음</a></li>
-									</c:if>
-								</ul>
-							</nav>
-						</div> --%>
 					</div>
 				</div>
 			</div>

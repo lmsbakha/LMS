@@ -37,5 +37,6 @@
 		INNER JOIN lecture_subject ls
 		USING(subject_name)
 		WHERE ls.lecture_name=#{lectureName}
+		ORDER BY exam_start_date DESC
 	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.gd.lms.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.MultiplechoiceExample;
@@ -12,5 +14,7 @@ public interface MultiplechoiceExampleMapper {
 	int insertMultiplechoiceExample(MultiplechoiceExample multiplechoiceExample);
 	
 	// 특정 문제와 관련된 보기(1,2,3,4,5)를 보여주는 메소드
-	// 파라미터 : 
+	// 파라미터 : questionNo
+	// 리턴값 : List<MultiplechoiceExample>
+	List<MultiplechoiceExample> selectMultiplechoiceExampleList(int questionNo);
 }

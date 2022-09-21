@@ -10,5 +10,16 @@
 		(#{questionNo}, #{multiplechoiceExampleId}, #{multiplechoiceExampleContent}, NOW(), NOW())
 	</insert>
 	
-	
+	<!-- 객관식 문제 보기 리스트  -->
+	<select id="selectMultiplechoiceExampleList" parameterType="int" resultType="com.gd.lms.vo.MultiplechoiceExample">
+		SELECT 
+			question_no questionNo
+			,multiplechoice_example_id multiplechoiceExampleId
+			, multiplechoice_example_content multiplechoiceExampleContent
+			,update_date updateDate
+			,create_date createDate
+			FROM multiplechoice_example
+			WHERE question_no = #{questionNo} 
+			ORDER BY multiplechoice_example_id ASC
+	</select>
 </mapper>

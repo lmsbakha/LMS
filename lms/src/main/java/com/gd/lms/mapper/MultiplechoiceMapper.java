@@ -16,6 +16,11 @@ public interface MultiplechoiceMapper {
 	 * */
 	List<Map<String, Object>> selectMultiplechoiceListByRandom(Map<String, Object> paramRandom);
 	
+	// 객관식 문제 상세보기
+	// 파라미터 : questionNo
+	// 리턴값 : Map<String, Object>
+	Map<String, Object> selectMultiplechoiceOne(int questionNo);
+	
 	
 	// 객관식 문제를 추가하는 메소드
 	// 파라미터 : Multiplechoice

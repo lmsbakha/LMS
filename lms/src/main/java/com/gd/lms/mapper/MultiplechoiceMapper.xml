@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.MultiplechoiceMapper">
+	<!-- 객관식 문제 상세보기 -->
+	<select id="selectMultiplechoiceOne" parameterType="int" resultType="Map">
+		SELECT 
+			question_no questionNo
+			,subject_name subjectName
+			,question_title questionTitle
+			,question_answer questionAnswer
+			,update_date updateDate
+			,create_date createDate 
+		FROM multiplechoice 
+		WHERE question_no = #{questionNo}
+	</select>
 	<!-- 객관식 문제 추가 -->
 	<insert id="insertMultiplechoice" parameterType="com.gd.lms.vo.Multiplechoice">
 		INSERT INTO multiplechoice 
-		(subject_name, question_title, question_answer, update_date, create_date) 
+		(subject_name, question_title, question_answer, update_date, create_date)
 		VALUES 
 		(#{subjectName}, #{questionTitle}, #{questionAnswer}, NOW(), NOW())
 		<selectKey resultType="int" keyProperty="questionNo" order="AFTER">
-			SELECT LAST_INSERT_ID()	
+			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
 
-	<!-- 특정과목과 관련된 객관식 문제 랜덤하게 뽑기-->
+	<!-- 특정과목과 관련된 객관식 문제 랜덤하게 뽑기 -->
 	<select id="selectMultiplechoiceListByRandom" parameterType="Map" resultType="Map">
 		SELECT 
-		subject_name subjectName
-		, question_no questionNo
-		, question_title questionTitle
-		, question_answer questionAnswer
+			subject_name subjectName
+			, question_no questionNo
+			, question_title questionTitle
+			,question_answer questionAnswer
 		FROM multiplechoice 
-		WHERE subject_name = #{subjectName}
+		WHERE subject_name = #{subjectName} 
 		ORDER BY RAND() LIMIT #{multipleCnt}
 	</select>
 
 	<!-- 특정과목과 관련된 객관식 문제 리스트. 단, 검색어가 null 또는 공백일 경우 WHERE 절이 없음 -->
 	<select id="selectMultiplechoiceList" parameterType="String" resultType="Map">
 		SELECT 
-		subject_name subjectName
-		, question_no questionNo
-		, question_title questionTitle
-		, question_answer questionAnswer
-		, update_date updateDate
-		, create_date createDate
-		FROM multiplechoice 
+			subject_name subjectName
+			, question_no questionNo
+			, question_title questionTitle
+			, question_answer questionAnswer
+			, update_date updateDate
+			, create_date createDate
+		FROM multiplechoice
 		<if test="value != null and !value.equals('')">
-			WHERE subject_name = #{value}
+			WHERE subject_name = #{value} 
 		</if>
+		ORDER BY create_date DESC
 	</select>
 
 	<!-- 객관식 문제 수정 -->

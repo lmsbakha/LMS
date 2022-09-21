@@ -72,7 +72,7 @@ public class ExamController {
 	 * exam.jsp
 	 */
 	@GetMapping("/exam")
-	String exam(HttpSession session, Model model) {
+	public String exam(HttpSession session, Model model) {
 		// 세션에 저장된 값을 지역변수로 저장
 		String accountId = (String) session.getAttribute("sessionId");
 		// 디버깅
@@ -92,7 +92,7 @@ public class ExamController {
 	 * 리턴값 : lecture에서 출제된 시험리스트
 	 */
 	@PostMapping("/lectureListByTeacher")
-	String lectureListByTeacher(RedirectAttributes redirectAttributes, @RequestParam(value = "lectureName") String lectureName) {
+	public String lectureListByTeacher(RedirectAttributes redirectAttributes, @RequestParam(value = "lectureName") String lectureName) {
 		// 디버깅
 		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
 
@@ -106,24 +106,22 @@ public class ExamController {
 
 	/*
 	 * [강사전용] 문제은행 페이지를 보여주는 메소드 
-	 * 파라미터 : 객관식 문제/단답형 문제를 담은 List를 view로 전송할 Model, 검색어 subjectName 
-	 * 리턴값: 객관식,단답형 문제 리스트를 보여줄 문제 은행 view --> questionBank.jsp로 이동
+	 * 파라미터 : 객관식 문제를 담은 List를 view로 전송할 Model, 검색어 subjectName 
+	 * 리턴값: 객관식 문제 리스트를 보여줄 문제 은행 view --> questionBank.jsp로 이동
 	 */
 	@GetMapping("/questionBank")
-	String examList(Model model, @RequestParam(value = "subjectName", required = false) String subjectName) {
+	public String examList(Model model, @RequestParam(value = "subjectName", required = false) String subjectName) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + subjectName + "<-- subjectName" + TeamColor.TEXT_RESET);
 
 		// 단답형 문제와 객관식 문제들이 들어 있는 문제 리스트 객체 생성
-		List<Map<String, Object>> examList = new ArrayList<>();
 		// 객관식 문제 리스트 가져오기
-		List<Map<String, Object>> multichoiceList = multiplechoiceService.getMultipleChoiceList(subjectName);
-		examList.addAll(multichoiceList);
+		List<Map<String, Object>> multiplechoiceList = multiplechoiceService.getMultipleChoiceList(subjectName);
 		// 단답형 문제 리스트를 가져오기
-		log.debug(TeamColor.PSJ + examList + "<-- examList" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSJ + multiplechoiceList + "<-- multiplechoiceList" + TeamColor.TEXT_RESET);
 
 		// 모델 단으로 전송하기
-		model.addAttribute("examList", examList);
+		model.addAttribute("multiplechoiceList", multiplechoiceList);
 		return "questionBank";
 	}
 
@@ -133,7 +131,7 @@ public class ExamController {
 	 * 리턴값:시험문제를 출제하기 위한 form인 addExam.jsp로 이동
 	 */
 	@GetMapping("/addExam")
-	String addExam(HttpSession session, Model model) {
+	public String addExam(HttpSession session, Model model) {
 		String accountId = (String) session.getAttribute("sessionId");
 		// 로그인한 강사의 아이디 확인
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
@@ -160,7 +158,7 @@ public class ExamController {
 	 * 리턴 값 : addExam으로 이동하고 alertMsg로 성공 실패 여부 보내주기
 	 */
 	@PostMapping("/addExam")
-	String addExam(RedirectAttributes redirectAttributes
+	public String addExam(RedirectAttributes redirectAttributes
 			, @RequestParam(value = "subjectName") String subjectName
 			, @RequestParam(value = "examTitle") String examTitle
 			, @RequestParam(value = "examContent") String examContent
@@ -215,9 +213,15 @@ public class ExamController {
 	 * addFlashAttribute --> 1회성으로 메세지를 보여주면 되기 때문에 addAttribute을 사용하지 않고 addFlashAttribute 사용함
 	 */
 	@PostMapping("/addMultipleChoice")
-	String addExam(RedirectAttributes redirectAttributes, @RequestParam(value = "subjectName") String subjectName, @RequestParam(value = "questionTitle") String questionTitle, @RequestParam(value = "questionAnswer") String questionAnswer,
-			@RequestParam(value = "answer1") String answer1, @RequestParam(value = "answer2") String answer2, @RequestParam(value = "answer3") String answer3, @RequestParam(value = "answer4") String answer4,
-			@RequestParam(value = "answer5") String answer5) {
+	String addExam(RedirectAttributes redirectAttributes
+			, @RequestParam(value = "subjectName") String subjectName
+			, @RequestParam(value = "questionTitle") String questionTitle
+			, @RequestParam(value = "questionAnswer") String questionAnswer
+			, @RequestParam(value = "answer1") String answer1
+			, @RequestParam(value = "answer2") String answer2
+			, @RequestParam(value = "answer3") String answer3
+			, @RequestParam(value = "answer4") String answer4
+			, @RequestParam(value = "answer5") String answer5) {
 
 		// MultiplechoiceService에 전송할 파라미터 생성
 		Map<String, Object> paramMap = new HashMap<>();

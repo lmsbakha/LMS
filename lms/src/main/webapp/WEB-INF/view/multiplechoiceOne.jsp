@@ -1,3 +1,5 @@
+<!-- 문제은행 페이지 -->
+<!-- 문제은행 페이지 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -63,8 +65,8 @@
 <!-- modernizr JS
       ============================================ -->
 <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-
 </head>
+
 <body>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
@@ -89,7 +91,11 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">시험</span></li>
+										<li><a href="${pageContext.request.contextPath}/exam">시험</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/exam">문제은행</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/questionBank">
+												<span class="bread-blod" style="font-weight: bold;">상세보기(객관식)</span>
+											</a></li>
 									</ul>
 								</div>
 							</div>
@@ -104,101 +110,27 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<h4>시험조회</h4>
-						<hr>
-						<div class="sparkline12-graph">
-							<div class="basic-login-form-ad">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="all-form-element-inner">
-											<!-- 해당 lecture 조회 -->
-											<form action="${pageContext.request.contextPath}/lectureListByTeacher" method="post">
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">Lecture 조회</label>
-														</div>
-														<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-															<div class="form-select-list">
-																<select class="form-control custom-select-value" name="lectureName" id="lectureName" required="required">
-																	<option value="defalut">--------강좌선택-------</option>
-																	<c:forEach var="l" items="${lectureListByTeacher}">
-																		<option value="${l.lectureName }">${l.lectureName }</option>
-																	</c:forEach>
-																</select>
-															</div>
-														</div>
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<button type="submit" class="btn btn-custon-rounded-two btn-primary">강좌선택</button>
-														</div>
-													</div>
-												</div>
-											</form>
-											<!-- /해당 lecture 조회 -->
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="product-status mg-b-15">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="product-status-wrap drp-lst">
-						<h4>시험리스트</h4>
+						<h4>문제정보</h4>
 						<!-- 문제 출제 하기 -->
 						<div class="asset-inner">
 							<table>
 								<tr>
-									<th>examNo</th>
-									<th>lectureName</th>
+									<th>questionNo</th>
 									<th>subjectName</th>
-									<th>examTitle</th>
-									<th>examStartDate</th>
-									<th>examEndDate</th>
-									<th>Setting</th>
+									<th>questionTitle</th>
+									<th>questionAnswer</th>
+									<th>updateDate</th>
+									<th>createDate</th>
 								</tr>
-								<c:if test="${empty examListByLecture }">
-									<tr>
-										<td colspan="7" style="text-align: center;">lecture를 먼저 선택해주세요</td>
-									</tr>
-								</c:if>
-								<c:if test="${not empty examListByLecture }">
-									<c:forEach var="map" items="${examListByLecture}">
-										<tr>
-											<td>${map.examNo}</td>
-											<td>${map.lectureName}</td>
-											<td>${map.subjectName}</td>
-											<td>${map.examTitle}</td>
-											<td>${map.examStartDate}</td>
-											<td>${map.examEndDate}</td>
-											<td>
-												<!-- 상세 보기 및 수정하기  -->
-												<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
-													<a href="">
-														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-													</a>
-												</button> <!-- 삭제하기 -->
-												<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
-													<a href="">
-														<i class="fa fa-trash-o" aria-hidden="true"></i>
-													</a>
-												</button>
-											</td>
-										</tr>
-									</c:forEach>
-								</c:if>
+								<tr>
+									<td>${multiplechoiceOne.questionNo}</td>
+									<td>${multiplechoiceOne.subjectName}</td>
+									<td>${multiplechoiceOne.questionTitle}</td>
+									<td>${multiplechoiceOne.questionAnswer}</td>
+									<td>${multiplechoiceOne.updateDate}</td>
+									<td>${multiplechoiceOne.createDate}</td>
+								</tr>
 							</table>
-							<div class="btn-custom-groups-one btn-mg-b-10" style="float: right;">
-								<button type="button" class="btn btn-primary" onclick="location.href = '${pageContext.request.contextPath}/questionBank' ">문제은행</button>
-								<button type="button" class="btn btn-primary" onclick="location.href = '${pageContext.request.contextPath}/addExam' ">시험출제</button>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -262,4 +194,5 @@
       ============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
+
 </html>
