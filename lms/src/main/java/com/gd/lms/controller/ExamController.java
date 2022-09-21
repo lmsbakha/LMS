@@ -80,6 +80,9 @@ public class ExamController {
 		return "exam/exam"; // forwarding으로 보내줌
 	}
 
+	// 시험을 삭제하는 메소드
+	// 파라미터 : examNo
+	// 리턴 값 : alertMsg
 	
 
 	/*
