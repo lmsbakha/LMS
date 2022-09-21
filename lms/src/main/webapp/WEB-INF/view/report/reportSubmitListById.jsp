@@ -73,11 +73,11 @@
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<!-- Start sidebar -->
-	<jsp:include page="inc/sidebar.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/sidebar.jsp" />
 	<!-- End sidebar -->
 
 	<!-- Start tobbar -->
-	<jsp:include page="inc/topbar.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/topbar.jsp" />
 	<!-- End tobbar -->
 
 	<!-- Main Contents -->
@@ -106,7 +106,7 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/reportSubmitListById"
+			<form action="${pageContext.request.contextPath}/loginCheck/reportSubmitListById"
 				id="reportListForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -115,7 +115,7 @@
 							<hr>
 							<div class="add-product">
 								<a
-									href="${pageContext.request.contextPath}/reportSubmitListById">과제 리스트</a>
+									href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">과제 리스트</a>
 							</div>
 							<div class="asset-inner">
 								<table>
@@ -140,11 +140,11 @@
 							<div>
 								<c:if test="${currentPage > 1}">
 									<a
-										href="${pageContext.request.contextPath}/reportSubmitListById?currentPage=${currentPage-1}">이전</a>
+										href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById?currentPage=${currentPage-1}">이전</a>
 								</c:if>
 								<c:if test="${currentPage < lastPage}">
 									<a
-										href="${pageContext.request.contextPath}/reportSubmitListById?currentPage=${currentPage+1}">다음</a>
+										href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById?currentPage=${currentPage+1}">다음</a>
 								</c:if>
 							</div>
 							<div class="custom-pagination">
@@ -165,7 +165,7 @@
 		</div>
 	</div>
 	<!-- Start footer -->
-	<jsp:include page="inc/footer.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/footer.jsp" />
 	<!-- End footer -->
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->

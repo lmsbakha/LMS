@@ -73,11 +73,11 @@
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<!-- Start sidebar -->
-	<jsp:include page="inc/sidebar.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/sidebar.jsp" />
 	<!-- End sidebar -->
 
 	<!-- Start tobbar -->
-	<jsp:include page="inc/topbar.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/topbar.jsp" />
 	<!-- End tobbar -->
 
 	<!-- Main Contents -->
@@ -93,7 +93,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">과제</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">상세보기</span></li>
 									</ul>
 								</div>
 							</div>
@@ -105,87 +106,48 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/reportList"
-				id="reportListForm" method="post">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="product-status-wrap drp-lst">
-							<h4>Report List</h4>
-							<hr>
-							<div class="add-product">
-								<a href="${pageContext.request.contextPath}/addReport">과제 추가</a>
-							</div>
-							<div class="asset-inner">
-								<table>
-									<tr>
-										<th>reportNo</th>
-										<th>subjectName</th>
-										<th>reportTitle</th>
-										<th>createDate</th>
-										<th>Setting</th>
-									</tr>
-
-									<c:forEach var="report" items="${reportList}">
-										<tr>
-											<td>${report.reportNo}</td>
-											<td>${report.subjectName}</td>
-											<td>
-												<div class="menu">
-													<a>${report.reportTitle}</a>
-													<div>
-														<textarea name="reportContent" id="reportContent"
-															style="width: 300px; border-color: white;" readonly>
-															 ${report.reportContent}</textarea>
-													</div>
-												</div>
-											</td>
-											<td>${report.createDate}</td>
-											<td><a
-												href="${pageContext.request.contextPath}/modifyReport?reportNo=${report.reportNo}">
-													<button data-toggle="tooltip" title="Edit"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-													</button>
-											</a> <a
-												href="${pageContext.request.contextPath}/removeReport?reportNo=${report.reportNo}">
-													<button data-toggle="tooltip" title="Trash"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-trash-o" aria-hidden="true"></i>
-													</button>
-											</a></td>
-										</tr>
-									</c:forEach>
-								</table>
-							</div>
-							<div>
-								<c:if test="${currentPage > 1}">
-									<a
-										href="${pageContext.request.contextPath}/reportList?currentPage=${currentPage-1}">이전</a>
-								</c:if>
-								<c:if test="${currentPage < lastPage}">
-									<a
-										href="${pageContext.request.contextPath}/reportList?currentPage=${currentPage+1}">다음</a>
-								</c:if>
-							</div>
-							<div class="custom-pagination">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<li class="page-item"><a class="page-link" href="">Previous</a></li>
-										<!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-
-										<li class="page-item"><a class="page-link" href="">Next</a></li>
-									</ul>
-								</nav>
-							</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="product-status-wrap drp-lst">
+						<h4>Report Detail</h4>
+						<hr>
+						<div class="form-group">
+							<input name="reportNo" type="hidden"
+								value="${reportOne.reportNo}">
+						</div>
+						<div class="form-group">
+							<label for="subjectName">subjectName</label> <input
+								name="subjectName" id="subjectName" type="text"
+								class="form-control" value="${reportOne.subjectName}" readonly>
+						</div>
+						<div class="form-group">
+							<label for="reportTitle">reportTitle</label> <input
+								name="reportTitle" id="reportTitle" type="text"
+								class="form-control" value="${reportOne.reportTitle}" readonly>
+						</div>
+						<div class="form-group edit-ta-resize res-mg-t-15">
+							<label for="reportContent">reportContent</label>
+							<textarea name="reportContent" id="reportContent"
+								style="background-color: #eee;" readonly>${reportOne.reportContent}</textarea>
+						</div>
+						<div class="form-group">
+							<label for="reportStartDate">reportStartDate</label> <input
+								name="reportStartDate" id="reportStartDate" type="date"
+								class="form-control" value="${reportOne.reportStartDate}"
+								readonly>
+						</div>
+						<div class="form-group">
+							<label for="reportEndDate">reportEndDate</label> <input
+								name="reportEndDate" id="reportEndDate" type="date"
+								class="form-control" value="${reportOne.reportEndDate}" readonly>
 						</div>
 					</div>
 				</div>
-			</form>
-			<!-- </form> -->
+			</div>
 		</div>
 	</div>
 	<!-- Start footer -->
-	<jsp:include page="inc/footer.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/footer.jsp" />
 	<!-- End footer -->
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -241,19 +203,4 @@
 		============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
-<script>
-	    // html dom 이 다 로딩된 후 실행된다.    
-	$(document).ready(function() {
-		// menu 클래스 바로 하위에 있는 a 태그를 클릭했을때       
-		$(".menu>a").click(function() {
-			var submenu = $(this).next("div");
-			// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기           
-			if (submenu.is(":visible")) {
-				submenu.slideUp();
-			} else {
-				submenu.slideDown();
-			}
-		});
-	});
-</script>
 </html>

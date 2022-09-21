@@ -4,6 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.menu a {
+	cursor: pointer;
+}
+
+    .menu .hide {
+	display: none;
+}
+</style>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Departments | Kiaalap - Kiaalap Admin Template</title>
@@ -73,11 +82,11 @@
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<!-- Start sidebar -->
-	<jsp:include page="inc/sidebar.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/sidebar.jsp" />
 	<!-- End sidebar -->
 
 	<!-- Start tobbar -->
-	<jsp:include page="inc/topbar.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/topbar.jsp" />
 	<!-- End tobbar -->
 
 	<!-- Main Contents -->
@@ -93,8 +102,7 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pageContext.request.contextPath}/reportSubmitList">과제</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">상세보기</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
 									</ul>
 								</div>
 							</div>
@@ -106,48 +114,77 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="product-status-wrap drp-lst">
-						<h4>Report Detail</h4>
-						<hr>
-						<div class="form-group">
-							<input name="reportNo" type="hidden"
-								value="${reportOne.reportNo}">
-						</div>
-						<div class="form-group">
-							<label for="subjectName">subjectName</label> <input
-								name="subjectName" id="subjectName" type="text"
-								class="form-control" value="${reportOne.subjectName}" readonly>
-						</div>
-						<div class="form-group">
-							<label for="reportTitle">reportTitle</label> <input
-								name="reportTitle" id="reportTitle" type="text"
-								class="form-control" value="${reportOne.reportTitle}" readonly>
-						</div>
-						<div class="form-group edit-ta-resize res-mg-t-15">
-							<label for="reportContent">reportContent</label>
-							<textarea name="reportContent" id="reportContent"
-								style="background-color: #eee;" readonly>${reportOne.reportContent}</textarea>
-						</div>
-						<div class="form-group">
-							<label for="reportStartDate">reportStartDate</label> <input
-								name="reportStartDate" id="reportStartDate" type="date"
-								class="form-control" value="${reportOne.reportStartDate}"
-								readonly>
-						</div>
-						<div class="form-group">
-							<label for="reportEndDate">reportEndDate</label> <input
-								name="reportEndDate" id="reportEndDate" type="date"
-								class="form-control" value="${reportOne.reportEndDate}" readonly>
+			<form action="${pageContext.request.contextPath}/loginCheck/reportSubmitList"
+				id="reportListForm" method="post">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="product-status-wrap drp-lst">
+							<h4>Report List</h4>
+							<hr>
+							<div class="add-product">
+								<a
+									href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">나의
+									과제 제출 리스트</a>
+							</div>
+							<div class="asset-inner">
+								<table>
+									<tr>
+										<th>reportNo</th>
+										<th>subjectName</th>
+										<th>reportTitle</th>
+										<th>createDate</th>
+										<th>reportSubmit</th>
+									</tr>
+										<c:forEach var="report" items="${reportList}">
+										<tr>
+											<td>${report.reportNo}</td>
+											<td>${report.subjectName}</td>
+											<td>
+											<a href="${pageContext.request.contextPath}/loginCheck/reportOne?reportNo=${report.reportNo}">
+											${report.reportTitle}
+											</a>
+											</td>
+											<td>${report.createDate}</td>
+											<td><a
+												href="${pageContext.request.contextPath}/loginCheck/addReportSubject?reportNo=${report.reportNo}">
+													<button data-toggle="tooltip" title="Edit"
+														class="pd-setting-ed" type="button">
+														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+													</button>
+											</a></td>
+										</tr>
+									</c:forEach>
+								</table>
+							</div>
+							<div>
+								<c:if test="${currentPage > 1}">
+									<a
+										href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?currentPage=${currentPage-1}">이전</a>
+								</c:if>
+								<c:if test="${currentPage < lastPage}">
+									<a
+										href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?currentPage=${currentPage+1}">다음</a>
+								</c:if>
+							</div>
+							<div class="custom-pagination">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item"><a class="page-link" href="">Previous</a></li>
+										<!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+
+										<li class="page-item"><a class="page-link" href="">Next</a></li>
+									</ul>
+								</nav>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
+			<!-- </form> -->
 		</div>
 	</div>
 	<!-- Start footer -->
-	<jsp:include page="inc/footer.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/footer.jsp" />
 	<!-- End footer -->
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->

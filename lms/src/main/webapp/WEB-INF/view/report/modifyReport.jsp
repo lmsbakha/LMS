@@ -73,11 +73,11 @@
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<!-- Start sidebar -->
-	<jsp:include page="inc/sidebar.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/sidebar.jsp" />
 	<!-- End sidebar -->
 
 	<!-- Start tobbar -->
-	<jsp:include page="inc/topbar.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/topbar.jsp" />
 	<!-- End tobbar -->
 
 	<!-- Main Contents -->
@@ -106,7 +106,7 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/modifyReport"
+			<form action="${pageContext.request.contextPath}/loginCheck/modifyReport"
 				id="modifyReportForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -154,7 +154,7 @@
 		</div>
 	</div>
 	<!-- Start footer -->
-	<jsp:include page="inc/footer.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/footer.jsp" />
 	<!-- End footer -->
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->

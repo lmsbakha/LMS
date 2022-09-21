@@ -45,7 +45,7 @@ public class ReportController {
 	// 과제 리스트 조회
 	// 파라미터 : ROW_PER_PAGE, currentPage, reportList
 	// 리턴값 : reportList.jsp로 이동
-	@GetMapping("/reportList")
+	@GetMapping("/loginCheck/reportList")
 	public String reportdList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
@@ -73,12 +73,12 @@ public class ReportController {
 			// 성공
 			log.debug(TeamColor.PSY + " 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
 			// reportList로 리다이렉트
-			return "reportList";
+			return "report/reportList";
 		} else {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 리스트 조회실패" + TeamColor.TEXT_RESET);
 			// index로 리다이렉트
-			return "redirect:/loginCheck/index";
+			return "redirect:/report/reportList";
 		}
 	} // end reportList @GetMapping
 
@@ -86,7 +86,7 @@ public class ReportController {
 	// addReport Form
 	// 파라미터 : List<LectureSubject>를 담아둘 Model
 	// 리턴값: 과제를 출제하기 위한 form인 addReport.jsp로 이동
-	@GetMapping("/addReport")
+	@GetMapping("/loginCheck/addReport")
 	String addReport(Model model, HttpSession session) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
@@ -110,14 +110,14 @@ public class ReportController {
 		model.addAttribute("subjectNameList", subjectNameList);
 		model.addAttribute("infoAboutTeacher", infoAboutTeacher);
 		
-		return "addReport";
+		return "report/addReport";
 	} // end addReport
 
 	// 과제 출제하는 메소드
 	// addReport Action
 	// 파라미터 : Report
 	// 리턴값 : reportList.jsp로 이동
-	@PostMapping("/addReport")
+	@PostMapping("/loginCheck/addReport")
 	String addReport(Model model, @RequestParam("subjectName") String subjectName,
 			@RequestParam("reportTitle") String reportTitle, @RequestParam("reportContent") String reportContent,
 			@RequestParam("reportStartDate") String reportStartDate,
@@ -146,14 +146,14 @@ public class ReportController {
 			log.debug(TeamColor.PSY + " 과제 출제 실패" + TeamColor.TEXT_RESET);
 		}
 		// reportList로 리다이렉트
-		return "redirect:/reportList";
+		return "redirect:/report/reportList";
 	} // end addReport @PostMapping
 
 	// 출제한 과제 수정하는 메소드
 	// modifyReport form
 	// 파라미터 : Report 담아둘 Model , reportNo
 	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동
-	@GetMapping("/modifyReport")
+	@GetMapping("/loginCheck/modifyReport")
 	String modifyReport(Model model, @RequestParam("reportNo") int reportNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@modifyReport Controller" + TeamColor.TEXT_RESET);
@@ -168,14 +168,14 @@ public class ReportController {
 		// 모델단에 reportOne을 addAttribute해서 폼으로 전달
 		model.addAttribute("reportOne", reportOne);
 
-		return "modifyReport";
+		return "report/modifyReport";
 	} // end modifyReport @GetMapping
 	
 	// 출제한 과제 수정하는 메소드
 	// modifyReport Action
 	// 파라미터 : Report 담아둘 Model , 받아온 Report
 	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동
-	@PostMapping("/modifyReport")
+	@PostMapping("/loginCheck/modifyReport")
 	public String modifyReport(Model model, @RequestParam("reportNo") int reportNo,
 			@RequestParam("reportTitle") String reportTitle, @RequestParam("reportContent") String reportContent,
 			@RequestParam("reportStartDate") String reportStartDate,
@@ -205,13 +205,13 @@ public class ReportController {
 			log.debug(TeamColor.PSY + " 과제 수정 실패" + TeamColor.TEXT_RESET);
 		}
 		// reportList로 리다이렉트
-		return "redirect:/reportList";
+		return "redirect:/report/reportList";
 	} // end modifyReport @PostMapping
 
 	// 행정용 출제한 과제 삭제하는 메소드
 	// 파라미터 : reportNo
 	// 리턴값 : reportList.jsp로 이동
-	@GetMapping("/removeReport")
+	@GetMapping("/loginCheck/removeReport")
 	public String removeReport(@RequestParam("reportNo") int reportNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@removeReport Controller" + TeamColor.TEXT_RESET);
@@ -231,6 +231,6 @@ public class ReportController {
 			log.debug(TeamColor.PSY + " 과제 삭제 실패" + TeamColor.TEXT_RESET);
 		}
 		// reportList로 리다이렉트
-		return "redirect:/reportList";
+		return "redirect:/report/reportList";
 	}
 }

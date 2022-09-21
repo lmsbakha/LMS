@@ -4,15 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.menu a {
-	cursor: pointer;
-}
-
-    .menu .hide {
-	display: none;
-}
-</style>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Departments | Kiaalap - Kiaalap Admin Template</title>
@@ -82,11 +73,11 @@
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<!-- Start sidebar -->
-	<jsp:include page="inc/sidebar.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/sidebar.jsp" />
 	<!-- End sidebar -->
 
 	<!-- Start tobbar -->
-	<jsp:include page="inc/topbar.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/topbar.jsp" />
 	<!-- End tobbar -->
 
 	<!-- Main Contents -->
@@ -102,7 +93,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
+										<li><a href="#">과제</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">출제</span></li>
 									</ul>
 								</div>
 							</div>
@@ -114,77 +106,70 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/reportSubmitList"
-				id="reportListForm" method="post">
+			<form action="${pageContext.request.contextPath}/loginCheck/addReport"
+				id="addReportForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst">
-							<h4>Report List</h4>
+							<h4>Add Report</h4>
 							<hr>
-							<div class="add-product">
-								<a
-									href="${pageContext.request.contextPath}/reportSubmitListById">나의
-									과제 제출 리스트</a>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+										<label for="subjectName">subjectName</label> <select
+											class="form-control custom-select-value" name="subjectName"
+											id="subjectName" required="required">
+											<option value="defalut">::::::::: 과목선택 :::::::::</option>
+											<c:forEach var="subject" items="${subjectNameList}">
+												<option value="${subject.subjectName}">${subject.subjectName}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
 							</div>
-							<div class="asset-inner">
-								<table>
-									<tr>
-										<th>reportNo</th>
-										<th>subjectName</th>
-										<th>reportTitle</th>
-										<th>createDate</th>
-										<th>reportSubmit</th>
-									</tr>
-										<c:forEach var="report" items="${reportList}">
-										<tr>
-											<td>${report.reportNo}</td>
-											<td>${report.subjectName}</td>
-											<td>
-											<a href="${pageContext.request.contextPath}/reportOne?reportNo=${report.reportNo}">
-											${report.reportTitle}
-											</a>
-											</td>
-											<td>${report.createDate}</td>
-											<td><a
-												href="${pageContext.request.contextPath}/addReportSubject?reportNo=${report.reportNo}">
-													<button data-toggle="tooltip" title="Edit"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-													</button>
-											</a></td>
-										</tr>
-									</c:forEach>
-								</table>
+							<div class="form-group">
+								<label for="reportTitle">reportTitle</label> <input
+									name="reportTitle" id="reportTitle" type="text"
+									class="form-control">
 							</div>
-							<div>
-								<c:if test="${currentPage > 1}">
-									<a
-										href="${pageContext.request.contextPath}/reportSubmitList?currentPage=${currentPage-1}">이전</a>
-								</c:if>
-								<c:if test="${currentPage < lastPage}">
-									<a
-										href="${pageContext.request.contextPath}/reportSubmitList?currentPage=${currentPage+1}">다음</a>
-								</c:if>
+							<div class="form-group edit-ta-resize res-mg-t-15">
+								<label for="reportContent">reportContent</label>
+								<textarea name="reportContent" id="reportContent"></textarea>
 							</div>
-							<div class="custom-pagination">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<li class="page-item"><a class="page-link" href="">Previous</a></li>
-										<!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-
-										<li class="page-item"><a class="page-link" href="">Next</a></li>
-									</ul>
-								</nav>
+							<div class="form-group-inner">
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<label for="reportStartDate">reportStartDate</label> <input
+											name="reportStartDate" id="reportStartDate" type="date"
+											class="form-control"
+											min="${infoAboutTeacher.lectureStartDate}"
+											max="${infoAboutTeacher.lectureEndDate}" required="required">
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										<label for="reportEndDate">reportEndDate</label> <input
+											name="reportEndDate" id="reportEndDate" type="date"
+											class="form-control"
+											min="${infoAboutTeacher.lectureStartDate }"
+											max="${infoAboutTeacher.lectureEndDate }" required="required">
+									</div>
+								</div>
+								<!-- row -->
 							</div>
 						</div>
 					</div>
+					<div class="payment-adress">
+						<button type="button" id="addReportBtn"
+							class="btn btn-primary waves-effect waves-light"
+							style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
+					</div>
 				</div>
+				<!-- row -->
 			</form>
 			<!-- </form> -->
 		</div>
 	</div>
 	<!-- Start footer -->
-	<jsp:include page="inc/footer.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/inc/footer.jsp" />
 	<!-- End footer -->
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -240,4 +225,30 @@
 		============================================ -->
 	<script src="js/tawk-chat.js"></script>
 </body>
+<!-- reportStartDate 달력의 value값 현재 날짜로 적용 -->
+<script>
+	document.getElementById('reportStartDate').value = new Date().toISOString()
+			.substring(0, 10);
+	;
+</script>
+<!-- reportEndDate 달력의 value값 현재 날짜로 적용 -->
+<script>
+	document.getElementById('reportEndDate').value = new Date().toISOString()
+			.substring(0, 10);
+	;
+</script>
+<script>
+$('#addReportBtn').click(function() {
+	if ($('#reportTitle').val() == '') {
+		alert('reportTitle를 입력해주세요.');
+		$('#reportTitle').focus();
+	}else if ($('#reportContent').val() == '') {
+		alert('reportContent를 입력해주세요.');
+		$('#reportContent').focus();
+	}else {
+		alert('과제를 출제하시겠습니까?');
+		 $( '#addReportForm' ).submit();
+	}
+});
+</script>
 </html>

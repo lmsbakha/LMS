@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,18 +35,17 @@ public class ReportSubmitController {
 	// ReportSubmitService 객체 주입
 	@Autowired
 	ReportSubmitService reportSubmitService;
-	
 
 	// ROW_PER_PAGE의 개수가 변하지 않도록 상수로 선언
 	private final int ROW_PER_PAGE = 10;
 
 	// 과제 리스트 조회
-	// 파라미터 : ROW_PER_PAGE, currentPage, reportList
+	// 파라미터 : ROW_PER_PAGE, currentPage, reportList 담을 Model
 	// 리턴값 : reportList.jsp로 이동
-	@GetMapping("/reportSubmitList")
+	@GetMapping("/loginCheck/reportSubmitList")
 	public String reportSubmitList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@reportSubmitList Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + currentPage + "<-- currentPage" + TeamColor.TEXT_RESET);
 
@@ -56,10 +57,11 @@ public class ReportSubmitController {
 
 		// 페이징 service call
 		List<Report> reportSubmitList = reportService.getReportList(currentPage, ROW_PER_PAGE);
+		// reportSubmitList 디버깅 
 		log.debug(TeamColor.PSY + reportSubmitList + "<--reportList" + TeamColor.TEXT_RESET);
 
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@reportSubmitList Controller" + TeamColor.TEXT_RESET);
 
 		// reportList로 값 넘겨주기
 		model.addAttribute("reportList", reportSubmitList);
@@ -69,19 +71,51 @@ public class ReportSubmitController {
 			// 성공
 			log.debug(TeamColor.PSY + " 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
 			// reportList로 리다이렉트
-			return "reportSubmitList";
+			return "report/reportSubmitList";
 		} else {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 리스트 조회실패" + TeamColor.TEXT_RESET);
 			// index로 리다이렉트
-			return "redirect:/loginCheck/index";
+			return "redirect:/report/reportSubmitList";
 		}
 	} // end reportSubmitList @GetMapping
+
+	// 학생이 제출한 과제 리스트 조회 메소드
+	// 파라미터 : 세션에 저장된 accountId 담을 Model
+	// 리턴값 : List<Map<String,Object>>
+	@GetMapping("/loginCheck/reportSubmitListById")
+	String reportSubmitListById(Model model, HttpSession session) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@reportSubmitListById Controller" + TeamColor.TEXT_RESET);
+
+		// getReportListById 값 넘겨주기
+		String acountId = ((String) session.getAttribute("sessionId"));
+		// accountId 디버깅
+		log.debug(TeamColor.PSY + acountId + "<--acountId" + TeamColor.TEXT_RESET);
+
+		// Service Call
+		List<Map<String, Object>> reportSubmitListById = reportSubmitService.getReportListById(acountId);
+		// reportSubmitListById 디버깅 
+		log.debug(TeamColor.PSY + reportSubmitListById + "<--reportSubmitListById" + TeamColor.TEXT_RESET);
+
+		// model에 담기
+		model.addAttribute("reportSubmitListById", reportSubmitListById);
+
+		if (reportSubmitListById != null) {
+			// 성공
+			log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
+		} else {
+			// 실패
+			log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회실패" + TeamColor.TEXT_RESET);
+		}
+
+		return "report/reportSubmitListById";
+	}
 
 	// 과제 상세보기 메소드
 	// 파라미터 : reportNo를 담을 Model
 	// 리턴값: reportOne.jsp로 이동
-	@GetMapping("/reportOne")
+	@GetMapping("/loginCheck/reportOne")
 	String reportOne(Model model, @RequestParam("reportNo") int reportNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
@@ -96,6 +130,6 @@ public class ReportSubmitController {
 		// 모델단에 reportOne을 addAttribute해서 폼으로 전달
 		model.addAttribute("reportOne", reportOne);
 
-		return "reportOne";
-	}
+		return "report/reportOne";
+	} // end reportOne
 }
