@@ -78,7 +78,9 @@
 	<!-- topbar -->
 	<jsp:include page="inc/topbar.jsp" />
 
-    <!-- Start Welcome area -->
+
+    <!-- Main Contents -->
+	<div class="header-advance-area">
             <div class="breadcome-area">
                 <div class="container-fluid">
                     <div class="row">
@@ -86,21 +88,10 @@
                             <div class="breadcome-list single-page-breadcome">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <div class="breadcome-heading">
-                                            <form role="search" class="sr-input-func">
-                                                <input type="text" placeholder="Search..." class="search-int form-control">
-                                                <a href="#"><i class="fa fa-search"></i></a>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <ul class="breadcome-menu">
-                                            <li><a href="#">Home</a> <span class="bread-slash">/</span>
-                                            </li>
-                                            <li><a href="/lms/noticeList">공지사항</a> <span class="bread-slash">/</span>
-                                            </li>
-                                            <li><a href="/lms/addNotice">신규 공지 작성</a> <span class="bread-slash"></span>
-                                            </li>
+                                        <ul class="breadcome-menu" style="float: left;">
+                                            <li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+                                            <li><a href="/lms/noticeList">공지사항</a> <span class="bread-slash">/</span></li>
+                                            <li><a href="/lms/addNotice">신규 공지 작성</a> <span class="bread-slash"></span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -109,15 +100,13 @@
                     </div>
                 </div>
             </div>
-        <!-- Single pro tab review Start-->
         <div class="single-pro-review-area mt-t-30 mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="product-payment-inner-st">
-                            <ul id="myTabedu1" class="tab-review-design">
-                                <li class="active"><a href="#description">공지 작성</a></li>
-                            </ul>
+                        <div class="product-status-wrap drp-lst">
+                                <h4>add Notice</h4>
+                                <hr>
                             <div id="myTabContent" class="tab-content custom-product-edit">
                                 <div class="product-tab-list tab-pane fade active in" id="description">
                                     <div class="row">
@@ -126,7 +115,7 @@
                                                 <div id="dropzone1" class="pro-ad addcoursepro">
                                                     <form action="${pageContext.request.contextPath}/addNotice" id="addNoticeForm" method="post">
                                                         <div class="row">
-                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="form-group edit-ta-resize res-mg-t-15">
                                                                 <div class="form-group">
                                                                     <label for="noticeTitle">제목</label> <input name="noticeTitle" id="noticeTitle" type="text" class="form-control">
                                                                 </div>

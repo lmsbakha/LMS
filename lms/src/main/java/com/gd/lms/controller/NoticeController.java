@@ -111,8 +111,11 @@ public class NoticeController {
 		log.debug(TeamColor.LHN + "게시글 상세보기: " + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo + TeamColor.TEXT_RESET);
 		// 객체 적용
+		int noticeCount = noticeService.updateNoticeCount(noticeNo);
 		Notice notice = noticeService.showNoticeOne(noticeNo);
+		notice.setNoticeCount(noticeCount);
 		model.addAttribute("notice", notice); 
+		log.debug(TeamColor.LHN + "noticeCount: " + noticeCount + TeamColor.TEXT_RESET);
 		return "noticeOne";
 	}
 	
