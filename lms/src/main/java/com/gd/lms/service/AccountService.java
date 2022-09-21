@@ -21,7 +21,7 @@ public class AccountService {
 	// AccountMapper 객체 주입
 	@Autowired AccountMapper accountMapper;
 	
-	// 계정 활성화값
+	// accountState 활성화값
 	public String getAccountState(Account account) {
 		// 디버깅
 		log.debug(TeamColor.PCW + "AccountService getAccountState" +TeamColor.TEXT_RESET);
@@ -29,28 +29,30 @@ public class AccountService {
 		return accountMapper.selectAccountState(account);
 	}
 	
-	// 로그인에 사용되는 메서드
+	// 로그인
 	public Account getLogin(Account paramAccount) {
 		// 디버깅
-		log.debug(TeamColor.PCW + "AccountService getLogin paramAccount" +TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService getLogin paramAccount" + paramAccount + TeamColor.TEXT_RESET);
 		
 		// 로그인 정보 대입해서 맞다면 로그인 아이디와 해당 level, state 가지고오기
 		Account account = accountMapper.selectLogin(paramAccount);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService getLogin account" + account + TeamColor.TEXT_RESET);
 		// 마지막 로그인 날짜 업데이트 해주기
 		int row = accountMapper.updateLastLoginDate(paramAccount.getAccountId());
 		// 디버깅
-		log.debug(TeamColor.PCW + "AccountService getLogin account : "+ account +TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PCW + "AccountService getLogin row : "+ row +TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService getLogin row" + row + TeamColor.TEXT_RESET);
 		
 		return account;
 	}
 	
-	// (학생, 강사, 행정) 멤버 아이디 찾기 메서드
+	// (학생, 강사, 행정) 멤버 아이디 찾기
 	public String searchMemberAccountId(Map<String, Object> map) {
 		// 디버깅
-		log.debug(TeamColor.PCW + "AccountService AccountService "+ map + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService searchMemberAccountId "+ map + TeamColor.TEXT_RESET);
 		String accountId = accountMapper.selectMemberAccountId(map);
-		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService searchMemberAccountId accountId "+ accountId + TeamColor.TEXT_RESET);
 		if(accountId == null) {
 			return "false";
 		} 
@@ -58,7 +60,18 @@ public class AccountService {
 		return accountId;
 	}
 	
-	// 회원가입 메서드
+	// (학생, 강사, 행정) 멤버 비밀번호 찾기
+	public int searchMemberAccountPw(Map<String, Object> map) {
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService searchMemberAccountPw "+ map + TeamColor.TEXT_RESET);
+		int cnt = accountMapper.selectMemberAccountPw(map);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService searchMemberAccountPw cnt "+ cnt + TeamColor.TEXT_RESET);
+		
+		return cnt;
+	}
+	
+	// 회원가입
 	public void addMember(Member paramMember) {
 		// 디버깅
 		log.debug(TeamColor.PCW + "AccountService addMember" +TeamColor.TEXT_RESET);

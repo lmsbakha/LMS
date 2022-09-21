@@ -115,6 +115,7 @@
 				<div class="hpanel">
                     <div class="panel-body poss-recover">
                         <form action="${pageContext.request.contextPath}/searchAccountId" method="post">
+                        	<c:if test="${resultMsg eq null}">
                              <div class="form-group">
                                 <label class="control-label" for="username">Name</label>
                               	<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
@@ -126,26 +127,42 @@
                                 <input type="email" placeholder="example@gmail.com"  required="required"  name="memberEmail" id="memberEmail" class="form-control">
                                 <span class="help-block small"></span>
                             </div>
-                            <c:if test="${resultMsg eq null}">
                             	<button type="submit" class="btn btn-success btn-block">아이디 찾기</button>
-                           	 	<button type="button" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/login'">Login</button>
+                           	 	<button type="button" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 하러가기</button>
                             </c:if>
+                            </form>
                              <c:if test="${resultMsg != null}">
                        			<c:choose>
-					   				<c:when test="${resultMsg eq 'false'}">
-					   					<span style="color:red; font-size:16px;"><b>※ 입력하신 정보와 일치하는 데이터가 존재하지 않습니다.</b></span>
+					   				<c:when test="${resultMsg eq 'false' || alertMsg eq 'Fail'}">
+				                           <div class="alert alert-danger alert-mg-b alert-success-style4">
+				                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+				                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
+				                              </button>
+				                              <i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
+				                              <span>
+				                                 ※ 입력하신 정보와 일치하는 아이디가 없습니다.
+				                              </span>
+				                           </div>
 					   					<a class="btn btn-success btn-block" style="color:white; " href="${pageContext.request.contextPath}/searchAccountId">아이디 다시찾기</a>
 					   				</c:when>
 					   				 <c:otherwise>
-					   				 	<span>※ 회원님의 아이디는 <b style="color:blue; font-size:20px;">"${resultMsg}"</b> 입니다.</span>
+					   				 	<c:if test="${alertMsg eq 'Success'}">
+				                           <div class="alert alert-success alert-success-style1">
+				                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+				                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
+				                              </button>
+				                              <i class="fa fa-check edu-checked-pro admin-check-pro" aria-hidden="true"></i>
+				                              <span>
+				                                 ※ 회원님의 아이디는 <b style="font-size:20px;">"${resultMsg}"</b> 입니다.
+				                              </span>
+				                           </div>
+				                        </c:if>
 					   				 	<br>
-					   				 	<br>
-					   				 	<a class="btn btn-success btn-block" style="color:white;" href="${pageContext.request.contextPath}/login">Login</a>
+					   				 	<a class="btn btn-success btn-block" style="color:white;" href="${pageContext.request.contextPath}/login">로그인 하러가기</a>
 					   				 	<a class="btn btn-success btn-block" style="color:white;" href="${pageContext.request.contextPath}/searchAccountPass">비밀번호 찾기</a>
 					   				 </c:otherwise>
 					   			</c:choose>
                         	</c:if>
-                        </form>
                     </div>
                 </div>
 			</div>

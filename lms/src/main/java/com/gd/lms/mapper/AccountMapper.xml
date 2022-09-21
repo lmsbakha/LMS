@@ -53,6 +53,29 @@
 	</select>
 	<!-- /멤버 아이디 찾기 -->
 	
+	<!-- 멤버 비밀번호 찾기 -->
+	<select id="selectMemberAccountPw" parameterType="map" resultType="int">
+		SELECT
+			COUNT(*) cnt
+		FROM account a
+		<if test="'student'.equals(memberCheck)">
+			INNER JOIN student s 
+			ON a.account_id = s.account_id
+			WHERE s.account_id = #{accountId} AND s.student_name = #{memberName}
+		</if>
+		<if test="'teacher'.equals(memberCheck)">
+			INNER JOIN teacher t
+			ON a.account_id = t.account_id
+			WHERE s.account_id = #{accountId} AND t.teacher_name = #{memberName}
+		</if>
+		<if test="'manager'.equals(memberCheck)">
+			INNER JOIN manager m 
+			ON a.account_id = m.account_id
+			WHERE s.account_id = #{accountId} AND m.manager_name = #{memberName}
+		</if>
+	</select>
+	<!-- /멤버 비밀번호 찾기 -->
+	
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="com.gd.lms.vo.Member">
 		<!-- 행정테이블에 추가 -->

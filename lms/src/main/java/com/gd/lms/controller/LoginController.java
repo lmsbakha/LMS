@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.AccountService;
@@ -95,7 +96,7 @@ public class LoginController {
 	@PostMapping("/searchAccountId")
 	public String searchAccountId(Model model, @RequestParam(value="memberCheck") String memberCheck
 											, @RequestParam(value="memberName") String memberName
-											, @RequestParam(value="memberEmail") String memberEmail ) {
+											, @RequestParam(value="memberEmail") String memberEmail) {
 		// 디버깅
 		log.debug(TeamColor.PCW + "LoginController PostMapping(searchAccountId) memberCheck : " + memberCheck + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PCW + "LoginController PostMapping(searchAccountId) memberName : " + memberName + TeamColor.TEXT_RESET);
@@ -108,6 +109,11 @@ public class LoginController {
 		
 		
 		String resultMsg = accountService.searchMemberAccountId(map);
+		   if (resultMsg != null) {
+			   model.addAttribute("alertMsg", "Success");
+		      } else {
+		       model.addAttribute("alertMsg", "Fail");
+		      }
 		
 		model.addAttribute("resultMsg", resultMsg);
 		
@@ -118,6 +124,21 @@ public class LoginController {
 	public String index() {
 		return "/login/index";
 	}
+	
+	// (학생, 강사, 행정) 멤버 비밀번호 찾기 Form
+	@GetMapping("/searchAccountPw")
+	public String searchAccountPw(Model model, @RequestParam(value="memberCheck", defaultValue="student") String memberCheck) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(searchAccountPw)" + TeamColor.TEXT_RESET);
+		
+		model.addAttribute("memberCheck", memberCheck);
+		
+		return "searchAccountPw"; 
+	}
+	
+	// (학생, 강사, 행정) 멤버 비밀번호 찾기 Action
+	
 	
 	// 회원가입 Form
 	@GetMapping("/register")
