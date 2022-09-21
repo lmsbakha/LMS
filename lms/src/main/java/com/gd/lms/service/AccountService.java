@@ -45,6 +45,19 @@ public class AccountService {
 		return account;
 	}
 	
+	// (학생, 강사, 행정) 멤버 아이디 찾기 메서드
+	public String searchMemberAccountId(Map<String, Object> map) {
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService AccountService "+ map + TeamColor.TEXT_RESET);
+		String accountId = accountMapper.selectMemberAccountId(map);
+		
+		if(accountId == null) {
+			return "false";
+		} 
+		
+		return accountId;
+	}
+	
 	// 회원가입 메서드
 	public void addMember(Member paramMember) {
 		// 디버깅

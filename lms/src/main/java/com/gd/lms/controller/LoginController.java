@@ -1,5 +1,7 @@
 package com.gd.lms.controller;
 
+import java.util.*;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,11 +78,45 @@ public class LoginController {
 
 		return "redirect:/login";
 	}
-
-	// 로그인 액션을 거쳐서 index.jsp로 이동하는 메소드
+	
+	// (학생, 강사, 행정) 멤버 아이디 찾기 Form
+	@GetMapping("/searchAccountId")
+	public String searchAccountId(Model model, @RequestParam(value="memberCheck", defaultValue="student") String memberCheck) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(searchAccountId)" + TeamColor.TEXT_RESET);
+		
+		model.addAttribute("memberCheck", memberCheck);
+		
+		return"searchAccountId";
+	}
+	
+	// (학생, 강사, 행정) 멤버 아이디 찾기 Action
+	@PostMapping("/searchAccountId")
+	public String searchAccountId(Model model, @RequestParam(value="memberCheck") String memberCheck
+											, @RequestParam(value="memberName") String memberName
+											, @RequestParam(value="memberEmail") String memberEmail ) {
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController PostMapping(searchAccountId) memberCheck : " + memberCheck + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "LoginController PostMapping(searchAccountId) memberName : " + memberName + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "LoginController PostMapping(searchAccountId) memberEmail : " + memberEmail + TeamColor.TEXT_RESET);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberCheck", memberCheck);
+		map.put("memberName", memberName);
+		map.put("memberEmail", memberEmail);
+		
+		
+		String resultMsg = accountService.searchMemberAccountId(map);
+		
+		model.addAttribute("resultMsg", resultMsg);
+		
+		return "searchAccountId";
+	}
+	// index Form
 	@GetMapping("/loginCheck/index")
 	public String index() {
-		return "/index";
+		return "/login/index";
 	}
 	
 	// 회원가입 Form
@@ -89,6 +125,7 @@ public class LoginController {
 		
 		// 디버깅
 		log.debug(TeamColor.PCW + "LoginController GetMapping(register)" + TeamColor.TEXT_RESET);
+		
 		model.addAttribute("memberCheck", memberCheck);
 		
 		return "register";

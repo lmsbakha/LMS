@@ -103,7 +103,12 @@
                             </c:if>
                             <br>
                             <button  type="submit" class="btn btn-success btn-block loginbtn" id="loginBtn"><b>Login</b></button>
+                            <hr>
                             <a class="btn btn-success  btn-block" href="${pageContext.request.contextPath}/register">회원가입</a>
+                            <div style="text-align:right;">
+                            	<a class="search"  href="${pageContext.request.contextPath}/searchAccountId">아이디 찾기</a> / 
+           						<a class="search"  href="${pageContext.request.contextPath}/register">비밀번호 찾기</a>
+							</div>
 						</form>
                     </div>
                 </div>

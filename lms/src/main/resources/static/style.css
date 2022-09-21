@@ -3363,7 +3363,16 @@ td.text-right.mail-date {
     font-weight: 700;
     color: #ffffff;
     border-radius: 3px;
-    background:#62ad3c;
+    padding: 10px 30px;
+    transition: all .4s ease 0s;
+}
+.login-error a.search {
+    display: inline-block;
+    margin: 0px 5px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #2e2b2b;
+    border-radius: 3px;
     padding: 10px 30px;
     transition: all .4s ease 0s;
 }

@@ -70,11 +70,11 @@
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<!-- Start sidebar -->
-    <jsp:include page="inc/sidebar.jsp"/>
+    <jsp:include page="../inc/sidebar.jsp"/>
     <!-- End sidebar -->
     
     <!-- Start tobbar -->
-	<jsp:include page="inc/topbar.jsp"/>
+	<jsp:include page="../inc/topbar.jsp"/>
     <!-- End tobbar -->   
     
         <!-- Main Contents -->
@@ -117,7 +117,7 @@
         
         
 	 <!-- Start footer -->
-	<jsp:include page="inc/footer.jsp"/>
+	<jsp:include page="../inc/footer.jsp"/>
     <!-- End footer -->  
 
 
