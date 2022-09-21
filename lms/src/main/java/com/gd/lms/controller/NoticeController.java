@@ -26,7 +26,7 @@ public class NoticeController {
 	NoticeFileService noticeFileService;
 	
 	// 공지 리스트 페이지
-	@GetMapping("/noticeList")
+	@GetMapping("/loginCheck/noticeList")
 	public String noticeList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
 		
 		// 페이지 당 게시글 수
@@ -76,19 +76,21 @@ public class NoticeController {
 	}
 	
 	// 공지글 작성 폼
-	@GetMapping("/addNotice")
+	@GetMapping("/loginCheck/addNotice")
 	public String addNoticeForm(Model model) {
 		return "addNotice";
 	}
 
 	// 공지글 작성 액션
-	@PostMapping("/addNotice")
-	String addReport(Model model, @RequestParam("noticeTitle") String noticeTitle,
+	@PostMapping("/loginCheck/addNotice")
+	String addReport(Model model, @RequestParam("accountId") String accountId,
+			@RequestParam("noticeTitle") String noticeTitle,
 			@RequestParam("noticeContent") String noticeContent) {
 		log.debug(TeamColor.PSY + "게시글 작성" + TeamColor.TEXT_RESET);
 
 		// 입력 내용 notice 적용
 		Notice notice = new Notice();
+		notice.setAccountId(accountId);
 		notice.setNoticeTitle(noticeTitle);
 		notice.setNoticeContent(noticeContent);
 		
@@ -103,12 +105,12 @@ public class NoticeController {
 		// 첨부파일 있을 경우 저장
 		
 		// 공지 리스트로
-		return "redirect:/noticeList";
+		return "redirect:/loginCheck/noticeList";
 	} 
 	
 	// 공지사항 상세보기
 	
-	@GetMapping("/noticeOne")
+	@GetMapping("/loginCheck/noticeOne")
 	public String NoticeOne(Model model, @RequestParam("noticeNo") int noticeNo) {
 		log.debug(TeamColor.LHN + "게시글 상세보기: " + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo + TeamColor.TEXT_RESET);
@@ -125,7 +127,7 @@ public class NoticeController {
 	
 	// 공지글 수정 폼
 	
-	@GetMapping("/modifyNoticeForm") 
+	@GetMapping("/loginCheck/modifyNoticeForm") 
 	public String updateNoticeOne(Model model, @RequestParam("noticeNo") int noticeNo) {
 		log.debug(TeamColor.LHN + "공지글 수정 폼 " + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + noticeNo +  ": noticeNo " + TeamColor.TEXT_RESET);
@@ -137,7 +139,7 @@ public class NoticeController {
 	
 	
 	// 수정 액션
-	@PostMapping("/modifyNotice")
+	@PostMapping("/loginCheck/modifyNotice")
 	public String modifyList(Model model, @RequestParam("noticeNo") int noticeNo,
 			@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContent") String noticeContent) {
 		
@@ -152,12 +154,12 @@ public class NoticeController {
 		log.debug(TeamColor.LHN + "modifyNotice: " +notice +  TeamColor.TEXT_RESET);
 		int modifyNotice = noticeService.modifyNotice(notice);
 		// 디버깅
-		log.debug(TeamColor.LHN + "수정완료" + TeamColor.TEXT_RESET);
-		return "redirect:/noticeList";
+		log.debug(TeamColor.LHN + "수정완료"+ TeamColor.TEXT_RESET);
+		return "redirect:/loginCheck/noticeList";
 	}
 	
 	// 공지글 삭제 액션
-	@GetMapping("/removeNotice")
+	@GetMapping("/loginCheck/removeNotice")
 	public String deleteNotice(@RequestParam(name="noticeNo") int noticeNo) {
 		log.debug(TeamColor.LHN + noticeNo +  ": noticeNo " + TeamColor.TEXT_RESET);
 		
@@ -168,7 +170,7 @@ public class NoticeController {
 		}
 			log.debug(TeamColor.LHN +" 삭제 실패 " + TeamColor.TEXT_RESET);
 		
-		return "redirect:/noticeList";
+		return "redirect:/loginCheck/noticeList";
 		
 	}
 	

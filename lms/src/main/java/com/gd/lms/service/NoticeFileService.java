@@ -15,14 +15,23 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class NoticeFileService {
 	@Autowired private NoticeFileMapper noticeFileMapper;
-	// 공지글 파일 첨부
-	public int addNoticeFile(NoticeFile noticeFile) {
-		log.debug(TeamColor.LHN + " addNotice 실행" + TeamColor.TEXT_RESET);
-		int addNoticeFile = 0;
-		addNoticeFile = noticeFileMapper.insertNoticefile(noticeFile);
-		// 디버깅
-		log.debug(TeamColor.PSY + "addNoticeFile: "+ addNoticeFile  + TeamColor.TEXT_RESET);
-		return addNoticeFile;
+	// 공지글 파일 불러오기(다운로드)
+	public NoticeFile downloadNoticeFile(int noticeFileNo) {
+		
+		return null;
 		
 	}
+	
+	// 공지글 파일 첨부
+	public int addNoticeFile(NoticeFile noticeFile) {
+		log.debug(TeamColor.LHN + "addNotice 실행" + TeamColor.TEXT_RESET);
+		int addNoticeFile = 0;
+		addNoticeFile = noticeFileMapper.insertNoticeFile(noticeFile);
+		
+		// 디버깅
+		log.debug(TeamColor.PSY + "addNoticeFile: "+ addNoticeFile  + TeamColor.TEXT_RESET);
+		return addNoticeFile; 
+	} 
+	
+	// 공지글 파일 삭제
 }
