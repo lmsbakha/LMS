@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
-import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class NoticeFileService {
 		
 	}
 	
-	// 공지글 파일 첨부
+	// 공지글 파일 첨부(입력)
 	public int addNoticeFile(NoticeFile noticeFile) {
 		log.debug(TeamColor.LHN + "addNotice 실행" + TeamColor.TEXT_RESET);
 		int addNoticeFile = 0;
@@ -34,6 +35,15 @@ public class NoticeFileService {
 		log.debug(TeamColor.PSY + "addNoticeFile: "+ addNoticeFile  + TeamColor.TEXT_RESET);
 		return addNoticeFile; 
 	} 
+	
+	// 게시글 하나에 들어있는 첨부파일 불러오기
+	public NoticeFile selectNoticeFileList(int noticeNo){
+		NoticeFile noticeFile = noticeFileMapper.selectNoticeFile(noticeNo);
+		
+		
+		return noticeFile;
+		
+	}
 	
 	// 공지글 파일 삭제
 	public int deleteNoticeFile(int noticeNo) {

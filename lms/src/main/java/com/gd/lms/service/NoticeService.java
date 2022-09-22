@@ -87,6 +87,8 @@ public class NoticeService {
 	// 공지글 수정 액션
 	public int modifyNotice(Notice notice) {
 		
+		
+		
 		return noticeMapper.updateNotice(notice);
 	}
 

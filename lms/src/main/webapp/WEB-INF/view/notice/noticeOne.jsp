@@ -87,7 +87,7 @@
                                             </li>
                                             <li><a href="/lms/loginCheck/noticeList">공지사항</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><a href="/lms/loginCheck/addNotice">상세보기</a> <span class="bread-slash"></span>
+                                            <li><a href="/lms/loginCheck/noticeList">상세보기</a> <span class="bread-slash"></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -133,7 +133,7 @@
         
         
     <!-- footer -->
-	<jsp:include page="inc/footer.jsp" />
+	<jsp:include page="../inc/footer.jsp" />
 
     <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 

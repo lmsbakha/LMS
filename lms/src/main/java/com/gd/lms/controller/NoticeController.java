@@ -71,13 +71,13 @@ public class NoticeController {
 		
 		// model에 데이터 세팅
 		model.addAttribute("noticeList", noticeList);
-		return "noticeList";
+		return "notice/noticeList";
 	}
 	
 	// 공지글 작성 폼
 	@GetMapping("/loginCheck/addNotice")
 	public String addNoticeForm(Model model) {
-		return "addNotice";
+		return "notice/addNotice";
 	}
 
 	// 공지글 작성 액션
@@ -104,7 +104,7 @@ public class NoticeController {
 		// 첨부파일 있을 경우 저장
 		
 		// 공지 리스트로
-		return "redirect:/loginCheck/noticeList";
+		return "redirect:/notice/noticeList";
 	} 
 	
 	// 공지사항 상세보기
@@ -119,7 +119,7 @@ public class NoticeController {
 		notice.setNoticeCount(noticeCount);
 		model.addAttribute("notice", notice); 
 		log.debug(TeamColor.LHN + "noticeCount: " + noticeCount + TeamColor.TEXT_RESET);
-		return "noticeOne";
+		return "notice/noticeOne";
 	}
 	
 	
@@ -133,7 +133,7 @@ public class NoticeController {
 		// 객체 적용
 		Notice notice = noticeService.modifyNoticeForm(noticeNo);
 		model.addAttribute("notice", notice); 
-		return "modifyNotice";
+		return "notice/modifyNotice";
 		}
 	
 	
@@ -158,7 +158,7 @@ public class NoticeController {
 		// 파일 여부에 따른 추가/삭제 기능 추가 필요
 		
 		
-		return "redirect:/loginCheck/noticeList";
+		return "redirect:/notice/noticeList";
 	}
 	
 	// 공지글 삭제 액션
@@ -175,7 +175,7 @@ public class NoticeController {
 			
 		// 파일 있을 경우 함께 삭제
 		
-		return "redirect:/loginCheck/noticeList";
+		return "redirect:/notice/noticeList";
 		
 	}
 	
