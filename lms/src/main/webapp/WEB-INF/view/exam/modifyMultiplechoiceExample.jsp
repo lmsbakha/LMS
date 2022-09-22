@@ -1,7 +1,3 @@
-<!-- 
- 	작성자 : 박소정
- 	페이지 기능 : 해당 문제의 보기 수정하는 페이지
- -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>

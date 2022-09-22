@@ -150,7 +150,12 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<h4>시험리스트</h4>
+						<h4>시험리스트 
+							<div class="btn-custom-groups-one btn-mg-b-10" style="float: right;">
+								<button type="button" class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/questionBank' ">문제은행</button>
+								<button type="button" class="btn btn-warning" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/addExam' ">시험출제</button>
+							</div>
+						</h4>
 						<!-- 문제 출제 하기 -->
 						<div class="asset-inner">
 							<table>
@@ -193,10 +198,6 @@
 									</c:forEach>
 								</c:if>
 							</table>
-							<div class="btn-custom-groups-one btn-mg-b-10" style="float: right;">
-								<button type="button" class="btn btn-primary" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/questionBank' ">문제은행</button>
-								<button type="button" class="btn btn-primary" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/addExam' ">시험출제</button>
-							</div>
 						</div>
 					</div>
 				</div>

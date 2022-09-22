@@ -29,6 +29,24 @@ public class MultiplechoiceService {
 	@Autowired
 	private MultiplechoiceExampleMapper multiplechoiceExampleMapper;
 
+	// 객관식 문제 지문 수정하기
+	// 파라미터 : Multiplechoice
+	// 리턴값 : int
+	public int modifyMultiplechoiceOne(Multiplechoice paramMultiplechoice) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + paramMultiplechoice + "<-- paramMultiplechoice" + TeamColor.TEXT_RESET);
+
+		// Mapper call
+		int row = multiplechoiceMapper.updateMultiplechoice(paramMultiplechoice);
+		// 결과 디버깅
+		if (row != 0) { // 수정에 성공하였을 때
+			log.debug(TeamColor.PSJ + "[Success] modifyMultiplechoiceOne 성공 " + TeamColor.TEXT_RESET);
+		} else { // 수정 실패했을 때
+			log.debug(TeamColor.PSJ + "[Fail] modifyMultiplechoiceOne 실패 " + TeamColor.TEXT_RESET);
+		}
+		return row;
+	}
+
 	// 객관식 문제 및 해당 보기 삭제하기
 	// 파라미터 :questionNo
 	// 리턴값 : int
@@ -42,7 +60,7 @@ public class MultiplechoiceService {
 		// 1. multiplechoiceExample에서 보기 삭제 
 		int removeMultiplechoiceExampleCk = multiplechoiceExampleMapper.deleteMultiplechoiceExampleByQuestionNo(questionNo);
 		// 2. multiplechoice에서 문제 삭제
-		if (removeMultiplechoiceExampleCk != 0) {	// 보기 삭제에 성공했다면
+		if (removeMultiplechoiceExampleCk != 0) { // 보기 삭제에 성공했다면
 			//디버깅
 			log.debug(TeamColor.PSJ + "[Success] 해당 객관식 문제 보기 삭제 성공" + TeamColor.TEXT_RESET);
 			// 해당 객관식 문제 삭제
@@ -54,7 +72,7 @@ public class MultiplechoiceService {
 				log.debug(TeamColor.PSJ + "[Fail] 객관식 문제 삭제 실패" + TeamColor.TEXT_RESET);
 				return 0;
 			}
-		} else {	// 객관식 보기 삭제에 실패했다면
+		} else { // 객관식 보기 삭제에 실패했다면
 			//디버깅
 			log.debug(TeamColor.PSJ + "[Fail] 해당 객관식 문제 보기 삭제 실패" + TeamColor.TEXT_RESET);
 			return 0;

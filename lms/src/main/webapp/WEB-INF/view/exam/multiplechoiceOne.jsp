@@ -63,6 +63,12 @@
 <!-- modernizr JS
       ============================================ -->
 <script src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
+<style>
+.myth {
+	width: 250px;
+	text-align: right;
+}
+</style>
 </head>
 <body>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -108,40 +114,73 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
+						<!-- 문제 수정이 정상적으로 작동했을 때 -->
+						<c:if test="${alertMsg eq 'Success'}">
+							<div class="alert alert-success alert-success-style1">
+								<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+									<span class="icon-sc-cl" aria-hidden="true">&times;</span>
+								</button>
+								<i class="fa fa-check edu-checked-pro admin-check-pro" aria-hidden="true"></i>
+								<p>
+									<strong>Success!</strong> 문제 수정이 성공하였습니다.
+								</p>
+							</div>
+						</c:if>
+						<!-- 문제 수정에 실패했을 때 -->
+						<c:if test="${alertMsg eq 'Fail'}">
+							<div class="alert alert-danger alert-mg-b alert-success-style4">
+								<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+									<span class="icon-sc-cl" aria-hidden="true">&times;</span>
+								</button>
+								<i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
+								<p>
+									<strong>Fail!</strong> 문제 수정이 실패하였습니다.
+								</p>
+							</div>
+						</c:if>
 						<h4>문제 상세보기</h4>
 						<!-- 문제 출제 하기 -->
 						<div class="asset-inner">
-							<table>
-								<tr>
-									<th>questionNo</th>
-									<th>subjectName</th>
-									<th>questionTitle</th>
-									<th>questionAnswer</th>
-									<th>updateDate</th>
-									<th>createDate</th>
-									<th>Setting</th>
-								</tr>
-								<tr>
-									<td>${multiplechoiceQuestion.questionNo}</td>
-									<td>${multiplechoiceQuestion.subjectName}</td>
-									<td>${multiplechoiceQuestion.questionTitle}</td>
-									<td>${multiplechoiceQuestion.questionAnswer}</td>
-									<td>${multiplechoiceQuestion.updateDate}</td>
-									<td>${multiplechoiceQuestion.createDate}</td>
-									<td>
-										<a href="${pageContext.request.contextPath}/loginCheck/modifyMultiplechoiceOne?questionNo=${multiplechoiceQuestion.questionNo}">
-											<button data-toggle="tooltip" title="수정하기" class="pd-setting-ed">
-												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-											</button>
-										</a> 
-										<a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${multiplechoiceQuestion.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
-											<button data-toggle="tooltip" title="삭제하기" class="pd-setting-ed">
-												<i class="fa fa-trash-o" aria-hidden="true"></i>
-											</button>
-										</a> 
-									</td>
-								</tr>
-							</table>
+							<form method="post" action="${pageContext.request.contextPath}/loginCheck/modifyMultiplechoiceOne">
+								<table>
+									<tr>
+										<th style="width: 250px; text-align: right;">questionNo&nbsp;&nbsp;&nbsp;</th>
+										<td>${multiplechoiceQuestion.questionNo}</td>
+									</tr>
+									<tr>
+										<th style="width: 250px; text-align: right;">subjectName&nbsp;&nbsp;&nbsp;</th>
+										<td>${multiplechoiceQuestion.subjectName}</td>
+									</tr>
+									<tr>
+										<th style="width: 250px; text-align: right;">questionTitle&nbsp;&nbsp;&nbsp;</th>
+										<td><input type="hidden" class="form-control" id="questionNo" name="questionNo" value="${multiplechoiceQuestion.questionNo}"> <input type="text" class="form-control" id="questionTitle" name="questionTitle" value="${multiplechoiceQuestion.questionTitle}"></td>
+									</tr>
+									<tr>
+										<th style="width: 250px; text-align: right;">questionAnswer&nbsp;&nbsp;&nbsp;</th>
+										<td>${multiplechoiceQuestion.questionAnswer}</td>
+									</tr>
+									<tr>
+										<th style="width: 250px; text-align: right;">updateDate&nbsp;&nbsp;&nbsp;</th>
+										<td>${multiplechoiceQuestion.updateDate}</td>
+									</tr>
+									<tr>
+										<th style="width: 250px; text-align: right;">createDate&nbsp;&nbsp;&nbsp;</th>
+										<td>${multiplechoiceQuestion.createDate}</td>
+									</tr>
+									<tr>
+										<th style="width: 250px; text-align: right;">Setting&nbsp;&nbsp;&nbsp;</th>
+										<th>
+											<button class="btn btn-custon-rounded-three btn-success" type="submit">
+												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>수정하기
+											</button> <a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${multiplechoiceQuestion.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
+												<button class="btn btn-custon-rounded-three btn-danger">
+													<i class="fa fa-trash-o" aria-hidden="true"></i>삭제하기
+												</button>
+											</a>
+										</th>
+									</tr>
+								</table>
+							</form>
 						</div>
 					</div>
 				</div>

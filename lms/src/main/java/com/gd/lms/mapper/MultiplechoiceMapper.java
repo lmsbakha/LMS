@@ -34,8 +34,8 @@ public interface MultiplechoiceMapper {
 	
 	// 객관식 문제를 수정하는 메소드
 	// 파라미터 : Multiplechoice 
-	// 리턴값 : Multiplechoice
-	Multiplechoice updateMultiplechoice(Multiplechoice multiplechoice);
+	// 리턴값 : int
+	int updateMultiplechoice(Multiplechoice multiplechoice);
 	
 	// 객관식 문제를 삭제하는 메소드
 	// 파라미터 : multiplechoice_no(PK)
