@@ -2,6 +2,8 @@ package com.gd.lms.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.lms.vo.ReportSubmitFile;
+
 /**
  * @author  박소연
  * 작성일 : 2022-09 ~
@@ -10,10 +12,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 
 @Mapper
-public interface ReportSumbitFileMapper {
+public interface ReportSubmitFileMapper {
 
 	// 과제 제출하기 첨부파일 업로드 메소드
 	// 파라미터 : Report
 	// 리턴값 : int
-	int insertReportSubmitFile(int reportSubmitNo);
+	int insertReportSubmitFile(ReportSubmitFile reportSubmitFile);
 }

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ReportService;
 import com.gd.lms.service.ReportSubmitService;
+import com.gd.lms.vo.FileForm;
 import com.gd.lms.vo.Report;
 import com.gd.lms.vo.ReportSubmit;
+import com.gd.lms.vo.ReportSubmitFile;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -162,14 +164,20 @@ public class ReportSubmitController {
 	// 파라미터 : ReportSubmit 담을 Model
 	// 리턴값 : addReportSubmit.jsp로 이동
 	@PostMapping("/logincheck/addReportSubmit")
-	String addReportSubmit(Model model, @RequestParam("educationNo") int educationNo,
-			@RequestParam(value = "reportNo") int reportNo, @RequestParam(value = "accountId") String accountId,
+	String addReportSubmit(Model model, HttpSession session, FileForm fileForm,
+			@RequestParam("educationNo") int educationNo,
+			@RequestParam(value = "reportNo") int reportNo,
 			@RequestParam(value = "reportSubmitTitle") String reportSubmitTitle,
 			@RequestParam(value = "reportSubmitContent") String reportSubmitContent,
+			@RequestParam(value = "file") String filereportSubmitFilename,
 			@RequestParam(value = "reportSubmitScore") String reportSubmitScore) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Controller" + TeamColor.TEXT_RESET);
 
+		String accountId = ((String)session.getAttribute("sessionId"));
+		// accountIdt 디버깅
+		log.debug(TeamColor.PSY + accountId + "<--accountId" + TeamColor.TEXT_RESET);
+				
 		// 파라미터값 받아오기
 		ReportSubmit reportSubmit = new ReportSubmit();
 		reportSubmit.setAccountId(accountId);
@@ -178,9 +186,25 @@ public class ReportSubmitController {
 		reportSubmit.setReportSubmitNo(reportNo);
 		reportSubmit.setReportSubmitScore(reportSubmitScore);
 		reportSubmit.setReportSubmiTitle(reportSubmitTitle);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmit + "<--reportSubmit" + TeamColor.TEXT_RESET);
+		
+		// 파일 값 받기
+		ReportSubmitFile reportSubmitFile = new ReportSubmitFile();
+		reportSubmitFile.setReportSubmitFilename(filereportSubmitFilename);
+		reportSubmitFile.setReportSubmitFileType(filereportSubmitFilename);
+		reportSubmitFile.setReportSubmitOriginName(filereportSubmitFilename);
+		reportSubmitFile.setReportSubmitNo(reportNo);
 
-		// ReportSubmitService Call
-		int addReportSubmit = reportSubmitService.addReportSubmit(reportSubmit);
+		// 파일 경로 구하기
+		String path = session.getServletContext().getRealPath("/upload");
+		// 경로 디버깅
+		log.debug(TeamColor.PSY + path + "<--path" + TeamColor.TEXT_RESET);
+
+		// requset.getServletContext().getRealPath(null);
+		int addReportSubmit = reportSubmitService.addReportSubmit(fileForm, path);
+		// addReportSubmit 디버깅
+		log.debug(TeamColor.PSY + addReportSubmit + "<--addReportSubmit" + TeamColor.TEXT_RESET);
 
 		// model에 담기
 		model.addAttribute("addReportSubmit", addReportSubmit);
@@ -192,9 +216,8 @@ public class ReportSubmitController {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 제출하기 실패" + TeamColor.TEXT_RESET);
 		}
-
-		// addReportSubmit로 리다이렉트
-		return "redirect:/report/addReportSubmit";
+		// addReportSubmit로 이동
+		return "report/addReportSubmit";
 
 	} // end addReportSubmit
 }

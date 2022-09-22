@@ -112,7 +112,9 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">과제</a> <span class="bread-slash">/</span></li>
+										<li><a
+											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">과제</a>
+											<span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">제출</span></li>
 									</ul>
 								</div>
@@ -129,36 +131,48 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="review-content-section">
 						<div id="dropzone1" class="pro-ad">
-							<form action="${pageContext.request.contextPath}/loginCheck/addReportSubmit"
+							<form
+								action="${pageContext.request.contextPath}/loginCheck/addReportSubmit"
 								class="dropzone dropzone-custom needsclick add-professors"
-								id="demo1-upload">
+								id="addFileForm">
 								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  style="padding:2%;">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+										style="padding: 2%;">
 										<h4>Report Submit</h4>
 										<hr>
 										<div class="form-group">
 											<label for="subjectName">subjectName</label> <input
 												name="subjectName" id="subjectName" type="text"
 												class="form-control" value="${reportOne.subjectName}"
-												readonly> <input type="hidden" name="educationNo">
-											<input type="hidden" name="reportNo"> <input
-												type="hidden" name="accountId"> <input type="hidden"
-												name="reportSubmitScore">
+												readonly> <input type="hidden" name="reportNo"
+												value="${reportOne.reportNo}">
+											<!-- 
+											<input type="hidden" name="educationNo">
+											<input type="hidden" name="accountId">
+											<input type="hidden" name="reportSubmitScore">
+									 -->
 										</div>
 										<div class="form-group">
 											<label for="reportSubmitTitle">reportSubmitTitle</label> <input
-												type="text" class="form-control" id="reportSubmitTitle">
+												type="text" class="form-control" id="reportSubmitTitle"
+												name="reportSubmitTitle">
 										</div>
 										<div class="form-group edit-ta-resize res-mg-t-15">
 											<label for="reportSubmitContent">reportSubmitContent</label>
-											<textarea name="reportSubmitContent" id="reportSubmitContent"></textarea>
+											<textarea name="reportSubmitContent" id="reportSubmitContent"
+												name="reportSubmitContent"></textarea>
 										</div>
+										<div style="width: 50px;">
+										<label for="file"><b>ImgFile</b></label>
+										<input type="file" name="file" id="file"
+											class="form-control">
+											</div>
 										<div class="form-group alert-up-pd">
 											<div class="dz-message needsclick download-custom">
 												<i class="fa fa-download edudropnone" aria-hidden="true"></i>
 												<h2 class="edudropnone">Drop file here or click to
 													upload.</h2>
-												<input name="imageico" class="hd-pro-img" type="text" />
+												<input name="file" id="file" class="hd-pro-img" type="file" />
 											</div>
 										</div>
 									</div>
@@ -166,7 +180,14 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="payment-adress">
-											<button type="submit" style="float: right; margin-top: 3%; margin-left:2%;"
+											<!-- name="multiple" -> mutiple 여러개의 파일을 선택할 수 있다. -->
+											<!-- button을 누르면 파일 입력창이 열려 파일을 선택할 수 있도록 -->
+											<button type="button" id="addFile">Add</button>
+											<!--  input type="file" -->
+											<button type="button" id="removeFile">Delete</button>
+											<div id="fileSection"></div>
+											<button type="button" id="addBtn"
+												style="float: right; margin-top: 3%; margin-left: 2%;"
 												class="btn btn-primary waves-effect waves-light">Submit</button>
 										</div>
 									</div>
@@ -270,19 +291,62 @@
 	<!-- tawk chat JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
+
 </body>
 <script>
-	$('#addReportSubmitBtn').click(function() {
-		if ($('#reportTitle').val() == '') {
-			alert('reportTitle를 입력해주세요.');
-			$('#reportTitle').focus();
-		} else if ($('#reportContent').val() == '') {
-			alert('reportContent를 입력해주세요.');
-			$('#reportContent').focus();
-		} else {
-			alert('과제를 출제하시겠습니까?');
-			$('#addReportForm').submit();
-		}
-	});
+	// $(function(){
+	$(document)
+			.ready(
+					function() {
+						$('#removeFile').click(function() {
+							$('#fileSection').empty();
+						});
+						$('#addFile')
+								.click(
+										function() {
+											// 공백을 알아보기 위한 변수 
+											let isFileEmpty = false;
+
+											let html = '<div><input type="file" name="multiList" class="multiList"></div>';
+											$('.multiList')
+													.each(
+															function(index,
+																	item) {
+																// $(this) --> item
+																if ($(item)
+																		.val() == '') {
+																	isFileEmpty = true;
+																}
+															});
+
+											if (isFileEmpty == false) {
+												$('#fileSection').append(html);
+											}
+										});
+
+						$('#addBtn').click(function() {
+							// 공백을 알아보기 위한 변수 
+							let isFileEmpty = false;
+							// ReportSubmit 유효성 검사 후
+
+							$('.multiList').each(function(index, item) {
+								// $(this) --> item
+								if ($(item).val() == '') {
+									isFileEmpty = true;
+								}
+							});
+							if ($('#reportSubmitTitle').val() == '') {
+								alert('reportSubmitTitle를 입력하세요');
+							} else if (isFileEmpty == true) {
+								alert('reportSubmitTitle를 입력하세요');
+							} else if ($('#reportSubmitContent').val() == '') {
+								alert('reportSubmitContent를 입력하세요');
+							} else if (isFileEmpty == true) {
+								alert('reportSubmitContent를 입력하세요');
+							} else {
+								$('#addFileForm').submit();
+							}
+						});
+					});
 </script>
 </html>
