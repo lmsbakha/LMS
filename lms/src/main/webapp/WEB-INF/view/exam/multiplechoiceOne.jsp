@@ -92,10 +92,10 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
-										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/index">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pageContext.request.contextPath}/loginCkeck/exam">시험</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pageContext.request.contextPath}/loginCkeck/questionBank">문제은행</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/exam">시험</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/questionBank">문제은행</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">상세보기</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">
 												<span class="bread-blod" style="font-weight: bold;">객관식 문제</span>
@@ -153,11 +153,14 @@
 									</tr>
 									<tr>
 										<th style="width: 250px; text-align: right;">questionTitle&nbsp;&nbsp;&nbsp;</th>
-										<td><input type="hidden" class="form-control" id="questionNo" name="questionNo" value="${multiplechoiceQuestion.questionNo}"> <input type="text" class="form-control" id="questionTitle" name="questionTitle" value="${multiplechoiceQuestion.questionTitle}"></td>
+										<td>
+											<input type="hidden" class="form-control" id="questionNo" name="questionNo" value="${multiplechoiceQuestion.questionNo}"> 
+											<input type="text" class="form-control" id="questionTitle" name="questionTitle" value="${multiplechoiceQuestion.questionTitle}">
+										</td>
 									</tr>
 									<tr>
 										<th style="width: 250px; text-align: right;">questionAnswer&nbsp;&nbsp;&nbsp;</th>
-										<td>${multiplechoiceQuestion.questionAnswer}</td>
+										<td><input type="text" class="form-control" id="questionAnswer" name="questionAnswer" value="${multiplechoiceQuestion.questionAnswer}"></td>
 									</tr>
 									<tr>
 										<th style="width: 250px; text-align: right;">updateDate&nbsp;&nbsp;&nbsp;</th>

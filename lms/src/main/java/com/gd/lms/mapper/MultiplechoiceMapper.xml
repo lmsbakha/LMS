@@ -57,6 +57,7 @@
 		UPDATE multiplechoice 
 		SET 
 		question_title=#{questionTitle}
+		, question_answer=#{questionAnswer}
 		, update_date=NOW() 
 		WHERE question_no=#{questionNo}
 	</update>

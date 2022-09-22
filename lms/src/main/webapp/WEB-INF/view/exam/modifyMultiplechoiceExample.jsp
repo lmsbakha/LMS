@@ -145,7 +145,7 @@
 										<td style="width: 70px"><input type="text" class="form-control" id="questionNo" name="questionNo" value="${map.questionNo}" readonly="readonly"></td>
 										<td style="width: 70px"><input type="text" class="form-control" id="multiplechoiceExampleId" name="multiplechoiceExampleId" value="${map.multiplechoiceExampleId}" readonly="readonly"></td>
 										<td><input type="text" class="form-control" id="multiplechoiceExampleContent" name="multiplechoiceExampleContent" value="${map.multiplechoiceExampleContent}"></td>
-										<td style="width: 70px"><button type="submit" class="btn btn-custon-four btn-warning">보기수정</button></td>
+										<td style="width: 70px"><button type="submit" class="btn btn-custon-four btn-success">보기수정</button></td>
 									</tr>
 								</form>
 							</c:forEach>

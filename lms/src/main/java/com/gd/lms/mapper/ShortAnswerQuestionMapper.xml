@@ -11,4 +11,20 @@
 		WHERE subject_name = #{subjectName} 
 		ORDER BY RAND() LIMIT #{shortAnswerCnt}
 	</select>
+	
+	<!-- 특정과목과 관련된 단답형 문제 리스트. 단, 검색어가 null 또는 공백일 경우 WHERE 절이 없음 -->
+	<select id="selectShortAnswerQuestionList" parameterType="String" resultType="Map">
+		SELECT 
+			subject_name subjectName
+			, question_no questionNo
+			, question_title questionTitle
+			, question_answer questionAnswer
+			, update_date updateDate
+			, create_date createDate
+		FROM short_answer_question
+		<if test="value != null and !value.equals('')">
+			WHERE subject_name = #{value} 
+		</if>
+		ORDER BY create_date DESC
+	</select>
 </mapper>

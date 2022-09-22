@@ -44,18 +44,24 @@ public class MultichoiceController {
 	}
 
 	// 객관식 문제 수정하는 메소드
-	// 파라미터 : questionNo,
+	// 파라미터 : questionNo,questionTitle,questionAnswer
 	// 리턴값 : 수정된 question 데이터 받아서 multichiceOne 뷰로 이동
 	@PostMapping("/loginCheck/modifyMultiplechoiceOne")
-	public String modifyMultiplechoiceOne(RedirectAttributes redirectAttributes, @RequestParam(value = "questionNo") int questionNo, @RequestParam(value = "questionTitle") String questionTitle) {
+	public String modifyMultiplechoiceOne(RedirectAttributes redirectAttributes
+			, @RequestParam(value = "questionNo") int questionNo
+			, @RequestParam(value = "questionTitle") String questionTitle
+			, @RequestParam(value = "questionAnswer") String questionAnswer) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + questionNo + "<-- questionNo" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSJ + questionTitle + "<-- questionTitle" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSJ + questionAnswer + "<-- questionAnswer" + TeamColor.TEXT_RESET);
 
 		// 전송받은 값들을 객체에 셋팅
 		Multiplechoice paramMultiplechoice = new Multiplechoice();
 		paramMultiplechoice.setQuestionNo(questionNo);
 		paramMultiplechoice.setQuestionTitle(questionTitle);
+		paramMultiplechoice.setQuestionAnswer(questionAnswer);
+		
 		// 디버깅
 		log.debug(TeamColor.PSJ + paramMultiplechoice + "<-- paramMultiplechoice" + TeamColor.TEXT_RESET);
 

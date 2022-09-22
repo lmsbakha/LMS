@@ -19,6 +19,7 @@ import com.gd.lms.service.ExamService;
 import com.gd.lms.service.LectureService;
 import com.gd.lms.service.LectureSubjectService;
 import com.gd.lms.service.MultiplechoiceService;
+import com.gd.lms.service.ShortanswerQuestionService;
 import com.gd.lms.service.SubjectService;
 import com.gd.lms.service.TeacherService;
 import com.gd.lms.vo.Lecture;
@@ -38,7 +39,11 @@ public class ExamController {
 	// MultiplechoiceService 객체 주입
 	@Autowired
 	private MultiplechoiceService multiplechoiceService;
-
+	
+	// ShortanswerQuestionService 객체 주입
+	@Autowired
+	private ShortanswerQuestionService shortanswerQuestionService;
+	
 	// LectureService 객체 주입
 	@Autowired
 	private LectureSubjectService lectureSubjectService;
@@ -100,14 +105,19 @@ public class ExamController {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + subjectName + "<-- subjectName" + TeamColor.TEXT_RESET);
 
-		// 단답형 문제와 객관식 문제들이 들어 있는 문제 리스트 객체 생성
 		// 객관식 문제 리스트 가져오기
 		List<Map<String, Object>> multiplechoiceList = multiplechoiceService.getMultipleChoiceList(subjectName);
-		// 단답형 문제 리스트를 가져오기
+		// 디버깅
 		log.debug(TeamColor.PSJ + multiplechoiceList + "<-- multiplechoiceList" + TeamColor.TEXT_RESET);
-
-		// 모델 단으로 전송하기
+		
+		// 단답형 문제 리스트를 가져오기
+		List<Map<String, Object>> shortAnswerQuestionList = shortanswerQuestionService.getShortAnswerQuestionList(subjectName);
+		// 디버깅
+		log.debug(TeamColor.PSJ + shortAnswerQuestionList + "<-- shortAnswerQuestionList" + TeamColor.TEXT_RESET);
+		
+		// 모델를 통해 문제리스트를 전송하기
 		model.addAttribute("multiplechoiceList", multiplechoiceList);
+		model.addAttribute("shortAnswerQuestionList", shortAnswerQuestionList);
 		return "exam/questionBank";
 	}
 

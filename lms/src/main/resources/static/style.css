@@ -3692,6 +3692,9 @@ element.style {
     height: 355px;
     vertical-align: top;
 }
+.fixed-table-loading {
+    color: white;
+}
 div#sparklinehome canvas {
     width: 100% !important;
 }

@@ -101,6 +101,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<div class="row">
@@ -141,19 +142,21 @@
 							<div class="product-tab-list tab-pane fade active in" id="multiplechoice">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="review-content-section">
-											<div class="row">
-												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-													<div class="asset-inner">
-														<table class="table table-hover">
+										<div class="sparkline13-list">
+											<div class="sparkline13-graph">
+												<div class="datatable-dashv1-list custom-datatable-overright">
+													<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+														<thead>
 															<tr>
-																<th>questionNo</th>
-																<th>questionTitle</th>
-																<th>subjectName</th>
-																<th>updateDate</th>
-																<th>createDate</th>
+																<th data-editable="true">questionNo</th>
+																<th data-editable="true">questionTitle</th>
+																<th data-editable="true">subjectName</th>
+																<th data-editable="true">updateDate</th>
+																<th data-editable="true">createDate</th>
 																<th>Setting</th>
 															</tr>
+														</thead>
+														<tbody>
 															<c:forEach var="map" items="${multiplechoiceList}">
 																<tr>
 																	<td>${map.questionNo}</td>
@@ -161,19 +164,22 @@
 																	<td>${map.subjectName}</td>
 																	<td>${map.updateDate}</td>
 																	<td>${map.createDate}</td>
-																	<td><a href="${pageContext.request.contextPath}/loginCheck/multiplechoiceOne?questionNo=${map.questionNo}">
+																	<td>
+																		<a href="${pageContext.request.contextPath}/loginCheck/multiplechoiceOne?questionNo=${map.questionNo}">
 																			<button data-toggle="tooltip" title="상세보기" class="pd-setting-ed">
 																				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 																			</button>
-																		</a> <a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${map.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
+																		</a> 
+																		<a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${map.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
 																			<button data-toggle="tooltip" title="삭제하기" class="pd-setting-ed">
 																				<i class="fa fa-trash-o" aria-hidden="true"></i>
 																			</button>
-																		</a></td>
+																		</a>
+																	</td>
 																</tr>
 															</c:forEach>
-														</table>
-													</div>
+														</tbody>
+													</table>
 												</div>
 											</div>
 										</div>
@@ -183,40 +189,39 @@
 							<div class="product-tab-list tab-pane fade" id="shortAnswer">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="review-content-section">
-											<div class="row">
-												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-													<div class="asset-inner">
-														<table class="table table-hover">
+										<div class="sparkline13-list">
+											<div class="sparkline13-graph">
+												<div class="datatable-dashv1-list custom-datatable-overright">
+													<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+														<thead>
 															<tr>
-																<th>questionNo</th>
-																<th>questionTitle</th>
-																<th>subjectName</th>
-																<th>updateDate</th>
-																<th>createDate</th>
+																<th data-editable="true">questionNo</th>
+																<th data-editable="true">questionTitle</th>
+																<th data-editable="true">subjectName</th>
+																<th data-editable="true">updateDate</th>
+																<th data-editable="true">createDate</th>
 																<th>Setting</th>
 															</tr>
-															<c:forEach var="map" items="${examList}">
+														</thead>
+														<tbody>
+															<c:forEach var="map" items="${shortAnswerQuestionList}">
 																<tr>
 																	<td>${map.questionNo}</td>
 																	<td>${map.questionTitle}</td>
 																	<td>${map.subjectName}</td>
 																	<td>${map.updateDate}</td>
 																	<td>${map.createDate}</td>
-																	<td><a href="${pageContext.request.contextPath}/loginCheck/multiplechoiceOne?questionNo=${map.questionNo}">
-																			<button data-toggle="tooltip" title="상세보기" class="pd-setting-ed">
-																				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-																			</button>
-																		</a> 
+																	<td>
 																		<a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${map.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
 																			<button data-toggle="tooltip" title="삭제하기" class="pd-setting-ed">
 																				<i class="fa fa-trash-o" aria-hidden="true"></i>
 																			</button>
-																		</a></td>
+																		</a>
+																	</td>
 																</tr>
 															</c:forEach>
-														</table>
-													</div>
+														</tbody>
+													</table>
 												</div>
 											</div>
 										</div>
@@ -296,5 +301,31 @@
 	<!-- tawk chat JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
+	<!-- data table JS
+		============================================ -->
+	<script src="${pageContext.request.contextPath}/js/data-table/bootstrap-table.js"></script>
+	<script src="${pageContext.request.contextPath}/js/data-table/tableExport.js"></script>
+	<script src="${pageContext.request.contextPath}/js/data-table/data-table-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-editable.js"></script>
+	<script src="${pageContext.request.contextPath}/js/data-table/bootstrap-editable.js"></script>
+	<script src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-resizable.js"></script>
+	<script src="${pageContext.request.contextPath}/js/data-table/colResizable-1.5.source.js"></script>
+	<script src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-export.js"></script>
+	<!--  editable JS
+		============================================ -->
+	<script src="${pageContext.request.contextPath}/js/editable/jquery.mockjax.js"></script>
+	<script src="${pageContext.request.contextPath}/js/editable/mock-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/editable/select2.js"></script>
+	<script src="${pageContext.request.contextPath}/js/editable/moment.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/editable/bootstrap-datetimepicker.js"></script>
+	<script src="${pageContext.request.contextPath}/js/editable/bootstrap-editable.js"></script>
+	<script src="${pageContext.request.contextPath}/js/editable/xediable-active.js"></script>
+	<!-- Chart JS
+		============================================ -->
+	<script src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/peity/peity-active.js"></script>
+	<!-- tab JS
+		============================================ -->
+	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 </body>
 </html>
