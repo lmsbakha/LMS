@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.AccountService;
 import com.gd.lms.vo.Account;
@@ -58,6 +56,7 @@ public class LoginController {
 		if (!accountState.equals("활성화")) {
 			// 디버깅
 			log.debug(TeamColor.PCW + "계정이 활성화 되지 않았습니다." + TeamColor.TEXT_RESET);
+			model.addAttribute("alertMsg", "Fail");
 			model.addAttribute("accountState", accountState);
 			return "login";
 		} 
@@ -119,18 +118,13 @@ public class LoginController {
 		
 		return "searchAccountId";
 	}
-	// index Form
-	@GetMapping("/loginCheck/index")
-	public String index() {
-		return "/login/index";
-	}
 	
 	// (학생, 강사, 행정) 멤버 비밀번호 찾기 Form
 	@GetMapping("/searchAccountPw")
 	public String searchAccountPw(Model model, @RequestParam(value="memberCheck", defaultValue="student") String memberCheck) {
 		
 		// 디버깅
-		log.debug(TeamColor.PCW + "LoginController GetMapping(searchAccountPw)" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + " LoginController GetMapping(searchAccountPw) memberCheck" + memberCheck + TeamColor.TEXT_RESET);
 		
 		model.addAttribute("memberCheck", memberCheck);
 		
@@ -138,7 +132,61 @@ public class LoginController {
 	}
 	
 	// (학생, 강사, 행정) 멤버 비밀번호 찾기 Action
+	@PostMapping("/searchAccountPw")
+	public String searchAccountPw(Model model, @RequestParam(value="memberCheck") String memberCheck
+											 , @RequestParam(value="accountId") String accountId
+											 , @RequestParam(value="memberName") String memberName) {
+		// 디버깅
+		log.debug(TeamColor.PCW + " LoginController PostMappingg(searchAccountPw) memberCheck : " + memberCheck + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + " LoginController PostMappingg(searchAccountPw) accountId : " + accountId + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + " LoginController PostMappingg(searchAccountPw) memberName : " + memberName + TeamColor.TEXT_RESET);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberCheck", memberCheck);
+		map.put("accountId", accountId);
+		map.put("memberName", memberName);
+		
+		int cnt = accountService.searchMemberAccountPw(map);
+		
+		if(cnt == 0) {
+			model.addAttribute("alertMsg", "Fail");
+			return "searchAccountPw";
+		}
+		
+		model.addAttribute("accountId", accountId);
+		
+		return "modifySearchAccountPw";
+	}
 	
+	// (학생, 강사, 행정) 멤버 비밀번호 변경 Form - 찾기를 통해 변경하는 경우
+	@GetMapping("/modifySearchAccountPw")
+	public String searchModifyAccountPw(Model model , @RequestParam(value="accountId") String accountId) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + " LoginController GetMappingg(modifySearchAccountPw) accountId : " + accountId + TeamColor.TEXT_RESET);
+		
+		model.addAttribute("accountId", accountId);
+		
+		return "modifySearchAccountPw";
+	}
+	
+	// (학생, 강사, 행정) 멤버 비밀번호 변경 Action - 찾기를 통해 변경하는 경우
+	@PostMapping("/modifySearchAccountPw")
+	public String searchModifyAccountPw(Account account) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + " LoginController PostMappingg(searchModifyAccountPw) account : " + account + TeamColor.TEXT_RESET);
+		
+		accountService.modifySearchMemberAccountPw(account);
+		
+		return "login";
+	}
+	
+	// index Form
+	@GetMapping("/loginCheck/index")
+	public String index() {
+		return "/login/index";
+	}
 	
 	// 회원가입 Form
 	@GetMapping("/register")

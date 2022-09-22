@@ -90,16 +90,27 @@
                           	    <span id="passinfo"></span>
                           	    <input type="hidden" name="accountState" id="accountState">
                             </div>
-                           
-                            <c:if test="${accountState != null && accountState eq '대기'}">
-                            	<div>
-                            		<span style="font-size:15px; color:red;"><b>※ 승인 대기중인 계정입니다.</b></span>
-                            	</div>
+                            <c:if test="${accountState != null && accountState eq '대기' && alertMsg eq 'Fail'}">
+	                           <div class="alert alert-danger alert-mg-b alert-success-style4">
+	                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+	                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
+	                              </button>
+	                              <i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
+	                              <span>
+	                                 ※ 해당 계정은 승인 대기중인 계정입니다.
+	                              </span>
+	                           </div>
                             </c:if>
-                            <c:if test="${accountState != null && accountState eq '탈퇴'}">
-                          	  	<div>
-                            		<span style="font-size:15px; color:red;"><b>※ 탈퇴 계정입니다.</b></span>
-                            	</div>
+                            <c:if test="${accountState != null && accountState eq '탈퇴' && alertMsg eq 'Fail'}">
+	                           <div class="alert alert-danger alert-mg-b alert-success-style4">
+	                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+	                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
+	                              </button>
+	                              <i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
+	                              <span>
+	                                 ※ 해당 계정은 탈퇴한 계정입니다.
+	                              </span>
+	                           </div>
                             </c:if>
                             <br>
                             <button  type="submit" class="btn btn-success btn-block loginbtn" id="loginBtn"><b>Login</b></button>
@@ -107,7 +118,7 @@
                             <a class="btn btn-success  btn-block" href="${pageContext.request.contextPath}/register">회원가입</a>
                             <div style="text-align:right;">
                             	<a class="search"  href="${pageContext.request.contextPath}/searchAccountId">아이디 찾기</a> / 
-           						<a class="search"  href="${pageContext.request.contextPath}/register">비밀번호 찾기</a>
+           						<a class="search"  href="${pageContext.request.contextPath}/searchAccountPw">비밀번호 찾기</a>
 							</div>
 						</form>
                     </div>

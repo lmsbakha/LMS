@@ -53,6 +53,7 @@ public class AccountService {
 		String accountId = accountMapper.selectMemberAccountId(map);
 		// 디버깅
 		log.debug(TeamColor.PCW + "AccountService searchMemberAccountId accountId "+ accountId + TeamColor.TEXT_RESET);
+		
 		if(accountId == null) {
 			return "false";
 		} 
@@ -63,12 +64,20 @@ public class AccountService {
 	// (학생, 강사, 행정) 멤버 비밀번호 찾기
 	public int searchMemberAccountPw(Map<String, Object> map) {
 		// 디버깅
-		log.debug(TeamColor.PCW + "AccountService searchMemberAccountPw "+ map + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService searchMemberAccountPw map : "+ map + TeamColor.TEXT_RESET);
 		int cnt = accountMapper.selectMemberAccountPw(map);
 		// 디버깅
-		log.debug(TeamColor.PCW + "AccountService searchMemberAccountPw cnt "+ cnt + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService searchMemberAccountPw cnt : "+ cnt + TeamColor.TEXT_RESET);
 		
 		return cnt;
+	}
+	
+	// (학생, 강사, 행정) 멤버 비밀번호 변경
+	public int modifySearchMemberAccountPw(Account account) {
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService modifySearchMemberAccountPw "+ account + TeamColor.TEXT_RESET);
+		
+		return accountMapper.updateSearchMemberAccountPw(account);
 	}
 	
 	// 회원가입

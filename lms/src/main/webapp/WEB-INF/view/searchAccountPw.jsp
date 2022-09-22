@@ -75,8 +75,8 @@
 	<div class="error-pagewrap">
 		<div class="error-page-int">
 			<div class="text-center ps-recovered">
-				<h3>아이디 찾기</h3>
-				<p>이름과 이메일을 입력해주세요</p>
+				<h3>비밀번호 찾기</h3>
+				<p>아이디와 이름을 입력해주세요</p>
 			</div>
 			<div class="content-error">
 			<!-- memberCheck 선택 -->
@@ -114,55 +114,34 @@
 			 	 </ul>
 				<div class="hpanel">
                     <div class="panel-body poss-recover">
-                        <form action="${pageContext.request.contextPath}/searchAccountId" method="post">
-                        	<c:if test="${resultMsg eq null}">
+                        <form action="${pageContext.request.contextPath}/searchAccountPw" method="post">
+                             <c:if test="${alertMsg eq null}">
                              <div class="form-group">
-                                <label class="control-label" for="username">Name</label>
-                              	<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
-                                <input type="text" placeholder="Enter your name..."  required="required"  name="memberName" id="memberName" class="form-control">
+								<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
+                                <label class="control-label" for="username">Id</label>
+                                <input type="text" placeholder="Enter your Id..."  required="required"  name="accountId" id="accountId" class="form-control">
                                 <span class="help-block small"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="username">Email</label>
-                                <input type="email" placeholder="example@gmail.com"  required="required"  name="memberEmail" id="memberEmail" class="form-control">
+                                <label class="control-label" for="username">Name</label>
+                                <input type="text" placeholder="Enter your name..."  required="required"  name="memberName" id="memberName" class="form-control">
                                 <span class="help-block small"></span>
                             </div>
-                            	<button type="submit" class="btn btn-success-search btn-block">아이디 찾기</button>
-                           	 	<button type="button" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 하러가기</button>
-                            </c:if>
-                            </form>
-                             <c:if test="${resultMsg != null}">
-                       			<c:choose>
-					   				<c:when test="${resultMsg eq 'false' || alertMsg eq 'Fail'}">
-				                           <div class="alert alert-danger alert-mg-b alert-success-style4">
-				                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-				                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
-				                              </button>
-				                              <i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
-				                              <span>
-				                                 ※ 입력하신 정보와 일치하는 아이디가 없습니다.
-				                              </span>
-				                           </div>
-					   					<a class="btn btn-success btn-block" style="color:white; " href="${pageContext.request.contextPath}/searchAccountId">아이디 다시찾기</a>
-					   				</c:when>
-					   				 <c:otherwise>
-					   				 	<c:if test="${alertMsg eq 'Success'}">
-				                           <div class="alert alert-success alert-success-style1">
-				                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-				                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
-				                              </button>
-				                              <i class="fa fa-check edu-checked-pro admin-check-pro" aria-hidden="true"></i>
-				                              <span>
-				                                 ※ 회원님의 아이디는 <b style="font-size:20px;">"${resultMsg}"</b> 입니다.
-				                              </span>
-				                           </div>
-				                        </c:if>
-					   				 	<br>
-					   				 	<a class="btn btn-success-search btn-block" style="color:white;" href="${pageContext.request.contextPath}/searchAccountPass">비밀번호 찾기</a>
-					   				 	<a class="btn btn-success btn-block" style="color:white;" href="${pageContext.request.contextPath}/login">로그인 하러가기</a>
-					   				 </c:otherwise>
-					   			</c:choose>
-                        	</c:if>
+                            	<button type="submit" class="btn btn-success-search btn-block">비밀번호 찾기</button>
+                          </c:if>
+                           </form>
+				   		   <c:if test="${cnt == 0 || alertMsg eq 'Fail'}">
+			               	<div class="alert alert-danger alert-mg-b alert-success-style4">
+			                	<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+			                    	<span class="icon-sc-cl" aria-hidden="true">&times;</span>
+			                    </button>
+			                    <i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
+	                            <span>
+	                              ※ 비밀번호를 찾는데 실패했습니다. 이름과 아이디를 확인해주세요.
+	                            </span>
+			                </div>
+				   			<a class="btn btn-success-search btn-block" style="color:white; " href="${pageContext.request.contextPath}/searchAccountPw">비밀번호 다시찾기</a>
+				   		  </c:if>		
                     </div>
                 </div>
 			</div>

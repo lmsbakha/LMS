@@ -75,94 +75,27 @@
 	<div class="error-pagewrap">
 		<div class="error-page-int">
 			<div class="text-center ps-recovered">
-				<h3>아이디 찾기</h3>
-				<p>이름과 이메일을 입력해주세요</p>
+				<h3>비밀번호 변경</h3>
+				<p>새로운 비밀번호를 입력해주세요</p>
 			</div>
 			<div class="content-error">
-			<!-- memberCheck 선택 -->
-				<ul class="nav nav-tabs nav-justified">
-				    <li class="nav-item">
-				      <c:choose>
-				      	 <c:when test="${memberCheck eq 'student'}">
-				     		<a class="nav-link active" href="${pageContext.request.contextPath}/searchAccountId?memberCheck=student">학생</a>
-				     	 </c:when>	
-				     	 <c:otherwise>
-				     	 	<a class="nav-link" href="${pageContext.request.contextPath}/searchAccountId?memberCheck=student">학생</a>
-					    </c:otherwise>
-				      </c:choose>
-				    </li>
-				    <li class="nav-item">
-				      <c:choose>
-				      	 <c:when test="${memberCheck eq 'teacher'}">
-				     		<a class="nav-link active" href="${pageContext.request.contextPath}/searchAccountId?memberCheck=teacher">강사</a>
-				     	 </c:when>	
-				     	 <c:otherwise>
-				     	 	<a class="nav-link" href="${pageContext.request.contextPath}/searchAccountId?memberCheck=teacher">강사</a>
-					    </c:otherwise>
-				      </c:choose>
-				    </li>
-				    <li class="nav-item">
-				     <c:choose>
-				      	 <c:when test="${memberCheck eq 'manager'}">
-				     		<a class="nav-link active" href="${pageContext.request.contextPath}/searchAccountId?memberCheck=manager">행정</a>
-				     	 </c:when>	
-				     	 <c:otherwise>
-				     	 	<a class="nav-link" href="${pageContext.request.contextPath}/searchAccountId?memberCheck=manager">행정</a>
-					    </c:otherwise>
-				      </c:choose>
-				    </li>
-			 	 </ul>
 				<div class="hpanel">
                     <div class="panel-body poss-recover">
-                        <form action="${pageContext.request.contextPath}/searchAccountId" method="post">
-                        	<c:if test="${resultMsg eq null}">
+                        <form action="${pageContext.request.contextPath}/modifySearchAccountPw" method="post">
                              <div class="form-group">
-                                <label class="control-label" for="username">Name</label>
-                              	<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
-                                <input type="text" placeholder="Enter your name..."  required="required"  name="memberName" id="memberName" class="form-control">
-                                <span class="help-block small"></span>
+								<input type="hidden" name="accountId" id="accountId" value="${accountId}">
+                                <label class="control-label" for="username">New PassWord</label>
+                                <span class="help-block small"><b>(비밀번호는 영어 대소문자, 숫자, 특수문자를 포함해 최소 8문자 입력해 주셔야 합니다.)</b></span>
+                                <input type="password" placeholder="Enter your password..."  required="required"  name="accountPw" id="accountPw" class="form-control">
+                            	<span id="passinfo"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="username">Email</label>
-                                <input type="email" placeholder="example@gmail.com"  required="required"  name="memberEmail" id="memberEmail" class="form-control">
-                                <span class="help-block small"></span>
+                                <label class="control-label" for="username">Check PassWord</label>
+                                <input type="password" placeholder="Enter your password..."  required="required"  name="accountPwCk" id="accountPwCk" class="form-control">
+                                <span id="passckinfo"></span>
                             </div>
-                            	<button type="submit" class="btn btn-success-search btn-block">아이디 찾기</button>
-                           	 	<button type="button" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 하러가기</button>
-                            </c:if>
-                            </form>
-                             <c:if test="${resultMsg != null}">
-                       			<c:choose>
-					   				<c:when test="${resultMsg eq 'false' || alertMsg eq 'Fail'}">
-				                           <div class="alert alert-danger alert-mg-b alert-success-style4">
-				                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-				                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
-				                              </button>
-				                              <i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
-				                              <span>
-				                                 ※ 입력하신 정보와 일치하는 아이디가 없습니다.
-				                              </span>
-				                           </div>
-					   					<a class="btn btn-success btn-block" style="color:white; " href="${pageContext.request.contextPath}/searchAccountId">아이디 다시찾기</a>
-					   				</c:when>
-					   				 <c:otherwise>
-					   				 	<c:if test="${alertMsg eq 'Success'}">
-				                           <div class="alert alert-success alert-success-style1">
-				                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-				                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
-				                              </button>
-				                              <i class="fa fa-check edu-checked-pro admin-check-pro" aria-hidden="true"></i>
-				                              <span>
-				                                 ※ 회원님의 아이디는 <b style="font-size:20px;">"${resultMsg}"</b> 입니다.
-				                              </span>
-				                           </div>
-				                        </c:if>
-					   				 	<br>
-					   				 	<a class="btn btn-success-search btn-block" style="color:white;" href="${pageContext.request.contextPath}/searchAccountPass">비밀번호 찾기</a>
-					   				 	<a class="btn btn-success btn-block" style="color:white;" href="${pageContext.request.contextPath}/login">로그인 하러가기</a>
-					   				 </c:otherwise>
-					   			</c:choose>
-                        	</c:if>
+                            	<button type="submit" class="btn btn-success-search btn-block">비밀번호 변경</button>
+                           </form>
                     </div>
                 </div>
 			</div>
@@ -219,6 +152,32 @@
     <!-- tawk chat JS
 		============================================ -->
     <script src="js/tawk-chat.js"></script>
+    <script>
+	    // 유효성 
+		// 비밀번호 유효성
+		var reg_pass = /(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w]).{8,}/;
+		
+		$('#accountPw').blur(function() {
+			if ($('#accountPw').val() == '') {
+				$('#passinfo').text('※ 비밀번호를 입력해주세요.');
+			} else if (!reg_pass.test($("#accountPw").val())) {
+				$('#accountPw').val('');
+				$('#passinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해주세요.');
+			} else {
+				$('#passinfo').text('');
+			}
+		})
+		$('#accountPwCk').blur(function() {
+	  		 if($('#accountPwCk').val()=='') {
+	   			$('#passckinfo').text('※ 비밀번호 재확인을 위해 입력해주세요.');
+	  		 } else if($('#accountPw').val() != $('#accountPwCk').val()) {
+	   			$('#passckinfo').text('※ 비밀번호와 일치하지 않습니다.');
+	  		 	$('#accountPwCk').val('');
+	  		 } else {
+	  			$('#passckinfo').text('');
+	  		 }
+	  	})
+    </script>
 </body>
 
 </html>

@@ -3646,6 +3646,10 @@ td.text-right.mail-date {
     background-color: #006DF0;
     border-color: #006DF0;
 }
+.btn-success.searchbtn {
+    background-color: #4aa658;
+    border-color: #4aa658;
+}
 .lock-inner i {
     font-size: 60px;
     color: #006DF0;
@@ -3660,6 +3664,11 @@ td.text-right.mail-date {
 .poss-recover .btn-success {
     background-color: #006DF0;
     border-color: #006DF0;
+}
+.poss-recover .btn-success-search {
+    background-color: #3fb147;
+    border-color: #3fb147;
+    color:#ffffff;
 }
 .main-sparkline16-hd h1, .main-sparkline15-hd h1{
 	font-size:20px;
