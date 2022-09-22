@@ -40,7 +40,7 @@ public class NoticeService {
 		return noticeMapper.selectNoticeList(noticeMap);
 	}
 	
-	// 공지사항 상세보기
+	// 공지사항 상세보기 
 	public Notice showNoticeOne(int noticeNo) {
 		log.debug(TeamColor.LHN + "selectNoticeOne 호출" + TeamColor.TEXT_RESET);
 		// 수정할 객체
