@@ -22,4 +22,9 @@ public interface MultiplechoiceExampleMapper {
 	// 파라미터 : MultiplechoiceExample
 	// 리턴값 : 정상적으로 수정되었는지 확인할 int
 	int updateMultiplechoiceExample(MultiplechoiceExample multiplechoiceExample);
+	
+	// 보기 지문 삭제하는 메소드
+	// 파라미터 : questionno
+	// 리턴값 : 삭제가 정상적으로 작동되었는지 확인할 int
+	int deleteMultiplechoiceExampleByQuestionNo(int questionNo);
 }

@@ -41,4 +41,9 @@ public interface MultiplechoiceMapper {
 	// 파라미터 : multiplechoice_no(PK)
 	// 리턴값 : 정상적으로 삭제되었음을 확인시켜줄 int
 	int deleteMultiplechoice(Multiplechoice multiplechoice);
+
+	// 객관식 문제를 삭제하는 메소드
+	// 파라미터 : questionNo
+	// 리턴값 : 정상적으로 삭제되었음을 확인시켜줄 int
+	int deleteMultiplechoiceByQuestionNo(int questionNo);
 }

@@ -29,6 +29,39 @@ public class MultiplechoiceService {
 	@Autowired
 	private MultiplechoiceExampleMapper multiplechoiceExampleMapper;
 
+	// 객관식 문제 및 해당 보기 삭제하기
+	// 파라미터 :questionNo
+	// 리턴값 : int
+	public int removeMultiplechoiceOne(int questionNo) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + questionNo + "<-- questionNo" + TeamColor.TEXT_RESET);
+
+		// 리턴 변수 선언 
+		int removeMultiplechoiceCk = 0;
+
+		// 1. multiplechoiceExample에서 보기 삭제 
+		int removeMultiplechoiceExampleCk = multiplechoiceExampleMapper.deleteMultiplechoiceExampleByQuestionNo(questionNo);
+		// 2. multiplechoice에서 문제 삭제
+		if (removeMultiplechoiceExampleCk != 0) {	// 보기 삭제에 성공했다면
+			//디버깅
+			log.debug(TeamColor.PSJ + "[Success] 해당 객관식 문제 보기 삭제 성공" + TeamColor.TEXT_RESET);
+			// 해당 객관식 문제 삭제
+			removeMultiplechoiceCk = multiplechoiceMapper.deleteMultiplechoiceByQuestionNo(questionNo);
+			// 결과 디버깅
+			if (removeMultiplechoiceCk != 0) {
+				log.debug(TeamColor.PSJ + "[Success] 객관식 문제 삭제 성공" + TeamColor.TEXT_RESET);
+			} else {
+				log.debug(TeamColor.PSJ + "[Fail] 객관식 문제 삭제 실패" + TeamColor.TEXT_RESET);
+				return 0;
+			}
+		} else {	// 객관식 보기 삭제에 실패했다면
+			//디버깅
+			log.debug(TeamColor.PSJ + "[Fail] 해당 객관식 문제 보기 삭제 실패" + TeamColor.TEXT_RESET);
+			return 0;
+		}
+		return removeMultiplechoiceCk;
+	}
+
 	// 객관식 문제 상세보기
 	// 파라미터 : questionNo
 	// 리턴값 : Map<String, Object>
@@ -41,13 +74,13 @@ public class MultiplechoiceService {
 		// MultiplechoiceMapper에서 객관식 문제 정보 받아오기
 		multiplechoiceOne.put("multiplechoiceQuestion", multiplechoiceMapper.selectMultiplechoiceOne(questionNo));
 		log.debug(TeamColor.PSJ + "객관식 문제 정보 가져오기 성공" + TeamColor.TEXT_RESET);
-		
+
 		// MultiplechoiceExampleMapper에서 해당 객관식 문제의 보기 지문 받아오기
 		multiplechoiceOne.put("multiplechoiceExample", multiplechoiceExampleMapper.selectMultiplechoiceExampleList(questionNo));
 		log.debug(TeamColor.PSJ + "해당 객관식 문제의 보기 가져오기 성공" + TeamColor.TEXT_RESET);
-		
+
 		return multiplechoiceOne;
-		
+
 	}
 
 	// 검색어와 관련된 객관식 문제 리스트 가져오기

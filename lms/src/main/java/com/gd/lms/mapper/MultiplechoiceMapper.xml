@@ -63,7 +63,9 @@
 	</update>
 
 	<!-- 객관식 문제 삭제 -->
-	<delete id="deleteMultiplechoice" parameterType="String">
+	<delete id="deleteMultiplechoiceByQuestionNo" parameterType="int">
 		DELETE FROM multiplechoice WHERE question_no=#{questionNo}
 	</delete>
+	
+	
 </mapper>

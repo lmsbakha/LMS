@@ -86,11 +86,11 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
-										<li><a href="${pageContext.request.contextPath}/loginCheck/index">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pageContext.request.contextPath}/loginCheck/exam">시험</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pageContext.request.contextPath}/loginCheck/questionBank">
-												<span class="bread-blod" style="font-weight: bold;">문제은행</span>
+										<li><a href="${pageContext.request.contextPath}/loginCkeck/exam">시험</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">
+												<span class="bread-blod" style="font-weight: bold;">시험 상세보기</span>
 											</a></li>
 									</ul>
 								</div>
@@ -106,129 +106,56 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<!-- 문제은행에서 문제 삭제에 성공했을 때 -->
-						<c:if test="${alertMsg eq 'Success'}">
-							<div class="alert alert-success alert-success-style1">
-								<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-									<span class="icon-sc-cl" aria-hidden="true">&times;</span>
-								</button>
-								<i class="fa fa-check edu-checked-pro admin-check-pro" aria-hidden="true"></i>
-								<p>
-									<strong>Success!</strong> 문제 삭제에 성공하였습니다.
-								</p>
-							</div>
-						</c:if>
-						<!-- 문제은행에서 문제 삭제에 실패했을 때 -->
-						<c:if test="${alertMsg eq 'Fail'}">
-							<div class="alert alert-danger alert-mg-b alert-success-style4">
-								<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-									<span class="icon-sc-cl" aria-hidden="true">&times;</span>
-								</button>
-								<i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
-								<p>
-									<strong>Fail!</strong> 문제 삭제에 실패하였습니다.
-								</p>
-							</div>
-						</c:if>
-						<ul id="myTabedu1" class="tab-review-design">
-							<li class="active"><a href="#multiplechoice">객관식 문제은행</a></li>
-							<li><a href="#shortAnswer">단답형 문제은행</a></li>
-						</ul>
-						<div class="add-product">
-							<a href="${pageContext.request.contextPath}/loginCheck/addQuestionInBank">문제추가</a>
-						</div>
-						<div id="myTabContent" class="tab-content custom-product-edit">
-							<div class="product-tab-list tab-pane fade active in" id="multiplechoice">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="review-content-section">
-											<div class="row">
-												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-													<div class="asset-inner">
-														<table class="table table-hover">
-															<tr>
-																<th>questionNo</th>
-																<th>questionTitle</th>
-																<th>subjectName</th>
-																<th>updateDate</th>
-																<th>createDate</th>
-																<th>Setting</th>
-															</tr>
-															<c:forEach var="map" items="${multiplechoiceList}">
-																<tr>
-																	<td>${map.questionNo}</td>
-																	<td>${map.questionTitle}</td>
-																	<td>${map.subjectName}</td>
-																	<td>${map.updateDate}</td>
-																	<td>${map.createDate}</td>
-																	<td><a href="${pageContext.request.contextPath}/loginCheck/multiplechoiceOne?questionNo=${map.questionNo}">
-																			<button data-toggle="tooltip" title="상세보기" class="pd-setting-ed">
-																				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-																			</button>
-																		</a> <a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${map.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
-																			<button data-toggle="tooltip" title="삭제하기" class="pd-setting-ed">
-																				<i class="fa fa-trash-o" aria-hidden="true"></i>
-																			</button>
-																		</a></td>
-																</tr>
-															</c:forEach>
-														</table>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-tab-list tab-pane fade" id="shortAnswer">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="review-content-section">
-											<div class="row">
-												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-													<div class="asset-inner">
-														<table class="table table-hover">
-															<tr>
-																<th>questionNo</th>
-																<th>questionTitle</th>
-																<th>subjectName</th>
-																<th>updateDate</th>
-																<th>createDate</th>
-																<th>Setting</th>
-															</tr>
-															<c:forEach var="map" items="${examList}">
-																<tr>
-																	<td>${map.questionNo}</td>
-																	<td>${map.questionTitle}</td>
-																	<td>${map.subjectName}</td>
-																	<td>${map.updateDate}</td>
-																	<td>${map.createDate}</td>
-																	<td><a href="${pageContext.request.contextPath}/loginCheck/multiplechoiceOne?questionNo=${map.questionNo}">
-																			<button data-toggle="tooltip" title="상세보기" class="pd-setting-ed">
-																				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-																			</button>
-																		</a> 
-																		<a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${map.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
-																			<button data-toggle="tooltip" title="삭제하기" class="pd-setting-ed">
-																				<i class="fa fa-trash-o" aria-hidden="true"></i>
-																			</button>
-																		</a></td>
-																</tr>
-															</c:forEach>
-														</table>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+						<h4>시험 상세보기</h4>
+						<!--  -->
+						<div class="asset-inner">
+							<table>
+								<tr>
+									<th>문제 examQuestionNo</th>
+									<th>questionTitle</th>
+								</tr>
+								<!-- 객관식일 경우 지문 -->
+								<tr>
+								
+									<td><input id="examNo"></td>
+									<td><input id="educationNo"></td>
+									<td><input type="checkbox" value="multiplechoiceExampleId"></td>
+									<td>multiplechoiceExampleContent</td>
+								</tr>
+								<tr>
+								<td><input type="checkbox"></td>
+									<td>2.fsdfs</td>
+								</tr>
+								<tr>
+								<td><input type="checkbox"></td>
+									<td>3.fsdfs</td>
+								</tr>
+								<tr>
+								<td><input type="checkbox"></td>
+									<td>4.fsdfs</td>
+								</tr>
+								<tr>
+								<td><input type="checkbox"></td>
+									<td>5.fsdfs</td>
+								</tr>
+								<hr>
+								<tr>
+									<th>examQuestionNo</th>
+									<th>questionTitle</th>
+								</tr>
+								<!-- 단답형일 경우 지문 -->
+								<tr>
+									<th><input type="text" id="examAnswerContent" name="examAnswerContent"></th>
+								</tr>
+								
+							</table>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<!-- Start footer -->
 	<jsp:include page="../inc/footer.jsp" />
 	<!-- End footer -->

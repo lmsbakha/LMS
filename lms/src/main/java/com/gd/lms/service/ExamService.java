@@ -82,7 +82,7 @@ public class ExamService {
 		// 디버깅
 		log.debug(TeamColor.PSJ + examNo + "<-- examNo" + TeamColor.TEXT_RESET);
 		
-		//-----------------------------------------------------------객관식----------------
+		//---------------------------------------------------------------------------객관식
 		// multiplechoiceMapper로 전달할 파라미터 객체 생성
 		Map<String, Object> paramMultiplechoiceRandom = new HashMap<>();
 		paramMultiplechoiceRandom.put("subjectName", paramMap.get("subjectName"));
@@ -95,7 +95,7 @@ public class ExamService {
 		// 디버깅
 		log.debug(TeamColor.PSJ + multiplechoiceExamList + "<-- multiplechoiceExamList" + TeamColor.TEXT_RESET);
 
-		//-----------------------------------------------------------단답형----------------
+		//---------------------------------------------------------------------------단답형
 		// ShortAnswerQuestionMapper로 전달할 파라미터 객체 생성
 		Map<String, Object> paramShortAnswerQuestionRandom = new HashMap<>();
 		paramShortAnswerQuestionRandom.put("subjectName", paramMap.get("subjectName"));

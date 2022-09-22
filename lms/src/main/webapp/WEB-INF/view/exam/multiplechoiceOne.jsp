@@ -128,16 +128,18 @@
 									<td>${multiplechoiceQuestion.questionAnswer}</td>
 									<td>${multiplechoiceQuestion.updateDate}</td>
 									<td>${multiplechoiceQuestion.createDate}</td>
-									<td><a href="${pageContext.request.contextPath}/loginCheck/multiplechoiceOne?questionNo=${map.questionNo}">
+									<td>
+										<a href="${pageContext.request.contextPath}/loginCheck/modifyMultiplechoiceOne?questionNo=${multiplechoiceQuestion.questionNo}">
 											<button data-toggle="tooltip" title="수정하기" class="pd-setting-ed">
 												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 											</button>
 										</a> 
-										<a href="${pageContext.request.contextPath}/loginCheck/multiplechoiceOne?questionNo=${map.questionNo}">
+										<a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${multiplechoiceQuestion.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
 											<button data-toggle="tooltip" title="삭제하기" class="pd-setting-ed">
 												<i class="fa fa-trash-o" aria-hidden="true"></i>
 											</button>
-										</a></td>
+										</a> 
+									</td>
 								</tr>
 							</table>
 						</div>
@@ -180,7 +182,7 @@
 			</div>
 		</div>
 	</div>
-<!-- Start footer -->
+	<!-- Start footer -->
 	<jsp:include page="../inc/footer.jsp" />
 	<!-- End footer -->
 
