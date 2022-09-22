@@ -173,26 +173,6 @@
 									</c:forEach>
 								</table>
 							</div>
-							<div>
-								<c:if test="${currentPage > 1}">
-									<a
-										href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById?currentPage=${currentPage-1}">이전</a>
-								</c:if>
-								<c:if test="${currentPage < lastPage}">
-									<a
-										href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById?currentPage=${currentPage+1}">다음</a>
-								</c:if>
-							</div>
-							<div class="custom-pagination">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<li class="page-item"><a class="page-link" href="">Previous</a></li>
-										<!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-
-										<li class="page-item"><a class="page-link" href="">Next</a></li>
-									</ul>
-								</nav>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -205,7 +185,6 @@
 	<!-- End footer -->
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-
 	<!-- jquery
 		============================================ -->
 	<script
@@ -285,6 +264,48 @@
 	<!-- tawk chat JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
+	<!-- data table JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/tableExport.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/data-table-active.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-editable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-editable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-resizable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/colResizable-1.5.source.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-export.js"></script>
+	<!--  editable JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/editable/jquery.mockjax.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/mock-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/editable/select2.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/moment.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/bootstrap-datetimepicker.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/bootstrap-editable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/xediable-active.js"></script>
+	<!-- Chart JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/peity/peity-active.js"></script>
+	<!-- tab JS
+		============================================ -->
+	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 </body>
 
 </html>
