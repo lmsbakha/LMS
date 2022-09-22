@@ -3,20 +3,19 @@
 <mapper namespace="com.gd.lms.mapper.ReportSubmitMapper">
 
 	<!-- 학생이 제출한 과제 리스트 조회 메소드 -->
-	<select id="selectReportListById" parameterType="String"
+	<select id="selectReportListById" parameterType="Map"
 		resultType="com.gd.lms.vo.ReportSubmit">
 		SELECT
-		rs.report_submit_no reportSubmitNo,
-		r.subject_name
-		subjectName,
-		rs.report_submit_title reportSubmitTitle,
-		rs.report_submit_score reportScore,
-		rs.create_date createDate
-		FROM
-		report_submit rs INNER JOIN report r
-		USING(report_no)
-		WHERE account_id =
-		#{accountId}
+		report_submit_no reportSubmitNo,
+		education_no educationNo,
+		account_id accountId,
+		report_no reporNo,
+		report_submit_title reportSubmitTitle,
+		report_submit_content reportSubmitContent,
+		report_submit_score reportSubmitScore,
+		create_date createDate
+		FROM report_submit 
+		WHERE account_id = #{accountId}
 	</select>
 	<!-- 학생이 제출한 과제 리스트 조회 메소드 -->
 
@@ -27,7 +26,8 @@
 		education_no, report_no,
 		account_id,
 		report_submit_title,
-		report_submit_content,report_submit_score,
+		report_submit_content,
+		report_submit_score,
 		update_date,
 		create_date)
 		VALUES ( #{educationNo},
@@ -48,7 +48,8 @@
 		account_id accountId,report_submit_title reportSubmitTitle,
 		report_submit_content reportSubmitContent ,report_submit_score reportSubmitSCore,
 		update_date updateDate, create_date createDate 
-		FROM report_submit WHERE report_submit_no = #{reportSubmitNo}
+		FROM report_submit 
+		WHERE report_submit_no = #{reportSubmitNo}
 	</select>
 	<!-- 제출한 과제 수정하기 Form -->
 
@@ -56,9 +57,9 @@
 	<update id="updateReportSubmit"
 		parameterType="com.gd.lms.vo.ReportSubmit">
 		UPDATE report_submit
-		SET report_submit_title ='java',
-		report_submit_content='java is java',
-		update_date= NOW()
+		SET report_submit_title =#{reportSubmitTitle},
+		report_submit_content=#{reportSubmitContent},
+		update_date= now()
 		WHERE
 		report_submit_no = #{reportSubmitNo}
 	</update>

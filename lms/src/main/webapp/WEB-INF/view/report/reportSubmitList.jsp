@@ -106,7 +106,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst">
-							<h4>Report List</h4>
+							<h4>Report SubmitList</h4>
 							<hr>
 							<div class="add-product">
 								<a

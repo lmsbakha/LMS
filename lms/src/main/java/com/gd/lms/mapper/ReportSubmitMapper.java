@@ -18,7 +18,7 @@ public interface ReportSubmitMapper {
 	// 학생이 제출한 과제 리스트 조회 메소드
 	// 파라미터 : accountId
 	// 리턴값 : List<Map<String,Object>>
-	List<Map<String, Object>> selectReportListById(String accountId);
+	List<ReportSubmit> selectReportListById(Map<String, Object> paramMap);
 
 	// 과제 제출하기 메소드
 	// 파라미터 : map(ReportSubmit, educationNo )
@@ -28,7 +28,7 @@ public interface ReportSubmitMapper {
 	// 제출한 과제 수정하는 메소드 Form
 	// 파라미터 : ReportSubmit
 	// 리턴값 : int
-	int ReportSubmitOne(int reportSubmitNo);
+	ReportSubmit ReportSubmitOne(int reportSubmitNo);
 
 	// 제출한 과제 수정하는 메소드 Action
 	// 파라미터 : ReportSubmit

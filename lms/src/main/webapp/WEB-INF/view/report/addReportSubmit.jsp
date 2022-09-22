@@ -137,7 +137,7 @@
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 										style="padding: 2%;">
-										<h4>Report Submit</h4>
+										<h4>Add ReportSubmit</h4>
 										<hr>
 										<div class="form-group">
 											<label for="subjectName">subjectName</label>

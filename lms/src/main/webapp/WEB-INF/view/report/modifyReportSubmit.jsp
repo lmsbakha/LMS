@@ -102,43 +102,34 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/loginCheck/modifyReport"
-				id="modifyReportForm" method="post">
+			<form action="${pageContext.request.contextPath}/loginCheck/modifyReportSubmit"
+				id="modifyReportSubmitForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst">
 							<h4>Modify ReportSubmit</h4>
 							<hr>
 							<div class="form-group">
-								<input name="reportNo" type="hidden" value="${reportOne.reportNo}">
+								<label for="reportSubmitNo">reportSubmitNo</label>
+								<input name="reportSubmitNo" class="form-control"  type="text" value="${reportSubmitOne.reportSubmitNo}" readonly>
 							</div>
 							<div class="form-group">
-								<label for="subjectName">subjectName</label> <input
-									name="subjectName" id="subjectName" type="text"
-									class="form-control" value="${reportOne.subjectName}" readonly>
+								<label for="reportNo">reportNo</label> <input
+									name="reportNo" id="reportNo" type="text"
+									class="form-control" value="${reportSubmitOne.reportNo}" readonly>
 							</div>
 							<div class="form-group">
-								<label for="reportTitle">reportSubmitTitle</label> <input
-									name="reportTitle" id="reportTitle" type="text"
-									class="form-control" value="${reportOne.reportTitle}">
+								<label for="reportSubmitTitle">reportSubmitTitle</label> <input
+									name="reportSubmitTitle" id="reportSubmitTitle" type="text"
+									class="form-control" value="${reportSubmitOne.reportSubmitTitle}">
 							</div>
 							<div class="form-group edit-ta-resize res-mg-t-15">
-								<label for="reportContent">reportSubmitContent</label>
-								<textarea name="reportContent" id="reportContent">${reportOne.reportContent}</textarea>
-							</div>
-							<div class="form-group">
-								<label for="reportStartDate">reportStartDate</label> <input
-									name="reportStartDate" id="reportStartDate" type="date"
-									class="form-control" value="${reportOne.reportStartDate}">
-							</div>
-							<div class="form-group">
-								<label for="reportEndDate">reportEndDate</label> <input
-									name="reportEndDate" id="reportEndDate" type="date"
-									class="form-control" value="${reportOne.reportEndDate}">
+								<label for="reportSubmitContent">reportSubmitContent</label>
+								<textarea name="reportSubmitContent" id="reportSubmitContent">${reportSubmitOne.reportSubmitContent}</textarea>
 							</div>
 						</div>
 						<div class="payment-adress">
-							<button type="button" id="modifyReportBtn"
+							<button type="button" id="modifyReportSubmitBtn"
 								class="btn btn-primary waves-effect waves-light"
 								style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
 						</div>
