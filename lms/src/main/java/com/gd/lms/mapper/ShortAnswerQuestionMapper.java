@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.lms.vo.ShortAnswerQuestion;
+
 @Mapper
 public interface ShortAnswerQuestionMapper {
 	// 단답형 문제를 선택한 수 만큼 뽑아오기
@@ -17,4 +19,8 @@ public interface ShortAnswerQuestionMapper {
 	// 리턴값 : List<Map<String, Object>>
 	List<Map<String, Object>> selectShortAnswerQuestionList(String subjectName);
 	
+	// 단답형 문제 추가하기
+	// 파라미터 : ShortAnswerQuestion
+	// 리턴값 : int
+	int insertShortAnswerQuestionOne(ShortAnswerQuestion paramShortAnswerQuestion);
 }
