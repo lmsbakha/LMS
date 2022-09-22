@@ -117,7 +117,8 @@ public class ReportService {
 		return addReport;
 	} // end addReport
 
-	// 출제한 과제 수정하는 메소드 form
+	// 출제한 과제 수정하는 메소드 
+	// getReportOne Form
 	// 파라미터 : Report
 	// 리턴값 : int
 	public Report getReportOne(int reportNo) {
@@ -134,7 +135,8 @@ public class ReportService {
 		return getReportOne;
 	} // end getReportOne
 
-	// 출제한 과제 수정하는 메소드 action
+	// 출제한 과제 수정하는 메소드 
+	// modifyReport Action
 	// 파라미터 : Report
 	// 리턴값 : int
 	public int modifyReport(Report paramReport) {

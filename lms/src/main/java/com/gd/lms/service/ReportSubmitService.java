@@ -65,60 +65,54 @@ public class ReportSubmitService {
 	// 과제 제출하기 메소드
 	// 파라미터 : ReportSubmit
 	// 리턴값 : int
-	public int addReportSubmit(FileForm fileForm, String path) {
+	public int addReportSubmit(Map<String, Object> map) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + fileForm.getReportSubmit() + "<-- reportSubmiut.reportSubmitNo()"
-				+ TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PSY + path + "<-- path" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + map + "<-- map" + TeamColor.TEXT_RESET);
 
 		// Mapper call
-		int addReportSubmit = reportSubmitMapper.insertReportSubmit(fileForm.getReportSubmit());
+		int addReportSubmit = reportSubmitMapper.insertReportSubmit(map);
 		// Mapper에서 받아온 addReportSubmit 값 디버깅
 		log.debug(TeamColor.PSY + addReportSubmit + "<-- addReport" + TeamColor.TEXT_RESET);
 
-		// insertReportSubmit 성공 시
-		if (addReportSubmit == 1 & fileForm.getMultiList() != null) {
-			for (MultipartFile mf : fileForm.getMultiList()) {
-				// 매번 새로운 reportSubmitFIle을 만들기 위한 객체 생성
-				ReportSubmitFile reportSubmitFile = new ReportSubmitFile();
-				// Mapper call
-				reportSubmitFileMapper.insertReportSubmitFile(reportSubmitFile);
-
-				// 중복되지 않는 랜덤이름 생성 UUID API를 사용
-				String filename = UUID.randomUUID().toString().replace("-", "");
-				reportSubmitFile.setReportSubmitFilename(filename);
-				reportSubmitFile.setReportSubmitFileType(mf.getContentType());
-				reportSubmitFile.setReportSubmitOriginName(mf.getOriginalFilename());
-				reportSubmitFile.setReportSubmitFileSize(mf.getSize());
-				
-				// insertBoardfile메서드 호출하고 안에 매개변수 reportSubmitFile값 넣어주기
-				reportSubmitFileMapper.insertReportSubmitFile(reportSubmitFile);
-				// reportSubmitFile 넣어준 값 디버깅
-				log.debug(TeamColor.PSY + reportSubmitFile + "<-- reportSubmitFile" + TeamColor.TEXT_RESET);
-
-				// 파일 확장자 - mf.getOriginalFilename()에서 인덱스를 자름
-				// mf.getOriginalFilename().lastIndexOf(".")로 마지막 점을 찾음
-				// substring()로 .txt를 찾음
-				String ext = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
-				// 디버깅
-				log.debug(TeamColor.PSY + ext + "<-- ext" + TeamColor.TEXT_RESET);
-
-				// 파일 생성 - MultipartFile 안에 파일 생성 API(transferTo)가 있음
-				// transferTo 리턴타입을 주기 위해 new File()파일 객체 생성
-				try {
-					// c://upload/ttt.txt
-					// 새로운 bean 파일 안에 MultipartFile안에 파일을 하나씩 복사
-					mf.transferTo(new File(path + filename + ext));
-				} catch (Exception e) {
-					e.printStackTrace();
-					// @Transactional 처리가 되도록 강제로 RuntimeException(try절을 발생시키지 않는) 발생
-					throw new RuntimeException();
-				}
-			}
-		}
 		return addReportSubmit;
 	} // end addReportSubmit
+
+	// 제출한 과제 수정하는 메소드
+	// modifyReportSubmit Form
+	// 파라미터 : reportSubmitNo
+	// 리턴값 : int
+	public int ReportSubmitOne(int reportSubmitNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@ReportSubmitOne Service" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmit" + TeamColor.TEXT_RESET);
+
+		// Mapper call
+		int ReportSubmitOne = reportSubmitMapper.ReportSubmitOne(reportSubmitNo);
+		// Mapper에서 받아온 ReportSubmitOne 값 디버깅
+		log.debug(TeamColor.PSY + ReportSubmitOne + "<-- ReportSubmitOne" + TeamColor.TEXT_RESET);
+
+		return ReportSubmitOne;
+	};
+
+	// 제출한 과제 수정하는 메소드
+	// modifyReportSubmit Action
+	// 파라미터 : ReportSubmit
+	// 리턴값 : int
+	public int modifyReportSubmit(ReportSubmit reportSubmit) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@reportSubmit Service" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
+
+		// Mapper call
+		int modifyReportSubmit = reportSubmitMapper.updateReportSubmit(reportSubmit);
+		// Mapper에서 받아온 modifyReportSubmit 값 디버깅
+		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
+
+		return modifyReportSubmit;
+	}
 
 }
