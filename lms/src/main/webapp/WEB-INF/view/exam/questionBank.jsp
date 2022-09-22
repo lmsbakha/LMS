@@ -167,7 +167,7 @@
 																	<td>
 																		<a href="${pageContext.request.contextPath}/loginCheck/multiplechoiceOne?questionNo=${map.questionNo}">
 																			<button data-toggle="tooltip" title="상세보기" class="pd-setting-ed">
-																				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+																				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>상세보기
 																			</button>
 																		</a> 
 																		<a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${map.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
