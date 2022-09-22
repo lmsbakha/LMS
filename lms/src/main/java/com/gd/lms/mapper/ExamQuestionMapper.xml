@@ -3,6 +3,6 @@
 <mapper namespace="com.gd.lms.mapper.ExamQuestionMapper">
 	<!--  -->
 	<insert id="insertExamQuestion" parameterType="Map">
-		INSERT INTO exam_question (exam_no, exam_question_no, question_no) VALUES (#{examNo}, #{examQuestionNo}, #{questionNo}) 
+		INSERT INTO exam_question (exam_no, exam_question_no, question_no, question_type) VALUES (#{examNo}, #{examQuestionNo}, #{questionNo}, #{questionType}) 
 	</insert>
 </mapper>

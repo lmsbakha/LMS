@@ -178,12 +178,12 @@
 											<td>${map.examStartDate}</td>
 											<td>${map.examEndDate}</td>
 											<td>
-											 	<a href="${pageContext.request.contextPath}/loginCheck/multiplechoiceOne?questionNo=${map.questionNo}">
+											 	<a href="${pageContext.request.contextPath}/loginCheck/examOne?examNo=${map.examNo}">
 													<button data-toggle="tooltip" title="상세보기" class="pd-setting-ed">
 														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 													</button>
 												</a> 
-												<a href="${pageContext.request.contextPath}/loginCheck/multiplechoiceOne?questionNo=${map.questionNo}">
+												<a href="${pageContext.request.contextPath}/loginCheck/removeExamOne?examNo=${map.examNo}">
 													<button data-toggle="tooltip" title="삭제하기" class="pd-setting-ed">
 														<i class="fa fa-trash-o" aria-hidden="true"></i>
 													</button>

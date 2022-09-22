@@ -156,7 +156,6 @@ public class ExamController {
 		paramMap.put("shortAnswerCnt", shortAnswerCnt);
 		paramMap.put("examStartDate", examStartDate);
 		paramMap.put("examEndDate", examEndDate);
-		;
 		// 디버깅
 		log.debug(TeamColor.PSJ + paramMap + "<-- paramMap" + TeamColor.TEXT_RESET);
 
