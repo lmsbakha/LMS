@@ -20,11 +20,19 @@
 			, question_title questionTitle
 			, question_answer questionAnswer
 			, update_date updateDate
-			, create_date createDate
+			, create_date createDate 
 		FROM short_answer_question
 		<if test="value != null and !value.equals('')">
 			WHERE subject_name = #{value} 
 		</if>
 		ORDER BY create_date DESC
 	</select>
+	
+	<!-- 단답형 문제 문제은행에 추가하기 -->
+	<insert id="insertShortAnswerQuestionOne" parameterType="com.gd.lms.vo.ShortAnswerQuestion">
+	INSERT INTO short_answer_question
+		(subject_name,question_title,question_answer,update_date,create_date)
+	VALUE
+		(#{subjectName},#{questionTitle},#{questionAnswer},NOW(),NOW())
+	</insert>
 </mapper>

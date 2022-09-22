@@ -113,7 +113,7 @@
 								</button>
 								<i class="fa fa-check edu-checked-pro admin-check-pro" aria-hidden="true"></i>
 								<p>
-									<strong>Success!</strong> 정상적으로 객관식 문제와 해당 문제의 보기들이 추가되었습니다
+									<strong>Success!</strong> 문제 추가에 성공하였습니다.
 								</p>
 							</div>
 						</c:if>
@@ -125,7 +125,7 @@
 								</button>
 								<i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
 								<p>
-									<strong>Fail!</strong> 객관식 문제와 보기 추가에 실패하였습니다.
+									<strong>Fail!</strong> 문제 추가에 실패하였습니다.
 								</p>
 							</div>
 						</c:if>
@@ -234,7 +234,7 @@
 								</form>
 							</div>
 							<div class="product-tab-list tab-pane fade" id="shortAnswer">
-								<form action="${pageContext.request.contextPath}/addShortAnswer" method="post">
+								<form action="${pageContext.request.contextPath}/loginCheck/addShortAnswerQuestion" method="post">
 									<fieldset>
 										<div class="row">
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
