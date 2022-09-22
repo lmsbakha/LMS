@@ -11,5 +11,5 @@ public interface NoticeFileMapper {
 	// 공지글 파일 첨부
 	int insertNoticeFile(NoticeFile noticeFile);
 	// 공지글 파일 삭제
-	int deleteNoticeFile(int noticeFileNo);
+	int deleteNoticeFile(int noticeNo);
 }

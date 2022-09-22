@@ -19,6 +19,7 @@
 	<!-- 공지글 파일 첨부 -->
 	<insert id="insertNoticeFile" parameterType="com.gd.lms.vo.NoticeFile">
 	INSERT INTO notice_file(
+		notice_file_no
 		notice_no,
 		account_id,
 		notice_file_name,
@@ -27,8 +28,9 @@
 		notice_file_size,
 		create_date
 	) VALUES (
+		#{noticeFileNo}
 		#{noticeNo}, 
-		#{loginId}, 
+		#{accountId}, 
 		#{noticeFileName}, 
 		#{noticeFileOriginName}, 
 		#{noticeFileType}, 

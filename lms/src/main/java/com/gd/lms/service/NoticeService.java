@@ -86,6 +86,7 @@ public class NoticeService {
 	
 	// 공지글 수정 액션
 	public int modifyNotice(Notice notice) {
+		
 		return noticeMapper.updateNotice(notice);
 	}
 
@@ -93,11 +94,12 @@ public class NoticeService {
 	public int removeNoticeOne(int noticeNo) {
 		log.debug(TeamColor.LHN + "게시글 삭제" + TeamColor.TEXT_RESET);
 		
+		
 		int removeNotice = 0;
-		log.debug(TeamColor.LHN + noticeNo + ": 게시글 번호" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN  + "게시글 번호: " + noticeNo + TeamColor.TEXT_RESET);
 		// 매퍼 적용
 		removeNotice = noticeMapper.deleteNotice(noticeNo);
-		log.debug(TeamColor.LHN + removeNotice + ": 삭제여부" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "삭제여부: "+ removeNotice  + TeamColor.TEXT_RESET);
 		return removeNotice;
 	}
 

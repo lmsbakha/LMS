@@ -28,7 +28,7 @@ public class NoticeController {
 	// 공지 리스트 페이지
 	@GetMapping("/loginCheck/noticeList")
 	public String noticeList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
-		
+		log.debug(TeamColor.PSY + "게시글 리스트 조회" + TeamColor.TEXT_RESET);
 		// 페이지 당 게시글 수
 		final int ROW_PER_PAGE = 10;				
 		// 시작 페이지
@@ -40,7 +40,7 @@ public class NoticeController {
 		
 		// 리스트 불러오기
 		List<Notice> noticeList = noticeService.getNoticeList(beginRow, ROW_PER_PAGE);	
-		log.debug(TeamColor.LHN + "\n\n@noticeList Controller" + TeamColor.TEXT_RESET);
+		//이후 model에 addAttribute사용하여 세팅
 		
 		// 페이지 내비게이션 바
 		// 첫번째 페이지 
@@ -71,7 +71,6 @@ public class NoticeController {
 		
 		// model에 데이터 세팅
 		model.addAttribute("noticeList", noticeList);
-		
 		return "noticeList";
 	}
 	
@@ -155,6 +154,10 @@ public class NoticeController {
 		int modifyNotice = noticeService.modifyNotice(notice);
 		// 디버깅
 		log.debug(TeamColor.LHN + "수정완료"+ TeamColor.TEXT_RESET);
+		
+		// 파일 여부에 따른 추가/삭제 기능 추가 필요
+		
+		
 		return "redirect:/loginCheck/noticeList";
 	}
 	
@@ -169,6 +172,8 @@ public class NoticeController {
 			log.debug(TeamColor.LHN +" 삭제 성공 " + TeamColor.TEXT_RESET);
 		}
 			log.debug(TeamColor.LHN +" 삭제 실패 " + TeamColor.TEXT_RESET);
+			
+		// 파일 있을 경우 함께 삭제
 		
 		return "redirect:/loginCheck/noticeList";
 		
