@@ -11,6 +11,22 @@
 	</select>
 	<!-- /계정 활성화 상태값 -->
 	
+	<!-- 계정 활성화 상태값 수정 - 휴면 -> 활성화  -->
+	<update id="updateAccountStateByMember" parameterType="com.gd.lms.vo.Account">
+		UPDATE account
+		SET account_state = '활성화'
+		WHERE account_id = #{accountId}
+	</update>
+	<!-- /계정 활성화 상태값 수정 - 휴면 -> 활성화  -->
+	
+	<!-- 계정 마지막 로그인날짜로부터 90일동안 로그인 안했다면 활성화 상태값 수정 - 활성화 -> 휴면 -->
+	<update id="updateAccountStateByMemberLastLogin">
+		UPDATE account
+		SET account_state = '휴면'
+		WHERE DATEDIFF(NOW(), last_login_date) >= 90 AND account_state = '활성화'
+	</update>
+	<!-- /계정 마지막 로그인날짜로부터 90일동안 로그인 안했다면 활성화 상태값 수정 - 활성화 -> 휴면 -->
+	
 	<!-- 로그인 -->
 	<select id="selectLogin" parameterType="com.gd.lms.vo.Account"
 		resultType="com.gd.lms.vo.Account">
@@ -78,7 +94,8 @@
 	
 	<!-- 멤버 비밀번호 변경 -->
 	<update id="updateSearchMemberAccountPw" parameterType="com.gd.lms.vo.Account">
-		UPDATE account SET account_pw = PASSWORD(#{accountPw}), update_date = NOW()
+		UPDATE account 
+		SET account_pw = PASSWORD(#{accountPw}), update_date = NOW()
 		WHERE account_id = #{accountId}
 	</update>
 	<!-- /멤버 비밀번호 변경 -->
