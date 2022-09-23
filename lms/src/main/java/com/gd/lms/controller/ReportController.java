@@ -39,14 +39,15 @@ public class ReportController {
 
 
 	// 과제 리스트 조회
-	// 파라미터 : ROW_PER_PAGE, currentPage, reportList
+	// 파라미터 : reportList값 넘겨줄 Model
 	// 리턴값 : reportList.jsp로 이동
 	@GetMapping("/loginCheck/reportList")
 	public String reportdList(Model model) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
-
-		// 페이징 service call
+		
+		
+		// service call
 		List<Report> reportList = reportService.getReportList();
 		log.debug(TeamColor.PSY + reportList + "<--reportList" + TeamColor.TEXT_RESET);
 
@@ -68,7 +69,7 @@ public class ReportController {
 
 	// 과제 출제하는 메소드
 	// addReport Form
-	// 파라미터 : List<LectureSubject>를 담아둘 Model
+	// 파라미터 : List<LectureSubject>를 담아둘 Model, 세션 값
 	// 리턴값: 과제를 출제하기 위한 form인 addReport.jsp로 이동
 	@GetMapping("/loginCheck/addReport")
 	String addReport(Model model, HttpSession session) {

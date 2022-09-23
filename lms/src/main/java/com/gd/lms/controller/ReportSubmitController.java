@@ -186,22 +186,31 @@ public class ReportSubmitController {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Controller" + TeamColor.TEXT_RESET);
 
-		// 파라미터 디버깅
+		// 요청값 디버깅
 		log.debug(TeamColor.PSY + reportNo + "<--reportNo" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + educationNo + "<--educationNo" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + reportSubmitTitle + "<--reportSubmitTitle" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + reportSubmitContent + "<--reportSubmitContent" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + reportSubmitForm.toString() + "<--fileForm" + TeamColor.TEXT_RESET);
-
+		
+		// 세션 아이디 받아오기
+		String sessionId = (String) session.getAttribute("sessionId");
+		
+		// 파라미터 값 셋팅
+		ReportSubmit reportSubmit = new ReportSubmit();
+		reportSubmit.setAccountId(sessionId);
+		reportSubmit.setEducationNo(educationNo);
+		reportSubmit.setReportNo(reportNo);
+		reportSubmit.setReportSubmitContent(reportSubmitContent);
+		reportSubmit.setReportSubmitNo(reportNo);
+		reportSubmit.setReportSubmitTitle(reportSubmitTitle);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmit + "<--reportSubmit" + TeamColor.TEXT_RESET);
+		
 		// 경로 구하기
 		String path = session.getServletContext().getRealPath("/upload");
 		// 디버깅
 		log.debug(TeamColor.PSY + path + "<--path" + TeamColor.TEXT_RESET);
-
-		// accountId 받아오기 
-		String accountId = ((String) session.getAttribute("sessionId"));
-		// accountIdt 디버깅
-		log.debug(TeamColor.PSY + accountId + "<--accountId" + TeamColor.TEXT_RESET);
 
 		List<MultipartFile> multiList = reportSubmitForm.getMultiList();
 		// accountId 디버깅
@@ -211,13 +220,12 @@ public class ReportSubmitController {
 		if(multiList.get(0).getSize() > 0) {
 			for(MultipartFile mf : multiList) {
 				// 디버깅
-				log.debug(TeamColor.PSY + accountId + "<--mf.getOriginalFilename())" + TeamColor.TEXT_RESET);
-
+				log.debug(TeamColor.PSY + mf.getOriginalFilename() + "<--mf.getOriginalFilename())" + TeamColor.TEXT_RESET);
 			}
 		}
 		// 과제 제출 service call
 		// requset.getServletContext().getRealPath(null);
-		reportSubmitService.addReportSubmit(reportSubmitForm, path, accountId);
+		reportSubmitService.addReportSubmit(reportSubmitForm, path, reportSubmit);
 	
 		// reportSubmitList로 이동
 		return "report/reportSubmitList";

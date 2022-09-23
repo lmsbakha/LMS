@@ -22,8 +22,7 @@
 	<!-- 학생이 제출한 과제 리스트 조회 메소드 -->
 
 	<!-- 과제 제출하기 메소드 -->
-	<insert id="insertReportSubmit"
-		parameterType="com.gd.lms.vo.ReportSubmit">
+	<insert id="insertReportSubmit" parameterType="com.gd.lms.vo.ReportSubmit">
 		INSERT INTO
 		report_submit (
 		education_no,
@@ -33,9 +32,7 @@
 		report_submit_content,
 		report_submit_score,update_date, create_date)
 		VALUES (
-		(SELECT education_no from education WHERE account_id= #{accountId} and
-		lecture_name = (SELECT lecture_name FROM lecture_subject WHERE subject_name =
-		(SELECT subject_name FROM report WHERE report_no = #{reportNo})))
+		 #{educationNo}
 		,#{reportNo}
 		,#{accountId}
 		,#{reportSubmitTitle}

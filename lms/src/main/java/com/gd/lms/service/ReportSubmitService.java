@@ -70,19 +70,26 @@ public class ReportSubmitService {
 
 	// 과제 제출하기 메소드
 	// 파라미터 : ReportSubmit
-	// 리턴값 : void
-	public void addReportSubmit(ReportSubmitForm reportSubmitForm, String path, String accountId) {
+	// 리턴값 : int
+	public int addReportSubmit(ReportSubmitForm reportSubmitForm, String path, ReportSubmit paramReportSubmit) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmitForm + "<-- fileForm"
 				+ TeamColor.TEXT_RESET);
 
-		// ReportSubmitMapper
+		// 요청값 셋팅
 		ReportSubmit reportSubmit = new ReportSubmit();
 		reportSubmit.setReportSubmitContent(reportSubmitForm.getReportSubmitContent());
 		reportSubmit.setReportSubmitTitle(reportSubmitForm.getReportSubmitTitle());
-		reportSubmit.setAccountId(accountId);
+		reportSubmit.setAccountId(paramReportSubmit.getAccountId());
+		reportSubmit.setEducationNo(paramReportSubmit.getEducationNo());
+		reportSubmit.setReportNo(paramReportSubmit.getReportNo());
+		reportSubmit.setReportSubmitContent(paramReportSubmit.getReportSubmitContent());
+		reportSubmit.setReportSubmitNo(paramReportSubmit.getReportSubmitNo());
+		reportSubmit.setReportSubmitTitle(paramReportSubmit.getReportSubmitTitle());
+		// 요청값 디버깅
+		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
 		
 		// Mapper call
 		int addReportSubmit = reportSubmitMapper.insertReportSubmit(reportSubmit);
@@ -114,10 +121,14 @@ public class ReportSubmitService {
 				// 디버깅
 				log.debug(TeamColor.PSY + reportSubmitOriginFilename + "<-- reportSubmitOriginFilename"
 						+ TeamColor.TEXT_RESET);
-
+				
+				// reportSubmitFile 셋팅
 				reportSubmitFile.setReportSubmitFilename(reportSubmitFilename);
 				reportSubmitFile.setReportSubmitFileType(mf.getContentType());
 				reportSubmitFile.setReportSubmitFileSize(mf.getSize());
+				reportSubmitFile.setReportSubmitNo(reportSubmit.getReportSubmitNo());
+				reportSubmitFile.setReportSubmitOriginName(reportSubmitOriginFilename);
+				
 				// 디버깅
 				log.debug(TeamColor.PSY + reportSubmitFile + "<-- reportSubmitFile" + TeamColor.TEXT_RESET);
 
@@ -137,6 +148,7 @@ public class ReportSubmitService {
 				} // end try catch
 			} // end for
 		} // end if
+		return addReportSubmit;
 	} // end addReportSubmit
 
 	// 제출한 과제 수정하는 메소드

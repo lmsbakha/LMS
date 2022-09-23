@@ -143,18 +143,19 @@
 							<h4>Report List</h4>
 							<hr>
 							<c:choose>
-								<c:when test="${session.sessionLevel > 1}">
+								<c:when test="${session.sessionLevel == 1}">
 									<div class="add-product">
 										<a
-											href="${pageContext.request.contextPath}/loginCheck/addReport">과제
-											추가</a>
+											href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">나의
+											과제 제출 리스트</a>
 									</div>
 								</c:when>
 								<c:otherwise>
 									<div class="add-product">
 										<a
-											href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">나의
-											과제 제출 리스트</a>
+											href="${pageContext.request.contextPath}/loginCheck/addReport">과제
+											추가</a>
+
 									</div>
 								</c:otherwise>
 							</c:choose>

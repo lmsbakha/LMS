@@ -131,7 +131,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="review-content-section">
 						<div id="dropzone1" class="pro-ad">
-							<form method="post" enctype="Multipart/form-data"
+							<form method="post" enctype="multipart/form-data"
 								action="${pageContext.request.contextPath}/loginCheck/addReportSubmit"
 								id="addreportSubmitForm">
 								<div class="row">
