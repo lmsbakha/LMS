@@ -23,12 +23,42 @@ public class LoginController {
 	// AccountService 객체 주입
 	@Autowired
 	AccountService accountService;
-
+	
+	// 휴면계정 Form
+	@GetMapping("/accountStateMember")
+	public String accountStateMember() {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(accountStateMember)" + TeamColor.TEXT_RESET);
+		
+		return "accountStateMember";
+	}
+	
+	// 휴면계정 Action
+	@PostMapping("/accountStateMember")
+	public String accountStateMember(Model model, Account account) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(accountStateMember) account : " + account + TeamColor.TEXT_RESET);
+		
+		int row = accountService.modifyAccoutStateByMember(account);
+		
+		if(row == 0 ) { 
+			// 디버깅
+			log.debug(TeamColor.PCW + "LoginController PostMapping(accountStateMember) row : " + row + TeamColor.TEXT_RESET);
+			model.addAttribute("alertMsg", "Fail");
+			return "accountStateMember";
+		}
+		
+		return "redirect:/login";
+	}
+	
 	// 로그인 Form
 	@GetMapping("/login")
 	public String login(HttpSession session) {
+		
 		// 디버깅
-		log.debug(TeamColor.PCW + "LoginController GetMapping(/login)" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "LoginController GetMapping(login)" + TeamColor.TEXT_RESET);
 		// 기존에 로그인되어 있는 상태(session값이 null이 아니면)에서 로그인 폼으로 들어왔을 경우, 인덱스 페이지로 이동
 		if (session.getAttribute("sessionLevel") != null) {
 			return "redirect:/loginCheck/index";
@@ -36,9 +66,10 @@ public class LoginController {
 			return "login";
 		}
 	}
-
+	// 로그인 Action
 	@PostMapping("/login")
 	public String login(Model model, HttpSession session, Account paramAccount) {
+		
 		// 디버깅
 		log.debug(TeamColor.PCW + "LoginController PostMapping(login)" + TeamColor.TEXT_RESET);
 
@@ -53,13 +84,21 @@ public class LoginController {
 		String accountState = accountService.getAccountState(paramAccount);
 		// 디버깅
 		log.debug(TeamColor.PCW + accountState + "상태입니다" + TeamColor.TEXT_RESET);
+		
+		if(accountState.equals("휴면")) {
+			// 디버깅
+			log.debug(TeamColor.PCW + "계정이 휴면상태입니다." + TeamColor.TEXT_RESET);
+			model.addAttribute("alertMsg", "Fail");
+			return "accountStateMember";
+		}
+		
 		if (!accountState.equals("활성화")) {
 			// 디버깅
 			log.debug(TeamColor.PCW + "계정이 활성화 되지 않았습니다." + TeamColor.TEXT_RESET);
 			model.addAttribute("alertMsg", "Fail");
 			model.addAttribute("accountState", accountState);
 			return "login";
-		} 
+		}
 		
 		session.setAttribute("sessionId", account.getAccountId());
 		session.setAttribute("sessionLevel", account.getAccountLevel());

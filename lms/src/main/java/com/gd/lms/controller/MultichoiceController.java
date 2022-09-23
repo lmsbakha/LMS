@@ -80,7 +80,7 @@ public class MultichoiceController {
 
 	// 객관식 문제 삭제하는 메소드
 	// 파라미터 : questionNo
-	// 리턴값 : questionBank 페이지로 이동/ alertMsg를 보낼 Red
+	// 리턴값 : questionBank 페이지로 이동/ alertMsg를 보낼 RedirectAttributes
 	@GetMapping("/loginCheck/removeMultiplechoiceOne")
 	public String removeMultiplechoiceOne(RedirectAttributes redirectAttributes, int questionNo) {
 		// 파라미터 디버깅 
@@ -88,10 +88,13 @@ public class MultichoiceController {
 
 		// Service call
 		int removeCk = multiplechoiceService.removeMultiplechoiceOne(questionNo);
-		if (removeCk != 0) { // 삭제에 성공했다면
-			redirectAttributes.addFlashAttribute("alertMsg", "Success");
-		} else { // 삭제에 실패했다면
+		// 결과 디버깅
+		if (removeCk == 0) {
 			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
+		} else if(removeCk == 500) {
+			redirectAttributes.addFlashAttribute("alertMsg", "Error");
+		} else {
+			redirectAttributes.addFlashAttribute("alertMsg", "Success");
 		}
 		return "redirect:/loginCheck/questionBank";
 	}

@@ -175,7 +175,8 @@
 										<th>
 											<button class="btn btn-custon-rounded-three btn-success" type="submit">
 												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>수정하기
-											</button> <a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${multiplechoiceQuestion.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
+											</button> 
+											<a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${multiplechoiceQuestion.questionNo}" onclick="return confirm('문제를 삭제하시겠습니까?');">
 												<button class="btn btn-custon-rounded-three btn-danger">
 													<i class="fa fa-trash-o" aria-hidden="true"></i>삭제하기
 												</button>

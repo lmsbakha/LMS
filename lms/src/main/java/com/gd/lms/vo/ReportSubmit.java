@@ -8,7 +8,7 @@ public class ReportSubmit {
 	private int educationNo;			// education 번호
 	private int reportNo;				// report 번호
 	private String accountId;			// 계정 아이디
-	private String reportSubmiTitle;	// 제줄한 과제 제목
+	private String reportSubmitTitle;	// 제줄한 과제 제목
 	private String reportSubmitContent;	// 제줄한 과제 내용
 	private String reportSubmitScore;	// 제줄한 과제 점수
 	private String updateDate;			// 제줄한 과제 수정일

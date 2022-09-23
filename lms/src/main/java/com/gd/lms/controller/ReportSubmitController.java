@@ -12,10 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.EducationService;
 import com.gd.lms.service.ReportService;
 import com.gd.lms.service.ReportSubmitService;
+import com.gd.lms.vo.Education;
 import com.gd.lms.vo.FileForm;
 import com.gd.lms.vo.Report;
 import com.gd.lms.vo.ReportSubmit;
@@ -39,6 +42,10 @@ public class ReportSubmitController {
 	// ReportSubmitService 객체 주입
 	@Autowired
 	ReportSubmitService reportSubmitService;
+
+	// EducationService 객체 주입
+	@Autowired
+	EducationService educationService;
 
 	// ROW_PER_PAGE의 개수가 변하지 않도록 상수로 선언
 	private final int ROW_PER_PAGE = 10;
@@ -97,8 +104,14 @@ public class ReportSubmitController {
 		// accountId 디버깅
 		log.debug(TeamColor.PSY + acountId + "<--acountId" + TeamColor.TEXT_RESET);
 
+		// 요청 받은 값 Map 객체에 셋팅
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("acountId", acountId);
+		log.debug(TeamColor.PSY + paramMap + "<--paramMap" + TeamColor.TEXT_RESET);
+	
+
 		// Service Call
-		List<Map<String, Object>> reportSubmitListById = reportSubmitService.getReportListById(acountId);
+		List<ReportSubmit> reportSubmitListById = reportSubmitService.getReportListById(acountId);
 		// reportSubmitListById 디버깅
 		log.debug(TeamColor.PSY + reportSubmitListById + "<--reportSubmitListById" + TeamColor.TEXT_RESET);
 
@@ -115,7 +128,7 @@ public class ReportSubmitController {
 
 		// reportSubmitListById로 이동
 		return "report/reportSubmitListById";
-	}
+	} // end reportSubmitListById
 
 	// 과제 상세보기 메소드
 	// 파라미터 : reportOne 담을 Model
@@ -135,89 +148,183 @@ public class ReportSubmitController {
 		// 모델단에 reportOne을 addAttribute해서 폼으로 전달
 		model.addAttribute("reportOne", reportOne);
 
-		// reportOne로 이동
+		// reportOne로 이동 
 		return "report/reportOne";
-	} // end reportOne
+	} // end reportOne 
 
-	// 과제 제출하기 메소드 Form
+	// 과제 제출하기 메소드
+	// addReportSubmit Form
 	// 파라미터 : ReportSubmit 담을 Model
 	// 리턴값 : addReportSubmit.jsp로 이동
 	@GetMapping("/loginCheck/addReportSubmit")
-	String addReportSubmit(Model model, @RequestParam("reportNo") int reportNo) {
+	String addReportSubmit(HttpSession session, Model model, @RequestParam("reportNo") int reportNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportNo+ "<--reportNo" + TeamColor.TEXT_RESET);
-		
+		log.debug(TeamColor.PSY + reportNo + "<--reportNo" + TeamColor.TEXT_RESET);
+
+		// accountId 받아오기
+		String accountId = ((String) session.getAttribute("sessionId"));
+		// accountIdt 디버깅
+		log.debug(TeamColor.PSY + accountId + "<--accountId" + TeamColor.TEXT_RESET);
+
 		// reportOne 리스트 model값으로 보내기 Service Call
 		Report reportOne = reportService.getReportOne(reportNo);
 		// 디버깅
 		log.debug(TeamColor.PSY + reportOne + "<-- reportOne" + TeamColor.TEXT_RESET);
 
+		// getEducationInfo model값으로 보내기 Service Call
+		Education getEducationInfo = educationService.getEducationInfo(accountId);
+		// 디버깅
+		log.debug(TeamColor.PSY + getEducationInfo + "<-- getEducationInfo" + TeamColor.TEXT_RESET);
+
 		// 모델단에 reportOne을 addAttribute해서 폼으로 전달
 		model.addAttribute("reportOne", reportOne);
+		model.addAttribute("EducationInfo", getEducationInfo);
 
 		return "report/addReportSubmit";
-	}
+	} // end addReportSubmit @GetMapping
 
-	// 과제 제출하기 메소드 Action
-	// 파라미터 : ReportSubmit 담을 Model
+	// 과제 제출하기 메소드
+	// addReportSubmit Action
+	// 파라미터 : sessionId, 받아온 reportSubmit
 	// 리턴값 : addReportSubmit.jsp로 이동
-	@PostMapping("/logincheck/addReportSubmit")
-	String addReportSubmit(Model model, HttpSession session, FileForm fileForm,
-			@RequestParam("educationNo") int educationNo,
-			@RequestParam(value = "reportNo") int reportNo,
+	@PostMapping("/loginCheck/addReportSubmit")
+	String addReportSubmit(HttpSession session, @RequestParam(value = "reportNo") int reportNo,
+			@RequestParam(value = "educationNo") int educationNo,
 			@RequestParam(value = "reportSubmitTitle") String reportSubmitTitle,
-			@RequestParam(value = "reportSubmitContent") String reportSubmitContent,
-			@RequestParam(value = "file") String filereportSubmitFilename,
-			@RequestParam(value = "reportSubmitScore") String reportSubmitScore) {
+			@RequestParam(value = "reportSubmitContent") String reportSubmitContent) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Controller" + TeamColor.TEXT_RESET);
 
-		String accountId = ((String)session.getAttribute("sessionId"));
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportNo + "<--reportNo" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + educationNo + "<--educationNo" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitTitle + "<--reportSubmitTitle" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitContent + "<--reportSubmitContent" + TeamColor.TEXT_RESET);
+
+		// accountId 받아오기
+		String accountId = ((String) session.getAttribute("sessionId"));
 		// accountIdt 디버깅
 		log.debug(TeamColor.PSY + accountId + "<--accountId" + TeamColor.TEXT_RESET);
-				
-		// 파라미터값 받아오기
-		ReportSubmit reportSubmit = new ReportSubmit();
-		reportSubmit.setAccountId(accountId);
-		reportSubmit.setEducationNo(educationNo);
-		reportSubmit.setReportSubmitContent(reportSubmitContent);
-		reportSubmit.setReportSubmitNo(reportNo);
-		reportSubmit.setReportSubmitScore(reportSubmitScore);
-		reportSubmit.setReportSubmiTitle(reportSubmitTitle);
+
+		// 파라미터값 셋팅
+		Map<String, Object> reportSubmit = new HashMap<>();
+		reportSubmit.put("accountId", accountId);
+		reportSubmit.put("reportSubmitContent", reportSubmitContent);
+		reportSubmit.put("reportNo", reportNo);
+		reportSubmit.put("reportSubmitTitle", reportSubmitTitle);
+		reportSubmit.put("educationNo", educationNo);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmit + "<--reportSubmit" + TeamColor.TEXT_RESET);
-		
-		// 파일 값 받기
-		ReportSubmitFile reportSubmitFile = new ReportSubmitFile();
-		reportSubmitFile.setReportSubmitFilename(filereportSubmitFilename);
-		reportSubmitFile.setReportSubmitFileType(filereportSubmitFilename);
-		reportSubmitFile.setReportSubmitOriginName(filereportSubmitFilename);
-		reportSubmitFile.setReportSubmitNo(reportNo);
 
-		// 파일 경로 구하기
-		String path = session.getServletContext().getRealPath("/upload");
-		// 경로 디버깅
-		log.debug(TeamColor.PSY + path + "<--path" + TeamColor.TEXT_RESET);
-
-		// requset.getServletContext().getRealPath(null);
-		int addReportSubmit = reportSubmitService.addReportSubmit(fileForm, path);
+		// 과제 제출 service call
+		int addReportSubmit = reportSubmitService.addReportSubmit(reportSubmit);
 		// addReportSubmit 디버깅
 		log.debug(TeamColor.PSY + addReportSubmit + "<--addReportSubmit" + TeamColor.TEXT_RESET);
-
-		// model에 담기
-		model.addAttribute("addReportSubmit", addReportSubmit);
 
 		if (addReportSubmit != 0) {
 			// 성공
 			log.debug(TeamColor.PSY + " 과제 제출하기 성공" + TeamColor.TEXT_RESET);
+			// addReportSubmit로 이동
+			return "report/reportSubmitList";
 		} else {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 제출하기 실패" + TeamColor.TEXT_RESET);
+			// addReportSubmit로 이동
+			return "redirect:/loginCheck/addReportSubmit";
 		}
-		// addReportSubmit로 이동
-		return "report/addReportSubmit";
 
-	} // end addReportSubmit
+	} // end addReportSubmit @PostMapping
+
+	// 제출한 과제 수정하는 메소드
+	// modifyReportSubmit Form
+	// 파라미터 : ReportSubmit
+	// 리턴값 : int
+	@GetMapping("/loginCheck/modifyReportSubmit")
+	String modifyReportSubmit(Model model, @RequestParam("reportSubmitNo") int reportSubmitNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@modifyReportSubmit Controller" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
+
+		// reportSubmitOne 리스트 model값으로 보내기 Service Call
+		ReportSubmit reportSubmitOne = reportSubmitService.ReportSubmitOne(reportSubmitNo);
+		// 디버깅
+		log.debug(TeamColor.PSY + reportSubmitOne + "<-- reportSubmitOne" + TeamColor.TEXT_RESET);
+
+		// 모델단에 reportSubmitOne을 addAttribute해서 폼으로 전달
+		model.addAttribute("reportSubmitOne", reportSubmitOne);
+
+		return "report/modifyReportSubmit";
+
+	} // end modifyReportSubmit @GetMapping
+
+	// 제출한 과제 수정하는 메소드
+	// modifyReportSubmit action
+	// 파라미터 : ReportSubmit
+	// 리턴값 : int
+	@PostMapping("/loginCheck/modifyReportSubmit")
+	String modifyReportSubmit(@RequestParam("reportSubmitTitle") String reportSubmitTitle,
+			@RequestParam("reportSubmitContent") String reportSubmitContent,
+			@RequestParam("reportSubmitNo") int reportSubmitNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@modifyReportSubmit Controller" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmitTitle + "<-- reportSubmitTitle" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitContent + "<-- reportSubmitContent" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
+		
+		// 파라미터 값 셋팅
+		ReportSubmit reportSubmit = new ReportSubmit();
+		reportSubmit.setReportSubmitContent(reportSubmitContent);
+		reportSubmit.setReportSubmitNo(reportSubmitNo);
+		reportSubmit.setReportSubmitTitle(reportSubmitTitle);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
+		
+		// Service Call
+		int modifyReportSubmit = reportSubmitService.modifyReportSubmit(reportSubmit);
+		// modifyReportSubmit 디버깅
+		log.debug(TeamColor.PSY + modifyReportSubmit + "<-- modifyReportSubmit" + TeamColor.TEXT_RESET);
+
+		if (modifyReportSubmit != 0) {
+			// 성공
+			log.debug(TeamColor.PSY + " 제출한 과제 수정 성공" + TeamColor.TEXT_RESET);
+		} else {
+			// 실패
+			log.debug(TeamColor.PSY + " 제출한 과제 수정 실패" + TeamColor.TEXT_RESET);
+		}
+		
+		// reportSubmitListById로 이동
+		return"report/reportSubmitListById";
+
+	} // end modifyReportSubmit @PostMapping
+	
+
+	// 제출한 과제 삭제하는 메소드
+	// 파라미터 : reportSubmitNo
+	// 리턴값 : int
+	@GetMapping("/loginCheck/removeReportSubmit")
+	public String removeReportSubmit(@RequestParam("reportSubmitNo") int reportSubmitNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@removeReportSubmit Controller" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportNo" + TeamColor.TEXT_RESET);
+		
+		// 과제 삭제 service call
+		int removeReportSubmit = reportSubmitService.removeReportSubmit(reportSubmitNo);
+		// 파라미터
+		log.debug(TeamColor.PSY + removeReportSubmit + "<-- removremoveReportSubmiteReport" + TeamColor.TEXT_RESET);
+
+		if (reportSubmitNo != 0) {
+			// 성공
+			log.debug(TeamColor.PSY + " 과제 삭제 성공" + TeamColor.TEXT_RESET);
+		} else {
+			// 실패
+			log.debug(TeamColor.PSY + " 과제 삭제 실패" + TeamColor.TEXT_RESET);
+		}
+		// reportList로 리다이렉트
+		return "redirect:/loginCheck/reportReportList";
+	} // end 
 }

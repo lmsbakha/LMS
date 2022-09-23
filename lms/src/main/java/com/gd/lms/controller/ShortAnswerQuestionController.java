@@ -48,4 +48,5 @@ public class ShortAnswerQuestionController {
 		}
 		return "redirect:/loginCheck/addQuestionInBank";
 	}
+
 }

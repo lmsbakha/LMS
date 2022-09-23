@@ -1,3 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.lms.mapper.EducationMapper"></mapper>
+<mapper namespace="com.gd.lms.mapper.EducationMapper">
+	<!-- 계정 1 정보 조회 -->
+	<select id="selectEducationInfo"
+		resultType="com.gd.lms.vo.Education" parameterType="String">
+		SELECT
+		education_no educationNo , lecture_name lectureName, account_id accountId,
+		education_state educationState, education_date educationDate
+		FROM education WHERE account_id = #{accountId}
+	</select>
+	<!-- 계정 1 정보 조회 -->
+</mapper>

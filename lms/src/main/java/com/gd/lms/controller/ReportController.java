@@ -77,7 +77,7 @@ public class ReportController {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 리스트 조회실패" + TeamColor.TEXT_RESET);
 			// index로 리다이렉트
-			return "redirect:/report/reportList";
+			return "redirect:/loginCheck/reportList";
 		}
 	} // end reportList @GetMapping
 
@@ -117,7 +117,7 @@ public class ReportController {
 	// 파라미터 : Report
 	// 리턴값 : reportList.jsp로 이동
 	@PostMapping("/loginCheck/addReport")
-	String addReport(Model model, @RequestParam("subjectName") String subjectName,
+	String addReport(@RequestParam("subjectName") String subjectName,
 			@RequestParam("reportTitle") String reportTitle, @RequestParam("reportContent") String reportContent,
 			@RequestParam("reportStartDate") String reportStartDate,
 			@RequestParam("reportEndDate") String reportEndDate) {
@@ -134,10 +134,7 @@ public class ReportController {
 		// 셋팅값 디버깅
 		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
 		
-		// 과제 제출 첨부파일 업로드 service Call
-		
-		
-		// 과제 제출 service call
+		// 과제 출제 service call
 		int row = reportService.addReport(paramReport);
 
 		if (row != 0) {
@@ -148,11 +145,11 @@ public class ReportController {
 			log.debug(TeamColor.PSY + " 과제 출제 실패" + TeamColor.TEXT_RESET);
 		}
 		// reportList로 리다이렉트
-		return "redirect:/report/reportList";
+		return "redirect:/loginCheck/reportList";
 	} // end addReport @PostMapping
 
 	// 출제한 과제 수정하는 메소드
-	// modifyReport form
+	// modifyReport Form
 	// 파라미터 : Report 담아둘 Model , reportNo
 	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동
 	@GetMapping("/loginCheck/modifyReport")
@@ -175,10 +172,10 @@ public class ReportController {
 	
 	// 출제한 과제 수정하는 메소드
 	// modifyReport Action
-	// 파라미터 : Report 담아둘 Model , 받아온 Report
+	// 파라미터 : 받아온 Report
 	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동
 	@PostMapping("/loginCheck/modifyReport")
-	public String modifyReport(Model model, @RequestParam("reportNo") int reportNo,
+	public String modifyReport(@RequestParam("reportNo") int reportNo,
 			@RequestParam("reportTitle") String reportTitle, @RequestParam("reportContent") String reportContent,
 			@RequestParam("reportStartDate") String reportStartDate,
 			@RequestParam("reportEndDate") String reportEndDate) {
@@ -207,7 +204,7 @@ public class ReportController {
 			log.debug(TeamColor.PSY + " 과제 수정 실패" + TeamColor.TEXT_RESET);
 		}
 		// reportList로 리다이렉트
-		return "redirect:/report/reportList";
+		return "redirect:/loginCheck/reportList";
 	} // end modifyReport @PostMapping
 
 	// 행정용 출제한 과제 삭제하는 메소드
@@ -233,6 +230,6 @@ public class ReportController {
 			log.debug(TeamColor.PSY + " 과제 삭제 실패" + TeamColor.TEXT_RESET);
 		}
 		// reportList로 리다이렉트
-		return "redirect:/report/reportList";
+		return "redirect:/loginCheck/reportList";
 	}
 }
