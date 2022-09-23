@@ -202,7 +202,7 @@
 			 , s.student_birth studentBirth
 			 , s.student_email studentEmail
 			 , s.student_phone studentPhone
-			 , s.create_date
+			 , s.create_date createDate
 			FROM student s INNER JOIN account a
 			ON s.account_id = a.account_id
 			WHERE s.account_id = a.account_id AND a.account_state = '대기'
@@ -217,7 +217,7 @@
 			 , t.teacher_birth teacherBirth
 			 , t.teacher_email teacherEmail
 			 , t.teacher_phone teacherPhone
-			 , t.create_date
+			 , t.create_date createDate
 			FROM teacher t INNER JOIN account a
 			ON t.account_id = a.account_id
 			WHERE t.account_id = a.account_id AND a.account_state = '대기'
@@ -232,7 +232,7 @@
 			 , m.manager_birth managerBirth
 			 , m.manager_email managerEmail
 			 , m.manager_phone managerPhone
-			 , m.create_date
+			 , m.create_date createDate
 			FROM manager m INNER JOIN account a
 			ON m.account_id = a.account_id
 			WHERE m.account_id = a.account_id AND a.account_state = '대기'
