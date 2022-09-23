@@ -1,6 +1,10 @@
 package com.gd.lms.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,7 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.NoticeFileService;
@@ -82,7 +91,7 @@ public class NoticeController {
 
 	// 공지글 작성 액션
 	@PostMapping("/loginCheck/addNotice")
-	String addReport(Model model,
+	String addNotice(Model model,
 			@RequestParam("noticeTitle") String noticeTitle,
 			@RequestParam("noticeContent") String noticeContent, 
 			HttpSession session) {
@@ -110,9 +119,57 @@ public class NoticeController {
 		
 		// 첨부파일 있을 경우 저장
 		
+		
+		
 		// 공지 리스트로
 		return "redirect:/loginCheck/noticeList";
 	} 
+	
+	// 파일 업로드 기능 - 추후 addNotice컨트롤러와 합칠 예정
+	/* 
+	@ResponseBody
+	@RequestMapping(value ="/file_uploads", method=RequestMethod.POST, 
+	                  produces = "application/json;charset=UTF-8")
+	  public  Map<String, List<Map<String, String>>> file_uploads(MultipartFile nfile,MultipartHttpServletRequest  request)throws Exception{
+		
+		String uid=null;
+		Map<String, String[]> paramMap1=request.getParameterMap();
+		 Iterator keyData1 = paramMap1.keySet().iterator();	
+	    while (keyData1.hasNext()) {
+	        String key = ((String)keyData1.next());
+	        String[] value = paramMap1.get(key);
+	        log.debug(TeamColor.LHN + "kew: " + key + "value: " + value[0].toString() );
+	        if(key.equals("uid"))
+	        {
+	        	uid=value[0].toString().trim();
+	        }
+	    }    
+		Map <String, MultipartFile > paramMap = request.getFileMap ();
+		 Iterator<String> keyData = paramMap.keySet().iterator();
+		 CommonData dto = new CommonData();
+		 
+		 Map<String, List<Map<String, String>>> result = new HashMap<>();
+		 List<Map<String, String>> data_list = new ArrayList();
+		 
+	    while (keyData.hasNext()) {
+	    	Map<String, String> data = new HashMap<>();
+	        String key = ((String)keyData.next());
+	        MultipartFile file = paramMap.get(key);
+	        
+	        file_upload_ex(dto, data, file,uid);  //return ResponseEntity.ok().body(result);
+	        data_list.add(data);
+	        dto.clear();
+	    }
+	    result.put("data", data_list);
+	    return result;
+	  }
+	
+	
+	 */
+	
+	
+	
+	
 	
 	// 공지사항 상세보기
 	
