@@ -15,7 +15,7 @@
 	<update id="updateAccountStateByMember" parameterType="com.gd.lms.vo.Account">
 		UPDATE account
 		SET account_state = '활성화'
-		WHERE account_id = #{accountId}
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
 	</update>
 	<!-- /계정 활성화 상태값 수정 - 휴면 -> 활성화  -->
 	
@@ -45,6 +45,16 @@
 		WHERE account_id = #{accountId}
 	</update>  
 	<!-- /마지막 로그인날짜 업데이트 -->
+	
+	<!-- 로그인시 해당 레벨 받기 -->
+	<select id="selectMemberLevelByAccountId" parameterType="String"
+		resultType="int">
+		SELECT
+			account_level accountLevel
+		FROM account
+		WHERE account_id = #{accountId}
+	</select>
+	<!-- /로그인시 해당 레벨 받기 -->
 	
 	<!-- 멤버 아이디 찾기 -->
 	<select id="selectMemberAccountId" parameterType="map" resultType="String">
@@ -183,4 +193,51 @@
 			WHERE manager_email=#{email}
 	</select>
 	<!-- /이메일 중복체크 / manager -->
+	
+	<!-- 회원가입 학생 승인대기리스트 -->
+	<select id="selectWaitStudentList"  resultType="com.gd.lms.vo.Student">
+		SELECT s.account_id accountId
+			 , s.student_name studentName
+			 , s.student_gender studentGender
+			 , s.student_birth studentBirth
+			 , s.student_email studentEmail
+			 , s.student_phone studentPhone
+			 , s.create_date
+			FROM student s INNER JOIN account a
+			ON s.account_id = a.account_id
+			WHERE s.account_id = a.account_id AND a.account_state = '대기'
+	</select>
+	<!-- /회원가입 학생 승인대기리스트 -->
+	
+	<!--회원가입 강사 승인대기리스트 -->
+	<select id="selectWaitTeacherList" resultType="com.gd.lms.vo.Teacher">
+		SELECT t.account_id accountId
+			 , t.teacher_name teacherName
+			 , t.teacher_gender teacherGender
+			 , t.teacher_birth teacherBirth
+			 , t.teacher_email teacherEmail
+			 , t.teacher_phone teacherPhone
+			 , t.create_date
+			FROM teacher t INNER JOIN account a
+			ON t.account_id = a.account_id
+			WHERE t.account_id = a.account_id AND a.account_state = '대기'
+	</select>
+	<!-- /회원가입 강사 승인대기리스트 -->
+	
+	<!-- 회원가입 행정 승인대기리스트 -->
+	<select id="selectWaitManagerList" resultType="com.gd.lms.vo.Manager">
+		SELECT m.account_id accountId
+			 , m.manager_name managerName
+			 , m.manager_gender managerGender
+			 , m.manager_birth managerBirth
+			 , m.manager_email managerEmail
+			 , m.manager_phone managerPhone
+			 , m.create_date
+			FROM manager m INNER JOIN account a
+			ON m.account_id = a.account_id
+			WHERE m.account_id = a.account_id AND a.account_state = '대기'
+	</select>
+	<!-- /회원가입 행정 승인대기리스트 -->
+	
+	
 </mapper>

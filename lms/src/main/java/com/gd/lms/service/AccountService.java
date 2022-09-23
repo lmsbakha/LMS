@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.AccountMapper;
 import com.gd.lms.vo.Account;
+import com.gd.lms.vo.Manager;
 import com.gd.lms.vo.Member;
+import com.gd.lms.vo.Student;
+import com.gd.lms.vo.Teacher;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -180,5 +183,34 @@ public class AccountService {
 
 		return cnt;
 	}
+	
+	// 회원가입 승인대기리스트
+	public Map<String,Object> approveWaitMemberList(){
+		
+		// 학생 대기리스트
+		List<Student> studentList = accountMapper.selectWaitStudentList();
+		// 강사 대기리스트
+		List<Teacher> teacherList = accountMapper.selectWaitTeacherList();
+		// 행정 대기리스트
+		List<Manager> managerList = accountMapper.selectWaitManagerList();
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService approveWaitMemberList studentList : " + studentList + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService approveWaitMemberList teacherList : " + teacherList + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService approveWaitMemberList managerList : " + managerList + TeamColor.TEXT_RESET);
+		
+		Map<String,Object> resultMap = new HashMap<>();
+		resultMap.put("studentList", studentList);
+		resultMap.put("teacherList", teacherList);
+		resultMap.put("managerList", managerList);
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService approveWaitMemberList resultMap - student : " + resultMap.get("studentList") + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService approveWaitMemberList resultMap - teacher : " + resultMap.get("teacherList") + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService approveWaitMemberList resultMap - manager : " + resultMap.get("managerList") + TeamColor.TEXT_RESET);
+		
+		return resultMap;
+	}
+	
 
 }

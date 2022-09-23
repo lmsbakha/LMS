@@ -85,15 +85,17 @@
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">교재관리</span></a></li>
                             </ul>
                         </li>
+                        <c:if test="${sessionLevel >= 3}">
                           <li>
                             <a class="has-arrow" href="all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">관리</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="All Students" href="all-students.html"><span class="mini-sub-pro">학생 리스트</span></a></li>
                                 <li><a title="Add Students" href="add-student.html"><span class="mini-sub-pro">강사 리스트</span></a></li>
                                 <li><a title="Edit Students" href="edit-student.html"><span class="mini-sub-pro">행정 리스트</span></a></li>
-                                <li><a title="Students Profile" href="student-profile.html"><span class="mini-sub-pro">회원가입 승인</span></a></li>
+                                <li><a title="Students Profile" href="${pageContext.request.contextPath}/loginCheck/approveWaitMemberList"><span class="mini-sub-pro">회원가입 승인</span></a></li>
                             </ul>
                         </li>
+                        </c:if>
                     </ul>
                 </nav>
             </div>

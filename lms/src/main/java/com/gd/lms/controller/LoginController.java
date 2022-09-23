@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.AccountService;
 import com.gd.lms.vo.Account;
@@ -31,12 +33,12 @@ public class LoginController {
 		// 디버깅
 		log.debug(TeamColor.PCW + "LoginController GetMapping(accountStateMember)" + TeamColor.TEXT_RESET);
 		
-		return "accountStateMember";
+		return "login/accountStateMember";
 	}
 	
 	// 휴면계정 Action
 	@PostMapping("/accountStateMember")
-	public String accountStateMember(Model model, Account account) {
+	public String accountStateMember(Model model, RedirectAttributes redirectAttributes, Account account) {
 		
 		// 디버깅
 		log.debug(TeamColor.PCW + "LoginController GetMapping(accountStateMember) account : " + account + TeamColor.TEXT_RESET);
@@ -46,8 +48,8 @@ public class LoginController {
 		if(row == 0 ) { 
 			// 디버깅
 			log.debug(TeamColor.PCW + "LoginController PostMapping(accountStateMember) row : " + row + TeamColor.TEXT_RESET);
-			model.addAttribute("alertMsg", "Fail");
-			return "accountStateMember";
+			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
+			return "redirect:/login/accountStateMember";
 		}
 		
 		return "redirect:/login";
@@ -63,12 +65,12 @@ public class LoginController {
 		if (session.getAttribute("sessionLevel") != null) {
 			return "redirect:/loginCheck/index";
 		} else { // 로그인이 되어있지 않았을 경우
-			return "login";
+			return "login/login";
 		}
 	}
 	// 로그인 Action
 	@PostMapping("/login")
-	public String login(Model model, HttpSession session, Account paramAccount) {
+	public String login(Model model, RedirectAttributes redirectAttributes, HttpSession session, Account paramAccount) {
 		
 		// 디버깅
 		log.debug(TeamColor.PCW + "LoginController PostMapping(login)" + TeamColor.TEXT_RESET);
@@ -78,6 +80,7 @@ public class LoginController {
 		if (account == null) {
 			// 디버깅
 			log.debug(TeamColor.PCW + "로그인 정보가 일치하지 않습니다." + TeamColor.TEXT_RESET);
+			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
 			return "redirect:/login";
 		}
 
@@ -87,17 +90,17 @@ public class LoginController {
 		
 		if(accountState.equals("휴면")) {
 			// 디버깅
-			log.debug(TeamColor.PCW + "계정이 휴면상태입니다." + TeamColor.TEXT_RESET);
-			model.addAttribute("alertMsg", "Fail");
-			return "accountStateMember";
+			log.debug(TeamColor.PCW + accountState + "상태입니다" + TeamColor.TEXT_RESET);
+			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
+			return "redirect:/accountStateMember";
 		}
 		
 		if (!accountState.equals("활성화")) {
 			// 디버깅
-			log.debug(TeamColor.PCW + "계정이 활성화 되지 않았습니다." + TeamColor.TEXT_RESET);
-			model.addAttribute("alertMsg", "Fail");
+			log.debug(TeamColor.PCW + accountState + "상태입니다" + TeamColor.TEXT_RESET);
+			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
 			model.addAttribute("accountState", accountState);
-			return "login";
+			return "redirect:/login";
 		}
 		
 		session.setAttribute("sessionId", account.getAccountId());
@@ -127,14 +130,14 @@ public class LoginController {
 		
 		model.addAttribute("memberCheck", memberCheck);
 		
-		return"searchAccountId";
+		return"login/searchAccountId";
 	}
 	
 	// (학생, 강사, 행정) 멤버 아이디 찾기 Action
 	@PostMapping("/searchAccountId")
 	public String searchAccountId(Model model, @RequestParam(value="memberCheck") String memberCheck
-											, @RequestParam(value="memberName") String memberName
-											, @RequestParam(value="memberEmail") String memberEmail) {
+											  , @RequestParam(value="memberName") String memberName
+											  , @RequestParam(value="memberEmail") String memberEmail) {
 		// 디버깅
 		log.debug(TeamColor.PCW + "LoginController PostMapping(searchAccountId) memberCheck : " + memberCheck + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PCW + "LoginController PostMapping(searchAccountId) memberName : " + memberName + TeamColor.TEXT_RESET);
@@ -147,6 +150,7 @@ public class LoginController {
 		
 		
 		String resultMsg = accountService.searchMemberAccountId(map);
+		
 		   if (resultMsg != null) {
 			   model.addAttribute("alertMsg", "Success");
 		      } else {
@@ -155,7 +159,7 @@ public class LoginController {
 		
 		model.addAttribute("resultMsg", resultMsg);
 		
-		return "searchAccountId";
+		return "login/searchAccountId";
 	}
 	
 	// (학생, 강사, 행정) 멤버 비밀번호 찾기 Form
@@ -167,14 +171,15 @@ public class LoginController {
 		
 		model.addAttribute("memberCheck", memberCheck);
 		
-		return "searchAccountPw"; 
+		return "login/searchAccountPw"; 
 	}
 	
 	// (학생, 강사, 행정) 멤버 비밀번호 찾기 Action
 	@PostMapping("/searchAccountPw")
-	public String searchAccountPw(Model model, @RequestParam(value="memberCheck") String memberCheck
-											 , @RequestParam(value="accountId") String accountId
-											 , @RequestParam(value="memberName") String memberName) {
+	public String searchAccountPw(Model model, RedirectAttributes redirectAttributes
+										     , @RequestParam(value="memberCheck") String memberCheck
+									         , @RequestParam(value="accountId") String accountId
+										     , @RequestParam(value="memberName") String memberName) {
 		// 디버깅
 		log.debug(TeamColor.PCW + " LoginController PostMappingg(searchAccountPw) memberCheck : " + memberCheck + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PCW + " LoginController PostMappingg(searchAccountPw) accountId : " + accountId + TeamColor.TEXT_RESET);
@@ -188,13 +193,13 @@ public class LoginController {
 		int cnt = accountService.searchMemberAccountPw(map);
 		
 		if(cnt == 0) {
-			model.addAttribute("alertMsg", "Fail");
-			return "searchAccountPw";
+			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
+			return "redirect:/searchAccountPw";
 		}
 		
 		model.addAttribute("accountId", accountId);
 		
-		return "modifySearchAccountPw";
+		return "login/modifySearchAccountPw";
 	}
 	
 	// (학생, 강사, 행정) 멤버 비밀번호 변경 Form - 찾기를 통해 변경하는 경우
@@ -206,7 +211,7 @@ public class LoginController {
 		
 		model.addAttribute("accountId", accountId);
 		
-		return "modifySearchAccountPw";
+		return "login/modifySearchAccountPw";
 	}
 	
 	// (학생, 강사, 행정) 멤버 비밀번호 변경 Action - 찾기를 통해 변경하는 경우
@@ -218,12 +223,26 @@ public class LoginController {
 		
 		accountService.modifySearchMemberAccountPw(account);
 		
-		return "login";
+		return "login/login";
 	}
 	
 	// index Form
 	@GetMapping("/loginCheck/index")
-	public String index() {
+	public String index(Model model, HttpSession session) {
+		Account account = new Account();
+		
+		// sessionId & sessionLevel 받아오기
+		String accountId = (String)session.getAttribute("sessionId");
+		// 디버깅
+		log.debug(TeamColor.PCW + " LoginController GetMappingg(/loginCheck/index) accountId : " + accountId + TeamColor.TEXT_RESET);
+		
+		int accountLevel = (int)session.getAttribute("sessionLevel");
+		// 디버깅
+		log.debug(TeamColor.PCW + " LoginController GetMappingg(/loginCheck/index) accountLevel : " + accountLevel + TeamColor.TEXT_RESET);
+		
+		account.setAccountId(accountId);
+		account.setAccountLevel(accountLevel);
+		
 		return "/login/index";
 	}
 	
@@ -236,21 +255,35 @@ public class LoginController {
 		
 		model.addAttribute("memberCheck", memberCheck);
 		
-		return "register";
+		return "login/register";
 	}
 	
 	// 회원가입 Action
 	@PostMapping("/register")
 	public String register(HttpSession session, Member paramMember) {
+		
 		// 디버깅
-		log.debug(TeamColor.PCW + "LoginController PostMapping(register)" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "LoginController PostMapping(register) paramMember : " + paramMember  + TeamColor.TEXT_RESET);
+		
 		accountService.addMember(paramMember);
 		
 		return "redirect:/login";
 	}
 	
-	
-	
+	// 회원가입 승앤대기리스트 Form
+	@GetMapping("/loginCheck/approveWaitMemberList")
+	public String modifyAccountStateWaitMember(Model model) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(/loginCheck/approveWaitMemberList)" + TeamColor.TEXT_RESET);
+		
+		Map<String, Object> resultMap = accountService.approveWaitMemberList();
+		model.addAttribute("studentList", resultMap.get("studentList"));
+		model.addAttribute("teacherList", resultMap.get("teacherList"));
+		model.addAttribute("managerList", resultMap.get("managerList"));
+		
+		return "login/approveWaitMemberList";
+	}
 	
 	
 	

@@ -90,6 +90,17 @@
                           	    <span id="passinfo"></span>
                           	    <input type="hidden" name="accountState" id="accountState">
                             </div>
+                            <c:if test="${accountState == null && alertMsg eq 'Fail'}">
+	                           <div class="alert alert-danger alert-mg-b alert-success-style4">
+	                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+	                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
+	                              </button>
+	                              <i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
+	                              <span>
+	                                 ※ 없는 계정입니다.
+	                              </span>
+	                           </div>
+                            </c:if>
                             <c:if test="${accountState != null && accountState eq '대기' && alertMsg eq 'Fail'}">
 	                           <div class="alert alert-danger alert-mg-b alert-success-style4">
 	                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">

@@ -128,6 +128,7 @@
                                 <span class="help-block small"></span>
                             </div>
                             	<button type="submit" class="btn btn-success-search btn-block">비밀번호 찾기</button>
+                            	<button type="button" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 하러가기</button>
                           </c:if>
                            </form>
 				   		   <c:if test="${cnt == 0 || alertMsg eq 'Fail'}">

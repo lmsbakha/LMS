@@ -5,7 +5,10 @@ import java.util.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.Account;
+import com.gd.lms.vo.Manager;
 import com.gd.lms.vo.Member;
+import com.gd.lms.vo.Student;
+import com.gd.lms.vo.Teacher;
 
 @Mapper
 public interface AccountMapper {
@@ -23,6 +26,9 @@ public interface AccountMapper {
 	
 	// 마지막 로그인 날짜 업데이트 해주는 메서드
 	int updateLastLoginDate(String accountId);
+	
+	// 로그인시 해당 레벨 받기
+	int selectMemberLevelByAccountId(String accountId);
 	
 	// (학생, 강사, 행정) 멤버 아이디 찾기 - 이름과 이메일이 해당 아이디와 일치한다면 null 값이 아니라면
 	String selectMemberAccountId(Map<String,Object> map);
@@ -50,4 +56,14 @@ public interface AccountMapper {
 
 	// 회원 가입시 이메일 중복 체크 위해 같은 이메일이 있는지 Cnt 받기 - manager
 	int selectManagerEmailCnt(String email);
+	
+	// 회원가입 학생 승인대기리스트
+	List<Student> selectWaitStudentList();
+	
+	// 회원가입 강사 승인대기리스트
+	List<Teacher> selectWaitTeacherList();
+	
+	// 회원가입 행정 승인 대기리스트
+	List<Manager> selectWaitManagerList();
+	
 }
