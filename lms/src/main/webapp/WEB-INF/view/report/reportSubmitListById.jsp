@@ -134,14 +134,13 @@
 							<hr>
 							<div class="add-product">
 								<a
-									href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">과제
+									href="${pageContext.request.contextPath}/loginCheck/reportList">과제
 									리스트</a>
 							</div>
 							<div class="asset-inner">
 								<table>
 									<tr>
-										<th>reportSubmitNo</th>
-										<th>reportNo</th>
+										<th>reportName</th>
 										<th>reportSubmitTitle</th>
 										<th>reportSubmitScore</th>
 										<th>createDate</th>
@@ -149,7 +148,6 @@
 									</tr>
 									<c:forEach var="reportSubmit" items="${reportSubmitListById}">
 										<tr>
-											<td>${reportSubmit.reportSubmitNo}</td>
 											<td>${reportSubmit.reportNo}</td>
 											<td>${reportSubmit.reportSubmitTitle}</td>
 											<td>${reportSubmit.reportSubmitScore}</td>

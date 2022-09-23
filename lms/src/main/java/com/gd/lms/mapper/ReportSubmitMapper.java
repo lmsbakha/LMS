@@ -20,6 +20,9 @@ public interface ReportSubmitMapper {
 	// 리턴값 : List<Map<String,Object>>
 	List<ReportSubmit> selectReportListById(Map<String, Object> paramMap);
 
+	// 학생이 제출한 과제 리스트 조회 메소드
+	// 강좌별 분기하기
+	
 	// 과제 제출하기 메소드
 	// 파라미터 : map(ReportSubmit, educationNo )
 	// 리턴값 : int

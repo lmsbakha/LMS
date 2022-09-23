@@ -13,4 +13,5 @@ public class ReportSubmitForm {
 	private List<MultipartFile> multiList;
 	private String reportSubmitTitle;
 	private String reportSubmitContent;
+	private String accountId ;
 }

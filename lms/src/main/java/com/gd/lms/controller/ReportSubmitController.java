@@ -52,41 +52,26 @@ public class ReportSubmitController {
 	@Autowired
 	EducationService educationService;
 
-	// ROW_PER_PAGE의 개수가 변하지 않도록 상수로 선언
-	private final int ROW_PER_PAGE = 10;
-
 	// 과제 리스트 조회
 	// 파라미터 : currentPage, reportSubmitList 담을 Model
 	// 리턴값 : reportList.jsp로 이동
 	@GetMapping("/loginCheck/reportSubmitList")
-	public String reportSubmitList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
+	public String reportSubmitList(Model model) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportSubmitList Controller" + TeamColor.TEXT_RESET);
-		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + currentPage + "<-- currentPage" + TeamColor.TEXT_RESET);
-
-		// 요청받은 값 Map 객체에 셋팅
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("currentPage", currentPage);
-		// 요청받은 값 Map 디버깅
-		log.debug(TeamColor.PSY + paramMap + "<-- paramMap" + TeamColor.TEXT_RESET);
 
 		// 페이징 service call
-		List<Report> reportSubmitList = reportService.getReportList(currentPage, ROW_PER_PAGE);
+		List<Report> reportSubmitList = reportService.getReportList();
 		// reportSubmitList 디버깅
 		log.debug(TeamColor.PSY + reportSubmitList + "<--reportList" + TeamColor.TEXT_RESET);
 
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@reportSubmitList Controller" + TeamColor.TEXT_RESET);
-
 		// reportList로 값 넘겨주기
 		model.addAttribute("reportList", reportSubmitList);
-		model.addAttribute("currentPage", currentPage);
 
 		if (reportSubmitList != null) {
 			// 성공
 			log.debug(TeamColor.PSY + " 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
-			// reportList로 이동
+			// reportSubmitList로 이동
 			return "report/reportSubmitList";
 		} else {
 			// 실패
@@ -219,6 +204,8 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + accountId + "<--accountId" + TeamColor.TEXT_RESET);
 
 		List<MultipartFile> multiList = reportSubmitForm.getMultiList();
+		// accountId 디버깅
+		log.debug(TeamColor.PSY + multiList + "<--multiList" + TeamColor.TEXT_RESET);
 		
 		// 업로드 파일이 하나 이상이면
 		if(multiList.get(0).getSize() > 0) {
@@ -230,7 +217,7 @@ public class ReportSubmitController {
 		}
 		// 과제 제출 service call
 		// requset.getServletContext().getRealPath(null);
-		reportSubmitService.addReportSubmit(reportSubmitForm, path);
+		reportSubmitService.addReportSubmit(reportSubmitForm, path, accountId);
 	
 		// reportSubmitList로 이동
 		return "redirect:/loginCheck/reportSubmitList";

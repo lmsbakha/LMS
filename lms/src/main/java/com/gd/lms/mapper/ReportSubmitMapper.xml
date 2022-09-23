@@ -11,44 +11,51 @@
 		account_id accountId,
 		report_no reporNo,
 		report_submit_title reportSubmitTitle,
-		report_submit_content reportSubmitContent,
+		report_submit_content
+		reportSubmitContent,
 		report_submit_score reportSubmitScore,
-		create_date createDate
-		FROM report_submit 
+		create_date
+		createDate
+		FROM report_submit
 		WHERE account_id = #{accountId}
 	</select>
 	<!-- 학생이 제출한 과제 리스트 조회 메소드 -->
 
 	<!-- 과제 제출하기 메소드 -->
-	<insert id="insertReportSubmit" parameterType="com.gd.lms.vo.ReportSubmit">
+	<insert id="insertReportSubmit"
+		parameterType="com.gd.lms.vo.ReportSubmit">
 		INSERT INTO
 		report_submit (
-		education_no, report_no,
+		education_no,
+		report_no,
 		account_id,
 		report_submit_title,
 		report_submit_content,
-		report_submit_score,
-		update_date,
-		create_date)
-		VALUES ( #{educationNo},
-		#{reportNo},
-		#{accountId}
-		,#{reportSubmitTitle},
-		#{reportSubmitContent},
-		'F', NOW(),
-		NOW())
+		report_submit_score,update_date, create_date)
+		VALUES (
+		(SELECT education_no from education WHERE account_id= #{accountId} and
+		lecture_name = (SELECT lecture_name FROM lecture_subject WHERE subject_name =
+		(SELECT subject_name FROM report WHERE report_no = #{reportNo})))
+		,#{reportNo}
+		,#{accountId}
+		,#{reportSubmitTitle}
+		,#{reportSubmitContent}
+		,'F',
+		NOW(),NOW())
 	</insert>
 	<!-- 과제 제출하기 메소드 -->
 
 	<!-- 제출한 과제 수정하기 Form -->
-	<select id="ReportSubmitOne"
-		parameterType="int"
+	<select id="ReportSubmitOne" parameterType="int"
 		resultType="com.gd.lms.vo.ReportSubmit">
-		SELECT report_submit_no reportSubmitNo,education_no educationNo, report_no reportNo,
-		account_id accountId,report_submit_title reportSubmitTitle,
-		report_submit_content reportSubmitContent ,report_submit_score reportSubmitSCore,
-		update_date updateDate, create_date createDate 
-		FROM report_submit 
+		SELECT report_submit_no reportSubmitNo,education_no
+		educationNo, report_no reportNo,
+		account_id
+		accountId,report_submit_title reportSubmitTitle,
+		report_submit_content
+		reportSubmitContent ,report_submit_score reportSubmitSCore,
+		update_date updateDate, create_date createDate
+		FROM report_submit
 		WHERE report_submit_no = #{reportSubmitNo}
 	</select>
 	<!-- 제출한 과제 수정하기 Form -->
@@ -57,8 +64,9 @@
 	<update id="updateReportSubmit"
 		parameterType="com.gd.lms.vo.ReportSubmit">
 		UPDATE report_submit
-		SET report_submit_title =#{reportSubmitTitle},
-		report_submit_content=#{reportSubmitContent},
+		SET report_submit_title =
+		#{reportSubmitTitle},
+		report_submit_content = #{reportSubmitContent},
 		update_date= now()
 		WHERE
 		report_submit_no = #{reportSubmitNo}

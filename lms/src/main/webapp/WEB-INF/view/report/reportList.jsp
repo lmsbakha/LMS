@@ -110,9 +110,18 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
-										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
+										<c:choose>
+											<c:when test="${session.sessionLevel > 1}">
+												<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+												<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
+												<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
+											</c:when>
+											<c:otherwise>
+												<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+												<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
+												<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
+											</c:otherwise>
+										</c:choose>
 									</ul>
 								</div>
 							</div>
@@ -133,11 +142,22 @@
 						<div class="product-status-wrap drp-lst">
 							<h4>Report List</h4>
 							<hr>
-							<div class="add-product">
-								<a
-									href="${pageContext.request.contextPath}/loginCheck/addReport">과제
-									추가</a>
-							</div>
+							<c:choose>
+								<c:when test="${session.sessionLevel > 1}">
+									<div class="add-product">
+										<a
+											href="${pageContext.request.contextPath}/loginCheck/addReport">과제
+											추가</a>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="add-product">
+										<a
+											href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">나의
+											과제 제출 리스트</a>
+									</div>
+								</c:otherwise>
+							</c:choose>
 							<div class="asset-inner">
 								<table>
 									<tr>
@@ -163,19 +183,34 @@
 												</div>
 											</td>
 											<td>${report.createDate}</td>
-											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/modifyReport?reportNo=${report.reportNo}">
-													<button data-toggle="tooltip" title="Edit"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-													</button>
-											</a> <a
-												href="${pageContext.request.contextPath}/loginCheck/removeReport?reportNo=${report.reportNo}">
-													<button data-toggle="tooltip" title="Trash"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-trash-o" aria-hidden="true"></i>
-													</button>
-											</a></td>
+											<c:choose>
+												<c:when test="${session.sessionLevel > 1}">
+													<td><a
+														href="${pageContext.request.contextPath}/loginCheck/modifyReport?reportNo=${report.reportNo}">
+															<button data-toggle="tooltip" title="Edit"
+																class="pd-setting-ed" type="button">
+																<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+															</button>
+													</a> <c:if test="${session.sessionLevel > 2}">
+															<a
+																href="${pageContext.request.contextPath}/loginCheck/removeReport?reportNo=${report.reportNo}">
+																<button data-toggle="tooltip" title="Trash"
+																	class="pd-setting-ed" type="button">
+																	<i class="fa fa-trash-o" aria-hidden="true"></i>
+																</button>
+															</a>
+														</c:if></td>
+												</c:when>
+												<c:otherwise>
+													<td><a
+														href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
+															<button data-toggle="tooltip" title="submit"
+																class="pd-setting-ed" type="button">
+																<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+															</button>
+													</a></td>
+												</c:otherwise>
+											</c:choose>
 										</tr>
 									</c:forEach>
 								</table>

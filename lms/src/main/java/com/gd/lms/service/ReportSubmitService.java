@@ -71,18 +71,19 @@ public class ReportSubmitService {
 	// 과제 제출하기 메소드
 	// 파라미터 : ReportSubmit
 	// 리턴값 : void
-	public void addReportSubmit(ReportSubmitForm reportSubmitForm, String path) {
+	public void addReportSubmit(ReportSubmitForm reportSubmitForm, String path, String accountId) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportSubmitForm.getReportSubmit() + "<-- fileForm.getReportSubmit()"
+		log.debug(TeamColor.PSY + reportSubmitForm + "<-- fileForm"
 				+ TeamColor.TEXT_RESET);
 
 		// ReportSubmitMapper
 		ReportSubmit reportSubmit = new ReportSubmit();
 		reportSubmit.setReportSubmitContent(reportSubmitForm.getReportSubmitContent());
 		reportSubmit.setReportSubmitTitle(reportSubmitForm.getReportSubmitTitle());
-
+		reportSubmit.setAccountId(accountId);
+		
 		// Mapper call
 		int addReportSubmit = reportSubmitMapper.insertReportSubmit(reportSubmit);
 		// Mapper에서 받아온 addReportSubmit 값 디버깅
@@ -93,16 +94,16 @@ public class ReportSubmitService {
 			log.debug(TeamColor.PSY + "첨부된 파일이 있습니다." + TeamColor.TEXT_RESET);
 			for (MultipartFile mf : reportSubmitForm.getMultiList()) {
 
-				// 매번 새호운 reportSubmitFile을 만들어야 함
+				// 새로운 reportSubmitFile 생성
 				ReportSubmitFile reportSubmitFile = new ReportSubmitFile();
 
 				// 기존 첨부파일명
 				String reportSubmitOriginFilename = mf.getOriginalFilename();
 
-				// 파일을 저장할때 사용할 중복되지않는 새로운 이름 필요(UUID API사용)
+				// 파일을 저장할때 사용할 중복되지않는 새로운 이름 생성하기 위해 UUID API 사용
 				String reportSubmitFilename = UUID.randomUUID().toString();
 
-				// 파일 확장자 - reportSubmitOriginFilename에서 마지막 .문자열 위치
+				// 파일 확장자 - reportSubmitOriginFilename에서 마지막 .문자열 위치를 찾아 substring
 				// substring()로 .txt를 찾음
 				String ext = reportSubmitOriginFilename.substring(reportSubmitOriginFilename.lastIndexOf("."));
 				// ext값 디버깅
@@ -127,11 +128,11 @@ public class ReportSubmitService {
 				// transferTo 리턴타입을 주기 위해 new File()파일 객체 생성
 				try {
 					// c://upload/ttt.txt
-					// 새로운 bean 파일 안에 MultipartFile안에 파일을 하나씩 복사
+					// 새로운 bean 파일 -> MultipartFile-> 파일을 하나씩 복사
 					mf.transferTo(new File(path + reportSubmitFilename));
 				} catch (Exception e) {
 					e.printStackTrace();
-					// @Transactional 처리가 되도록 강제로 RuntimeException(try절을 발생시키지 않는) 발생
+					// @Transactional 처리가 되도록 강제로 RuntimeException(try절을 발생X) 발생
 					throw new RuntimeException();
 				} // end try catch
 			} // end for

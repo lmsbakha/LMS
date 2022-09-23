@@ -11,9 +11,9 @@ import com.gd.lms.vo.Report;
 @Mapper
 public interface ReportMapper {
 	// 전체 과제 리스트 조회하는 메소드 
-	// 파라미터 : Map<String, Object> map  currentPage, rowPerPage
+	// 파라미터 : X
 	// 리턴값 : List<Report>
-	List<Report> selectReportList(Map<String, Object> map);
+	List<Report> selectReportList();
 
 	// report 전체 과제 수를 추출하는 메소드
 	// 파라미터 : reportNo

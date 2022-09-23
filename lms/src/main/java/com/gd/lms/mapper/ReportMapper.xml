@@ -3,8 +3,7 @@
 <mapper namespace="com.gd.lms.mapper.ReportMapper">
 
 	<!-- 전체 과제 리스트 조회하기 -->
-	<select id="selectReportList" parameterType="Map"
-		resultType="com.gd.lms.vo.Report">
+	<select id="selectReportList" resultType="com.gd.lms.vo.Report">
 		SELECT
 		report_no reportNo
 		, subject_name subjectName

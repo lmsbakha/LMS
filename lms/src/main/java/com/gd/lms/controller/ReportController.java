@@ -1,6 +1,5 @@
 package com.gd.lms.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,40 +37,26 @@ public class ReportController {
 	@Autowired
 	TeacherService teacherService;
 
-	// ROW_PER_PAGE의 개수가 변하지 않도록 상수로 선언
-	private final int ROW_PER_PAGE = 10;
 
 	// 과제 리스트 조회
 	// 파라미터 : ROW_PER_PAGE, currentPage, reportList
 	// 리턴값 : reportList.jsp로 이동
 	@GetMapping("/loginCheck/reportList")
-	public String reportdList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
+	public String reportdList(Model model) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
-		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + currentPage + "<-- currentPage" + TeamColor.TEXT_RESET);
-
-		// 요청받은 값 Map 객체에 셋팅
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("currentPage", currentPage);
-		// 요청받은 값 Map 디버깅
-		log.debug(TeamColor.PSY + paramMap + "<-- paramMap" + TeamColor.TEXT_RESET);
 
 		// 페이징 service call
-		List<Report> reportList = reportService.getReportList(currentPage, ROW_PER_PAGE);
+		List<Report> reportList = reportService.getReportList();
 		log.debug(TeamColor.PSY + reportList + "<--reportList" + TeamColor.TEXT_RESET);
-
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
 
 		// reportList로 값 넘겨주기
 		model.addAttribute("reportList", reportList);
-		model.addAttribute("currentPage", currentPage);
-
+		
 		if (reportList != null) {
 			// 성공
 			log.debug(TeamColor.PSY + " 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
-			// reportList로 리다이렉트
+			// reportList로 이동
 			return "report/reportList";
 		} else {
 			// 실패

@@ -159,7 +159,7 @@
 										<div class="form-group alert-up-pd">
 											<div class="dz-message needsclick download-custom">
 												<i class="fa fa-download edudropnone" aria-hidden="true"></i>
-												<input name="reportSubmitfileList" id="reportSubmitfile" class="form-control"
+												<input name="multiList" id="multiList" class="form-control"
 													type="file" multiple="multiple"/>
 											</div>
 										</div>
@@ -283,9 +283,6 @@ $('#addReportSubmitBtn').click(function() {
 	}else if ($('#reportContent').val() == '') {
 		alert('reportSubmitContent를 입력해주세요.');
 		$('#reportSubmitContent').focus();
-	}else if ($('#reportSubmitfile').val() == '') {
-		alert('reportSubmitfile를 넣어주세요.');
-		$('#reportSubmitfile').focus();
 	}else {
 		alert('과제를 제출하시겠습니까?');
 		 $( '#addreportSubmitForm' ).submit();
