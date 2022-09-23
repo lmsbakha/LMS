@@ -98,7 +98,7 @@
 										<li><a href="${pageContext.request.contextPath}/loginCheck/questionBank">문제은행</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">상세보기</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">
-												<span class="bread-blod" style="font-weight: bold;">객관식 문제</span>
+												<span class="bread-blod" style="font-weight: bold;">단답형 문제</span>
 											</a></li>
 									</ul>
 								</div>
@@ -155,34 +155,34 @@
 						<h4>문제 상세보기</h4>
 						<!-- 문제 출제 하기 -->
 						<div class="asset-inner">
-							<form method="post" action="${pageContext.request.contextPath}/loginCheck/modifyMultiplechoiceOne">
+							<form method="post" action="${pageContext.request.contextPath}/loginCheck/modifyShortAnswerQuestion">
 								<table>
 									<tr>
 										<th style="width: 250px; text-align: right;">questionNo&nbsp;&nbsp;&nbsp;</th>
-										<td>${multiplechoiceQuestion.questionNo}</td>
+										<td>${shortAnswerQuestion.questionNo}</td>
 									</tr>
 									<tr>
 										<th style="width: 250px; text-align: right;">subjectName&nbsp;&nbsp;&nbsp;</th>
-										<td>${multiplechoiceQuestion.subjectName}</td>
+										<td>${shortAnswerQuestion.subjectName}</td>
 									</tr>
 									<tr>
 										<th style="width: 250px; text-align: right;">questionTitle&nbsp;&nbsp;&nbsp;</th>
 										<td>
-											<input type="hidden" class="form-control" id="questionNo" name="questionNo" value="${multiplechoiceQuestion.questionNo}"> 
-											<input type="text" class="form-control" id="questionTitle" name="questionTitle" value="${multiplechoiceQuestion.questionTitle}">
+											<input type="hidden" class="form-control" id="questionNo" name="questionNo" value="${shortAnswerQuestion.questionNo}"> 
+											<input type="text" class="form-control" id="questionTitle" name="questionTitle" value="${shortAnswerQuestion.questionTitle}">
 										</td>
 									</tr>
 									<tr>
 										<th style="width: 250px; text-align: right;">questionAnswer&nbsp;&nbsp;&nbsp;</th>
-										<td><input type="text" class="form-control" id="questionAnswer" name="questionAnswer" value="${multiplechoiceQuestion.questionAnswer}"></td>
+										<td><input type="text" class="form-control" id="questionAnswer" name="questionAnswer" value="${shortAnswerQuestion.questionAnswer}"></td>
 									</tr>
 									<tr>
 										<th style="width: 250px; text-align: right;">updateDate&nbsp;&nbsp;&nbsp;</th>
-										<td>${multiplechoiceQuestion.updateDate}</td>
+										<td>${shortAnswerQuestion.updateDate}</td>
 									</tr>
 									<tr>
 										<th style="width: 250px; text-align: right;">createDate&nbsp;&nbsp;&nbsp;</th>
-										<td>${multiplechoiceQuestion.createDate}</td>
+										<td>${shortAnswerQuestion.createDate}</td>
 									</tr>
 									<tr>
 										<th style="width: 250px; text-align: right;">Setting&nbsp;&nbsp;&nbsp;</th>
@@ -190,7 +190,7 @@
 											<button class="btn btn-custon-rounded-three btn-success" type="submit">
 												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>수정하기
 											</button> 
-											<a href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${multiplechoiceQuestion.questionNo}&page=InOnePage" onclick="return confirm('문제를 삭제하시겠습니까?');">
+											<a href="${pageContext.request.contextPath}/loginCheck/removeShortAnswerQuestion?questionNo=${shortAnswerQuestion.questionNo}&page=InOnePage" onclick="return confirm('문제를 삭제하시겠습니까?');">
 												<button class="btn btn-custon-rounded-three btn-danger" type="button">
 													<i class="fa fa-trash-o" aria-hidden="true"></i>삭제하기
 												</button>
@@ -205,40 +205,7 @@
 			</div>
 		</div>
 	</div>
-	<!--  -->
-	<div class="product-status mg-b-15">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="product-status-wrap drp-lst">
-						<h4>해당 문제의 보기</h4>
-						<div class="add-product">
-							<a href="${pageContext.request.contextPath}/loginCheck/modifyMultiplechoiceExample?questionNo=${multiplechoiceQuestion.questionNo}">보기수정</a>
-						</div>
-						<div class="asset-inner">
-							<table>
-								<tr>
-									<th>번호</th>
-									<th>보기 지문</th>
-									<th>수정일</th>
-									<th>최초 작성일</th>
-								</tr>
-
-								<c:forEach var="map" items="${multiplechoiceExample}">
-									<tr>
-										<td>${map.multiplechoiceExampleId}번</td>
-										<td>${map.multiplechoiceExampleContent}</td>
-										<td>${map.updateDate}</td>
-										<td>${map.createDate}</td>
-									</tr>
-								</c:forEach>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<!-- Start footer -->
 	<jsp:include page="../inc/footer.jsp" />
 	<!-- End footer -->

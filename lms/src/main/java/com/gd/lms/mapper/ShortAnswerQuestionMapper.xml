@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.ShortAnswerQuestionMapper">
+	<!-- 단답형 문제 랜덤하게 뽑아오기 -->
 	<select id="getShortAnswerQuestionListByRandom" parameterType="Map" resultType="Map">
 		SELECT 
 			subject_name subjectName
@@ -35,4 +36,32 @@
 	VALUE
 		(#{subjectName},#{questionTitle},#{questionAnswer},NOW(),NOW())
 	</insert>
+	
+	<!-- 단답형 문제 삭제 -->
+	<delete id="deleteShortAnswerQuestionOneByQuestionNo" parameterType="int">
+		DELETE FROM short_answer_question WHERE question_no=#{questionNo}
+	</delete>
+	
+	<!-- 단답형 문제 정보 가져오기 -->
+	<select id="selectShortAnswerQuestionOne" resultType="com.gd.lms.vo.ShortAnswerQuestion">
+		SELECT 
+			 subject_name subjectName
+			, question_no questionNo
+			, question_title questionTitle
+			, question_answer questionAnswer
+			, update_date updateDate
+			, create_date createDate 
+		FROM short_answer_question
+		WHERE question_no =#{questionNo}
+	</select>
+	
+	<!-- 단답형 문제 수정하기 -->
+	<update id="updateShortAnswerQuestion" parameterType="com.gd.lms.vo.ShortAnswerQuestion"> 
+		UPDATE short_answer_question 
+		SET 
+			question_title=#{questionTitle}
+			, question_answer=#{questionAnswer}
+			, update_date=NOW() 
+		WHERE question_no=#{questionNo}
+	</update>
 </mapper>

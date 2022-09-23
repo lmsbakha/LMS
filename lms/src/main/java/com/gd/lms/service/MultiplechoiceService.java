@@ -64,11 +64,14 @@ public class MultiplechoiceService {
 		int removeMultiplechoiceCk = 0;
 
 		// exam_question에 multiplechoice 데이터가 포함되어 있으면 FK로 연결되어 있기 때문에 삭제가 안됨 --> exam_question테이블에 데이터가 들어가져있는 확인해야 한다
-		int CountCk = examQuestionMapper.selectCountExamQuestion(questionNo);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("questionNo", questionNo);
+		paramMap.put("questionType", "객관식");
+		int CountCk = examQuestionMapper.selectCountExamQuestion(paramMap);
 		// 결과값 디버깅
 		if (CountCk != 0) {
 			// 디버깅
-			log.debug(TeamColor.PSJ + "[Error] exam_question 테이블에 데이터가 있어서 삭제가 불가능합니다. " + TeamColor.TEXT_RESET);
+			log.debug(TeamColor.PSJ + "[Error] exam_question 테이블에 객관식 문제 데이터가 있어서 삭제가 불가능합니다. " + TeamColor.TEXT_RESET);
 			// 500으로 리턴해서 삭제 실패로 보내기
 			return 500;
 		}

@@ -28,10 +28,12 @@ public class MultichoiceController {
 	// 파라미터 : questionNo
 	// 리턴값 : 객관식 문제와 보기 답안을 multiplechoiceOne에서 보여주기
 	@GetMapping("/loginCheck/multiplechoiceOne")
-	public String multiplechoiceOne(Model model, @RequestParam(value = "questionNo") int questionNo) {
+	public String multiplechoiceOne(Model model
+			, @RequestParam(value = "questionNo") int questionNo
+			, RedirectAttributes redirectAttributes) {
 		//파라미터 디버깅
 		log.debug(TeamColor.PSJ + questionNo + "<-- questionNo" + TeamColor.TEXT_RESET);
-
+		log.debug(TeamColor.PSJ + redirectAttributes.getFlashAttributes() + "<-- alertMsg" + TeamColor.TEXT_RESET);
 		// MultiplechoiceService에서 객관식 문제의 상세 정보 받아옴
 		Map<String, Object> multiplechoiceOne = multiplechoiceService.getMultiplechoiceOne(questionNo);
 		// 디버깅
@@ -40,6 +42,7 @@ public class MultichoiceController {
 		model.addAttribute("multiplechoiceQuestion", multiplechoiceOne.get("multiplechoiceQuestion"));
 		model.addAttribute("multiplechoiceExample", multiplechoiceOne.get("multiplechoiceExample"));
 
+		
 		return "exam/multiplechoiceOne";
 	}
 
@@ -61,7 +64,7 @@ public class MultichoiceController {
 		paramMultiplechoice.setQuestionNo(questionNo);
 		paramMultiplechoice.setQuestionTitle(questionTitle);
 		paramMultiplechoice.setQuestionAnswer(questionAnswer);
-		
+
 		// 디버깅
 		log.debug(TeamColor.PSJ + paramMultiplechoice + "<-- paramMultiplechoice" + TeamColor.TEXT_RESET);
 
@@ -74,7 +77,7 @@ public class MultichoiceController {
 		}
 		// getMapping이므로 addAttrubute로 값 전송 --> 새로고침도 똑같아야 한다
 		redirectAttributes.addAttribute("questionNo", questionNo);
-		
+
 		return "redirect:/loginCheck/multiplechoiceOne";
 	}
 
@@ -82,9 +85,12 @@ public class MultichoiceController {
 	// 파라미터 : questionNo
 	// 리턴값 : questionBank 페이지로 이동/ alertMsg를 보낼 RedirectAttributes
 	@GetMapping("/loginCheck/removeMultiplechoiceOne")
-	public String removeMultiplechoiceOne(RedirectAttributes redirectAttributes, int questionNo) {
+	public String removeMultiplechoiceOne(RedirectAttributes redirectAttributes
+			, @RequestParam(value = "questionNo") int questionNo
+			, @RequestParam(value = "page") String page) {
 		// 파라미터 디버깅 
 		log.debug(TeamColor.PSJ + questionNo + "<-- questionNo" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSJ + page + "<-- page" + TeamColor.TEXT_RESET);
 
 		// Service call
 		int removeCk = multiplechoiceService.removeMultiplechoiceOne(questionNo);
@@ -96,7 +102,15 @@ public class MultichoiceController {
 		} else {
 			redirectAttributes.addFlashAttribute("alertMsg", "Success");
 		}
+		
+		// multiplechoiceOne.jsp에서 실행했을 경우
+		if(page.equals("InOnePage")) {
+			redirectAttributes.addAttribute("questionNo", questionNo);
+			return "redirect:/loginCheck/multiplechoiceOne";
+		}
+		
 		return "redirect:/loginCheck/questionBank";
 	}
+
 
 }

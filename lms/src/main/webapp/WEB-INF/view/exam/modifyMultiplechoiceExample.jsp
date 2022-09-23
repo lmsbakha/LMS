@@ -132,6 +132,9 @@
 							</div>
 						</c:if>
 						<h4>Modify MultiplechoiceExample</h4>
+						<div class="add-product">
+							<a href="#" onClick="history.back();">이전페이지</a>
+						</div>
 						<table>
 							<tr>
 								<th style="width: 70px">문제번호</th>

@@ -6,10 +6,17 @@
 		INSERT INTO exam_question (exam_no, exam_question_no, question_no, question_type) VALUES (#{examNo}, #{examQuestionNo}, #{questionNo}, #{questionType}) 
 	</insert>
 	
-	<!-- exam_question 테이블에 multiplechoice의 문제가 들어가 있는지 확인하는 메소드 -->
-	<select id="selectCountExamQuestion" parameterType="int" resultType="int">
+	<!-- exam_question 테이블에 문제가 들어가 있는지 확인하는 메소드 -->
+	<select id="selectCountExamQuestion" parameterType="Map" resultType="int">
 		SELECT COUNT(*) 
 		FROM exam_question 
-		WHERE question_type='객관식' AND question_no= #{questionNo}
+		WHERE 
+			<if test="'객관식'.equals(questionType)">
+				question_type='객관식' 
+			</if>
+			<if test="'단답형'.equals(questionType)">
+				question_type='단답형' 
+			</if>
+		AND question_no= #{questionNo}
 	</select>
 </mapper>

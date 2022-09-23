@@ -106,36 +106,49 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<h4>시험 상세보기</h4>
+						<h4>examNo 시험 상세보기</h4>
 						<!--  -->
 						<div class="asset-inner">
 							<table>
 								<tr>
-									<th>문제 examQuestionNo</th>
+									<!-- 몇번째 문제인지 -->
+									<th>examQuestionNo</th>
+									<!-- 문제 지문 -->
 									<th>questionTitle</th>
 								</tr>
 								<!-- 객관식일 경우 지문 -->
+								<c:if test="${questionType eq '객관식'}">
+									<!-- 객관식 보기 -->
+									<c:forEach var="list" items="${multiplechoiceExampleList}">
+										<tr>
+											<td><input type="checkbox" id=""></td>
+											<td>${list.multiplechoiceExampleId}</td>
+											<td>${list.multiplechoiceExampleContent}</td>
+										</tr>
+
+									</c:forEach>
+								</c:if>
 								<tr>
-								
+
 									<td><input id="examNo"></td>
 									<td><input id="educationNo"></td>
 									<td><input type="checkbox" value="multiplechoiceExampleId"></td>
 									<td>multiplechoiceExampleContent</td>
 								</tr>
 								<tr>
-								<td><input type="checkbox"></td>
+									<td><input type="checkbox"></td>
 									<td>2.fsdfs</td>
 								</tr>
 								<tr>
-								<td><input type="checkbox"></td>
+									<td><input type="checkbox"></td>
 									<td>3.fsdfs</td>
 								</tr>
 								<tr>
-								<td><input type="checkbox"></td>
+									<td><input type="checkbox"></td>
 									<td>4.fsdfs</td>
 								</tr>
 								<tr>
-								<td><input type="checkbox"></td>
+									<td><input type="checkbox"></td>
 									<td>5.fsdfs</td>
 								</tr>
 								<hr>
@@ -144,10 +157,13 @@
 									<th>questionTitle</th>
 								</tr>
 								<!-- 단답형일 경우 지문 -->
-								<tr>
-									<th><input type="text" id="examAnswerContent" name="examAnswerContent"></th>
-								</tr>
-								
+								<c:if test="${questionType eq '단답형'}">
+									<tr>
+										<!-- 단답형  -->
+										<th><input type="text" id="examAnswerContent" name="examAnswerContent"></th>
+									</tr>
+								</c:if>
+
 							</table>
 						</div>
 					</div>

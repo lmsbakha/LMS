@@ -166,7 +166,7 @@
 									<th>examTitle</th>
 									<th>examStartDate</th>
 									<th>examEndDate</th>
-									<th>Setting</th>
+									<th style="width: 150px">Setting</th>
 								</tr>
 								<c:if test="${empty examListByLecture }">
 									<tr>
@@ -184,15 +184,10 @@
 											<td>${map.examEndDate}</td>
 											<td>
 											 	<a href="${pageContext.request.contextPath}/loginCheck/examOne?examNo=${map.examNo}">
-													<button data-toggle="tooltip" title="상세보기" class="pd-setting-ed">
-														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+													<button class="btn btn-sm btn-custon-rounded-three btn-primary">
+														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>상세보기
 													</button>
 												</a> 
-												<a href="${pageContext.request.contextPath}/loginCheck/removeExamOne?examNo=${map.examNo}">
-													<button data-toggle="tooltip" title="삭제하기" class="pd-setting-ed">
-														<i class="fa fa-trash-o" aria-hidden="true"></i>
-													</button>
-												</a>
 											</td>
 										</tr>
 									</c:forEach>

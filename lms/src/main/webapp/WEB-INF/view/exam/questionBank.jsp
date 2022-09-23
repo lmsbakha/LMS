@@ -204,12 +204,12 @@
 														data-toolbar="#toolbar">
 														<thead>
 															<tr>
-																<th data-editable="true">questionNo</th>
-																<th data-editable="true">questionTitle</th>
-																<th data-editable="true">subjectName</th>
-																<th data-editable="true">updateDate</th>
-																<th data-editable="true">createDate</th>
-																<th>Setting</th>
+																<th>questionNo</th>
+																<th>questionTitle</th>
+																<th>subjectName</th>
+																<th>updateDate</th>
+																<th>createDate</th>
+																<th style="width: 150px">Setting</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -226,7 +226,7 @@
 																				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>상세보기
 																			</button>
 																	</a> <a
-																		href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${map.questionNo}"
+																		href="${pageContext.request.contextPath}/loginCheck/removeMultiplechoiceOne?questionNo=${map.questionNo}&page=questionBank"
 																		onclick="return confirm('[객관식] ${map.questionNo}번째 문제를 삭제하시겠습니까?');">
 																			<button class="btn btn-sm btn-custon-rounded-three btn-danger">
 																				<i class="fa fa-trash-o" aria-hidden="true"></i>삭제하기
@@ -258,12 +258,12 @@
 														data-toolbar="#toolbar">
 														<thead>
 															<tr>
-																<th data-editable="true">questionNo</th>
-																<th data-editable="true">questionTitle</th>
-																<th data-editable="true">subjectName</th>
-																<th data-editable="true">updateDate</th>
-																<th data-editable="true">createDate</th>
-																<th>Setting</th>
+																<th>questionNo</th>
+																<th>questionTitle</th>
+																<th>subjectName</th>
+																<th>updateDate</th>
+																<th>createDate</th>
+																<th style="width: 150px">Setting</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -275,12 +275,12 @@
 																	<td>${map.updateDate}</td>
 																	<td>${map.createDate}</td>
 																	<td>
-																		<a href="${pageContext.request.contextPath}/loginCheck/modifyShortAnswerQuestion?questionNo=${map.questionNo}"> 
+																		<a href="${pageContext.request.contextPath}/loginCheck/shortAnswerQuestionOne?questionNo=${map.questionNo}"> 
 																			<button class="btn btn-sm btn-custon-rounded-three btn-warning">
 																				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>수정하기
 																			</button>
 																		</a> 
-																		<a href="${pageContext.request.contextPath}/loginCheck/removeShortAnswerQuestion?questionNo=${map.questionNo}" onclick="return confirm('[단답형] ${map.questionNo}번째 문제를 삭제하시겠습니까?');">
+																		<a href="${pageContext.request.contextPath}/loginCheck/removeShortAnswerQuestion?questionNo=${map.questionNo}&page=questionBank" onclick="return confirm('[단답형] ${map.questionNo}번째 문제를 삭제하시겠습니까?');">
 																			<button class="btn btn-sm btn-custon-rounded-three btn-danger">
 																				<i class="fa fa-trash-o" aria-hidden="true"></i>삭제하기
 																			</button>

@@ -101,7 +101,8 @@ public class ExamController {
 	 * 리턴값: 객관식 문제 리스트를 보여줄 문제 은행 view --> questionBank.jsp로 이동
 	 */
 	@GetMapping("/loginCheck/questionBank")
-	public String examList(Model model, @RequestParam(value = "subjectName", required = false) String subjectName) {
+	public String questionBank(Model model
+			, @RequestParam(value = "subjectName", required = false) String subjectName) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + subjectName + "<-- subjectName" + TeamColor.TEXT_RESET);
 
