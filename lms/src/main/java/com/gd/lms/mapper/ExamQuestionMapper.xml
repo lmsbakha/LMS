@@ -19,4 +19,17 @@
 			</if>
 		AND question_no= #{questionNo}
 	</select>
+	
+	<!-- examNo 특정값인 리스트 가져오기 -->
+	<select id="selectExamQuestionByExamNo" resultType="com.gd.lms.vo.ExamQuestion" parameterType="int">
+		SELECT 
+			exam_question_index examQuestionIndex,
+			exam_no examNo,
+			exam_question_no examQuestionNo,
+			question_type questionType,
+			question_no questionNo
+		FROM exam_question
+		WHERE exam_no =#{examNo}
+		ORDER BY exam_question_no ASC
+	</select>
 </mapper>

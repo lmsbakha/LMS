@@ -115,8 +115,9 @@
 									<th>examQuestionNo</th>
 									<!-- 문제 지문 -->
 									<th>questionTitle</th>
+									<th>${examOne }</th>
 								</tr>
-								<!-- 객관식일 경우 지문 -->
+							<!-- 객관식일 경우 지문 -->
 								<c:if test="${questionType eq '객관식'}">
 									<!-- 객관식 보기 -->
 									<c:forEach var="list" items="${multiplechoiceExampleList}">
@@ -163,7 +164,6 @@
 										<th><input type="text" id="examAnswerContent" name="examAnswerContent"></th>
 									</tr>
 								</c:if>
-
 							</table>
 						</div>
 					</div>

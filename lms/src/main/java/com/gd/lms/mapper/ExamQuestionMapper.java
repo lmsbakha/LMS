@@ -1,8 +1,11 @@
 package com.gd.lms.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import com.gd.lms.vo.ExamQuestion;
 
 @Mapper
 public interface ExamQuestionMapper {
@@ -18,4 +21,6 @@ public interface ExamQuestionMapper {
 	// 리턴값 : COUNT(*) 수
 	int selectCountExamQuestion(Map<String, Object> paramMap);
 	
+	// exam
+	List<ExamQuestion> selectExamQuestionByExamNo(int examNo);
 }

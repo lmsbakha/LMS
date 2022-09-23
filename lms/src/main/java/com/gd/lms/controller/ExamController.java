@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.ExamQuestionSerivce;
 import com.gd.lms.service.ExamService;
 import com.gd.lms.service.LectureService;
 import com.gd.lms.service.LectureSubjectService;
@@ -63,6 +64,10 @@ public class ExamController {
 	//LectureService 객체 주입
 	@Autowired
 	private LectureService lectureService;
+	
+	// ExamQuestionSerivce 객체 주입
+	@Autowired
+	private ExamQuestionSerivce examQuestionSerivce;
 
 	/*
 	 * [강사전용] 시험 메인페이지로 이동하는 메소드 
@@ -84,16 +89,6 @@ public class ExamController {
 
 		return "exam/exam"; // forwarding으로 보내줌
 	}
-
-	// 시험지 form을 보여주는 메소드
-	// 파라미터 : examNo
-	// 리턴 값 : examOne.jsp
-	@GetMapping("/loginCheck/examOne")
-	public String examOne() {
-		
-		return "exam/examOne";
-	}
-	
 
 	/*
 	 * [강사전용] 문제은행 페이지를 보여주는 메소드 
@@ -190,7 +185,7 @@ public class ExamController {
 	// 파라미터 : List<subject>를 담아둘 Model
 	// 리턴값: 문제 은행에 문제 추가하기 위한 form인 addQuestionInBank.jsp로 이동
 	@GetMapping("/loginCheck/addQuestionInBank")
-	String addExam(Model model) {
+	public String addExam(Model model) {
 		// subject 리스트 model값으로 보내기
 		List<Subject> subjectList = subjectService.getSubjectList();
 		// 디버깅
@@ -209,7 +204,7 @@ public class ExamController {
 	 * addFlashAttribute --> 1회성으로 메세지를 보여주면 되기 때문에 addAttribute을 사용하지 않고 addFlashAttribute 사용함
 	 */
 	@PostMapping("/loginCheck/addMultipleChoice")
-	String addExam(RedirectAttributes redirectAttributes
+	public String addExam(RedirectAttributes redirectAttributes
 			, @RequestParam(value = "subjectName") String subjectName
 			, @RequestParam(value = "questionTitle") String questionTitle
 			, @RequestParam(value = "questionAnswer") String questionAnswer
@@ -244,4 +239,20 @@ public class ExamController {
 		}
 		return "redirect:/loginCheck/addQuestionInBank";
 	}
+	
+	// 시험지 상세페이지
+	// 파라미터 : examNo
+	// 리턴값 : 시험지 리스트
+	@GetMapping("/loginCheck/examOne")
+	public String examOne(Model model, @RequestParam(value = "examNo") int examNo) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + examNo + "<-- examNo" + TeamColor.TEXT_RESET);
+		//Service call
+		List<Map<String, Object>> examOne = examQuestionSerivce.getExamByExamNo(examNo);
+		
+		model.addAttribute("examOne", examOne);
+		
+		return "exam/examOne";
+	}
+	
 }
