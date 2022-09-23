@@ -1,10 +1,6 @@
 package com.gd.lms.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,17 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.NoticeFileService;
 import com.gd.lms.service.NoticeService;
 import com.gd.lms.vo.Notice;
+import com.gd.lms.vo.NoticeFile;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -94,12 +86,10 @@ public class NoticeController {
 	String addNotice(Model model,
 			@RequestParam("noticeTitle") String noticeTitle,
 			@RequestParam("noticeContent") String noticeContent, 
+			NoticeFile noticeFile,
 			HttpSession session) {
 		log.debug(TeamColor.PSY + "게시글 작성" + TeamColor.TEXT_RESET);
 
-		
-		
-		
 		// 입력 내용 notice 적용
 		Notice notice = new Notice();
 		notice.setNoticeTitle(noticeTitle);
@@ -117,10 +107,16 @@ public class NoticeController {
 			log.debug(TeamColor.LHN + "게시글 등록 실패" + TeamColor.TEXT_RESET);
 		}
 		
-		// 첨부파일 있을 경우 저장
-		
-		
-		
+		// 첨부파일 있을 경우 addNoticeFile 실행, 이미지 저장
+		if(noticeFile!=null) {
+			// 파일 담을 경로
+			String path = session.getServletContext().getRealPath("/notice/noticeFile/"); 
+			int row = noticeFileService.addNoticeFile(noticeFile, path);
+			
+			log.debug(TeamColor.LHN + "파일 첨부: " + row + TeamColor.TEXT_RESET);
+			return "redirect:/loginCheck/getNoticeListByPage";
+					
+		}
 		// 공지 리스트로
 		return "redirect:/loginCheck/noticeList";
 	} 
@@ -138,7 +134,7 @@ public class NoticeController {
 	    while (keyData1.hasNext()) {
 	        String key = ((String)keyData1.next());
 	        String[] value = paramMap1.get(key);
-	        log.debug(TeamColor.LHN + "kew: " + key + "value: " + value[0].toString() );
+	        log.debug(TeamColor.LHN + "key: " + key + "value: " + value[0].toString() );
 	        if(key.equals("uid"))
 	        {
 	        	uid=value[0].toString().trim();

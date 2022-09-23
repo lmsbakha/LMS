@@ -52,7 +52,7 @@ public class NoticeService {
 		return notice;
 	}
 	
-	//공지사항 신규 작성 액션	
+	//공지사항 신규 작성 액션
 	public int addNotice(Notice notice) {
 		// 디버깅
 		log.debug(TeamColor.LHN + " addNotice 실행" + TeamColor.TEXT_RESET);
@@ -65,6 +65,11 @@ public class NoticeService {
 		log.debug(TeamColor.PSY + "addNotice: "+ addNotice  + TeamColor.TEXT_RESET);
 		return addNotice;
 	}
+	
+	
+	
+	
+	
 	
 	// 공지글 조회수 증가	
 	public int updateNoticeCount(int noticeNo) {

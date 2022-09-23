@@ -26,7 +26,7 @@ public class NoticeFileService {
 	}
 	
 	// 공지글 파일 첨부(입력)
-	public int addNoticeFile(NoticeFile noticeFile) {
+	public int addNoticeFile(NoticeFile noticeFile, String path) {
 		log.debug(TeamColor.LHN + "addNotice 실행" + TeamColor.TEXT_RESET);
 		int addNoticeFile = 0;
 		addNoticeFile = noticeFileMapper.insertNoticeFile(noticeFile);
