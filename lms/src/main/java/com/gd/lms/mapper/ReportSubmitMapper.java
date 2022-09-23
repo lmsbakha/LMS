@@ -23,7 +23,7 @@ public interface ReportSubmitMapper {
 	// 과제 제출하기 메소드
 	// 파라미터 : map(ReportSubmit, educationNo )
 	// 리턴값 : int
-	int insertReportSubmit(Map<String, Object> map);
+	int insertReportSubmit(ReportSubmit reportSubmit);
 
 	// 제출한 과제 수정하는 메소드 Form
 	// 파라미터 : ReportSubmit

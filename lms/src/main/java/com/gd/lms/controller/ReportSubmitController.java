@@ -17,9 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.EducationService;
 import com.gd.lms.service.ReportService;
+import com.gd.lms.service.ReportSubmitFileService;
 import com.gd.lms.service.ReportSubmitService;
 import com.gd.lms.vo.Education;
-import com.gd.lms.vo.FileForm;
+import com.gd.lms.vo.ReportSubmitForm;
 import com.gd.lms.vo.Report;
 import com.gd.lms.vo.ReportSubmit;
 import com.gd.lms.vo.ReportSubmitFile;
@@ -42,6 +43,10 @@ public class ReportSubmitController {
 	// ReportSubmitService 객체 주입
 	@Autowired
 	ReportSubmitService reportSubmitService;
+
+	// ReportSubmitService 객체 주입
+	@Autowired
+	ReportSubmitFileService reportSubmitFileService;
 
 	// EducationService 객체 주입
 	@Autowired
@@ -108,7 +113,6 @@ public class ReportSubmitController {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("acountId", acountId);
 		log.debug(TeamColor.PSY + paramMap + "<--paramMap" + TeamColor.TEXT_RESET);
-	
 
 		// Service Call
 		List<ReportSubmit> reportSubmitListById = reportSubmitService.getReportListById(acountId);
@@ -148,9 +152,9 @@ public class ReportSubmitController {
 		// 모델단에 reportOne을 addAttribute해서 폼으로 전달
 		model.addAttribute("reportOne", reportOne);
 
-		// reportOne로 이동 
+		// reportOne로 이동
 		return "report/reportOne";
-	} // end reportOne 
+	} // end reportOne
 
 	// 과제 제출하기 메소드
 	// addReportSubmit Form
@@ -190,7 +194,7 @@ public class ReportSubmitController {
 	// 파라미터 : sessionId, 받아온 reportSubmit
 	// 리턴값 : addReportSubmit.jsp로 이동
 	@PostMapping("/loginCheck/addReportSubmit")
-	String addReportSubmit(HttpSession session, @RequestParam(value = "reportNo") int reportNo,
+	String addReportSubmit(HttpSession session, ReportSubmitForm reportSubmitForm, @RequestParam(value = "reportNo") int reportNo,
 			@RequestParam(value = "educationNo") int educationNo,
 			@RequestParam(value = "reportSubmitTitle") String reportSubmitTitle,
 			@RequestParam(value = "reportSubmitContent") String reportSubmitContent) {
@@ -202,39 +206,34 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + educationNo + "<--educationNo" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + reportSubmitTitle + "<--reportSubmitTitle" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + reportSubmitContent + "<--reportSubmitContent" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitForm.toString() + "<--fileForm" + TeamColor.TEXT_RESET);
 
-		// accountId 받아오기
+		// 경로 구하기
+		String path = session.getServletContext().getRealPath("/upload");
+		// 디버깅
+		log.debug(TeamColor.PSY + path + "<--path" + TeamColor.TEXT_RESET);
+
+		// accountId 받아오기 
 		String accountId = ((String) session.getAttribute("sessionId"));
 		// accountIdt 디버깅
 		log.debug(TeamColor.PSY + accountId + "<--accountId" + TeamColor.TEXT_RESET);
 
-		// 파라미터값 셋팅
-		Map<String, Object> reportSubmit = new HashMap<>();
-		reportSubmit.put("accountId", accountId);
-		reportSubmit.put("reportSubmitContent", reportSubmitContent);
-		reportSubmit.put("reportNo", reportNo);
-		reportSubmit.put("reportSubmitTitle", reportSubmitTitle);
-		reportSubmit.put("educationNo", educationNo);
-		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportSubmit + "<--reportSubmit" + TeamColor.TEXT_RESET);
+		List<MultipartFile> multiList = reportSubmitForm.getMultiList();
+		
+		// 업로드 파일이 하나 이상이면
+		if(multiList.get(0).getSize() > 0) {
+			for(MultipartFile mf : multiList) {
+				// 디버깅
+				log.debug(TeamColor.PSY + accountId + "<--mf.getOriginalFilename())" + TeamColor.TEXT_RESET);
 
-		// 과제 제출 service call
-		int addReportSubmit = reportSubmitService.addReportSubmit(reportSubmit);
-		// addReportSubmit 디버깅
-		log.debug(TeamColor.PSY + addReportSubmit + "<--addReportSubmit" + TeamColor.TEXT_RESET);
-
-		if (addReportSubmit != 0) {
-			// 성공
-			log.debug(TeamColor.PSY + " 과제 제출하기 성공" + TeamColor.TEXT_RESET);
-			// addReportSubmit로 이동
-			return "report/reportSubmitList";
-		} else {
-			// 실패
-			log.debug(TeamColor.PSY + " 과제 제출하기 실패" + TeamColor.TEXT_RESET);
-			// addReportSubmit로 이동
-			return "redirect:/loginCheck/addReportSubmit";
+			}
 		}
-
+		// 과제 제출 service call
+		// requset.getServletContext().getRealPath(null);
+		reportSubmitService.addReportSubmit(reportSubmitForm, path);
+	
+		// reportSubmitList로 이동
+		return "redirect:/loginCheck/reportSubmitList";
 	} // end addReportSubmit @PostMapping
 
 	// 제출한 과제 수정하는 메소드
@@ -274,7 +273,7 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + reportSubmitTitle + "<-- reportSubmitTitle" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + reportSubmitContent + "<-- reportSubmitContent" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
-		
+
 		// 파라미터 값 셋팅
 		ReportSubmit reportSubmit = new ReportSubmit();
 		reportSubmit.setReportSubmitContent(reportSubmitContent);
@@ -282,7 +281,7 @@ public class ReportSubmitController {
 		reportSubmit.setReportSubmitTitle(reportSubmitTitle);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
-		
+
 		// Service Call
 		int modifyReportSubmit = reportSubmitService.modifyReportSubmit(reportSubmit);
 		// modifyReportSubmit 디버깅
@@ -295,12 +294,11 @@ public class ReportSubmitController {
 			// 실패
 			log.debug(TeamColor.PSY + " 제출한 과제 수정 실패" + TeamColor.TEXT_RESET);
 		}
-		
+
 		// reportSubmitListById로 이동
-		return"report/reportSubmitListById";
+		return "report/reportSubmitListById";
 
 	} // end modifyReportSubmit @PostMapping
-	
 
 	// 제출한 과제 삭제하는 메소드
 	// 파라미터 : reportSubmitNo
@@ -311,7 +309,7 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + "\n\n@removeReportSubmit Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportNo" + TeamColor.TEXT_RESET);
-		
+
 		// 과제 삭제 service call
 		int removeReportSubmit = reportSubmitService.removeReportSubmit(reportSubmitNo);
 		// 파라미터
@@ -326,5 +324,5 @@ public class ReportSubmitController {
 		}
 		// reportList로 리다이렉트
 		return "redirect:/loginCheck/reportReportList";
-	} // end 
+	} // end
 }

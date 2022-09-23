@@ -131,7 +131,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="review-content-section">
 						<div id="dropzone1" class="pro-ad">
-							<form method="post"
+							<form method="post" enctype="Multipart/form-data"
 								action="${pageContext.request.contextPath}/loginCheck/addReportSubmit"
 								id="addreportSubmitForm">
 								<div class="row">
@@ -159,8 +159,8 @@
 										<div class="form-group alert-up-pd">
 											<div class="dz-message needsclick download-custom">
 												<i class="fa fa-download edudropnone" aria-hidden="true"></i>
-												<input name="file" id="file" class="form-control"
-													type="file" />
+												<input name="reportSubmitfileList" id="reportSubmitfile" class="form-control"
+													type="file" multiple="multiple"/>
 											</div>
 										</div>
 									</div>
@@ -283,6 +283,9 @@ $('#addReportSubmitBtn').click(function() {
 	}else if ($('#reportContent').val() == '') {
 		alert('reportSubmitContent를 입력해주세요.');
 		$('#reportSubmitContent').focus();
+	}else if ($('#reportSubmitfile').val() == '') {
+		alert('reportSubmitfile를 넣어주세요.');
+		$('#reportSubmitfile').focus();
 	}else {
 		alert('과제를 제출하시겠습니까?');
 		 $( '#addreportSubmitForm' ).submit();

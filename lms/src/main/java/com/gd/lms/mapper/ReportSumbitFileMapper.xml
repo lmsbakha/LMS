@@ -9,9 +9,13 @@
 		report_submit_no,
 		report_submit_filename,
 		report_submit_origin_name,
-		report_submit_file_type, create_date)
-		VALUES (#{reportSubmitNo},
-		#{reportSubmitFilename}, #{reportSubmitOriginName},
-		#{reportSubmitFileType}, now() )
+		report_submit_file_type,
+		report_submit_file_size, create_date)
+		VALUES(
+		#{reportSubmitNo},
+		#{reportSubmitFilename},
+		#{reportSubmitOriginName},
+		#{reportSubmitFileType},
+		#{reportSubmitFileSize}, now() )
 	</insert>
 </mapper>

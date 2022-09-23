@@ -14,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.ReportSubmitFileMapper;
 import com.gd.lms.mapper.ReportSubmitMapper;
-import com.gd.lms.vo.FileForm;
-import com.gd.lms.vo.Report;
+import com.gd.lms.vo.ReportSubmitForm;
 import com.gd.lms.vo.ReportSubmit;
 import com.gd.lms.vo.ReportSubmitFile;
 
@@ -71,19 +70,72 @@ public class ReportSubmitService {
 
 	// 과제 제출하기 메소드
 	// 파라미터 : ReportSubmit
-	// 리턴값 : int
-	public int addReportSubmit(Map<String, Object> map) {
+	// 리턴값 : void
+	public void addReportSubmit(ReportSubmitForm reportSubmitForm, String path) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + map + "<-- map" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitForm.getReportSubmit() + "<-- fileForm.getReportSubmit()"
+				+ TeamColor.TEXT_RESET);
+
+		// ReportSubmitMapper
+		ReportSubmit reportSubmit = new ReportSubmit();
+		reportSubmit.setReportSubmitContent(reportSubmitForm.getReportSubmitContent());
+		reportSubmit.setReportSubmitTitle(reportSubmitForm.getReportSubmitTitle());
 
 		// Mapper call
-		int addReportSubmit = reportSubmitMapper.insertReportSubmit(map);
+		int addReportSubmit = reportSubmitMapper.insertReportSubmit(reportSubmit);
 		// Mapper에서 받아온 addReportSubmit 값 디버깅
 		log.debug(TeamColor.PSY + addReportSubmit + "<-- addReport" + TeamColor.TEXT_RESET);
 
-		return addReportSubmit;
+		if (reportSubmitForm.getMultiList().get(0).getSize() > 0 && addReportSubmit != 0) {
+			// 디버깅
+			log.debug(TeamColor.PSY + "첨부된 파일이 있습니다." + TeamColor.TEXT_RESET);
+			for (MultipartFile mf : reportSubmitForm.getMultiList()) {
+
+				// 매번 새호운 reportSubmitFile을 만들어야 함
+				ReportSubmitFile reportSubmitFile = new ReportSubmitFile();
+
+				// 기존 첨부파일명
+				String reportSubmitOriginFilename = mf.getOriginalFilename();
+
+				// 파일을 저장할때 사용할 중복되지않는 새로운 이름 필요(UUID API사용)
+				String reportSubmitFilename = UUID.randomUUID().toString();
+
+				// 파일 확장자 - reportSubmitOriginFilename에서 마지막 .문자열 위치
+				// substring()로 .txt를 찾음
+				String ext = reportSubmitOriginFilename.substring(reportSubmitOriginFilename.lastIndexOf("."));
+				// ext값 디버깅
+				log.debug(TeamColor.PSY + ext + "<-- ext" + TeamColor.TEXT_RESET);
+
+				// 새 첨부파일명
+				reportSubmitFilename = reportSubmitFilename + ext;// reportSubmitFile값 디버깅
+				// 디버깅
+				log.debug(TeamColor.PSY + reportSubmitOriginFilename + "<-- reportSubmitOriginFilename"
+						+ TeamColor.TEXT_RESET);
+
+				reportSubmitFile.setReportSubmitFilename(reportSubmitFilename);
+				reportSubmitFile.setReportSubmitFileType(mf.getContentType());
+				reportSubmitFile.setReportSubmitFileSize(mf.getSize());
+				// 디버깅
+				log.debug(TeamColor.PSY + reportSubmitFile + "<-- reportSubmitFile" + TeamColor.TEXT_RESET);
+
+				// insertReportSubmitFile 메서드 호출하고 안에 매개변수 reportSubmitFile값 넣어주기
+				reportSubmitFileMapper.insertReportSubmitFile(reportSubmitFile);
+
+				// 파일 생성 - MultipartFile 안에 파일 생성 API(transferTo)가 있음
+				// transferTo 리턴타입을 주기 위해 new File()파일 객체 생성
+				try {
+					// c://upload/ttt.txt
+					// 새로운 bean 파일 안에 MultipartFile안에 파일을 하나씩 복사
+					mf.transferTo(new File(path + reportSubmitFilename));
+				} catch (Exception e) {
+					e.printStackTrace();
+					// @Transactional 처리가 되도록 강제로 RuntimeException(try절을 발생시키지 않는) 발생
+					throw new RuntimeException();
+				} // end try catch
+			} // end for
+		} // end if
 	} // end addReportSubmit
 
 	// 제출한 과제 수정하는 메소드
@@ -95,7 +147,6 @@ public class ReportSubmitService {
 		log.debug(TeamColor.PSY + "\n\n@ReportSubmitOne Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
-
 		// Mapper call
 		ReportSubmit ReportSubmitOne = reportSubmitMapper.ReportSubmitOne(reportSubmitNo);
 		// Mapper에서 받아온 ReportSubmitOne 값 디버깅
@@ -135,7 +186,7 @@ public class ReportSubmitService {
 		int removeReportSubmit = reportSubmitMapper.deleteReportSubmit(reportSubmitNo);
 		// Mapper에서 받아온 removeReportSubmit 값 디버깅
 		log.debug(TeamColor.PSY + removeReportSubmit + "<-- removeReportSubmit" + TeamColor.TEXT_RESET);
-		
+
 		return removeReportSubmit;
 	} // end removeReportSubmit
 

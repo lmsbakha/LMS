@@ -20,7 +20,7 @@
 	<!-- 학생이 제출한 과제 리스트 조회 메소드 -->
 
 	<!-- 과제 제출하기 메소드 -->
-	<insert id="insertReportSubmit" parameterType="Map">
+	<insert id="insertReportSubmit" parameterType="com.gd.lms.vo.ReportSubmit">
 		INSERT INTO
 		report_submit (
 		education_no, report_no,
