@@ -19,13 +19,6 @@
 	</select>
 	<!-- 전체 과제 리스트 조회하기 -->
 
-	<!-- report 전체 과제 수를 추출하기 -->
-	<select id="selectReportTotalCount" resultType="int">
-		SELECT COUNT(*)
-		FROM report
-	</select>
-	<!-- report 전체 과제 수 추출하기-->
-
 	<!-- lectureSubject의 subjectName 가져오기 -->
 	<select id="selectLectureSubjectName" resultType="List">
 		SELECT subject_name subjectName FROM lecture_subject;

@@ -34,7 +34,7 @@
                             <ul class="submenu-angle app-mini-nb-dp" aria-expanded="false">
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">나의 강의</span></a></li>
                                 <li>
-                                 <a title="reportSubmitList" href="${pageContext.request.contextPath}/loginCheck/reportSubmitList"><span class="mini-sub-pro">과제</span></a>      
+                                 <a title="reportSubmitList" href="${pageContext.request.contextPath}/loginCheck/reportList"><span class="mini-sub-pro">과제</span></a>      
                                 </li>
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">시험</span></a></li>
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">성적</span></a></li>

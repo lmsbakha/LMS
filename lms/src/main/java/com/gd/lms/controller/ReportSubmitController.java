@@ -60,7 +60,7 @@ public class ReportSubmitController {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportSubmitList Controller" + TeamColor.TEXT_RESET);
 
-		// 페이징 service call
+		// service call
 		List<Report> reportSubmitList = reportService.getReportList();
 		// reportSubmitList 디버깅
 		log.debug(TeamColor.PSY + reportSubmitList + "<--reportList" + TeamColor.TEXT_RESET);
@@ -220,7 +220,7 @@ public class ReportSubmitController {
 		reportSubmitService.addReportSubmit(reportSubmitForm, path, accountId);
 	
 		// reportSubmitList로 이동
-		return "redirect:/loginCheck/reportSubmitList";
+		return "report/reportSubmitList";
 	} // end addReportSubmit @PostMapping
 
 	// 제출한 과제 수정하는 메소드
