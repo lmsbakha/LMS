@@ -2,11 +2,12 @@ package com.gd.lms.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,7 +15,6 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.NoticeFileService;
 import com.gd.lms.service.NoticeService;
 import com.gd.lms.vo.Notice;
-import com.gd.lms.vo.Report;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -82,16 +82,23 @@ public class NoticeController {
 
 	// 공지글 작성 액션
 	@PostMapping("/loginCheck/addNotice")
-	String addReport(Model model, @RequestParam("accountId") String accountId,
+	String addReport(Model model,
 			@RequestParam("noticeTitle") String noticeTitle,
-			@RequestParam("noticeContent") String noticeContent) {
+			@RequestParam("noticeContent") String noticeContent, 
+			HttpSession session) {
 		log.debug(TeamColor.PSY + "게시글 작성" + TeamColor.TEXT_RESET);
 
+		
+		
+		
 		// 입력 내용 notice 적용
 		Notice notice = new Notice();
-		notice.setAccountId(accountId);
 		notice.setNoticeTitle(noticeTitle);
 		notice.setNoticeContent(noticeContent);
+		// 작성자 아이디 담기
+		String accountId = (String) session.getAttribute("sessionId");
+		notice.setAccountId(accountId);
+		log.debug(TeamColor.LHN + "accountId" + accountId +  TeamColor.TEXT_RESET);
 		
 		log.debug(TeamColor.LHN + "paramNotice" + notice +  TeamColor.TEXT_RESET);
 		int addNotice = noticeService.addNotice(notice);
@@ -104,7 +111,7 @@ public class NoticeController {
 		// 첨부파일 있을 경우 저장
 		
 		// 공지 리스트로
-		return "redirect:/notice/noticeList";
+		return "redirect:/loginCheck/noticeList";
 	} 
 	
 	// 공지사항 상세보기
@@ -158,7 +165,7 @@ public class NoticeController {
 		// 파일 여부에 따른 추가/삭제 기능 추가 필요
 		
 		
-		return "redirect:/notice/noticeList";
+		return "redirect:/loginCheck/noticeList";
 	}
 	
 	// 공지글 삭제 액션
@@ -175,7 +182,7 @@ public class NoticeController {
 			
 		// 파일 있을 경우 함께 삭제
 		
-		return "redirect:/notice/noticeList";
+		return "redirect:/loginCheck/noticeList";
 		
 	}
 	

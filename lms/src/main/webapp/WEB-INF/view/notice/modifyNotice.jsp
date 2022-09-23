@@ -63,6 +63,7 @@
 <!-- modernizr JS
       ============================================ -->
 <script src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 <body>
    <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -112,7 +113,7 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="review-content-section">
                                                 <div id="dropzone1" class="pro-ad addcoursepro">
-                                                    <form action="${pageContext.request.contextPath}/loginCheck/modifyNotice" id="modifyNoticeForm" method="post">
+                                                    <form action="${pageContext.request.contextPath}/loginCheck/modifyNotice" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="modifyNoticeForm" method="post">
                                                         <div class="row">
                                                             <div class="form-group edit-ta-resize res-mg-t-15">
                                                                 <div class="form-group">
@@ -120,7 +121,7 @@
                                                                     <input name="noticeNo" type="hidden" value="${notice.noticeNo}">
                                                                 </div>
                                                                 <div class="form-group edit-ta-resize res-mg-t-15">
-                                                                    <label for="noticeContent">본문</label> <textarea name="noticeContent" id="noticeContent" type="text" class="form-control" style="resize: none;" >${notice.noticeContent}</textarea>
+                                                                    <label for="noticeContent">본문</label> <textarea name="noticeContent" id="noticeContent" class="form-control" style="resize: none;" >${notice.noticeContent}</textarea>
                                                                 </div>
                                                             </div>
                                                         <div class="form-group alert-up-pd">
@@ -135,6 +136,7 @@
                                                                 <div class="payment-adress">
                                                                     <button type="submit" id="modifyNoticeSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
                                                                 </div>
+                                                              </div>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -149,8 +151,8 @@
                 </div>
             </div>
         </div>
-            <!-- footer -->
-	<jsp:include page="inc/footer.jsp" />
+      <!-- footer -->
+	<jsp:include page="../inc/footer.jsp" />
 
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 

@@ -111,7 +111,7 @@
                                             <hr>
                                             <div style="font-size:12px; text-align:right;">작성일: ${notice.createDate}</div>
                                             <div style="font-size:12px; text-align:right;">수정일: ${notice.updateDate}</div>
-                                            <hr>
+                                            
                                             <label for="noticeContent">본문</label>
                                             <p><!-- 본문 --> ${notice.noticeContent}</p>
                                             <hr>
