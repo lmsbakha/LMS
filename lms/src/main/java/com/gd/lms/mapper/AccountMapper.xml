@@ -239,5 +239,32 @@
 	</select>
 	<!-- /회원가입 행정 승인대기리스트 -->
 	
+	<!-- 회원가입 승인 -->
+	<update id="updateApproveWaitMemberList" parameterType="String">
+		UPDATE account
+		SET account_state = '활성화'
+		WHERE account_id = #{accountId}
+	</update>
+	<!-- /회원가입 승인 -->
+	
+	<!-- 회원가입 승인 -->
+	<update id="updateDeniedWaitMemberList" parameterType="String">
+		UPDATE account
+		SET account_state = '거절'
+		WHERE account_id = #{accountId}
+	</update>
+	<!-- /회원가입 승인 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>

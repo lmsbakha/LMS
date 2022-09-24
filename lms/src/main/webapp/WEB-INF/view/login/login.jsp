@@ -112,6 +112,17 @@
 	                              </span>
 	                           </div>
                             </c:if>
+                            <c:if test="${accountState != null && accountState eq '거절' && alertMsg eq 'Fail'}">
+	                           <div class="alert alert-danger alert-mg-b alert-success-style4">
+	                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+	                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
+	                              </button>
+	                              <i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
+	                              <span>
+	                                 ※ 해당 계정은 승인 거절된 계정입니다.
+	                              </span>
+	                           </div>
+                            </c:if>
                             <c:if test="${accountState != null && accountState eq '탈퇴' && alertMsg eq 'Fail'}">
 	                           <div class="alert alert-danger alert-mg-b alert-success-style4">
 	                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">

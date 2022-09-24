@@ -212,5 +212,45 @@ public class AccountService {
 		return resultMap;
 	}
 	
+	// 회원가입 승인
+	public int modifyApproveWaitMemberList(String accountId) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService modifyApproveWaitMemberList(회원가입 승인) accountId :  " + accountId + TeamColor.TEXT_RESET);
+		
+		int row = accountMapper.updateApproveWaitMemberList(accountId);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService modifyApproveWaitMemberList row :  " + row + TeamColor.TEXT_RESET);
+		
+		return row;
+	}
+	
+	// 회원가입 거절
+	public int modifyDeniedWaitMemberList(String accountId) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService modifyDeniedWaitMemberList(회원가입 거절) accountId :  " + accountId + TeamColor.TEXT_RESET);
+		
+		int row = accountMapper.updateDeniedWaitMemberList(accountId);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService modifyDeniedWaitMemberList row :  " + row + TeamColor.TEXT_RESET);
+		
+		return row;
+	}
+	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

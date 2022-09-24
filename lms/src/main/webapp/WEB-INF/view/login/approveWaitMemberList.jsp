@@ -105,6 +105,14 @@
                                 <div class="datatable-dashv1-list custom-datatable-overright">
                                     <div id="toolbar">
                                         <select style="font-size:15px;" name="select" id="viewProduct" onchange="window.open(value,'_self');">
+											<c:if test="${memberCheck eq 'all'}">
+												<option value="${pageContext.request.contextPath}/loginCheck/approveWaitMemberList?memberCheck=all"
+													selected>전체 리스트</option>
+											</c:if>
+											<c:if test="${memberCheck != 'all'}">
+												<option value="${pageContext.request.contextPath}/loginCheck/approveWaitMemberList?memberCheck=all"
+															>전체 리스트</option>
+											</c:if>	
 											<c:if test="${memberCheck eq 'student'}">
 												<option value="${pageContext.request.contextPath}/loginCheck/approveWaitMemberList?memberCheck=student"
 													selected>학생 리스트</option>
@@ -133,10 +141,9 @@
 										<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
                                     </div>
                                     <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
-                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                        data-cookie-id-table="saveId"  data-click-to-select="true" data-toolbar="#toolbar">
                                         <thead>
                                             <tr>
-                                                <th data-field="state" data-checkbox="true"></th>
                                                 <th>아이디</th>
                                                 <th>성함</th>
                                                 <th>성별</th>
@@ -144,14 +151,13 @@
                                                 <th>이메일</th>
                                                 <th>전화번호</th>
                                                 <th>가입날짜</th>
-                                                <th data-field="action">가입 승인 / 가입 거부</th>
+                                                <th>가입 승인 / 가입 거부</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <c:if test="${memberCheck eq 'student'}">
+                                        <c:if test="${memberCheck eq 'all'}">
                                         	<c:forEach var="s" items="${studentList}">
                                             <tr>
-                                                <td></td>
 												<td>${s.accountId}</td>
 												<td>${s.studentName}</td>
 												<td>${s.studentGender}</td>
@@ -159,15 +165,13 @@
 												<td>${s.studentEmail}</td>
 												<td>${s.studentPhone}</td>
 												<td>${s.createDate}</td>
-												<td class="datatable-ct"><i class="fa fa-check"></i>
+												<td><button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyApproveWaitMemberList?accountId=${s.accountId}'"><i class="fa fa-check edu-checked-pro" aria-hidden="true"></i></button>
+                                                 <button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyDeniedWaitMemberList?accountId=${s.accountId}'"><i class="fa fa-times edu-danger-error" aria-hidden="true"></i></button>
                                                 </td>
                                             </tr>
-                                        </c:forEach>
-                                        </c:if>
-										<c:if test="${memberCheck eq 'teacher'}">
-											<c:forEach var="t" items="${teacherList}">
+                                        	</c:forEach>
+                                        	<c:forEach var="t" items="${teacherList}">
 												<tr>
-													<td></td>
 													<td>${t.accountId}</td>
 													<td>${t.teacherName}</td>
 													<td>${t.teacherGender}</td>
@@ -175,14 +179,13 @@
 													<td>${t.teacherEmail}</td>
 													<td>${t.teacherPhone}</td>
 													<td>${t.createDate}</td>
-													<td class="datatable-ct"><i class="fa fa-check"></i></td>
+													<td><button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyApproveWaitMemberList?accountId=${t.accountId}'"><i class="fa fa-check edu-checked-pro" aria-hidden="true"></i></button>
+	                                                 	<button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyDeniedWaitMemberList?accountId=${t.accountId}'"><i class="fa fa-times edu-danger-error" aria-hidden="true"></i></button>
+	                                                </td>
 												</tr>
 											</c:forEach>
-										</c:if>
-										<c:if test="${memberCheck eq 'manager'}">
 											<c:forEach var="m" items="${managerList}">
 												<tr>
-													<td></td>
 													<td>${m.accountId}</td>
 													<td>${m.managerName}</td>
 													<td>${m.managerGender}</td>
@@ -190,7 +193,57 @@
 													<td>${m.managerEmail}</td>
 													<td>${m.managerPhone}</td>
 													<td>${m.createDate}</td>
-													<td class="datatable-ct"><i class="fa fa-check"></i></td>
+													<td><button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyApproveWaitMemberList?accountId=${m.accountId}'"><i class="fa fa-check edu-checked-pro" aria-hidden="true"></i></button>
+	                                                	 <button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyDeniedWaitMemberList?accountId=${m.accountId}'"><i class="fa fa-times edu-danger-error" aria-hidden="true"></i></button>
+	                                                </td>
+												</tr>
+											</c:forEach>
+                                        </c:if>
+                                        <c:if test="${memberCheck eq 'student'}">
+                                        	<c:forEach var="s" items="${studentList}">
+                                            <tr>
+												<td>${s.accountId}</td>
+												<td>${s.studentName}</td>
+												<td>${s.studentGender}</td>
+												<td>${s.studentBirth}</td>
+												<td>${s.studentEmail}</td>
+												<td>${s.studentPhone}</td>
+												<td>${s.createDate}</td>
+												<td><button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyApproveWaitMemberList?accountId=${s.accountId}'"><i class="fa fa-check edu-checked-pro" aria-hidden="true"></i></button>
+                                                 <button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyDeniedWaitMemberList?accountId=${s.accountId}'"><i class="fa fa-times edu-danger-error" aria-hidden="true"></i></button>
+                                                </td>
+                                            </tr>
+                                        	</c:forEach>
+                                        </c:if>
+										<c:if test="${memberCheck eq 'teacher'}">
+											<c:forEach var="t" items="${teacherList}">
+												<tr>
+													<td>${t.accountId}</td>
+													<td>${t.teacherName}</td>
+													<td>${t.teacherGender}</td>
+													<td>${t.teacherBirth}</td>
+													<td>${t.teacherEmail}</td>
+													<td>${t.teacherPhone}</td>
+													<td>${t.createDate}</td>
+													<td><button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyApproveWaitMemberList?accountId=${t.accountId}'"><i class="fa fa-check edu-checked-pro" aria-hidden="true"></i></button>
+	                                                 	<button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyDeniedWaitMemberList?accountId=${t.accountId}'"><i class="fa fa-times edu-danger-error" aria-hidden="true"></i></button>
+	                                                </td>
+												</tr>
+											</c:forEach>
+										</c:if>
+										<c:if test="${memberCheck eq 'manager'}">
+											<c:forEach var="m" items="${managerList}">
+												<tr>
+													<td>${m.accountId}</td>
+													<td>${m.managerName}</td>
+													<td>${m.managerGender}</td>
+													<td>${m.managerBirth}</td>
+													<td>${m.managerEmail}</td>
+													<td>${m.managerPhone}</td>
+													<td>${m.createDate}</td>
+													<td><button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyApproveWaitMemberList?accountId=${m.accountId}'"><i class="fa fa-check edu-checked-pro" aria-hidden="true"></i></button>
+	                                                	 <button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyDeniedWaitMemberList?accountId=${m.accountId}'"><i class="fa fa-times edu-danger-error" aria-hidden="true"></i></button>
+	                                                </td>
 												</tr>
 											</c:forEach>
 										</c:if>

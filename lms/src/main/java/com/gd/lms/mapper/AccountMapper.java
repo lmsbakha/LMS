@@ -66,4 +66,10 @@ public interface AccountMapper {
 	// 회원가입 행정 승인 대기리스트
 	List<Manager> selectWaitManagerList();
 	
+	// 회원가입 승인 - 행정 & 총관리자만 가능
+	int updateApproveWaitMemberList(String accountId);
+	
+	// 회원가입 거절 - 행정 & 총관리자만 가능
+	int updateDeniedWaitMemberList(String accountId);
+	
 }

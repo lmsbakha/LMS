@@ -272,7 +272,7 @@ public class LoginController {
 	
 	// 회원가입 승앤대기리스트 Form
 	@GetMapping("/loginCheck/approveWaitMemberList")
-	public String modifyAccountStateWaitMember(Model model, @RequestParam(value="memberCheck", defaultValue="student") String memberCheck) {
+	public String modifyAccountStateWaitMember(Model model, @RequestParam(value="memberCheck", defaultValue="all") String memberCheck) {
 		
 		// 디버깅
 		log.debug(TeamColor.PCW + "LoginController GetMapping(/loginCheck/approveWaitMemberList)" + TeamColor.TEXT_RESET);
@@ -284,6 +284,39 @@ public class LoginController {
 		model.addAttribute("memberCheck", memberCheck);
 		return "login/approveWaitMemberList";
 	}
+	
+	// 회원가입 승인 Form
+	@GetMapping("/loginCheck/modifyApproveWaitMemberList")
+	public String modifyApproveWaitMember(@RequestParam(value="accountId") String accountId) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(/loginCheck/modifyApproveWaitMemberList) accountId :" + accountId + TeamColor.TEXT_RESET);
+		
+		int row = accountService.modifyApproveWaitMemberList(accountId);
+		
+		if(row == 0) {
+			return "login/approveWaitMemberList";
+		}
+		
+		return "redirect:/loginCheck/approveWaitMemberList";
+	}
+	
+	// 회원가입 거절 Form
+	@GetMapping("/loginCheck/modifyDeniedWaitMemberList")
+	public String modifyDeniedWaitMember(@RequestParam(value="accountId") String accountId) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(/loginCheck/modifyDeniedWaitMemberList) accountId :" + accountId + TeamColor.TEXT_RESET);
+		
+		int row = accountService.modifyDeniedWaitMemberList(accountId);
+		
+		if(row == 0) {
+			return "login/approveWaitMemberList";
+		}
+		
+		return "redirect:/loginCheck/approveWaitMemberList";
+	}
+	
 	
 	
 	
