@@ -114,21 +114,21 @@
 			 	 </ul>
 				<div class="hpanel">
                     <div class="panel-body poss-recover">
-                        <form action="${pageContext.request.contextPath}/searchAccountId" method="post">
+                        <form action="${pageContext.request.contextPath}/searchAccountId" method="post" id="searchAccountIdForm">
                         	<c:if test="${resultMsg eq null}">
                              <div class="form-group">
-                                <label class="control-label" for="username">Name</label>
+                                <label class="control-label" for="memberName">Name</label>
                               	<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
                                 <input type="text" placeholder="Enter your name..."  required="required"  name="memberName" id="memberName" class="form-control">
-                                <span class="help-block small"></span>
+                                <span class="help-block small" id="nameinfo"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="username">Email</label>
+                                <label class="control-label" for="memberEmail">Email</label>
                                 <input type="email" placeholder="example@gmail.com"  required="required"  name="memberEmail" id="memberEmail" class="form-control">
-                                <span class="help-block small"></span>
+                                <span class="help-block small" id="eminfo"></span>
                             </div>
-                            	<button type="submit" class="btn btn-success-search btn-block">아이디 찾기</button>
-                           	 	<button type="button" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 하러가기</button>
+                            	<button type="button" class="btn btn-success-search btn-block" id="searchBtn">아이디 찾기</button>
+                           	 	<button type="button" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/bakha/login'">로그인 하러가기</button>
                             </c:if>
                             </form>
                              <c:if test="${resultMsg != null}">
@@ -159,7 +159,7 @@
 				                        </c:if>
 					   				 	<br>
 					   				 	<a class="btn btn-success-search btn-block" style="color:white;" href="${pageContext.request.contextPath}/searchAccountPass">비밀번호 찾기</a>
-					   				 	<a class="btn btn-success btn-block" style="color:white;" href="${pageContext.request.contextPath}/login">로그인 하러가기</a>
+					   				 	<a class="btn btn-success btn-block" style="color:white;" href="${pageContext.request.contextPath}/bakha/login">로그인 하러가기</a>
 					   				 </c:otherwise>
 					   			</c:choose>
                         	</c:if>
@@ -171,54 +171,79 @@
 			</div>
 		</div>   
     </div>
-    <!-- jquery
-		============================================ -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
-    <!-- bootstrap JS
-		============================================ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- wow JS
-		============================================ -->
-    <script src="js/wow.min.js"></script>
-    <!-- price-slider JS
-		============================================ -->
-    <script src="js/jquery-price-slider.js"></script>
-    <!-- meanmenu JS
-		============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
-    <!-- owl.carousel JS
-		============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
-    <!-- sticky JS
-		============================================ -->
-    <script src="js/jquery.sticky.js"></script>
-    <!-- scrollUp JS
-		============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
-    <!-- mCustomScrollbar JS
-		============================================ -->
-    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-    <!-- metisMenu JS
-		============================================ -->
-    <script src="js/metisMenu/metisMenu.min.js"></script>
-    <script src="js/metisMenu/metisMenu-active.js"></script>
-    <!-- tab JS
-		============================================ -->
-    <script src="js/tab.js"></script>
-    <!-- icheck JS
-		============================================ -->
-    <script src="js/icheck/icheck.min.js"></script>
-    <script src="js/icheck/icheck-active.js"></script>
-    <!-- plugins JS
-		============================================ -->
-    <script src="js/plugins.js"></script>
-    <!-- main JS
-		============================================ -->
-    <script src="js/main.js"></script>
-    <!-- tawk chat JS
-		============================================ -->
-    <script src="js/tawk-chat.js"></script>
+    
+	 <!-- Start script -->
+	<jsp:include page="../js/alljs.jsp"/>
+    <!-- End script --> 
+    <script>
+    var reg_email = /^[0-9a-zA-Z]+(.[_a-z0-9-]+)*@(?:\w+\.)+\w+$/;
+    
+    // 유효성검사
+    $('#memberName').blur(function() {
+		if ($('#memberName').val() == '') {
+			$('#nameinfo').text('※ 이름을 입력해주세요.');
+		} else {
+			$('#nameinfo').text('');
+		}
+	})
+    
+    $('#memberEmail').blur(function() {
+		if ($('#memberEmail').val() == '') {
+			$('#eminfo').text('※ 이메일을 입력해주세요.');
+		} else if (!reg_email.test($("#memberEmail").val())) {
+			$('#memberEmail').val('');
+			$('#eminfo').text('※ 이메일 형식이 아닙니다.');
+		} else {
+			$('#eminfo').text('');
+		}
+	})
+	
+	// 버튼 유효성검사
+	$('#searchBtn').click(function(){
+		if($('#memberName').val() == ''){
+			$('#nameinfo').text('※ 이름을 입력해주세요.');
+			$('#memberName').focus();
+			if(!reg_email.test($("#memberEmail").val())){
+				 $('#memberName').focus();
+			}
+		} else if($('#memberEmail').val() == ''){
+			$('#nameinfo').text('');
+			$('#eminfo').text('※ 이메일을 입력해주세요.');
+			$("#memberEmail").focus();
+		} else if(!reg_email.test($("#memberEmail").val())){
+			$('#nameinfo').text('');
+			$('#eminfo').text('※ 이메일 형식이 아닙니다.');
+			$("#memberEmail").focus();
+		} else {
+			$('#searchAccountIdForm').submit();
+		}
+	})
+	
+	// Enter키 유효성검사
+	$(document).keypress(function(e) {
+		if (e.which == 13) {
+			event.preventDefault();
+			if($('#memberName').val() == ''){
+				$('#nameinfo').text('※ 이름을 입력해주세요.');
+				$('#memberName').focus();
+			 	if(reg_email.test($("#memberEmail").val())){
+					 $('#memberName').focus();
+				}
+			} else if($('#memberEmail').val() == ''){
+				$('#memberEmail').val('');
+				$('#eminfo').text('※ 이메일을 입력해주세요.');
+				$('#memberEmail').focus();
+			}else if(!reg_email.test($("#memberEmail").val())){
+				$('#memberEmail').val('');
+				$('#eminfo').text('※ 이메일 형식이 아닙니다.');
+				$("#memberEmail").focus();
+			} else {
+				$('#searchAccountIdForm').submit();
+			}
+		}
+	});
+	
+    </script>
 </body>
 
 </html>

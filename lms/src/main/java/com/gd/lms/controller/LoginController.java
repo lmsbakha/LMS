@@ -56,7 +56,7 @@ public class LoginController {
 	}
 	
 	// 로그인 Form
-	@GetMapping("/login")
+	@GetMapping("/bakha/login")
 	public String login(HttpSession session) {
 		
 		// 디버깅
@@ -118,7 +118,7 @@ public class LoginController {
 		// 디버깅
 		log.debug(TeamColor.PCW + "계정이 로그아웃 되었습니다." + TeamColor.TEXT_RESET);
 
-		return "redirect:/login";
+		return "redirect:/bakha/login";
 	}
 	
 	// (학생, 강사, 행정) 멤버 아이디 찾기 Form
@@ -267,7 +267,7 @@ public class LoginController {
 		
 		accountService.addMember(paramMember);
 		
-		return "redirect:/login";
+		return "redirect:/bakha/login";
 	}
 	
 	// 회원가입 승앤대기리스트 Form

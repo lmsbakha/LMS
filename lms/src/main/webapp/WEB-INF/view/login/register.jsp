@@ -117,7 +117,7 @@
 								<div class="form-group col-lg-12">
 								<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
 									<label for="idck">아이디</label> 
-									<input type="text" placeholder="ID 입력해주세요" name="idck" id="idck" required="required"
+									<input type="text" placeholder="ID 입력해주세요" name="idck" id="idck" 
 										class="form-control">
 									<span id="idinfo"></span>										
 									<br>
@@ -127,22 +127,22 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="accountId">아이디</label> 
-									<input type="text" class="form-control"  id="accountId" name="accountId">
+									<input type="text" class="form-control"  id="accountId" name="accountId" readonly="readonly">
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="accountPw">비밀번호</label><br>
 									<span>(비밀번호는 영어 대소문자, 숫자, 특수문자를 포함해 최소 8문자 입력해 주셔야 합니다.)</span> 
-									<input type="password" class="form-control" id="accountPw" name="accountPw">
+									<input type="password" class="form-control" id="accountPw" name="accountPw" >
 									<span id="passwordinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="accountPwCk">비밀번호 확인</label> 
-									<input type="password" class="form-control" id="accountPwCk" name="accountPwCk">
+									<input type="password" class="form-control" id="accountPwCk" name="accountPwCk" >
 									<span id="passwordckinfo"></span>
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="email">이메일</label> 
-									<input type="email" placeholder="email 입력해주세요"  name="email" id="email" required="required"
+									<input type="email" placeholder="email 입력해주세요"  name="email" id="email" 
 										class="form-control"> 
 									<span id="eminfo"></span>	
 									<br>
@@ -152,11 +152,11 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberEmail">이메일</label> 
-									<input type="email" class="form-control" id="memberEmail" name="memberEmail">
+									<input type="email" class="form-control" id="memberEmail" name="memberEmail"  readonly="readonly">
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberName">이름</label> 
-									<input class="form-control" placeholder="이름을 입력해주세요" id="memberName" name="memberName" required="required">
+									<input class="form-control" placeholder="이름을 입력해주세요" id="memberName" name="memberName" >
 									<span id="nameinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12 ">
@@ -170,23 +170,23 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberBirth">생년월일</label>
-									<input class="form-control" type="date" id="memberBirth" name="memberBirth" required="required">
+									<input class="form-control" type="date" id="memberBirth" name="memberBirth" >
 									<span id="birthinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberPhone">전화번호</label> 
-									<input class="form-control" type="tel" id="memberPhone" name="memberPhone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required="required">
+									<input class="form-control" type="tel" id="memberPhone" name="memberPhone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"  >
 									<span id="phoneinfo"></span>
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberAddress">주소</label>
-									<input style="margin-bottom: 5px" class="form-control" id="memberAddress" name="memberAddress" type="text" readonly="readonly" placeholder="주소" required="required" /> 
+									<input style="margin-bottom: 5px" class="form-control" id="memberAddress" name="memberAddress" type="text" readonly="readonly"  placeholder="주소"/> 
 									<span id="addrinfo"></span>
 									<button type="button" class="btn btn-success btn-block form-group" id="addrBtn" style="margin-bottom: 5px">
 										<b>주소검색</b>
 									</button>
 									<label for="memberDetailAddress">상세주소</label>
-									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요" required="required" />
+									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요"  />
 									<span id="detailaddrinfo"></span>
 								</div>
 					            <!-- 학생만 memberCheck eq 'student' -->
@@ -202,7 +202,8 @@
 						            </div>
 							    <div class="form-group col-lg-12">
 									<label for="memberMajor">전공</label> 
-									<input class="form-control" placeholder="전공을 입력해주세요" id="memberMajor" name="memberMajor" required="required">
+									<input class="form-control" placeholder="전공을 입력해주세요" id="memberMajor" name="memberMajor" value=>
+									
 									<span id="majorinfo"></span>	
 								</div>       
 						            <div class="form-group col-lg-12">
@@ -236,9 +237,9 @@
 							</div>
 							<div class="text-center">
 								<button type="reset" class="btn btn-warning btn-block">초기화</button>
-								<button type="submit" class="btn btn-success btn-block loginbtn">회원가입</button>
+								<button type="button" class="btn btn-success btn-block loginbtn" id="registerBtn">회원가입</button>
 								<br>
-								<button type="reset" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/login';">Home</button>
+								<button type="reset" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/bakha/login';">Home</button>
 							</div>
 						</form>
 					</div>
@@ -252,54 +253,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- jquery
-      ============================================ -->
-	<script src="js/vendor/jquery-1.12.4.min.js"></script>
-	<!-- bootstrap JS
-      ============================================ -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- wow JS
-      ============================================ -->
-	<script src="js/wow.min.js"></script>
-	<!-- price-slider JS
-      ============================================ -->
-	<script src="js/jquery-price-slider.js"></script>
-	<!-- meanmenu JS
-      ============================================ -->
-	<script src="js/jquery.meanmenu.js"></script>
-	<!-- owl.carousel JS
-      ============================================ -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- sticky JS
-      ============================================ -->
-	<script src="js/jquery.sticky.js"></script>
-	<!-- scrollUp JS
-      ============================================ -->
-	<script src="js/jquery.scrollUp.min.js"></script>
-	<!-- mCustomScrollbar JS
-      ============================================ -->
-	<script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-	<!-- metisMenu JS
-      ============================================ -->
-	<script src="js/metisMenu/metisMenu.min.js"></script>
-	<script src="js/metisMenu/metisMenu-active.js"></script>
-	<!-- tab JS
-      ============================================ -->
-	<script src="js/tab.js"></script>
-	<!-- icheck JS
-      ============================================ -->
-	<script src="js/icheck/icheck.min.js"></script>
-	<script src="js/icheck/icheck-active.js"></script>
-	<!-- plugins JS
-      ============================================ -->
-	<script src="js/plugins.js"></script>
-	<!-- main JS
-      ============================================ -->
-	<script src="js/main.js"></script>
-	<!-- tawk chat JS
-      ============================================ -->
-	<script src="js/tawk-chat.js"></script>
+	 <!-- Start script -->
+	<jsp:include page="../js/alljs.jsp"/>
+    <!-- End script -->  
 <script>
 // 아이디 중복검사
 	$('#idckBtn').click(function() {
@@ -440,6 +396,7 @@
 			$('#majorinfo').text('');
 		}
 	})
+	
 	// 버튼 눌렀을때 유효성 검사
 	$('#registerBtn').click(function() {
 		if ($('#idck').val() == '') {
@@ -449,7 +406,7 @@
 		} else if ($('#accountPw').val() == '') {
 			alert('비밀번호를 입력해주세요');
 		} else if ($('#accountPwCk').val() == '') {
-			alert('비밀번호 재확인을윌해 입력해주세요');
+			alert('비밀번호 재확인을위해 입력해주세요');
 		} else if ($('#email').val() == '') {
 			alert('이메일을 입력해주세요');
 		} else if ($('#memberEmail').val() == '') {
@@ -467,7 +424,8 @@
 		} else if ($('#memberGraduate').val() == 'default') {
 			alert('학력을 선택해주세요');
 		} else if ($('#memberMajor').val() == '') {
-			alert('전공을 입력해주세');
+			$('#memberMajor').focus();
+			
 		} else if ($('#memberMilitary').val() == 'default') {
 			alert('병역여부를 선택해주세요');
 		} else if ($('#memberDept').val() == 'default') {
@@ -476,6 +434,7 @@
 			$('#registerForm').submit();
 		}
 	});
+	
 	// 엔터키 눌렀을때 유효성 검사
 	$(document).keypress(function(e) {
 		if (e.which == 13) {
@@ -485,9 +444,11 @@
 			} else if ($('#accountId').val() == '') {
 				alert('아이디 중복 검사를 해주세요');
 			} else if ($('#accountPw').val() == '') {
+				$('#idinfo').text('');
 				alert('비밀번호를 입력해주세요');
 			} else if ($('#accountPwCk').val() == '') {
 				alert('비밀번호 재확인을 위해 입력해주세요');
+				$('#accountPwCk').focus();
 			} else if ($('#email').val() == '') {
 				alert('이메일을 입력해주세요');
 			} else if ($('#memberEmail').val() == '') {
