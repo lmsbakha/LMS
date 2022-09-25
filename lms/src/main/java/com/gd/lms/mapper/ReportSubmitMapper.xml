@@ -7,7 +7,8 @@
 		resultType="com.gd.lms.vo.ReportSubmit">
 		SELECT
 		report_submit_no reportSubmitNo,
-		education_no educationNo,
+		education_no
+		educationNo,
 		account_id accountId,
 		report_no reporNo,
 		report_submit_title reportSubmitTitle,
@@ -21,19 +22,37 @@
 	</select>
 	<!-- 학생이 제출한 과제 리스트 조회 메소드 -->
 
+	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
+	<select id="selectReportListBySubject" parameterType="Map"
+		resultType="com.gd.lms.vo.ReportSubmit">
+		SELECT
+		report_submit_no reportSubmitNo,
+		education_no educationNo,
+		account_id accountId,
+		report_no reporNo,
+		report_submit_title reportSubmitTitle,
+		report_submit_content reportSubmitContent,
+		report_submit_score reportSubmitScore,
+		create_date createDate
+		FROM report_submit
+		WHERE education_no =  #{educationNo}
+	</select>
+	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
+
 	<!-- 과제 제출하기 메소드 -->
-	<insert id="insertReportSubmit" parameterType="com.gd.lms.vo.ReportSubmit">
+	<insert id="insertReportSubmit"
+		parameterType="com.gd.lms.vo.ReportSubmit">
 		INSERT INTO
 		report_submit (
-		education_no,
 		report_no,
+		education_no,
 		account_id,
 		report_submit_title,
 		report_submit_content,
 		report_submit_score,update_date, create_date)
 		VALUES (
-		 #{educationNo}
-		,#{reportNo}
+		#{reportNo}
+		,#{educationNo}
 		,#{accountId}
 		,#{reportSubmitTitle}
 		,#{reportSubmitContent}
@@ -53,7 +72,8 @@
 		reportSubmitContent ,report_submit_score reportSubmitSCore,
 		update_date updateDate, create_date createDate
 		FROM report_submit
-		WHERE report_submit_no = #{reportSubmitNo}
+		WHERE
+		report_submit_no = #{reportSubmitNo}
 	</select>
 	<!-- 제출한 과제 수정하기 Form -->
 

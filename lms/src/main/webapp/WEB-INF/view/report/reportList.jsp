@@ -155,6 +155,7 @@
 										<a
 											href="${pageContext.request.contextPath}/loginCheck/addReport">과제
 											추가</a>
+											<a href="${pageContext.request.contextPath}/loginCheck/reprotSubmit"> 학생 과제 제출 리스트</a>
 
 									</div>
 								</c:otherwise>

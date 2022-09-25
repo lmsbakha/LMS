@@ -125,18 +125,13 @@
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<form
-				action="${pageContext.request.contextPath}/loginCheck/reportSubmitList"
+				action="${pageContext.request.contextPath}/loginCheck/modifyReportScore"
 				id="reportListForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst">
 							<h4>Report SubmitList</h4>
 							<hr>
-							<div class="add-product">
-								<a
-									href="${pageContext.request.contextPath}/loginCheck/reportList">
-									과제 리스트</a>
-							</div>
 							<div class="form-group">
 								<div class="row">
 									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -166,18 +161,11 @@
 											<td>${reportSubmit.reportNo}</td>
 											<td>${reportSubmit.subjectName}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportNo=${reportSubmit.reportNo}">
+												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportNo=${report.reportNo}">
 													${reportSubmit.reportTitle} </a></td>
 											<td>${reportSubmit.createDate}</td>
 											<td>${reportSubmit.accuontId}</td>
 											<td>${reportSubmit.reportSubmitScore}</td>
-											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?accountId=${reportSubmit.accountId}">
-													<button data-toggle="tooltip" title="Edit"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-													</button>
-											</a></td>
 										</tr>
 									</c:forEach>
 								</table>

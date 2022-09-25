@@ -3,7 +3,7 @@
 <mapper namespace="com.gd.lms.mapper.ReportSumbitFileMapper">
 	<!-- 과제 제출 첨부파일 업로드 -->
 	<insert id="insertReportSubmitFile" parameterType="com.gd.lms.vo.ReportSubmitFile">
-		INSERT INTO(
+		INSERT INTO report_submit_file (
 		report_submit_no,
 		report_submit_filename,
 		report_submit_origin_name,

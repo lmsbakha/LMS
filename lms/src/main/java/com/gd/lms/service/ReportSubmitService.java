@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,90 +69,88 @@ public class ReportSubmitService {
 
 		return ReportSubmitListById;
 	} // end getReportListById
+	
+	// 학생이 제출한 과제 리스트 조회 메소드
+		// 파라미터 : accountId
+		// 리턴값 : List<Map<String,Object>>
+		public List<ReportSubmit> getReportListBySubject(int educationNo) {
+			// 디버깅 영역구분
+			log.debug(TeamColor.PSY + "\n\n@getReportListById Service" + TeamColor.TEXT_RESET);
+			// 파라미터 디버깅
+			log.debug(TeamColor.PSY + educationNo + "<-- accountId" + TeamColor.TEXT_RESET);
 
-	// 과제 제출하기 메소드
-	// 파라미터 : ReportSubmit
-	// 리턴값 : int
-	public int addReportSubmit(ReportSubmitForm reportSubmitForm, String path, ReportSubmit paramReportSubmit) {
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Service" + TeamColor.TEXT_RESET);
-		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportSubmitForm + "<-- fileForm"
-				+ TeamColor.TEXT_RESET);
+			// 리턴값 받아올 객체 생성
+			Map<String, Object> returnMap = new HashMap<>();
 
-		// 요청값 셋팅
-		ReportSubmit reportSubmit = new ReportSubmit();
-		reportSubmit.setReportSubmitContent(reportSubmitForm.getReportSubmitContent());
-		reportSubmit.setReportSubmitTitle(reportSubmitForm.getReportSubmitTitle());
-		reportSubmit.setAccountId(paramReportSubmit.getAccountId());
-		reportSubmit.setEducationNo(paramReportSubmit.getEducationNo());
-		reportSubmit.setReportNo(paramReportSubmit.getReportNo());
-		reportSubmit.setReportSubmitContent(paramReportSubmit.getReportSubmitContent());
-		reportSubmit.setReportSubmitNo(paramReportSubmit.getReportSubmitNo());
-		reportSubmit.setReportSubmitTitle(paramReportSubmit.getReportSubmitTitle());
-		// 요청값 디버깅
-		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
-		
-		// Mapper call
-		int addReportSubmit = reportSubmitMapper.insertReportSubmit(reportSubmit);
-		// Mapper에서 받아온 addReportSubmit 값 디버깅
-		log.debug(TeamColor.PSY + addReportSubmit + "<-- addReport" + TeamColor.TEXT_RESET);
+			// ReportMapper에 넣어줄 매개변수 설정
+			Map<String, Object> paramMap = new HashMap<>();
+			// paramMap에 값 넣어주기
+			paramMap.put("educationNo", educationNo);
 
-		if (reportSubmitForm.getMultiList().get(0).getSize() > 0 && addReportSubmit != 0) {
-			// 디버깅
-			log.debug(TeamColor.PSY + "첨부된 파일이 있습니다." + TeamColor.TEXT_RESET);
-			for (MultipartFile mf : reportSubmitForm.getMultiList()) {
+			// Mapper call
+			List<ReportSubmit> ReportSubmitListBySubject = reportSubmitMapper.selectReportListBySubject(paramMap);
+			// 파마리터 디버깅
+			log.debug(TeamColor.PSY + paramMap + "<-- paramMap" + TeamColor.TEXT_RESET);
+			// Mapper에서 받아온 ReportSubmitListById 값 디버깅
+			log.debug(TeamColor.PSY + ReportSubmitListBySubject.toString() + "<-- ReportReportSubmitListBySubjectSubmitListById" + TeamColor.TEXT_RESET);
 
-				// 새로운 reportSubmitFile 생성
-				ReportSubmitFile reportSubmitFile = new ReportSubmitFile();
+			// list에 값 넣어주기
+			returnMap.put("ReportSubmitListBySubject", ReportSubmitListBySubject);
 
-				// 기존 첨부파일명
-				String reportSubmitOriginFilename = mf.getOriginalFilename();
-
-				// 파일을 저장할때 사용할 중복되지않는 새로운 이름 생성하기 위해 UUID API 사용
-				String reportSubmitFilename = UUID.randomUUID().toString();
-
-				// 파일 확장자 - reportSubmitOriginFilename에서 마지막 .문자열 위치를 찾아 substring
-				// substring()로 .txt를 찾음
-				String ext = reportSubmitOriginFilename.substring(reportSubmitOriginFilename.lastIndexOf("."));
-				// ext값 디버깅
-				log.debug(TeamColor.PSY + ext + "<-- ext" + TeamColor.TEXT_RESET);
-
-				// 새 첨부파일명
-				reportSubmitFilename = reportSubmitFilename + ext;// reportSubmitFile값 디버깅
-				// 디버깅
-				log.debug(TeamColor.PSY + reportSubmitOriginFilename + "<-- reportSubmitOriginFilename"
-						+ TeamColor.TEXT_RESET);
-				
-				// reportSubmitFile 셋팅
-				reportSubmitFile.setReportSubmitFilename(reportSubmitFilename);
-				reportSubmitFile.setReportSubmitFileType(mf.getContentType());
-				reportSubmitFile.setReportSubmitFileSize(mf.getSize());
-				reportSubmitFile.setReportSubmitNo(reportSubmit.getReportSubmitNo());
-				reportSubmitFile.setReportSubmitOriginName(reportSubmitOriginFilename);
-				
-				// 디버깅
-				log.debug(TeamColor.PSY + reportSubmitFile + "<-- reportSubmitFile" + TeamColor.TEXT_RESET);
-
-				// insertReportSubmitFile 메서드 호출하고 안에 매개변수 reportSubmitFile값 넣어주기
-				reportSubmitFileMapper.insertReportSubmitFile(reportSubmitFile);
-
-				// 파일 생성 - MultipartFile 안에 파일 생성 API(transferTo)가 있음
-				// transferTo 리턴타입을 주기 위해 new File()파일 객체 생성
-				try {
-					// c://upload/ttt.txt
-					// 새로운 bean 파일 -> MultipartFile-> 파일을 하나씩 복사
-					mf.transferTo(new File(path + reportSubmitFilename));
-				} catch (Exception e) {
-					e.printStackTrace();
-					// @Transactional 처리가 되도록 강제로 RuntimeException(try절을 발생X) 발생
-					throw new RuntimeException();
-				} // end try catch
-			} // end for
-		} // end if
-		return addReportSubmit;
-	} // end addReportSubmit
-
+			return ReportSubmitListBySubject;
+		} // end getReportSubmitListBySubject
+	/*
+	 * // 과제 제출하기 메소드 // 파라미터 : ReportSubmit // 리턴값 : int public int
+	 * addReportSubmit(ReportSubmit reportSubmit, HttpSession session,
+	 * MultipartFile[] reportSubmiFile) { // 디버깅 영역구분 log.debug(TeamColor.PSY +
+	 * "\n\n@addReportSubmit Service" + TeamColor.TEXT_RESET); // 파라미터 디버깅
+	 * log.debug(TeamColor.PSY + reportSubmitForm + "<-- reportSubmitForm" +
+	 * TeamColor.TEXT_RESET); log.debug(TeamColor.PSY + path + "<-- path" +
+	 * TeamColor.TEXT_RESET);
+	 * 
+	 * // 요청값 셋팅 ReportSubmit reportSubmit = new ReportSubmit();
+	 * reportSubmit.setReportSubmitContent(reportSubmitForm.getReportSubmitContent()
+	 * );
+	 * reportSubmit.setReportSubmitTitle(reportSubmitForm.getReportSubmitTitle());
+	 * reportSubmit.setAccountId(reportSubmitForm.getAccountId());
+	 * reportSubmit.setEducationNo(reportSubmitForm.getEducationNo());
+	 * reportSubmit.setReportNo(reportSubmitForm.getReportNo());
+	 * 
+	 * ReportSubmitFile reportSubmitFile = new ReportSubmitFile();
+	 * reportSubmitFile.setReportSubmitFilename(reportSubmitForm.
+	 * getReportSubmitFilename());
+	 * reportSubmitFile.setReportSubmitFileNo(reportSubmitForm.getReportNo());
+	 * reportSubmitFile.setReportSubmitFileType(reportSubmitForm.
+	 * getReportSubmitFileType());
+	 * reportSubmitFile.setReportSubmitOriginName(reportSubmitForm.
+	 * getReportSubmitOriginName()); // 요청값 디버깅 log.debug(TeamColor.PSY +
+	 * reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
+	 * 
+	 * // Mapper call int addReportSubmit =
+	 * reportSubmitMapper.insertReportSubmit(reportSubmit); // Mapper에서 받아온
+	 * addReportSubmit 값 디버깅 // insert시 입력된 autoincrement값이 출력됨
+	 * log.debug(TeamColor.PSY + reportSubmit.getAccountId() +
+	 * "<-- reportSubmit.getAccountId() " + TeamColor.TEXT_RESET); //
+	 * addReportSubmit == 1이면 if ( reportSubmitFile != null) { // 디버깅
+	 * log.debug(TeamColor.PSY + "첨부된 파일이 있습니다." + TeamColor.TEXT_RESET);
+	 * 
+	 * // insertReportSubmitFile 메서드 호출하고 안에 매개변수 reportSubmitFile값 넣어주기 int
+	 * reportFileList =
+	 * reportSubmitFileMapper.insertReportSubmitFile(reportSubmitFile); //
+	 * reportSubmitFilename값 디버깅 log.debug(TeamColor.PSY + reportFileList +
+	 * "<-- reportFileList" + TeamColor.TEXT_RESET);
+	 * 
+	 * // 파일 생성 - MultipartFile 안에 파일 생성 API(transferTo)가 있음 // transferTo 리턴타입을 주기
+	 * 위해 new File()파일 객체 생성 try { // c://upload/ttt.txt // 새로운 bean 파일 ->
+	 * MultipartFile-> 파일을 하나씩 복사 file.transferTo(new File(path +
+	 * reportSubmitFile.getReportSubmitFilename())); } catch (Exception e) {
+	 * e.printStackTrace(); // @Transactional 처리가 되도록 강제로 RuntimeException(try절을
+	 * 발생X) 발생 throw new RuntimeException(); } // end try catch } // end for } //
+	 * end if return addReportSubmit;
+	 * 
+	 * } // end addReportSubmit
+	 */
+	
 	// 제출한 과제 수정하는 메소드
 	// modifyReportSubmit Form
 	// 파라미터 : reportSubmitNo
@@ -202,5 +202,10 @@ public class ReportSubmitService {
 
 		return removeReportSubmit;
 	} // end removeReportSubmit
+
+	public void addReportSubmit(MultipartFile[] reportSubmitFile, ReportSubmit reportSubmit) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

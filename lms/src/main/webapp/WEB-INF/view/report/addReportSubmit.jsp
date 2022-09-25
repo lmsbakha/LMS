@@ -144,6 +144,7 @@
 											 <input name="subjectName" id="subjectName" type="text" class="form-control" value="${reportOne.subjectName}" readonly>
 											 <input type="hidden" name="reportNo" value="${reportOne.reportNo}">
 											 <input type="hidden" name="educationNo" value="${EducationInfo.educationNo}">
+											 <input type="hidden" name="accountId" value="${EducationInfo.accountId}">
 
 										</div>
 										<div class="form-group">
@@ -159,8 +160,8 @@
 										<div class="form-group alert-up-pd">
 											<div class="dz-message needsclick download-custom">
 												<i class="fa fa-download edudropnone" aria-hidden="true"></i>
-												<input name="multiList" id="multiList" class="form-control"
-													type="file" multiple="multiple"/>
+												<input name="filename" id="filename" class="form-control"
+													type="file" multiple="multiple" accept=".txt,.zip">
 											</div>
 										</div>
 									</div>
