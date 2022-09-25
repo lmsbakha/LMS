@@ -10,7 +10,7 @@
 			notice_file_name 		noticeFileName,
 			notice_file_origin_name noticeFileOriginName,
 			notice_file_type		noticeFileType,
-			notice_file_size		noticefileSize,
+			notice_file_size		noticeFileSize,
 			create_date				createDate
 	FROM	notice_file
 	WHERE 	notice_file_no=#{noticeNo}
@@ -19,7 +19,6 @@
 	<!-- 공지글 파일 첨부 -->
 	<insert id="insertNoticeFile" parameterType="com.gd.lms.vo.NoticeFile">
 	INSERT INTO notice_file(
-		notice_file_no
 		notice_no,
 		account_id,
 		notice_file_name,
@@ -28,7 +27,6 @@
 		notice_file_size,
 		create_date
 	) VALUES (
-		#{noticeFileNo}
 		#{noticeNo}, 
 		#{accountId}, 
 		#{noticeFileName}, 
@@ -41,13 +39,15 @@
 	<!-- 게시글 하나에 들어가 있는 첨부파일 리스트 -->
 	<select id="selectNoticeFileList" parameterType="int" resultType="String">
 	SELECT 	notice_file_name noticeFileName
-	FROM 	notic_file
+	FROM 	notice_file
 	WHERE 	notice_no = #{noticeNo}
 	</select>
 
 	<!-- 공지글 파일 삭제 -->
-	<delete id="deleteNoticeFile" parameterType="int" >
+	<delete id="deleteNoticeFile" parameterType="String" >
 	DELETE FROM noticeFile 
-	WHERE notice_no = #{noticeNo}
+	WHERE notice_file_name = #{noticeFileName}
 	</delete>
+	
+	
 </mapper>

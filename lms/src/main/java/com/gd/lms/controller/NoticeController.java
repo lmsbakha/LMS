@@ -1,7 +1,9 @@
 package com.gd.lms.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
-import com.gd.lms.service.NoticeFileService;
 import com.gd.lms.service.NoticeService;
 import com.gd.lms.vo.Notice;
 import com.gd.lms.vo.NoticeFile;
@@ -24,12 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 public class NoticeController {
 	@Autowired
 	NoticeService noticeService;
-	NoticeFileService noticeFileService;
 	
 	// 공지 리스트 페이지
 	@GetMapping("/loginCheck/noticeList")
 	public String noticeList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
-		log.debug(TeamColor.PSY + "게시글 리스트 조회" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "게시글 리스트 조회" + TeamColor.TEXT_RESET);
 		// 페이지 당 게시글 수
 		final int ROW_PER_PAGE = 10;				
 		// 시작 페이지
@@ -83,105 +83,51 @@ public class NoticeController {
 
 	// 공지글 작성 액션
 	@PostMapping("/loginCheck/addNotice")
-	String addNotice(Model model,
-			@RequestParam("noticeTitle") String noticeTitle,
-			@RequestParam("noticeContent") String noticeContent, 
-			NoticeFile noticeFile,
-			HttpSession session) {
-		log.debug(TeamColor.PSY + "게시글 작성" + TeamColor.TEXT_RESET);
-
-		// 입력 내용 notice 적용
-		Notice notice = new Notice();
-		notice.setNoticeTitle(noticeTitle);
-		notice.setNoticeContent(noticeContent);
-		// 작성자 아이디 담기
-		String accountId = (String) session.getAttribute("sessionId");
-		notice.setAccountId(accountId);
-		log.debug(TeamColor.LHN + "accountId" + accountId +  TeamColor.TEXT_RESET);
+	String addNotice(HttpServletRequest request,Notice notice,NoticeFile noticeFile) {
+		//파일 저장 경로 설정
+		String path = request.getServletContext().getRealPath("/WEB-INF/view/notice/noticeFile/");
+		// 디버깅
+		log.debug(TeamColor.LHN + "path: " + path + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "notice" + notice + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "noticeFile" + noticeFile + TeamColor.TEXT_RESET);
 		
-		log.debug(TeamColor.LHN + "paramNotice" + notice +  TeamColor.TEXT_RESET);
-		int addNotice = noticeService.addNotice(notice);
-		if (addNotice != 0) {// 작성 성공
-			log.debug(TeamColor.LHN + "게시글 등록 성공" + TeamColor.TEXT_RESET);
-		} else {// 작성 실패
-			log.debug(TeamColor.LHN + "게시글 등록 실패" + TeamColor.TEXT_RESET);
-		}
-		
-		// 첨부파일 있을 경우 addNoticeFile 실행, 이미지 저장
-		if(noticeFile!=null) {
-			// 파일 담을 경로
-			String path = session.getServletContext().getRealPath("/notice/noticeFile/"); 
-			int row = noticeFileService.addNoticeFile(noticeFile, path);
+		int row = noticeService.addNotice(notice,noticeFile,path);
+		log.debug(TeamColor.LHN + "row" + row + TeamColor.TEXT_RESET);
+		//row가 0일 경우 입력 실패
+		if(row==0) {
+			log.debug(TeamColor.LHN + "입력 실패"  + TeamColor.TEXT_RESET);
 			
-			log.debug(TeamColor.LHN + "파일 첨부: " + row + TeamColor.TEXT_RESET);
-			return "redirect:/loginCheck/getNoticeListByPage";
-					
 		}
+		// 입력 성공
+		log.debug(TeamColor.LHN + "입력 성공"  + TeamColor.TEXT_RESET);
+			
+		
+		
 		// 공지 리스트로
 		return "redirect:/loginCheck/noticeList";
 	} 
 	
-	// 파일 업로드 기능 - 추후 addNotice컨트롤러와 합칠 예정
-	/* 
-	@ResponseBody
-	@RequestMapping(value ="/file_uploads", method=RequestMethod.POST, 
-	                  produces = "application/json;charset=UTF-8")
-	  public  Map<String, List<Map<String, String>>> file_uploads(MultipartFile nfile,MultipartHttpServletRequest  request)throws Exception{
-		
-		String uid=null;
-		Map<String, String[]> paramMap1=request.getParameterMap();
-		 Iterator keyData1 = paramMap1.keySet().iterator();	
-	    while (keyData1.hasNext()) {
-	        String key = ((String)keyData1.next());
-	        String[] value = paramMap1.get(key);
-	        log.debug(TeamColor.LHN + "key: " + key + "value: " + value[0].toString() );
-	        if(key.equals("uid"))
-	        {
-	        	uid=value[0].toString().trim();
-	        }
-	    }    
-		Map <String, MultipartFile > paramMap = request.getFileMap ();
-		 Iterator<String> keyData = paramMap.keySet().iterator();
-		 CommonData dto = new CommonData();
-		 
-		 Map<String, List<Map<String, String>>> result = new HashMap<>();
-		 List<Map<String, String>> data_list = new ArrayList();
-		 
-	    while (keyData.hasNext()) {
-	    	Map<String, String> data = new HashMap<>();
-	        String key = ((String)keyData.next());
-	        MultipartFile file = paramMap.get(key);
-	        
-	        file_upload_ex(dto, data, file,uid);  //return ResponseEntity.ok().body(result);
-	        data_list.add(data);
-	        dto.clear();
-	    }
-	    result.put("data", data_list);
-	    return result;
-	  }
-	
-	
-	 */
-	
-	
-	
-	
-	
 	// 공지사항 상세보기
 	
 	@GetMapping("/loginCheck/noticeOne")
-	public String NoticeOne(Model model, @RequestParam("noticeNo") int noticeNo) {
-		log.debug(TeamColor.LHN + "게시글 상세보기: " + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo + TeamColor.TEXT_RESET);
-		// 객체 적용
-		int noticeCount = noticeService.updateNoticeCount(noticeNo);
-		Notice notice = noticeService.showNoticeOne(noticeNo);
-		notice.setNoticeCount(noticeCount);
-		model.addAttribute("notice", notice); 
-		log.debug(TeamColor.LHN + "noticeCount: " + noticeCount + TeamColor.TEXT_RESET);
+	public String NoticeOne(Model model, HttpSession session
+			,@RequestParam(name="noticeNo") int noticeNo) {
+		log.debug(TeamColor.LHN + "noticeNo" + noticeNo + TeamColor.TEXT_RESET);
+		
+		Map<String, Object> noticeOneReturnMap = noticeService.showNoticeOne(noticeNo);	//상세보기
+		log.debug(TeamColor.LHN + "notice" + noticeOneReturnMap.get("notice") + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "noticeFileList" + noticeOneReturnMap.get("noticeFileList") + TeamColor.TEXT_RESET);
+		//returnMap 안에 notice는 권한 비교를 위해 notice변수에 저장
+		Notice notice = (Notice)noticeOneReturnMap.get("notice");
+		Object row = noticeOneReturnMap.get("noticeFileList");
+		model.addAttribute("notice", noticeOneReturnMap.get("notice"));
+		if(row!=null) {
+		model.addAttribute("noticeFileList", noticeOneReturnMap.get("noticeFileList"));
+		}
+		log.debug(TeamColor.LHN + "model" + model + TeamColor.TEXT_RESET);
+
 		return "notice/noticeOne";
 	}
-	
 	
 	
 	// 공지글 수정 폼
@@ -191,11 +137,11 @@ public class NoticeController {
 		log.debug(TeamColor.LHN + "공지글 수정 폼 " + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + noticeNo +  ": noticeNo " + TeamColor.TEXT_RESET);
 		// 객체 적용
-		Notice notice = noticeService.modifyNoticeForm(noticeNo);
+		Map<String, Object> notice = noticeService.showNoticeOne(noticeNo);
 		model.addAttribute("notice", notice); 
 		return "notice/modifyNotice";
 		}
-	
+
 	
 	// 수정 액션
 	@PostMapping("/loginCheck/modifyNotice")
