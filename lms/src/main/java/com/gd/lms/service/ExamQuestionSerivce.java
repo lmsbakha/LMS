@@ -62,6 +62,7 @@ public class ExamQuestionSerivce {
 				// 객관식 문제와 정답 map에 담기
 				map.put("examQuestionNo", examQuestion.getExamQuestionNo());	//1~10번 중 몇 번 문제인지
 				map.put("questionNo", selectMultiplechoiceOneMap.get("questionNo"));
+				map.put("questionType", "객관식");
 				map.put("questionTitle", selectMultiplechoiceOneMap.get("questionTitle"));
 				map.put("questionAnswer", selectMultiplechoiceOneMap.get("questionAnswer"));
 				// 객관식 보기 담기
@@ -79,6 +80,7 @@ public class ExamQuestionSerivce {
 				// 단답형 문제 담기
 				map.put("examQuestionNo", examQuestion.getExamQuestionNo());	//1~10번 중 몇 번 문제인지
 				map.put("questionNo", paramShortAnswerQuestion.getQuestionNo());
+				map.put("questionType", "단답형");
 				map.put("questionTitle", paramShortAnswerQuestion.getQuestionTitle());
 				map.put("questionAnswer", paramShortAnswerQuestion.getQuestionAnswer());
 				// 디버깅
