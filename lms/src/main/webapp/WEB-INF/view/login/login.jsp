@@ -81,12 +81,12 @@
                         <form method="post" action="${pageContext.request.contextPath}/login" id="loginForm">
                             <div class="form-group">
                                 <label class="control-label" for="accountId">아이디</label>
-                                <input type="text" placeholder="Please enter you Id" required="required" name="accountId" id="accountId" class="form-control">
+                                <input type="text" placeholder="Please enter you Id" name="accountId" id="accountId" class="form-control">
                                 <span id="idinfo"></span>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="accountPw">비밀번호</label>
-                                <input type="password" placeholder="Please enter your password" required="required" name="accountPw" id="accountPw" class="form-control">
+                                <input type="password" placeholder="Please enter your password"  name="accountPw" id="accountPw" class="form-control">
                           	    <span class="help-block small">대문자, 소문자, 특수문자가 포함된 10자리 비밀번호</span>
                           	    <span id="passinfo"></span>
                           	    <input type="hidden" name="accountState" id="accountState">
@@ -136,7 +136,7 @@
 	                           </div>
                             </c:if>
                             <br>
-                            <button  type="submit" class="btn btn-success btn-block loginbtn" id="loginBtn"><b>Login</b></button>
+                            <button  type="button" class="btn btn-success btn-block loginbtn" id="loginBtn"><b>Login</b></button>
                             <hr>
                             <a class="btn btn-success  btn-block" href="${pageContext.request.contextPath}/register">회원가입</a>
                             <div style="text-align:right;">
@@ -157,16 +157,36 @@
     <!-- End script --> 
     
     <script>
-     $('#loginBtn').click(function() {
+    // 버튼 유효성검사
+    $('#loginBtn').click(function() {
   		if($('#accountId').val() == '') {
   			$('#idinfo').text('※ 아이디를 입력하세요');
+  			$('#accountId').focus();
   		} else if($('#accountPw').val() == '') {
   			$('#idinfo').text('');
   			$('#passinfo').text('※ 비밀번호를 입력하세요');
+  			$('#accountPw').focus();
   		} else {
   			$('#loginForm').submit();
   		}
   	}); 
+    
+    // Enter키 유효성검사
+    $(document).keypress(function(e) {
+		if (e.which == 13) {
+			event.preventDefault();
+			if($('#accountId').val() == '') {
+	  			$('#idinfo').text('※ 아이디를 입력하세요');
+	  			$('#accountId').focus();
+	  		} else if($('#accountPw').val() == '') {
+	  			$('#idinfo').text('');
+	  			$('#passinfo').text('※ 비밀번호를 입력하세요');
+	  			$('#accountPw').focus();
+	  		} else {
+	  			$('#loginForm').submit();
+	  		}	
+		}
+	});		
  </script>
 </body>
 

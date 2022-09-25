@@ -117,7 +117,7 @@
 								<div class="form-group col-lg-12">
 								<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
 									<label for="idck">아이디</label> 
-									<input type="text" placeholder="ID 입력해주세요" name="idck" id="idck" 
+									<input type="text" placeholder="ID 입력해주세요." name="idck" id="idck" 
 										class="form-control">
 									<span id="idinfo"></span>										
 									<br>
@@ -133,16 +133,16 @@
 									<label for="accountPw">비밀번호</label><br>
 									<span>(비밀번호는 영어 대소문자, 숫자, 특수문자를 포함해 최소 8문자 입력해 주셔야 합니다.)</span> 
 									<input type="password" class="form-control" id="accountPw" name="accountPw" >
-									<span id="passwordinfo"></span>	
+									<span id="pwinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="accountPwCk">비밀번호 확인</label> 
 									<input type="password" class="form-control" id="accountPwCk" name="accountPwCk" >
-									<span id="passwordckinfo"></span>
+									<span id="pwckinfo"></span>
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="email">이메일</label> 
-									<input type="email" placeholder="email 입력해주세요"  name="email" id="email" 
+									<input type="email" placeholder="email 입력해주세요."  name="email" id="email" 
 										class="form-control"> 
 									<span id="eminfo"></span>	
 									<br>
@@ -156,17 +156,17 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberName">이름</label> 
-									<input class="form-control" placeholder="이름을 입력해주세요" id="memberName" name="memberName" >
+									<input class="form-control" placeholder="이름을 입력해주세요." id="memberName" name="memberName" >
 									<span id="nameinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12 ">
 									<label for="memberGender">성별</label>
-								            <select class="form-control" name="memberGender" id="memberGender">
-								             	<option value="default">===선택해주세요===</option>
-							                    <option value="남">남자</option>
-							                    <option value="여">여자</option>
-					                  		</select>
-									<br>
+							            <select class="form-control" name="memberGender" id="memberGender">
+							             	<option value="default">===선택해주세요.===</option>
+						                    <option value="남">남자</option>
+						                    <option value="여">여자</option>
+				                  		</select>
+									<span id="genderinfo"></span>
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberBirth">생년월일</label>
@@ -175,61 +175,62 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberPhone">전화번호</label> 
-									<input class="form-control" type="tel" id="memberPhone" name="memberPhone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"  >
+									<input class="form-control" type="tel" id="memberPhone" name="memberPhone" required="required" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"/>
 									<span id="phoneinfo"></span>
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="memberAddress">주소</label>
 									<input style="margin-bottom: 5px" class="form-control" id="memberAddress" name="memberAddress" type="text" readonly="readonly"  placeholder="주소"/> 
-									<span id="addrinfo"></span>
 									<button type="button" class="btn btn-success btn-block form-group" id="addrBtn" style="margin-bottom: 5px">
 										<b>주소검색</b>
 									</button>
 									<label for="memberDetailAddress">상세주소</label>
-									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요"  />
+									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요."  />
 									<span id="detailaddrinfo"></span>
 								</div>
 					            <!-- 학생만 memberCheck eq 'student' -->
 					            <c:if test="${memberCheck eq 'student'}">
 						            <div class="form-group col-lg-12">
 							            <label for="memberGraduate">학력</label>
-							            <select class="form-control" name="memberGraduate" id="memberGraduate">
-							             	<option value="default">===선택해주세요===</option>
-							             	<option value="고졸">고졸</option>
-						                    <option value="초대졸">초대졸</option>
-						                    <option value="대졸">대졸</option>
-				                  		</select>
+								            <select class="form-control" name="memberGraduate" id="memberGraduate">
+								             	<option value="default">===선택해주세요.===</option>
+								             	<option value="고졸">고졸</option>
+							                    <option value="초대졸">초대졸</option>
+							                    <option value="대졸">대졸</option>
+					                  		</select>
+				                  		<span id="graduateinfo"></span>
 						            </div>
 							    <div class="form-group col-lg-12">
 									<label for="memberMajor">전공</label> 
-									<input class="form-control" placeholder="전공을 입력해주세요" id="memberMajor" name="memberMajor" value=>
-									
+									<input class="form-control" placeholder="전공을 입력해주세요." id="memberMajor" name="memberMajor" value=>
 									<span id="majorinfo"></span>	
 								</div>       
 						            <div class="form-group col-lg-12">
 							            <label for="memberMilitary">병역 여부</label>
-							            <select class="form-control" name="memberMilitary" id="memberMilitary">
-							             	<option value="default">===선택해주세요===</option>
-							             	<option value="해당없음">해당없음</option>
-						                    <option value="군필">군필</option>
-						                    <option value="미필">미필</option>
-				                  		</select>
+								            <select class="form-control" name="memberMilitary" id="memberMilitary">
+								             	<option value="default">===선택해주세요.===</option>
+								             	<option value="해당없음">해당없음</option>
+							                    <option value="군필">군필</option>
+							                    <option value="미필">미필</option>
+					                  		</select>
+				                  		<span id="militaryinfo"></span>
 						            </div>
 					            </c:if>
 					            <!-- 행정만 memberCheck eq 'manager' -->
 						        <c:if test="${memberCheck eq 'manager'}">
 						            <div class="form-group col-lg-12">
 							            <label for="memberDept">부서</label>
-							            <select class="form-control" name="memberDept" id="memberDept">
-							             	<option value="default">===선택해주세요===</option>
-							             	<option value="교무행정">교무행정</option>
-						                    <option value="능력개발">능력개발</option>
-						                    <option value="취업지원">취업지원</option>
-				                  		</select>
+								            <select class="form-control" name="memberDept" id="memberDept">
+								             	<option value="default">===선택해주세요.===</option>
+								             	<option value="교무행정">교무행정</option>
+							                    <option value="능력개발">능력개발</option>
+							                    <option value="취업지원">취업지원</option>
+					                  		</select>
+				                  		<span id="deptinfo"></span>
 						            </div>
 						        </c:if>       
 								<!-- /////////////////////////////////////// -->
-								<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+								<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요. -->
 								<div id="layer" style="display: none; position: fixed; overflow: hidden; z-index: 1; -webkit-overflow-scrolling: touch;">
 									<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor: pointer; position: absolute; right: -3px; top: -3px; z-index: 1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 								</div>
@@ -256,11 +257,13 @@
 	 <!-- Start script -->
 	<jsp:include page="../js/alljs.jsp"/>
     <!-- End script -->  
-<script>
-// 아이디 중복검사
+	<script>
+	// 아이디 중복검사
 	$('#idckBtn').click(function() {
 		if ($('#idck').val().length < 4) {
-			$('#idinfo').text('※ 아이디는 4자 이상 입력해주셔야합니다.');
+			$('#idinfo').text('※ 아이디는 4자 이상 입력해 주셔야 합니다.');
+			$('#idck').focus();
+			$('#idck').val('');
 		} else {
 			// 비동기 호출
 			$.ajax({
@@ -283,12 +286,12 @@
 			})
 		}
 	});
-// 이메일 중복검사
+	// 이메일 중복검사
 	var reg_email = /^[0-9a-zA-Z]+(.[_a-z0-9-]+)*@(?:\w+\.)+\w+$/;
 
 	$('#emailBtn').click(function() {
 		if ($('#email').val().length < 10) {
-			$('#eminfo').text('※ 이메일은 10자 이상 입력해주셔야합니다.');
+			$('#eminfo').text('※ 이메일은 10자 이상 입력해 주셔야 합니다.');
 		}else if(!reg_email.test($("#email").val())) {
  			$('#eminfo').text('※ 이메일 형식이 아닙니다.');	
  		} else {
@@ -313,34 +316,37 @@
 			})
 		}
 	});
-// 유효성 
-	// 비밀번호 유효성
+	
+	// 유효성검사
 	var reg_pass = /(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w]).{8,}/;
+	var reg_phone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
 	
 	$('#accountPw').blur(function() {
 		if ($('#accountPw').val() == '') {
-			$('#passwordinfo').text('※ 비밀번호를 입력해주세요.');
+			$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
 		} else if (!reg_pass.test($("#accountPw").val())) {
 			$('#accountPw').val('');
-			$('#passwordinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해주세요.');
+			$('#pwinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해 주세요.');
+			$('#accountPw').focus();
 		} else {
-			$('#passwordinfo').text('');
+			$('#pwinfo').text('');
 		}
 	})
+	
 	$('#accountPwCk').blur(function() {
   		 if($('#accountPwCk').val()=='') {
-   			$('#passwordckinfo').text('※ 비밀번호 재확인을 위해 입력해주세요.');
+   			$('#pwckinfo').text('※ 비밀번호 재확인을 위해 입력해 주세요.');
   		 } else if($('#accountPw').val() != $('#accountPwCk').val()) {
-   			$('#passwordckinfo').text('※ 비밀번호와 일치하지 않습니다.');
+   			$('#pwckinfo').text('※ 비밀번호와 일치하지 않습니다.');
   		 } else {
-  			$('#passwordckinfo').text('');
+  			$('#pwckinfo').text('');
   		 }
   	})
 
 	$('#email').blur(function() {
 		if ($('#email').val() == '') {
 			$('#memberEmail').val('');
-			$('#eminfo').text('※ 이메일을 입력해주세요.');
+			$('#eminfo').text('※ 이메일을 입력해 주세요.');
 		} else if (!reg_email.test($("#email").val())) {
 			$('#memberEmail').val('');
 			$('#eminfo').text('※ 이메일 형식이 아닙니다.');
@@ -351,7 +357,7 @@
 
 	$('#memberName').blur(function() {
 		if ($('#memberName').val() == '') {
-			$('#nameinfo').text('※ 이름을 입력해주세요.');
+			$('#nameinfo').text('※ 이름을 입력해 주세요.');
 		} else {
 			$('#nameinfo').text('');
 		}
@@ -359,7 +365,7 @@
 
 	$('#memberBirth').blur(function() {
 		if ($('#memberBirth').val() == '') {
-			$('#birthinfo').text('※ 생년월일을 입력해주세요.');
+			$('#birthinfo').text('※ 생년월일을 입력해 주세요.');
 		} else {
 			$('#birthinfo').text('');
 		}
@@ -367,7 +373,9 @@
 
 	$('#memberPhone').blur(function() {
 		if ($('#memberPhone').val() == '') {
-			$('#phoneinfo').text('※ 전화번호를 입력해주세요.');
+			$('#phoneinfo').text('※ 전화번호를 입력해 주세요.');
+		} else if(!reg_phone.test($("#memberPhone").val())) {
+			$('#phoneinfo').text('※ 전화번호 형식이 아닙니다. (-)를 같이 입력해 주세요.');
 		} else {
 			$('#phoneinfo').text('');
 		}
@@ -375,7 +383,7 @@
 
 	$('#memberAddress').blur(function() {
 		if ($('#memberAddress').val() == '') {
-			$('#addrinfo').text('※ 주소를 검색해주세요.');
+			$('#addrinfo').text('※ 주소를 검색해 주세요.');
 		} else {
 			$('#addrinfo').text('');
 		}
@@ -383,7 +391,7 @@
 
 	$('#memberDetailAddress').blur(function() {
 		if ($('#memberDetailAddress').val() == '') {
-			$('#detailaddrinfo').text('※ 상세 주소를 입력해주세요.');
+			$('#detailaddrinfo').text('※ 상세 주소를 입력해 주세요.');
 		} else {
 			$('#detailaddrinfo').text('');
 		}
@@ -391,92 +399,179 @@
 
 	$('#memberMajor').blur(function() {
 		if ($('#memberMajor').val() == '') {
-			$('#majorinfo').text('※ 전공을 입력해주세요.');
+			$('#majorinfo').text('※ 전공을 입력해 주세요.');
 		} else {
 			$('#majorinfo').text('');
 		}
 	})
-	
+		
 	// 버튼 눌렀을때 유효성 검사
 	$('#registerBtn').click(function() {
 		if ($('#idck').val() == '') {
-			alert('아이디를 입력해주세요');
+			$('#idinfo').text('※ 아이디를 입력해 주세요.');
+			$('#idck').focus();
+		} else if ($('#idck').val().length < 4) {
+			$('#idinfo').text('※ 아이디는 4자 이상 입력해주셔야합니다.');
+			$('#idck').focus(); 
 		} else if ($('#accountId').val() == '') {
-			alert('아이디 중복 검사를 해주세요');
+			alert('※ 아이디 중복 검사를 해주세요.');
+			$('#idckBtn').focus();
+			$('#idinfo').text('');
 		} else if ($('#accountPw').val() == '') {
-			alert('비밀번호를 입력해주세요');
+			$('#idinfo').text('');
+			$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
+			$('#accountPw').focus();
+		} else if (!reg_pass.test($("#accountPw").val())) {
+			$('#pwinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해 주세요..');
+			$('#accountPw').focus();
 		} else if ($('#accountPwCk').val() == '') {
-			alert('비밀번호 재확인을위해 입력해주세요');
-		} else if ($('#email').val() == '') {
-			alert('이메일을 입력해주세요');
+			$('#pwckinfo').text('※ 비밀번호 재확인을 위해 입력해 주세요.');
+			$('#accountPwCk').focus();
+		} else if($('#accountPw').val() != $('#accountPwCk').val()){
+			$('#accountPwCk').focus();
+			$('#pwckinfo').text('※ 비밀번호와 일치하지 않습니다.');
+		}  else if ($('#email').val() == '') {
+			$('#pwckinfo').text('');
+			$('#eminfo').text('※ 이메일을 입력해주세요.');
+			$('#email').focus();
+		} else if (!reg_email.test($("#email").val())) {
+			$('#eminfo').text('※ 이메일 형식이 아닙니다.');
+			$('#email').focus();
 		} else if ($('#memberEmail').val() == '') {
-			alert('이메일 중복 검사를 해주세요');
+			alert('※ 이메일 중복 검사를 해주세요.');
+			$('#emailBtn').focus();
 		} else if ($('#memberName').val() == '') {
-			alert('이름을 입력해주세요');
+			$('#eminfo').text('');
+			$('#nameinfo').text('※ 이름을 입력해 주세요.');
+			$('#memberName').focus();
 		} else if ($('#memberGender').val() == 'default') {
-			alert('성별을 선택해주세요');
+			$('#nameinfo').text('');
+			$('#genderinfo').text('※ 성별을 선택해 주세요.');
+			$('#memberGender').focus();
 		} else if ($('#memberBirth').val() == '') {
-			alert('생년월일을 입력해주세요');
+			$('#genderinfo').text('');
+			$('#birthinfo').text('※ 생년월일을 선택해 주세요.');
+			$('#memberBirth').focus();
+		} else if ($('#memberPhone').val() == '') {
+			$('#birthinfo').text('');
+			$('#phoneinfo').text('※ 전화번호를 입력해 주세요.');
+			$('#memberPhone').focus();
+		} else if (!reg_phone.test($("#memberPhone").val())) {
+			$('#phoneinfo').text('※ 전화번호 형식이 아닙니다.');
+			$('#memberPhone').focus();
 		} else if ($('#memberAddress').val() == '') {
-			alert('주소를 검색해주세요');
+			$('#phoneinfo').text('');
+			alert('※ 주소를 검색해 주세요.');
+			$('#addrBtn').focus();
 		} else if ($('#memberDetailAddress').val() == '') {
-			alert('상세주소를 입력해주세요');
+			$('#detailaddrinfo').text('※ 상세주소를 입력해 주세요.');
+			$('#memberDetailAddress').focus();
 		} else if ($('#memberGraduate').val() == 'default') {
-			alert('학력을 선택해주세요');
+			$('#genderinfo').text('');
+			$('#graduateinfo').text('※ 학력을 선택해 주세요.');
+			$('#memberGraduate').focus();
 		} else if ($('#memberMajor').val() == '') {
+			$('#graduateinfo').text('');
+			$('#majorinfo').text('※ 전공을 입력해 주세요.');
 			$('#memberMajor').focus();
-			
 		} else if ($('#memberMilitary').val() == 'default') {
-			alert('병역여부를 선택해주세요');
+			$('#graduateinfo').text('');
+			$('#militaryinfo').text('※ 병역여부를 선택해 주세요.');
+			$('#memberMilitary').focus();
 		} else if ($('#memberDept').val() == 'default') {
-			alert('부서를 선택해주세요');
+			$('#militaryinfo').text('');
+			$('#deptinfo').text('※ 부서를 선택해 주세요.');
+			$('#memberDept').focus();
 		} else {
 			$('#registerForm').submit();
 		}
 	});
-	
-	// 엔터키 눌렀을때 유효성 검사
+		
+	// Enter키 눌렀을때 유효성 검사
 	$(document).keypress(function(e) {
 		if (e.which == 13) {
 			event.preventDefault();
 			if ($('#idck').val() == '') {
-				alert('아이디를 입력해주세요');
+				$('#idinfo').text('※ 아이디를 입력해 주세요.');
+				$('#idck').focus();
+			} else if ($('#idck').val().length < 4) {
+				$('#idinfo').text('※ 아이디는 4자 이상 입력해주셔야합니다.');
+				$('#idck').focus(); 
 			} else if ($('#accountId').val() == '') {
-				alert('아이디 중복 검사를 해주세요');
+				alert('※ 아이디 중복 검사를 해주세요.');
+				$('#idckBtn').focus();
+				$('#idinfo').text('');
 			} else if ($('#accountPw').val() == '') {
 				$('#idinfo').text('');
-				alert('비밀번호를 입력해주세요');
+				$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
+				$('#accountPw').focus();
+			} else if (!reg_pass.test($("#accountPw").val())) {
+				$('#pwinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해 주세요..');
+				$('#accountPw').focus();
 			} else if ($('#accountPwCk').val() == '') {
-				alert('비밀번호 재확인을 위해 입력해주세요');
+				$('#pwckinfo').text('※ 비밀번호 재확인을 위해 입력해 주세요.');
 				$('#accountPwCk').focus();
-			} else if ($('#email').val() == '') {
-				alert('이메일을 입력해주세요');
+			} else if($('#accountPw').val() != $('#accountPwCk').val()){
+				$('#accountPwCk').focus();
+				$('#pwckinfo').text('※ 비밀번호와 일치하지 않습니다.');
+			}  else if ($('#email').val() == '') {
+				$('#pwckinfo').text('');
+				$('#eminfo').text('※ 이메일을 입력해주세요.');
+				$('#email').focus();
+			} else if (!reg_email.test($("#email").val())) {
+				$('#eminfo').text('※ 이메일 형식이 아닙니다.');
+				$('#email').focus();
 			} else if ($('#memberEmail').val() == '') {
-				alert('이메일 중복 검사를 해주세요');
+				alert('※ 이메일 중복 검사를 해주세요.');
+				$('#emailBtn').focus();
 			} else if ($('#memberName').val() == '') {
-				alert('이름을 입력해주세요');
+				$('#eminfo').text('');
+				$('#nameinfo').text('※ 이름을 입력해 주세요.');
+				$('#memberName').focus();
 			} else if ($('#memberGender').val() == 'default') {
-				alert('성별을 선택해주세요');
+				$('#nameinfo').text('');
+				$('#genderinfo').text('※ 성별을 선택해 주세요.');
+				$('#memberGender').focus();
 			} else if ($('#memberBirth').val() == '') {
-				alert('생년월일을 입력해주세요');
+				$('#genderinfo').text('');
+				$('#birthinfo').text('※ 생년월일을 선택해 주세요.');
+				$('#memberBirth').focus();
+			} else if ($('#memberPhone').val() == '') {
+				$('#birthinfo').text('');
+				$('#phoneinfo').text('※ 전화번호를 입력해 주세요.');
+				$('#memberPhone').focus();
+			} else if (!reg_phone.test($("#memberPhone").val())) {
+				$('#phoneinfo').text('※ 전화번호 형식이 아닙니다.');
+				$('#memberPhone').focus();
 			} else if ($('#memberAddress').val() == '') {
-				alert('주소를 검색해주세요');
+				$('#phoneinfo').text('');
+				alert('※ 주소를 검색해 주세요.');
+				$('#addrBtn').focus();
 			} else if ($('#memberDetailAddress').val() == '') {
-				alert('상세주소를 입력해주세요');
+				$('#detailaddrinfo').text('※ 상세주소를 입력해 주세요.');
+				$('#memberDetailAddress').focus();
 			} else if ($('#memberGraduate').val() == 'default') {
-				alert('학력을 선택해주세요');
+				$('#genderinfo').text('');
+				$('#graduateinfo').text('※ 학력을 선택해 주세요.');
+				$('#memberGraduate').focus();
 			} else if ($('#memberMajor').val() == '') {
-				alert('전공을 입력해주세요');
+				$('#graduateinfo').text('');
+				$('#majorinfo').text('※ 전공을 입력해 주세요.');
+				$('#memberMajor').focus();
 			} else if ($('#memberMilitary').val() == 'default') {
-				alert('병역여부를 선택해주세요');
+				$('#graduateinfo').text('');
+				$('#militaryinfo').text('※ 병역여부를 선택해 주세요.');
+				$('#memberMilitary').focus();
 			} else if ($('#memberDept').val() == 'default') {
-				alert('부서를 선택해주세요');
+				$('#militaryinfo').text('');
+				$('#deptinfo').text('※ 부서를 선택해 주세요.');
+				$('#memberDept').focus();
 			} else {
 				$('#registerForm').submit();
 			}
 		}
 	});
-</script>
+	</script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

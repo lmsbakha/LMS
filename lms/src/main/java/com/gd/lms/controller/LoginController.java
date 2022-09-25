@@ -49,10 +49,10 @@ public class LoginController {
 			// 디버깅
 			log.debug(TeamColor.PCW + "LoginController PostMapping(accountStateMember) row : " + row + TeamColor.TEXT_RESET);
 			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
-			return "redirect:/login/accountStateMember";
+			return "redirect:/accountStateMember";
 		}
 		
-		return "redirect:/login";
+		return "redirect:/bakha/login";
 	}
 	
 	// 로그인 Form
@@ -81,7 +81,7 @@ public class LoginController {
 			// 디버깅
 			log.debug(TeamColor.PCW + "로그인 정보가 일치하지 않습니다." + TeamColor.TEXT_RESET);
 			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
-			return "redirect:/login";
+			return "redirect:/bakha/login";
 		}
 
 		String accountState = accountService.getAccountState(paramAccount);
@@ -91,7 +91,6 @@ public class LoginController {
 		if(accountState.equals("휴면")) {
 			// 디버깅
 			log.debug(TeamColor.PCW + accountState + "상태입니다" + TeamColor.TEXT_RESET);
-			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
 			return "redirect:/accountStateMember";
 		}
 		
@@ -100,7 +99,7 @@ public class LoginController {
 			log.debug(TeamColor.PCW + accountState + "상태입니다" + TeamColor.TEXT_RESET);
 			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
 			model.addAttribute("accountState", accountState);
-			return "redirect:/login";
+			return "redirect:/bakha/login";
 		}
 		
 		session.setAttribute("sessionId", account.getAccountId());

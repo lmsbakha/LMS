@@ -119,12 +119,12 @@
                              <div class="form-group">
                                 <label class="control-label" for="memberName">Name</label>
                               	<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
-                                <input type="text" placeholder="Enter your name..."  required="required"  name="memberName" id="memberName" class="form-control">
+                                <input type="text" placeholder="Enter your name..."  name="memberName" id="memberName" class="form-control">
                                 <span class="help-block small" id="nameinfo"></span>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="memberEmail">Email</label>
-                                <input type="email" placeholder="example@gmail.com"  required="required"  name="memberEmail" id="memberEmail" class="form-control">
+                                <input type="email" placeholder="example@gmail.com"  name="memberEmail" id="memberEmail" class="form-control">
                                 <span class="help-block small" id="eminfo"></span>
                             </div>
                             	<button type="button" class="btn btn-success-search btn-block" id="searchBtn">아이디 찾기</button>
@@ -175,13 +175,14 @@
 	 <!-- Start script -->
 	<jsp:include page="../js/alljs.jsp"/>
     <!-- End script --> 
+    
     <script>
     var reg_email = /^[0-9a-zA-Z]+(.[_a-z0-9-]+)*@(?:\w+\.)+\w+$/;
     
     // 유효성검사
     $('#memberName').blur(function() {
 		if ($('#memberName').val() == '') {
-			$('#nameinfo').text('※ 이름을 입력해주세요.');
+			$('#nameinfo').text('※ 이름을 입력해 주세요.');
 		} else {
 			$('#nameinfo').text('');
 		}
@@ -189,7 +190,7 @@
     
     $('#memberEmail').blur(function() {
 		if ($('#memberEmail').val() == '') {
-			$('#eminfo').text('※ 이메일을 입력해주세요.');
+			$('#eminfo').text('※ 이메일을 입력해 주세요.');
 		} else if (!reg_email.test($("#memberEmail").val())) {
 			$('#memberEmail').val('');
 			$('#eminfo').text('※ 이메일 형식이 아닙니다.');
@@ -201,14 +202,14 @@
 	// 버튼 유효성검사
 	$('#searchBtn').click(function(){
 		if($('#memberName').val() == ''){
-			$('#nameinfo').text('※ 이름을 입력해주세요.');
+			$('#nameinfo').text('※ 이름을 입력해 주세요.');
 			$('#memberName').focus();
-			if(!reg_email.test($("#memberEmail").val())){
+			if(reg_email.test($("#memberEmail").val())){
 				 $('#memberName').focus();
 			}
 		} else if($('#memberEmail').val() == ''){
 			$('#nameinfo').text('');
-			$('#eminfo').text('※ 이메일을 입력해주세요.');
+			$('#eminfo').text('※ 이메일을 입력해 주세요.');
 			$("#memberEmail").focus();
 		} else if(!reg_email.test($("#memberEmail").val())){
 			$('#nameinfo').text('');
@@ -224,14 +225,14 @@
 		if (e.which == 13) {
 			event.preventDefault();
 			if($('#memberName').val() == ''){
-				$('#nameinfo').text('※ 이름을 입력해주세요.');
+				$('#nameinfo').text('※ 이름을 입력해 주세요.');
 				$('#memberName').focus();
 			 	if(reg_email.test($("#memberEmail").val())){
 					 $('#memberName').focus();
 				}
 			} else if($('#memberEmail').val() == ''){
 				$('#memberEmail').val('');
-				$('#eminfo').text('※ 이메일을 입력해주세요.');
+				$('#eminfo').text('※ 이메일을 입력해 주세요.');
 				$('#memberEmail').focus();
 			}else if(!reg_email.test($("#memberEmail").val())){
 				$('#memberEmail').val('');

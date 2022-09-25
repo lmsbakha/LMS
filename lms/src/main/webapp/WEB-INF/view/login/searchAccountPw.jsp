@@ -114,20 +114,20 @@
 			 	 </ul>
 				<div class="hpanel">
                     <div class="panel-body poss-recover">
-                        <form action="${pageContext.request.contextPath}/searchAccountPw" method="post">
+                        <form action="${pageContext.request.contextPath}/searchAccountPw" method="post" id="searchAccountPwForm">
                              <c:if test="${alertMsg eq null}">
                              <div class="form-group">
 								<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
                                 <label class="control-label" for="accountId">Id</label>
-                                <input type="text" placeholder="Enter your Id..."  required="required"  name="accountId" id="accountId" class="form-control">
-                                <span class="help-block small"></span>
+                                <input type="text" placeholder="Enter your Id..."    name="accountId" id="accountId" class="form-control">
+                                <span class="help-block small" id="idinfo"></span>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="memberName">Name</label>
-                                <input type="text" placeholder="Enter your name..."  required="required"  name="memberName" id="memberName" class="form-control">
-                                <span class="help-block small"></span>
+                                <input type="text" placeholder="Enter your name..."   name="memberName" id="memberName" class="form-control">
+                                <span class="help-block small" id="nameinfo"></span>
                             </div>
-                            	<button type="submit" class="btn btn-success-search btn-block">비밀번호 찾기</button>
+                            	<button type="button" id="searchBtn" class="btn btn-success-search btn-block">비밀번호 찾기</button>
                             	<button type="button" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/bakha/login'">로그인 하러가기</button>
                           </c:if>
                            </form>
@@ -155,7 +155,58 @@
 	<jsp:include page="../js/alljs.jsp"/>
     <!-- End script --> 
     
+     <script>
     
+    // 유효성검사
+    $('#accountId').blur(function() {
+		if ($('#accountId').val() == '') {
+			$('#idinfo').text('※ 아이디를 입력해 주세요.');
+		} else {
+			$('#idinfo').text('');
+		}
+	})
+    
+    $('#memberName').blur(function() {
+		if ($('#memberName').val() == '') {
+			$('#nameinfo').text('※ 이름을 입력해 주세요.');
+		} else {
+			$('#nameinfo').text('');
+		}
+	})
+	
+	// 버튼 유효성검사
+	$('#searchBtn').click(function(){
+		if($('#accountId').val() == ''){
+			$('#idinfo').text('※ 아이디를 입력해 주세요.');
+			$('#accountId').focus();
+		} else if($('#memberName').val() == ''){
+			$('#nameinfo').text('');
+			$('#nameinfo').text('※ 이름을 입력해 주세요.');
+			$("#memberName").focus();
+		} else {
+			$('#searchAccountPwForm').submit();
+		}
+	})
+	
+	// Enter키 유효성검사
+	$(document).keypress(function(e) {
+		if (e.which == 13) {
+			event.preventDefault();
+			if($('#accountId').val() == ''){
+				$('#idinfo').text('※ 아이디를 입력해 주세요.');
+				$('#accountId').focus();
+			} else if($('#memberName').val() == ''){
+				$('#memberName').val('');
+				$('#nameinfo').text('※ 이름을 입력해 주세요.');
+				$('#memberName').focus();
+			} else {
+				$('#searchAccountPwForm').submit();
+			}
+		}
+	});
+	
+    </script>
+
 </body>
 
 </html>

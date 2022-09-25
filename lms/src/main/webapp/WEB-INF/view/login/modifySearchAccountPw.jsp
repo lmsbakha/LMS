@@ -81,20 +81,20 @@
 			<div class="content-error">
 				<div class="hpanel">
                     <div class="panel-body poss-recover">
-                        <form action="${pageContext.request.contextPath}/modifySearchAccountPw" method="post">
+                        <form action="${pageContext.request.contextPath}/modifySearchAccountPw" method="post" id="updatePwForm">
                              <div class="form-group">
 								<input type="hidden" name="accountId" id="accountId" value="${accountId}">
-                                <label class="control-label" for="username">New PassWord</label>
+                                <label class="control-label" for="accountPw">New PassWord</label>
                                 <span class="help-block small"><b>(비밀번호는 영어 대소문자, 숫자, 특수문자를 포함해 최소 8문자 입력해 주셔야 합니다.)</b></span>
-                                <input type="password" placeholder="Enter your password..."  required="required"  name="accountPw" id="accountPw" class="form-control">
-                            	<span id="passinfo"></span>
+                                <input type="password" placeholder="Enter your password..."  name="accountPw" id="accountPw" class="form-control">
+                            	<span class="help-block small" id="pwinfo"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="username">Check PassWord</label>
-                                <input type="password" placeholder="Enter your password..."  required="required"  name="accountPwCk" id="accountPwCk" class="form-control">
-                                <span id="passckinfo"></span>
+                                <label class="control-label" for="accountPwCk">Check PassWord</label>
+                                <input type="password" placeholder="Enter your password..."   name="accountPwCk" id="accountPwCk" class="form-control">
+                                <span class="help-block small" id="pwckinfo"></span>
                             </div>
-                            	<button type="submit" class="btn btn-success-search btn-block">비밀번호 변경</button>
+                            	<button type="button" id="updateBtn" class="btn btn-success-search btn-block">비밀번호 변경</button>
                            </form>
                     </div>
                 </div>
@@ -115,25 +115,88 @@
 		var reg_pass = /(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w]).{8,}/;
 		
 		$('#accountPw').blur(function() {
-			if ($('#accountPw').val() == '') {
-				$('#passinfo').text('※ 비밀번호를 입력해주세요.');
+			if ($('#accountPw').val() == '' ) {
+				$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
+				$('#accountPw').focus();
 			} else if (!reg_pass.test($("#accountPw").val())) {
-				$('#accountPw').val('');
-				$('#passinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해주세요.');
+				$('#pwinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해 주세요.');
+				$('#accountPw').focus();
 			} else {
-				$('#passinfo').text('');
+				$('#pwinfo').text('');
 			}
 		})
 		$('#accountPwCk').blur(function() {
 	  		 if($('#accountPwCk').val()=='') {
-	   			$('#passckinfo').text('※ 비밀번호 재확인을 위해 입력해주세요.');
+	   			$('#pwckinfo').text('※ 비밀번호 재확인을 위해 입력해 주세요.');
 	  		 } else if($('#accountPw').val() != $('#accountPwCk').val()) {
-	   			$('#passckinfo').text('※ 비밀번호와 일치하지 않습니다.');
-	  		 	$('#accountPwCk').val('');
+	   			$('#pwckinfo').text('※ 비밀번호와 일치하지 않습니다.');
 	  		 } else {
-	  			$('#passckinfo').text('');
+	  			$('#pwckinfo').text('');
 	  		 }
 	  	})
+	  	
+	  	// 버튼 유효성검사
+		$('#updateBtn').click(function(){
+			if($('#accountPw').val() == ''){
+				$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
+				$('#accountPw').focus();
+			} else if(!reg_pass.test($("#accountPw").val())){
+				$('#pwinfo').text('');
+				$('#pwinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해 주세요.');
+				$('#accountPw').focus();
+			} else if($('#accountPwCk').val() == ''){
+				$('#accountPwCk').focus();
+				$('#pwinfo').text('');
+				$('#pwckinfo').text('※ 비밀번호 재확인을 위해 입력해 주세요.');
+			} else if($('#accountPw').val() != $('#accountPwCk').val()){
+				$('#pwckinfo').text('');
+				$('#pwckinfo').text('※ 비밀번호와 일치하지 않습니다.');
+			} else {
+				$('#updatePwForm').submit();
+			}
+		})
+	  	
+		// Enter키 유효성검사
+	$(document).keypress(function(e) {
+		if (e.which == 13) {
+			event.preventDefault();
+			if($('#accountPw').val() == ''){
+				$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
+				$('#accountPw').focus();
+			} else if(!reg_pass.test($("#accountPw").val())){
+				$('#pwinfo').text('');
+				$('#pwinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해 주세요.');
+				$('#accountPw').focus();
+			} else if($('#accountPwCk').val() == ''){
+				$('#accountPwCk').focus();
+				$('#pwinfo').text('');
+				$('#pwckinfo').text('※ 비밀번호 재확인을 위해 입력해 주세요.');
+			} else if($('#accountPw').val() != $('#accountPwCk').val()){
+				$('#pwckinfo').text('');
+				$('#pwckinfo').text('※ 비밀번호와 일치하지 않습니다.');
+			} else {
+				$('#updatePwForm').submit();
+			}
+		}
+	});
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
+	  	
     </script>
 </body>
 

@@ -81,18 +81,18 @@
 			<div class="content-error">
 				<div class="hpanel">
                     <div class="panel-body poss-recover">
-                        <form action="${pageContext.request.contextPath}/accountStateMember" method="post">
+                        <form action="${pageContext.request.contextPath}/accountStateMember" method="post" id="stateMemberForm">
                              <div class="form-group">
-                                <label class="control-label" for="username">Id</label>
+                                <label class="control-label" for="accountId">Id</label>
                                 <input type="text" placeholder="Enter your Id..."  required="required"  name="accountId" id="accountId" class="form-control">
-                                <span class="help-block small"></span>
+                                <span class="help-block small" id="idinfo"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="username">PassWord</label>
-                                <input type="password" placeholder="Enter your name..."  required="required"  name="accountPw" id="accountPw" class="form-control">
-                                <span class="help-block small"></span>
+                                <label class="control-label" for="accountPw">PassWord</label>
+                                <input type="password" placeholder="Enter your password..."  required="required"  name="accountPw" id="accountPw" class="form-control">
+                                <span class="help-block small" id="pwinfo"></span>
                             </div>
-                            <c:if test="${row == 0 || alertMsg eq 'Fail'}">
+                            <c:if test="${alertMsg eq 'Fail'}">
 			               	<div class="alert alert-danger alert-mg-b alert-success-style4">
 			                	<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
 			                    	<span class="icon-sc-cl" aria-hidden="true">&times;</span>
@@ -104,7 +104,7 @@
 			                </div>
 				   		   </c:if>	
                            <br>
-                            	<button type="submit" class="btn btn-success-search btn-block">계정 활성화 하기</button>
+                            	<button type="button" id="stateBtn" class="btn btn-success-search btn-block">계정 활성화 하기</button>
                            </form>
                     </div>
                 </div>
@@ -118,6 +118,77 @@
 	 <!-- Start script -->
 	<jsp:include page="../js/alljs.jsp"/>
     <!-- End script --> 
+    
+    <script>
+    var reg_pass = /(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w]).{8,}/;
+    
+    // 유효성검사
+    $('#accountId').blur(function() {
+		if ($('#accountId').val() == '') {
+			$('#idinfo').text('※ 아이디를 입력해 주세요.');
+		} else {
+			$('#idinfo').text('');
+		}
+	})
+    
+	$('#accountPw').blur(function() {
+		if ($('#accountPw').val() == '') {
+			$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
+		} else if (!reg_pass.test($("#accountPw").val())) {
+			$('#accountPw').val('');
+			$('#pwinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해 주세요.');
+		} else {
+			$('#pwinfo').text('');
+		}
+	})
+	
+	// 버튼 유효성검사
+	$('#stateBtn').click(function(){
+		if($('#accountId').val() == ''){
+			$('#idinfo').text('※ 아이디를 입력해 주세요.');
+			$('#accountId').focus();
+			if(reg_pass.test($("#accountPw").val())){
+				 $('#accountId').focus();
+			}
+		} else if($('#accountPw').val() == ''){
+			$('#idinfo').text('');
+			$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
+			$("#accountPw").focus();
+		} else if(!reg_pass.test($("#accountPw").val())){
+			$('#idinfo').text('');
+			$('#pwinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해 주세요.');
+			$("#accountPw").focus();
+		} else {
+			$('#stateMemberForm').submit();
+		}
+	})
+	
+	// Enter키 유효성검사
+	$(document).keypress(function(e) {
+		if (e.which == 13) {
+			event.preventDefault();
+			if($('#accountId').val() == ''){
+				$('#idinfo').text('※ 아이디를 입력해 주세요.');
+				$('#accountId').focus();
+				if(reg_pass.test($("#accountPw").val())){
+					 $('#accountId').focus();
+				}
+			} else if($('#accountPw').val() == ''){
+				$('#pwinfo').text('');
+				$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
+				$("#accountPw").focus();
+			} else if(!reg_pass.test($("#accountPw").val())){
+				$('#idinfo').text('');
+				$('#pwinfo').text('※ 최소한 8문자 대소문자 1이상 + 숫자 1이상 + 특수문자 1이상 입력해 주세요.');
+				$("#accountPw").focus();
+			} else {
+				$('#stateMemberForm').submit();
+			}
+		}
+	});
+    
+	
+    </script>
     
 </body>
 
