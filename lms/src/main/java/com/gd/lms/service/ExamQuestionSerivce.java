@@ -15,7 +15,6 @@ import com.gd.lms.mapper.MultiplechoiceExampleMapper;
 import com.gd.lms.mapper.MultiplechoiceMapper;
 import com.gd.lms.mapper.ShortAnswerQuestionMapper;
 import com.gd.lms.vo.ExamQuestion;
-import com.gd.lms.vo.Multiplechoice;
 import com.gd.lms.vo.ShortAnswerQuestion;
 
 import lombok.extern.slf4j.Slf4j;

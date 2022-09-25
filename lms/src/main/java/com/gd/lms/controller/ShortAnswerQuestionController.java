@@ -10,7 +10,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ShortanswerQuestionService;
-import com.gd.lms.vo.Multiplechoice;
 import com.gd.lms.vo.ShortAnswerQuestion;
 
 import lombok.extern.slf4j.Slf4j;

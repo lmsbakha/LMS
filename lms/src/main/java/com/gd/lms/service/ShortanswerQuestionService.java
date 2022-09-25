@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.ExamQuestionMapper;
 import com.gd.lms.mapper.ShortAnswerQuestionMapper;
-import com.gd.lms.vo.Multiplechoice;
 import com.gd.lms.vo.ShortAnswerQuestion;
 
 import lombok.extern.slf4j.Slf4j;

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.gd.lms.vo.Multiplechoice;
 import com.gd.lms.vo.ShortAnswerQuestion;
 
 @Mapper

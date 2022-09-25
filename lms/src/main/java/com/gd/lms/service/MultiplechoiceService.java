@@ -13,7 +13,6 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.ExamQuestionMapper;
 import com.gd.lms.mapper.MultiplechoiceExampleMapper;
 import com.gd.lms.mapper.MultiplechoiceMapper;
-import com.gd.lms.vo.ExamQuestion;
 import com.gd.lms.vo.Multiplechoice;
 import com.gd.lms.vo.MultiplechoiceExample;
 

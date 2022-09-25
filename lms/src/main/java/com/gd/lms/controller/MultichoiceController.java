@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.lms.commons.TeamColor;
-import com.gd.lms.service.MultiplechoiceExampleService;
 import com.gd.lms.service.MultiplechoiceService;
 import com.gd.lms.vo.Multiplechoice;
 

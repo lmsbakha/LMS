@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LectureSubjectMapper;
-import com.gd.lms.mapper.TeacherMapper;
 import com.gd.lms.vo.LectureSubject;
 
 import lombok.extern.slf4j.Slf4j;
