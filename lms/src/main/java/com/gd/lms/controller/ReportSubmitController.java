@@ -119,69 +119,54 @@ public class ReportSubmitController {
 		return "report/reportSubmitListById";
 	} // end reportSubmitListById
 
-	// 강좌별 제출한 과제 리스트 조회 메소드
-	// reportList Form
-	// 파라미터 : infoAboutTeacher 담을 Model
-	// 리턴값 : reportSubmitList.jsp로 이동
-	@GetMapping("/loginCheck/reportSubmitList")
-	String reportSubmitListBySubmit(Model model, HttpSession session) {
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@reportSubmitListById Controller" + TeamColor.TEXT_RESET);
-
-		// 세션 받아오기
-		String accountId = (String) session.getAttribute("sessionId");
-		// 로그인한 강사의 아이디 확인
-		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-
-		// 로그인한 아이디의 강사 정보 받아오기
-		Map<String, Object> infoAboutTeacher = teacherService.getInfoAboutTeacher(accountId);
-		// 디버깅
-		log.debug(TeamColor.PSY + infoAboutTeacher + "<-- infoAboutTeacher" + TeamColor.TEXT_RESET);
-
-		// lectureSubject 리스트 model값으로 보내기
-		List<LectureSubject> subjectNameList = reportService.getlectureSubject();
-		// 디버깅
-		log.debug(TeamColor.PSY + subjectNameList + "<-- subjectNameList" + TeamColor.TEXT_RESET);
-
-		// model에 담기
-		model.addAttribute("infoAboutTeacher", infoAboutTeacher);
-
-		// reportSubmitList로 이동
-		return "report/reportSubmitList";
-	} // end reportSubmitList
-
-	// 강좌별 제출한 과제 리스트 조회 메소드
-	// reportList Action
-	// 파라미터 : infoAboutTeacher 담을 Model
-	// 리턴값 : reportSubmitList.jsp로 이동
-	@PostMapping("/loginCheck/reportSubmitList")
-	String reportSubmitListBySubmit(Model model, @RequestParam(value = "educationNo") int educationNo) {
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@reportSubmitListById Controller" + TeamColor.TEXT_RESET);
-
-		// 요청 받은 값 Map 객체에 셋팅
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("educationNo", educationNo);
-		log.debug(TeamColor.PSY + paramMap + "<--paramMap" + TeamColor.TEXT_RESET);
-		// Service Call
-		List<ReportSubmit> reportSubmitList = reportSubmitService.getReportListBySubject(educationNo);
-		// reportSubmitListById 디버깅
-		log.debug(TeamColor.PSY + reportSubmitList + "<--reportSubmitListBySubmit" + TeamColor.TEXT_RESET);
-
-		// 모델에 담기
-		model.addAttribute("reportSubmitList", reportSubmitList);
-
-		if (reportSubmitList != null) {
-			// 성공
-			log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
-		} else {
-			// 실패
-			log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회 실패" + TeamColor.TEXT_RESET);
-		}
-		// reportSubmitList로 리다이렉트
-		return "redirect:/report/reportSubmitList";
-	}
-
+	/*
+	 * // 강좌별 제출한 과제 리스트 조회 메소드 // reportList Form // 파라미터 : infoAboutTeacher 담을
+	 * Model // 리턴값 : reportSubmitList.jsp로 이동
+	 * 
+	 * @GetMapping("/loginCheck/reportSubmitList") String
+	 * reportSubmitListBySubmit(Model model, HttpSession session) { // 디버깅 영역구분
+	 * log.debug(TeamColor.PSY + "\n\n@reportSubmitListById Controller" +
+	 * TeamColor.TEXT_RESET);
+	 * 
+	 * // 세션 받아오기 String accountId = (String) session.getAttribute("sessionId"); //
+	 * 로그인한 강사의 아이디 확인 log.debug(TeamColor.PSY + accountId + "<-- accountId" +
+	 * TeamColor.TEXT_RESET);
+	 * 
+	 * // 로그인한 아이디의 강사 정보 받아오기 Map<String, Object> infoAboutTeacher =
+	 * teacherService.getInfoAboutTeacher(accountId); // 디버깅 log.debug(TeamColor.PSY
+	 * + infoAboutTeacher + "<-- infoAboutTeacher" + TeamColor.TEXT_RESET);
+	 * 
+	 * // lectureSubject 리스트 model값으로 보내기 List<LectureSubject> subjectNameList =
+	 * reportService.getlectureSubject(); // 디버깅 log.debug(TeamColor.PSY +
+	 * subjectNameList + "<-- subjectNameList" + TeamColor.TEXT_RESET);
+	 * 
+	 * // model에 담기 model.addAttribute("infoAboutTeacher", infoAboutTeacher);
+	 * 
+	 * // reportSubmitList로 이동 return "report/reportSubmitList"; } // end
+	 * reportSubmitList
+	 * 
+	 * // 강좌별 제출한 과제 리스트 조회 메소드 // reportList Action // 파라미터 : infoAboutTeacher 담을
+	 * Model // 리턴값 : reportSubmitList.jsp로 이동
+	 * 
+	 * @PostMapping("/loginCheck/reportSubmitList") String
+	 * reportSubmitListBySubmit(Model model, @RequestParam(value = "educationNo")
+	 * int educationNo) { // 디버깅 영역구분 log.debug(TeamColor.PSY +
+	 * "\n\n@reportSubmitListById Controller" + TeamColor.TEXT_RESET);
+	 * 
+	 * // 요청 받은 값 Map 객체에 셋팅 Map<String, Object> paramMap = new HashMap<>();
+	 * paramMap.put("educationNo", educationNo); log.debug(TeamColor.PSY + paramMap
+	 * + "<--paramMap" + TeamColor.TEXT_RESET); // Service Call List<ReportSubmit>
+	 * reportSubmitList = reportSubmitService.getReportListBySubject(educationNo);
+	 * // reportSubmitListById 디버깅 log.debug(TeamColor.PSY + reportSubmitList +
+	 * "<--reportSubmitListBySubmit" + TeamColor.TEXT_RESET);
+	 * 
+	 * // 모델에 담기 model.addAttribute("reportSubmitList", reportSubmitList);
+	 * 
+	 * if (reportSubmitList != null) { // 성공 log.debug(TeamColor.PSY +
+	 * " 제출한 과제 리스트 조회 성공" + TeamColor.TEXT_RESET); } else { // 실패
+	 * log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회 실패" + TeamColor.TEXT_RESET); } //
+	 * reportSubmitList로 리다이렉트 return "redirect:/report/reportSubmitList"; }
+	 */
 	// 과제 상세보기 메소드
 	// 파라미터 : reportOne 담을 Model
 	// 리턴값: reportOne.jsp로 이동
