@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.LectureMapper">
-	<select id="selectlectureListByTeacher" parameterType="String" resultType="com.gd.lms.vo.Lecture">
-	SELECT l.lecture_name lectureName
-	FROM lecture l
-	INNER JOIN teacher t
-	USING(teacher_name)
-	WHERE t.account_id =#{accountId}
+	<select id="selectlectureListByTeacher" parameterType="String"
+		resultType="com.gd.lms.vo.Lecture">
+		SELECT l.lecture_name lectureName
+		FROM lecture l
+		INNER JOIN
+		teacher t
+		USING(teacher_name)
+		WHERE t.account_id =#{accountId}
+	</select>
+
+	<!-- reportSubmitList 강좌리스트 조회 -->
+	<select id="selectLectureNameByTeacher"
+		resultType="com.gd.lms.vo.Lecture" parameterType="String">
+		SELECT
+		lecture_name
+		lectureName
+		FROM lecture
+		WHERE teacher_name= #{teacherName}
 	</select>
 </mapper>

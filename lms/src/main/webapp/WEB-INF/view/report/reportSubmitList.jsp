@@ -147,20 +147,15 @@
 											class="form-control custom-select-value" name="lectureName"
 											id="lectureName" required="required">
 											<option value="defalut">::::::::: 강좌선택 :::::::::</option>
-											<c:forEach var="lecture" items="${lectureListByTeacher}">
+											<c:forEach var="lecture" items="${lectureNameList}">
 												<option value="${lecture.lectureName }">${lecture.lectureName }</option>
 											</c:forEach>
 										</select>
 									</div>
 									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-										<label for="subjectName">subjectName</label> <select
-											class="form-control custom-select-value" name="subjectName"
-											id="subjectName" required="required">
-											<option value="defalut">::::::::: 과목선택 :::::::::</option>
-											<c:forEach var="subject" items="${subjectNameList}">
-												<option value="${subject.subjectName}">${subject.subjectName}</option>
-											</c:forEach>
-										</select>
+										<a
+											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList"><button
+												title="Edit" class="pd-setting-ed" type="submit">선택</button></a>
 									</div>
 								</div>
 							</div>

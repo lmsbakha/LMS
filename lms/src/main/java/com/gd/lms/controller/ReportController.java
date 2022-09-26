@@ -46,7 +46,6 @@ public class ReportController {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
 		
-		
 		// service call
 		List<Report> reportList = reportService.getReportList();
 		log.debug(TeamColor.PSY + reportList + "<--reportList" + TeamColor.TEXT_RESET);
@@ -74,7 +73,7 @@ public class ReportController {
 	@GetMapping("/loginCheck/addReport")
 	String addReport(Model model, HttpSession session) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@Controller" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@addReport Controller" + TeamColor.TEXT_RESET);
 		
 		// 세션 받아오기
 		String accountId = (String) session.getAttribute("sessionId");

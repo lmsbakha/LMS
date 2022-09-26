@@ -21,19 +21,31 @@ public class LectureService {
 	private LectureMapper lectureMapper;
 
 	/*
-	 * lectureList 가져오는 메소드 
-	 * 파라미터 : accountId 
-	 * 리턴값: List<Lecture>
+	 * lectureList 가져오는 메소드 파라미터 : accountId 리턴값: List<Lecture>
 	 */
-	public List<Lecture> getLectureListByAccoutId(String accountId){
-		//파라미터 디버깅
+	public List<Lecture> getLectureListByAccoutId(String accountId) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@getLectureListByAccoutId Service" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-		
-		//LectureMapper에서 lectureList 받아오기
-		List<Lecture> lectureListByTeacher= lectureMapper.selectlectureListByTeacher(accountId);
+
+		// LectureMapper에서 lectureList 받아오기
+		List<Lecture> lectureListByTeacher = lectureMapper.selectlectureListByTeacher(accountId);
 		// 디버깅
 		log.debug(TeamColor.PSJ + lectureListByTeacher + "<-- lectureListByTeacher" + TeamColor.TEXT_RESET);
 		return lectureListByTeacher;
 	}
 
+	// reportSubmitList 강좌리스트 조회
+	public List<Lecture> getLectureNameByTeacher(String teacherName) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + teacherName + "<-- teacherName" + TeamColor.TEXT_RESET);
+
+		// LectureMapper에서 lectureName 받아오기
+		List<Lecture> lectureNameList = lectureMapper.selectLectureNameByTeacher(teacherName);
+		// 디버깅
+		log.debug(TeamColor.PSJ + lectureNameList + "<-- lectureNameList" + TeamColor.TEXT_RESET);
+		
+		return lectureNameList;
+	} // end getLectureNameByTeacher
 }

@@ -149,12 +149,13 @@
 							</c:if>
 							<c:if test="${sessionLevel >= 2}">
 								<div class="add-product">
-									<a
-										href="${pageContext.request.contextPath}/loginCheck/addReport">과제
-										추가</a> <a
+								<a
 										href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">
 										학생 과제 제출 리스트</a>
-
+									<a
+										href="${pageContext.request.contextPath}/loginCheck/addReport">과제
+										추가</a>
+									
 								</div>
 							</c:if>
 							<div class="asset-inner">
@@ -349,7 +350,7 @@
 		// menu 클래스 바로 하위에 있는 a 태그를 클릭했을때       
 		$(".menu>a").click(function() {
 			var submenu = $(this).next("div");
-			// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기           
+			// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 부드럽게 펼치기           
 			if (submenu.is(":visible")) {
 				submenu.slideUp();
 			} else {

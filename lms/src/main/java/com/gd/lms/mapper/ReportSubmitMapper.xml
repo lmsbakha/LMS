@@ -22,7 +22,7 @@
 	</select>
 	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
 
-	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
+	<!-- 제출한 과제 리스트 조회 메소드 -->
 	<select id="selectReportListBySubject" parameterType="Map"
 		resultType="com.gd.lms.vo.ReportSubmit">
 		SELECT
@@ -38,7 +38,7 @@
 		create_date
 		createDate
 		FROM report_submit
-		WHERE education_no = #{educationNo}
+		ORder bY report_no DESC
 	</select>
 	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
 
@@ -95,7 +95,8 @@
 
 	<!-- 제출한 과제 점수 수정하기 -->
 	<update id="updateReportScore" parameterType="int">
-		UPDATE report_submit
+		UPDATE
+		report_submit
 		SET report_submit_score = #{reportSubmitScore},
 		update_date = now()
 		where

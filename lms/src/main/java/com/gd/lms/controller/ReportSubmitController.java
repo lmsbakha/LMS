@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.EducationService;
 import com.gd.lms.service.LectureService;
+import com.gd.lms.service.LectureSubjectService;
 import com.gd.lms.service.MemberService;
 import com.gd.lms.service.ReportService;
 import com.gd.lms.service.ReportSubmitService;
+import com.gd.lms.vo.Lecture;
+import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
 import com.gd.lms.vo.ReportSubmit;
 
@@ -53,35 +56,9 @@ public class ReportSubmitController {
 	@Autowired
 	LectureService lectureService;
 
-	// 과제 리스트 조회
-	// 파라미터 : currentPage, reportSubmitList 담을 Model
-	// 리턴값 : reportList.jsp로 이동
-	@GetMapping("/loginCheck/reportSubmitList")
-	public String reportSubmitList(Model model) {
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@reportSubmitList Controller" + TeamColor.TEXT_RESET);
-
-		// service call
-		List<Report> reportSubmitList = reportService.getReportList();
-		// reportSubmitList 디버깅
-		log.debug(TeamColor.PSY + reportSubmitList + "<--reportList" + TeamColor.TEXT_RESET);
-
-		// reportList로 값 넘겨주기
-		model.addAttribute("reportList", reportSubmitList);
-
-		if (reportSubmitList != null) {
-			// 성공
-			log.debug(TeamColor.PSY + " 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
-			// reportSubmitList로 이동
-			return "report/reportSubmitList";
-		} else {
-			// 실패
-			log.debug(TeamColor.PSY + " 과제 리스트 조회실패" + TeamColor.TEXT_RESET);
-			// index로 리다이렉트
-			return "redirect:/report/reportSubmitList";
-		}
-	} // end reportSubmitList @GetMapping
-
+	// LectureService 객체 주입
+	@Autowired
+	LectureSubjectService lectureSubjectService;
 
 	// 학생별 제출한 과제 리스트 조회 메소드
 	// 파라미터 : reportSubmitListById 담을 Model
@@ -125,37 +102,48 @@ public class ReportSubmitController {
 	// 강좌리스트, 강의리스트 보여주는 페이지
 	// 파라미터 : Model model
 	// 리턴값 : reportSubmitListBySubject.jsp로 이동
-	
-	
+
 	// 강좌별 제출한 과제 리스트 조회 메소드
 	// reportSubmitList Form
 	// 파라미터 : infoAboutTeacher, subjectNameList 담을 Model
 	// 리턴값 : reportSubmitList.jsp로 이동
-	@GetMapping("/login/reportSubmitList")
-	String reportSubmitList(Model model, @RequestParam("educationNo") int educationNo) {
+	@GetMapping("/loginCheck/reportSubmitList")
+	String reportSubmitList(Model model, HttpSession session) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportSubmitList Controller" + TeamColor.TEXT_RESET);
-		// 파라미터값 디버깅
-		log.debug(TeamColor.PSY + educationNo + "<--educationNo" + TeamColor.TEXT_RESET);
 
-		// lectureSubject 리스트 model값으로 보내기
-		List<ReportSubmit> reportSubmitListBySubject = reportSubmitService.getReportListBySubject(educationNo);
-		// 디버깅   
-		log.debug(TeamColor.PSY + reportSubmitListBySubject + "<-- reportSubmitListBySubject" + TeamColor.TEXT_RESET);
+		// 세션 받아오기
+		String accountId = (String) session.getAttribute("sessionId");
+		// 로그인한 강사의 아이디 확인
+		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+
+		// lecturName 리스트 받아오기
+		List<Lecture> lectureNameList = lectureService.getLectureNameByTeacher(accountId);
+		// 디버깅
+		log.debug(TeamColor.PSY + lectureNameList + "<-- lectureNameList" + TeamColor.TEXT_RESET);
 
 		// 모델단에 전체과목리스트와 과목과정 기간을 addAttribute해서 폼으로 전달
-		model.addAttribute("subjectNameList", reportSubmitListBySubject);
+		model.addAttribute("lectureNameList", lectureNameList);
 
-		if (reportSubmitListBySubject != null) {
+		if (lectureNameList != null) {
 			// 성공
-			log.debug(TeamColor.PSY + " 학생별 제출한 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
+			log.debug(TeamColor.PSY + " 강좌리스트, 강의리스트 조회 성공" + TeamColor.TEXT_RESET);
 		} else {
 			// 실패
-			log.debug(TeamColor.PSY + " 학생별 제출한 과제 리스트 조회 실패" + TeamColor.TEXT_RESET);
+			log.debug(TeamColor.PSY + " 강좌리스트, 강의리스트  리스트 조회 실패" + TeamColor.TEXT_RESET);
 		}
 		return "report/reportSubmitList";
 	}
 
+	// 강좌별 제출한 과제 리스트 조회 메소드
+	// reportSubmitList Form
+	// 파라미터 : infoAboutTeacher, subjectNameList 담을 Model
+	// 리턴값 : reportSubmitList.jsp로 이동
+	@PostMapping("/loginCheck/reportSubmitList")
+	String reportSubmitList(Model model, @RequestParam("lectureName") String lectureName ) {
+		
+		return "report/reportSubmitList";
+	}
 	// 과제 상세보기 메소드
 	// 파라미터 : reportOne 담을 Model
 	// 리턴값: reportOne.jsp로 이동

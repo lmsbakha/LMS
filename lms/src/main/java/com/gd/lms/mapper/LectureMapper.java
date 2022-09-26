@@ -14,4 +14,7 @@ public interface LectureMapper {
 	 * 리턴값 : List<Lecture>
 	 * */
 	List<Lecture> selectlectureListByTeacher(String accountId);
+	
+	// reportSubmitList 강좌리스트 조회
+	List<Lecture> selectLectureNameByTeacher(String teacherName);
 }

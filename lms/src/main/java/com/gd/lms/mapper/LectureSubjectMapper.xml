@@ -4,7 +4,9 @@
 	<!-- lecture와 관련된 subject 가져오기 -->
 	<select id="selectLectureSubjectList" parameterType="String"
 		resultType="Map">
-		SELECT subject_name subjectName
+		select
+		lecture_subject_no lectureSubjectNo, subject_name
+		subjectName, lecture_name lectureName  
 		FROM lecture_subject
 		WHERE
 		lecture_name=#{lectureName}
