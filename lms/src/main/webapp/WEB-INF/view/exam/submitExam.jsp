@@ -88,7 +88,7 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pageContext.request.contextPath}/loginCkeck/exam">시험</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/exam">시험</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">
 												<span class="bread-blod" style="font-weight: bold;">시험 상세보기</span>
 											</a></li>
@@ -125,6 +125,7 @@
 										<div class="all-form-element-inner">
 											<!-- 시험 전송 -->
 											<form action="${pageContext.request.contextPath}/loginCheck/submitExam" method="post">
+											<input type="hidden" value="${param.examNo}" id="examNo" name="examNo" readonly="readonly" />
 											<input type="hidden" class="form-control" value="${studentInfo.educationNo}" id="educationNo" name="educationNo" readonly="readonly" />
 												<c:forEach var="one" items="${examOne}">
 													<!-- 객관식 유형일 경우 -->

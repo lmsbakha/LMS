@@ -71,8 +71,8 @@ public class ExamController {
 	// MemberService 객체 주입
 	@Autowired
 	private MemberService memberService;
-	
-	//
+
+	// ExamAnswerService 객체 주입
 	@Autowired
 	private ExamAnswerService examAnswerService;
 
@@ -281,12 +281,13 @@ public class ExamController {
 	// 파라미터 : SessionId
 	// 리턴값 : 점수를 보여주는 resultExam.jsp이동
 	@PostMapping("/loginCheck/submitExam")
-	public String submitExam(@RequestParam(value = "educationNo") int educationNo, @RequestParam(value = "examQuestionIndex") String examQuestionIndex, @RequestParam(value = "questionType") String questionType,
-			@RequestParam(value = "examAnswerContent1") String examAnswerContent1, @RequestParam(value = "examAnswerContent2") String examAnswerContent2, @RequestParam(value = "examAnswerContent3") String examAnswerContent3,
-			@RequestParam(value = "examAnswerContent4") String examAnswerContent4, @RequestParam(value = "examAnswerContent5") String examAnswerContent5, @RequestParam(value = "examAnswerContent6") String examAnswerContent6,
-			@RequestParam(value = "examAnswerContent7") String examAnswerContent7, @RequestParam(value = "examAnswerContent8") String examAnswerContent8, @RequestParam(value = "examAnswerContent9") String examAnswerContent9,
-			@RequestParam(value = "examAnswerContent10") String examAnswerContent10) {
+	public String submitExam(RedirectAttributes redirectAttributes, @RequestParam(value = "examNo") int examNo, @RequestParam(value = "educationNo") int educationNo, @RequestParam(value = "examQuestionIndex") String examQuestionIndex,
+			@RequestParam(value = "questionType") String questionType, @RequestParam(value = "examAnswerContent1") String examAnswerContent1, @RequestParam(value = "examAnswerContent2") String examAnswerContent2,
+			@RequestParam(value = "examAnswerContent3") String examAnswerContent3, @RequestParam(value = "examAnswerContent4") String examAnswerContent4, @RequestParam(value = "examAnswerContent5") String examAnswerContent5,
+			@RequestParam(value = "examAnswerContent6") String examAnswerContent6, @RequestParam(value = "examAnswerContent7") String examAnswerContent7, @RequestParam(value = "examAnswerContent8") String examAnswerContent8,
+			@RequestParam(value = "examAnswerContent9") String examAnswerContent9, @RequestParam(value = "examAnswerContent10") String examAnswerContent10) {
 		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + examNo + "<-- examNo" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSJ + educationNo + "<-- educationNo" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSJ + examQuestionIndex + "<-- examQuestionIndex" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSJ + questionType + "<-- questionType" + TeamColor.TEXT_RESET);
@@ -296,11 +297,12 @@ public class ExamController {
 		String[] questionTypeList = questionType.split(",");
 		String[] examAnswerContentList = { examAnswerContent1, examAnswerContent2, examAnswerContent3, examAnswerContent4, examAnswerContent5, examAnswerContent6, examAnswerContent7, examAnswerContent8, examAnswerContent9,
 				examAnswerContent10 };
-		// 배열 디버깅
+		// 배열List 디버깅
 		log.debug(TeamColor.PSJ + Arrays.toString(examQuestionIndexList) + "<-- examQuestionIndexList" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSJ + Arrays.toString(questionTypeList) + "<-- questionTypeList" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSJ + Arrays.toString(examAnswerContentList) + "<-- examAnswerContent" + TeamColor.TEXT_RESET);
 
+		// 학생이 제출한 답안지 셋팅
 		List<Map<String, Object>> answerSheet = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			Map<String, Object> paramMap = new HashMap<>();
@@ -311,9 +313,28 @@ public class ExamController {
 			answerSheet.add(paramMap);
 			log.debug(TeamColor.PSJ + (i + 1) + "문제 정답 셋팅" + TeamColor.TEXT_RESET);
 		}
-		
+
 		//Service call
-		// 점수 리턴 받기
-		return "exam/exam";
+		Map<String, Object> resultMap = examAnswerService.addAnswerSheet(answerSheet, examNo);
+		// 디버깅
+		log.debug(TeamColor.PSJ + resultMap.get("score") + "<-- 맞은 갯수 score" + TeamColor.TEXT_RESET);
+
+		redirectAttributes.addAttribute("educationNo", educationNo);
+		redirectAttributes.addAttribute("examNo", examNo);
+
+		return "redirect:/loginCheck/resultExam";
 	}
+
+	// 시험 결과를 보여주는 뷰단
+	// 파라미터 : Model
+	// 리턴값 : resultExam.jsp
+	@GetMapping("/loginCheck/resultExam")
+	public String resultExam(Model model, @RequestParam(value = "examNo") int examNo, @RequestParam(value = "educationNo") int educationNo) {
+		//service call
+		List<Map<String, Object>> resultExam = examAnswerService.getResultExam(examNo, educationNo);
+		log.debug(TeamColor.PSJ + resultExam + "<-- resultExam" + TeamColor.TEXT_RESET);
+		model.addAttribute("resultExam", resultExam);
+		return "exam/resultExam";
+	}
+
 }
