@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,6 @@ import com.gd.lms.service.MemberService;
 import com.gd.lms.service.MultiplechoiceService;
 import com.gd.lms.service.ShortanswerQuestionService;
 import com.gd.lms.service.SubjectService;
-import com.gd.lms.service.TeacherService;
 import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Subject;
 
@@ -57,10 +55,6 @@ public class ExamController {
 	// SubjectService 객체 주입
 	@Autowired
 	private SubjectService subjectService;
-
-	// TeacherService 객체 주입
-	@Autowired
-	private TeacherService teacherService;
 
 	// ExamService 객체 주입
 	@Autowired
@@ -141,7 +135,7 @@ public class ExamController {
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
 
 		// 로그인한 아이디의 강사 정보 받아오기
-		Map<String, Object> infoAboutTeacher = teacherService.getInfoAboutTeacher(accountId);
+		Map<String, Object> infoAboutTeacher = memberService.getInfoAboutTeacher(accountId);
 		// 디버깅
 		log.debug(TeamColor.PSJ + infoAboutTeacher + "<-- infoAboutTeacher" + TeamColor.TEXT_RESET);
 
