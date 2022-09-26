@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.lms.mapper.ManagerMapper">
+	
+	<!-- 행정목록 리스트 -->
+	<select id="selectManagerList" resultType="com.gd.lms.vo.Manager">
+		SELECT
+			  account_id accountId
+			, manager_name managerName
+			, manager_gender managerGender
+			, manager_birth managerBirth
+			, create_date createDate
+		FROM manager	
+	</select>
+	<!-- /행정목록 리스트 -->
+	
+	<!-- 행정 개인정보 상세보기 -->
+	<select id="selectManagerOne" parameterType="String" resultType="com.gd.lms.vo.Manager">
+		SELECT
+			  account_id accountId
+			, manager_name managerName
+			, manager_gender managerGender
+			, manager_birth managerBirth
+			, manager_email managerEmail
+			, manager_address managerAddress
+			, manager_detailaddress managerDetailAddress
+			, manager_phone managerPhone
+			, manager_dept managerDept
+			, create_date createDate
+		FROM manager
+		WHERE account_id = #{accountId}
+	</select>
+	<!-- /행정 개인정보 상세보기 -->
+
+	<!-- 행정 개인정보 수정하기 -->
+	<update id="updateManager" parameterType="com.gd.lms.vo.Manager">
+		UPDATE manager
+		SET manager_name = #{managerName}
+			, manager_gender = #{managerGender}
+			, manager_birth = #{managerBirth}
+			, manager_email = #{managerEmail}
+			, manager_address = #{managerAddress}
+			, manager_detailaddress = #{managerDetailAddress}
+			, manager_phone = #{managerPhone}
+			, manager_dept = #{managerDept}
+			, update_date updateDate
+		WHERE account_id = #{accountId}	
+	</update>
+	<!-- /행정 개인정보 수정하기 -->
+
+	<!-- 행정 개인정보 행정테이블에서 삭제하기 (탈퇴) -->
+	<delete id="deleteManager" parameterType="String">
+		DELETE FROM manager
+		WHERE account_id = #{accountId}
+	</delete>
+	<!-- /행정 개인정보 행정테이블에서 삭제하기 (탈퇴) -->
+	
+	<!-- 행정 개인정보 accountState 탈퇴로 수정하기 (탈퇴) -->
+	<update id="updateAccountStateManager" parameterType="com.gd.lms.vo.Account">
+		UPDATE account
+		SET account_state = '탈퇴'
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
+	</update>
+	<!-- /행정 개인정보 accountState 탈퇴로 수정하기 (탈퇴) -->
+
+	<!-- 행정 개인정보 수정&삭제를 위한 비밀번호확인 -->
+	<select id="checkAccountPw" parameterType="com.gd.lms.vo.Account" resultType="int">
+		SELECT COUNT(*)
+		FROM account
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
+	</select>
+	<!-- /행정 개인정보 수정&삭제를 위한 비밀번호확인 -->
+
+
+</mapper>

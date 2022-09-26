@@ -16,7 +16,7 @@ public interface StudentMapper {
 	Map<String, Object> selectStudentInfo(String loginId);
 	
 	// 학생목록 리스트
-	List<Student> selectStudetList();
+	List<Student> selectStudentList();
 	
 	// 학생 개인정보 상세보기
 	Student selectStudentOne(String accountId);

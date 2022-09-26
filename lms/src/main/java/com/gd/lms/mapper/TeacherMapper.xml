@@ -18,4 +18,71 @@
         ]]>
 		ORDER BY l.lecture_start_date DESC
 	</select>
+	
+	<!-- 강사목록 리스트 -->
+	<select id="selectTeacherList" resultType="com.gd.lms.vo.Teacher">
+		SELECT
+			  account_id accountId
+			, teacher_name teacherName
+			, teacher_gender teacherGender
+			, teacher_birth teacherBirth
+			, create_date createDate
+		FROM teacher	
+	</select>
+	<!-- /강사목록 리스트 -->
+	
+	<!-- 강사 개인정보 상세보기 -->
+	<select id="selectTeacherOne" parameterType="String" resultType="com.gd.lms.vo.Teacher">
+		SELECT
+			  account_id accountId
+			, teacher_name teacherName
+			, teacher_gender teacherGender
+			, teacher_birth teacherBirth
+			, teacher_email teacherEmail
+			, teacher_address teacherAddress
+			, teacher_detailaddress teacherDetailAddress
+			, teacher_phone teacherPhone
+			, create_date createDate
+		FROM teacher
+		WHERE account_id = #{accountId}
+	</select>
+	<!-- /강사 개인정보 상세보기 -->
+
+	<!-- 강사 개인정보 수정하기 -->
+	<update id="updateTeacher" parameterType="com.gd.lms.vo.Teacher">
+		UPDATE teacher
+		SET teacher_name = #{teacherName}
+			, teacher_gender = #{teacherGender}
+			, teacher_birth = #{teacherBirth}
+			, teacher_email = #{teacherEmail}
+			, teacher_address = #{teacherAddress}
+			, teacher_detailaddress = #{teacherDetailAddress}
+			, teacher_phone = #{teacherPhone}
+			, update_date updateDate
+		WHERE account_id = #{accountId}	
+	</update>
+	<!-- /강사 개인정보 수정하기 -->
+
+	<!-- 강사 개인정보 강사테이블에서 삭제하기 (탈퇴) -->
+	<delete id="deleteTeacher" parameterType="String">
+		DELETE FROM teacher
+		WHERE account_id = #{accountId}
+	</delete>
+	<!-- /강사 개인정보 강사테이블에서 삭제하기 (탈퇴) -->
+	
+	<!-- 강사 개인정보 accountState 탈퇴로 수정하기 (탈퇴) -->
+	<update id="updateAccountStateTeacher" parameterType="com.gd.lms.vo.Account">
+		UPDATE account
+		SET account_state = '탈퇴'
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
+	</update>
+	<!-- /강사 개인정보 accountState 탈퇴로 수정하기 (탈퇴) -->
+
+	<!-- 강사 개인정보 수정&삭제를 위한 비밀번호확인 -->
+	<select id="checkAccountPw" parameterType="com.gd.lms.vo.Account" resultType="int">
+		SELECT COUNT(*)
+		FROM account
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
+	</select>
+	<!-- /강사 개인정보 수정&삭제를 위한 비밀번호확인 -->
 </mapper>
