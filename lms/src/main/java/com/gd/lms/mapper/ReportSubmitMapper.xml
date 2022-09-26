@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.ReportSubmitMapper">
 
-	<!-- 학생이 제출한 과제 리스트 조회 메소드 -->
+	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
 	<select id="selectReportListById" parameterType="Map"
 		resultType="com.gd.lms.vo.ReportSubmit">
 		SELECT
@@ -20,22 +20,25 @@
 		FROM report_submit
 		WHERE account_id = #{accountId}
 	</select>
-	<!-- 학생이 제출한 과제 리스트 조회 메소드 -->
+	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
 
 	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
 	<select id="selectReportListBySubject" parameterType="Map"
 		resultType="com.gd.lms.vo.ReportSubmit">
 		SELECT
 		report_submit_no reportSubmitNo,
-		education_no educationNo,
+		education_no
+		educationNo,
 		account_id accountId,
 		report_no reporNo,
 		report_submit_title reportSubmitTitle,
-		report_submit_content reportSubmitContent,
+		report_submit_content
+		reportSubmitContent,
 		report_submit_score reportSubmitScore,
-		create_date createDate
+		create_date
+		createDate
 		FROM report_submit
-		WHERE education_no =  #{educationNo}
+		WHERE education_no = #{educationNo}
 	</select>
 	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
 
@@ -89,6 +92,16 @@
 		report_submit_no = #{reportSubmitNo}
 	</update>
 	<!-- 제출한 과제 수정하기 Action -->
+
+	<!-- 제출한 과제 점수 수정하기 -->
+	<update id="updateReportScore" parameterType="int">
+		UPDATE report_submit
+		SET report_submit_score = #{reportSubmitScore},
+		update_date = now()
+		where
+		report_submit_no = #{reportSubmitNo}
+	</update>
+	<!-- 제출한 과제 점수 수정하기 -->
 
 	<!-- 제출한 과제 삭제하기 -->
 	<delete id="deleteReportSubmit" parameterType="int">

@@ -112,7 +112,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/reportList">과제</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">제출리스트</span></li>
 									</ul>
 								</div>
 							</div>
@@ -140,6 +141,16 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+										<label for="subjectName">lectureName</label> <select
+											class="form-control custom-select-value" name="lectureName"
+											id="lectureName" required="required">
+											<option value="defalut">::::::::: 강좌선택 :::::::::</option>
+											<c:forEach var="lectureList" items="${lectureList}">
+												<option value="${lectureList.lectureName}">${lectureList.lectureName}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 										<label for="subjectName">subjectName</label> <select
 											class="form-control custom-select-value" name="subjectName"
 											id="subjectName" required="required">
@@ -161,18 +172,18 @@
 										<th>accuontId</th>
 										<th>reportSubmitScore</th>
 									</tr>
-									<c:forEach var="reportSubmit" items="${reportSubmitList}">
+									<c:forEach var="SubmitList" items="${SubmitList}">
 										<tr>
-											<td>${reportSubmit.reportNo}</td>
-											<td>${reportSubmit.subjectName}</td>
+											<td>${SubmitList.reportNo}</td>
+											<td>${SubmitList.subjectName}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportNo=${reportSubmit.reportNo}">
-													${reportSubmit.reportTitle} </a></td>
-											<td>${reportSubmit.createDate}</td>
-											<td>${reportSubmit.accuontId}</td>
-											<td>${reportSubmit.reportSubmitScore}</td>
+												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportNo=${SubmitList.reportNo}">
+													${SubmitList.reportTitle} </a></td>
+											<td>${SubmitList.createDate}</td>
+											<td>${SubmitList.accuontId}</td>
+											<td>${SubmitList.reportSubmitScore}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?accountId=${reportSubmit.accountId}">
+												href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?accountId=${SubmitList.accountId}">
 													<button data-toggle="tooltip" title="Edit"
 														class="pd-setting-ed" type="button">
 														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>

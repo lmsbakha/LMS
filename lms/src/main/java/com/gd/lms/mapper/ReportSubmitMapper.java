@@ -24,14 +24,14 @@ public interface ReportSubmitMapper {
 	// 파라미터 : educationNo
 	// 리턴값 : List<Map<String,Object>>
 	List<ReportSubmit> selectReportListBySubject(Map<String, Object> paramMap);
-	
+
 	// 과제 제출하기 메소드
 	// 파라미터 : map(ReportSubmit, educationNo )
 	// 리턴값 : int
 	int insertReportSubmit(ReportSubmit reportSubmit);
 
 	// 제출한 과제 수정하는 메소드 Form
-	// 파라미터 : ReportSubmit
+	// 파라미터 : reportSubmitNo
 	// 리턴값 : int
 	ReportSubmit ReportSubmitOne(int reportSubmitNo);
 
@@ -39,6 +39,11 @@ public interface ReportSubmitMapper {
 	// 파라미터 : ReportSubmit
 	// 리턴값 : int
 	int updateReportSubmit(ReportSubmit reportSubmit);
+
+	// 제출한 과제 점수 수정하는 메소드 Action
+	// 파라미터 : reportSubmitNo
+	// 리턴값 : int
+	int updateReportScore(int reportSubmitNo);
 
 	// 제출한 과제 삭제하는 메소드
 	// 파라미터 : reportSubmitNo
