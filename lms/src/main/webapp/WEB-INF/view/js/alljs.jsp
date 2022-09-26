@@ -51,6 +51,15 @@
     <script src="${pageContext.request.contextPath}/js/editable/bootstrap-datetimepicker.js"></script>
     <script src="${pageContext.request.contextPath}/js/editable/bootstrap-editable.js"></script>
     <script src="${pageContext.request.contextPath}/js/editable/xediable-active.js"></script>
+    <!-- morrisjs JS
+		============================================ -->
+    <script src="${pageContext.request.contextPath}/js/sparkline/jquery.sparkline.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/sparkline/jquery.charts-sparkline.js"></script>
+    <!-- calendar JS
+		============================================ -->
+    <script src="${pageContext.request.contextPath}/js/calendar/moment.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/calendar/fullcalendar.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script>
     <!-- Chart JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>

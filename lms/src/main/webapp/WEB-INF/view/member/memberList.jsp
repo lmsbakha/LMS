@@ -89,7 +89,6 @@
     <!-- Start tobbar -->
 	<jsp:include page="../inc/topbar.jsp"/>
     <!-- End tobbar --> 
-
         <!-- Static Table Start -->
         <div class="data-table-area mg-b-15">
             <div class="container-fluid">
@@ -120,7 +119,7 @@
                                         	<c:if test="${memberCheck eq 'student'}">
 	                                        	<c:forEach var="s" items="${studentList}">
 		                                            <tr>
-														<td><a href="">${s.accountId}</a></td>
+														<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${s.accountId}">${s.accountId}</a></td>
 														<td>${s.studentName}</td>
 														<td>${s.studentGender}</td>
 														<td>${s.studentBirth}</td>
@@ -131,7 +130,7 @@
                                         	<c:if test="${memberCheck eq 'teacher'}">
 	                                        	<c:forEach var="t" items="${teacherList}">
 		                                            <tr>
-														<td><a href="">${t.accountId}</a></td>
+														<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${t.accountId}">${t.accountId}</a></td>
 														<td>${t.teacherName}</td>
 														<td>${t.teacherGender}</td>
 														<td>${t.teacherBirth}</td>
@@ -142,7 +141,7 @@
                                         	<c:if test="${memberCheck eq 'manager'}">
 	                                        	<c:forEach var="m" items="${managerList}">
 		                                            <tr>
-														<td><a href="">${m.accountId}</a></td>
+														<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${m.accountId}">${m.accountId}</a></td>
 														<td>${m.managerName}</td>
 														<td>${m.managerGender}</td>
 														<td>${m.managerBirth}</td>
@@ -159,7 +158,6 @@
                 </div>
             </div>
         </div>
-        
 	 <!-- Start footer -->
 	<jsp:include page="../inc/footer.jsp"/>
     <!-- End footer -->  

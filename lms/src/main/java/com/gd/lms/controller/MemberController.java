@@ -1,6 +1,6 @@
 package com.gd.lms.controller;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.AccountService;
 import com.gd.lms.service.MemberService;
+import com.gd.lms.vo.Account;
 import com.gd.lms.vo.Manager;
 import com.gd.lms.vo.Student;
 import com.gd.lms.vo.Teacher;
@@ -30,7 +31,7 @@ public class MemberController {
 	private AccountService accountService;
 	
 	
-	// 학생 목록
+	// 학생, 강사, 행정 목록
 	@GetMapping("/loginCheck/memberList")
 	public String getMemberList(Model model, @RequestParam(value="memberCheck") String memberCheck) {
 		
@@ -59,4 +60,62 @@ public class MemberController {
 		
 		return "member/memberList";
 	}
+	
+	// 학생, 강사, 행정 각accountId의 상세보기
+	@GetMapping("/loginCheck/memberOne")
+	public String getMemberOne(Model model, @RequestParam(value="accountId") String accountId) {
+		
+		//디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(/loginCheck/memberOne) accountId :" + accountId + TeamColor.TEXT_RESET);
+		
+		// accountId 해당 level값 받아오기
+		int accountLevel = accountService.getMemberLevelByAccountId(accountId);
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(/loginCheck/memberOne) accountLevel :" + accountLevel + TeamColor.TEXT_RESET);
+		
+		// AccountVo에 id와 level 담아주기
+		Account account = new Account();
+		account.setAccountId(accountId);
+		account.setAccountLevel(accountLevel);
+		
+		// accountId에 대한 사진 및 정보 받아오기
+		Map<String,Object> memberMap = new HashMap<>();
+		memberMap = memberService.getMemberOne(account);
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController GetMapping(/loginCheck/memberOne) memberMap :" + memberMap + TeamColor.TEXT_RESET);
+		
+		// model -> jsp
+		model.addAttribute("accountLevel", accountLevel);
+		model.addAttribute("member", memberMap.get("member"));
+		model.addAttribute("memberFile", memberMap.get("memberFile"));
+		
+		return "member/memberOne";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
