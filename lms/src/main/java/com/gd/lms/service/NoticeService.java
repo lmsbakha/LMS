@@ -114,28 +114,34 @@ public class NoticeService {
 	}
 	
 	// 공지글 수정 폼
-	public Map<String, Object> showNoticeOne(int noticeNo) {
-		log.debug(TeamColor.LHN + "공지글 상세보기/수정 폼 호출" + TeamColor.TEXT_RESET);
-		// 수정할 객체
-		Notice notice = null;
-		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo +  TeamColor.TEXT_RESET);
-		// 매퍼 적용
-		notice = noticeMapper.updateNoticeForm(noticeNo);
-		log.debug(TeamColor.LHN+ "notice : " +notice + TeamColor.TEXT_RESET);
+	// 파일이 없는 경우: 파일 값이 있/없
+	public Map<String, Object> showNoticeOne(int noticeNo)  {
 		
-		/*
-		//File
-		List<NoticeFile> noticeFileList = noticeFileMapper.selectNoticeFileList(noticeNo);
-		log.debug(TeamColor.LHN + "noticeFileList" + noticeFileList + TeamColor.TEXT_RESET);
-		*/
+		log.debug(TeamColor.LHN + "공지글 상세보기/수정 폼 호출" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo +  TeamColor.TEXT_RESET);
+		// 수정할 객체
+		Notice notice = noticeMapper.updateNoticeForm(noticeNo);
+		log.debug(TeamColor.LHN+ "(Service)notice : " +notice + TeamColor.TEXT_RESET);
+				
 		// 게시글과 파일 묶기
 		Map<String, Object> noticeOneReturnMap = new HashMap<>();
-		noticeOneReturnMap.put("notice", notice);
-		/*
-		noticeOneReturnMap.put("noticeFileList", noticeFileList);
-		log.debug(TeamColor.LHN + "noticeOneReturnMap" + noticeOneReturnMap + TeamColor.TEXT_RESET);
-		*/
 		
+		/////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		if(noticeFileMapper.selectNoticeFileList(noticeNo)!=null) {
+			//File이 존재할 경우
+			List<String> noticeFileList = noticeFileMapper.selectNoticeFileList(noticeNo);
+			log.debug(TeamColor.LHN + "noticeFileList" + noticeFileList + TeamColor.TEXT_RESET);
+			
+			noticeOneReturnMap.put("noticeFileList", noticeFileList);
+			log.debug(TeamColor.LHN + "noticeOneReturnMap" + noticeOneReturnMap + TeamColor.TEXT_RESET);
+		}else{
+			noticeOneReturnMap.put("notice", notice);
+			return noticeOneReturnMap;
+		}
+		
+		noticeOneReturnMap.put("notice", notice);
 		
 		
 		return noticeOneReturnMap;

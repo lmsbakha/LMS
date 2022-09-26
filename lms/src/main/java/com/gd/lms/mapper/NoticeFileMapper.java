@@ -13,7 +13,7 @@ public interface NoticeFileMapper {
 	// 공지글 파일 첨부
 	int insertNoticeFile(NoticeFile noticeFile);
 	// 게시글 하나에 들어가 있는 첨부파일 리스트(복수일 수 있음)
-	List<NoticeFile> selectNoticeFileList(int noticeNo);
+	List<String> selectNoticeFileList(int noticeNo);
 	// 공지글 파일 삭제
 	int deleteNoticeFile(String noticeFileName);
 }

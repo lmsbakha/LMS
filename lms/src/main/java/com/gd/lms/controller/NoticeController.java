@@ -85,7 +85,7 @@ public class NoticeController {
 	@PostMapping("/loginCheck/addNotice")
 	String addNotice(HttpServletRequest request,Notice notice,NoticeFile noticeFile) {
 		//파일 저장 경로 설정
-		String path = request.getServletContext().getRealPath("/WEB-INF/view/notice/noticeFile/");
+		String path = request.getServletContext().getRealPath("/file/notice/");
 		// 디버깅
 		log.debug(TeamColor.LHN + "path: " + path + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + "notice" + notice + TeamColor.TEXT_RESET);
@@ -116,10 +116,23 @@ public class NoticeController {
 		
 		Map<String, Object> noticeOneReturnMap = noticeService.showNoticeOne(noticeNo);	//상세보기
 		log.debug(TeamColor.LHN + "notice" + noticeOneReturnMap.get("notice") + TeamColor.TEXT_RESET);
+		
+		String name = "asd";
+		noticeOneReturnMap.put("noticeFileList", name);
+		log.debug(TeamColor.LHN + "name: "  + name+ TeamColor.TEXT_RESET);
+		
 		log.debug(TeamColor.LHN + "noticeFileList" + noticeOneReturnMap.get("noticeFileList") + TeamColor.TEXT_RESET);
+		
 		//returnMap 안에 notice는 권한 비교를 위해 notice변수에 저장
+		
+		
 		Notice notice = (Notice)noticeOneReturnMap.get("notice");
+		log.debug(TeamColor.LHN + "notice: "  + notice+ TeamColor.TEXT_RESET);
+		
+		
 		Object row = noticeOneReturnMap.get("noticeFileList");
+		log.debug(TeamColor.LHN + "row: "  + row + TeamColor.TEXT_RESET);
+		
 		model.addAttribute("notice", noticeOneReturnMap.get("notice"));
 		if(row!=null) {
 		model.addAttribute("noticeFileList", noticeOneReturnMap.get("noticeFileList"));
