@@ -59,6 +59,7 @@ public class ExamQuestionSerivce {
 				log.debug(TeamColor.PSJ + "----------- 객관식" + TeamColor.TEXT_RESET);
 				Map<String, Object> selectMultiplechoiceOneMap =  multiplechoiceMapper.selectMultiplechoiceOne(examQuestion.getQuestionNo());
 				// 객관식 문제와 정답 map에 담기
+				map.put("examQuestionIndex", examQuestion.getExamQuestionIndex());	//examQuestion 인덱스번호
 				map.put("examQuestionNo", examQuestion.getExamQuestionNo());	//1~10번 중 몇 번 문제인지
 				map.put("questionNo", selectMultiplechoiceOneMap.get("questionNo"));
 				map.put("questionType", "객관식");
@@ -77,6 +78,7 @@ public class ExamQuestionSerivce {
 				log.debug(TeamColor.PSJ + "----------- 단답형" + TeamColor.TEXT_RESET);
 				ShortAnswerQuestion paramShortAnswerQuestion = shortanswerQuestionMapper.selectShortAnswerQuestionOne(examQuestion.getQuestionNo());
 				// 단답형 문제 담기
+				map.put("examQuestionIndex", examQuestion.getExamQuestionIndex());	//examQuestion 인덱스번호
 				map.put("examQuestionNo", examQuestion.getExamQuestionNo());	//1~10번 중 몇 번 문제인지
 				map.put("questionNo", paramShortAnswerQuestion.getQuestionNo());
 				map.put("questionType", "단답형");

@@ -1,4 +1,6 @@
 package com.gd.lms.mapper;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.Education;
@@ -10,4 +12,5 @@ public interface EducationMapper {
 	// 파라미터 : accountId
 	// 리턴값 : Education
 	Education selectEducationInfo(String accountId);
+	
 }
