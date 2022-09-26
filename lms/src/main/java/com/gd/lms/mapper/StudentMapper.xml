@@ -9,4 +9,80 @@
 	USING(account_id) 
 	WHERE account_id = #{loginId}
 	</select>
+	
+		<!-- 학생목록 리스트 -->
+	<select id="selectStudetList" resultType="com.gd.lms.vo.Student">
+		SELECT
+			  account_id accountId
+			, student_name studentName
+			, student_gender studentGender
+			, student_birth studentBirth
+			, student_email studentEmail
+			, student_phone studentPhone
+			, create_date createDate
+		FROM student	
+	</select>
+	<!-- /학생목록 리스트 -->
+	
+	<!-- 학생 개인정보 상세보기 -->
+	<select id="selectStudentOne" parameterType="String" resultType="com.gd.lms.vo.Student">
+		SELECT
+			  account_id accountId
+			, student_name studentName
+			, student_gender studentGender
+			, student_birth studentBirth
+			, student_email studentEmail
+			, student_address studentAddress
+			, student_detailaddress studentDetailAddress
+			, student_phone studentPhone
+			, student_graduate studentGraduate
+			, student_major studentMajor
+			, student_military studentMilitary			
+			, create_date createDate
+		FROM student
+		WHERE account_id = #{accountId}
+	</select>
+	<!-- /학생 개인정보 상세보기 -->
+
+	<!-- 학생 개인정보 수정하기 -->
+	<update id="updateStudent" parameterType="com.gd.lms.vo.Student">
+		UPDATE student
+		SET student_name = #{studentName}
+			, student_gender = #{studentGender}
+			, student_birth = #{studentBirth}
+			, student_email = #{studentEmail}
+			, student_address = #{studentAddress}
+			, student_detailaddress = #{studentDetailAddress}
+			, student_phone = #{studentPhone}
+			, student_graduate = #{studentGraduate}
+			, student_major = #{studentMajor}
+			, student_military = #{studentMilitary}			
+			, update_date updateDate
+		WHERE account_id = #{accountId}	
+	</update>
+	<!-- /학생 개인정보 수정하기 -->
+
+	<!-- 학생 개인정보 학생테이블에서 삭제하기 (탈퇴) -->
+	<delete id="deleteStudent" parameterType="String">
+		DELETE FROM student
+		WHERE account_id = #{accountId}
+	</delete>
+	<!-- /학생 개인정보 학생테이블에서 삭제하기 (탈퇴) -->
+	
+	<!-- 학생 개인정보 accountState 탈퇴로 수정하기 (탈퇴) -->
+	<update id="updateAccountStateStudent" parameterType="com.gd.lms.vo.Account">
+		UPDATE account
+		SET account_state = '탈퇴'
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
+	</update>
+	<!-- /학생 개인정보 accountState 탈퇴로 수정하기 (탈퇴) -->
+
+	<!-- 학생 개인정보 수정&삭제를 위한 비밀번호확인 -->
+	<select id="checkAccountPw" parameterType="com.gd.lms.vo.Account" resultType="int">
+		SELECT COUNT(*)
+		FROM account
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
+	</select>
+	<!-- /학생 개인정보 수정&삭제를 위한 비밀번호확인 -->
+	
 </mapper>

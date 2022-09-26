@@ -1,3 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.lms.mapper.MemberFileMapper"></mapper>
+<mapper namespace="com.gd.lms.mapper.MemberFileMapper">
+
+	<!-- 파일 선택 -->
+	<select id="selectMemberFile" parameterType="String" resultType="com.gd.lms.vo.MemberFile">
+		SELECT 
+			  member_file_no memberFileNo
+			, account_id accountId
+			, member_filename memberFileName
+			, member_file_origin_name memberFileOriginName
+			, member_file_type memberFileType
+			, member_file_size memberFileSize
+		FROM member_file
+		WHERE account_id = #{accountId}
+	</select>
+	<!-- /파일 선택 -->
+	
+	<!-- 파일 입력 -->
+	<insert id="insertMemberFile" parameterType="com.gd.lms.vo.MemberFile">
+		INSERT INTO 
+		member_file(account_id
+			 	  , member_filename
+			 	  , member_file_origin_name
+			 	  , member_file_type
+ 				  , member_file_size
+ 				  , create_date)
+		VALUES(#{accountId}
+		, #{memberFileName}
+		, #{memberFileOriginName}
+		, #{memberFileType}
+		, #{memberFileSize}
+		, NOW()
+		)		 				  
+	</insert>
+	<!-- /파일 입력 -->
+	
+	<!-- 파일 삭제 -->
+	<delete id="deleteMemberFile" parameterType="String">
+		DELETE FROM member_file
+		WHERE account_id = #{accountId}
+	</delete>
+	<!-- /파일 삭제 -->
+	
+</mapper>

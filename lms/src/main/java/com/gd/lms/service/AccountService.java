@@ -1,17 +1,21 @@
 package com.gd.lms.service;
 
+import java.io.File;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.AccountMapper;
+import com.gd.lms.mapper.MemberFileMapper;
 import com.gd.lms.vo.Account;
 import com.gd.lms.vo.Manager;
 import com.gd.lms.vo.Member;
+import com.gd.lms.vo.MemberFile;
 import com.gd.lms.vo.Student;
 import com.gd.lms.vo.Teacher;
 
@@ -23,7 +27,12 @@ import lombok.extern.slf4j.Slf4j;
 public class AccountService {
 	// AccountMapper 객체 주입
 	@Autowired
-	AccountMapper accountMapper;
+	private AccountMapper accountMapper;
+	
+	// MemberFileMapper 객체 주입
+	@Autowired
+	private MemberFileMapper memberFileMapper;
+	
 
 	// accountState 활성화값
 	public String getAccountState(Account account) {
@@ -67,6 +76,18 @@ public class AccountService {
 
 		return account;
 	}
+	
+	// 로그인시 해당 accountLevel 받기
+	public int getMemberLevelByAccountId(String accountId) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService getAccountLevelByAccountId accountId : " + accountId + TeamColor.TEXT_RESET);
+		
+		int level = accountMapper.selectMemberLevelByAccountId(accountId);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService getAccountLevelByAccountId accountId level : " + level + TeamColor.TEXT_RESET);
+		return level;
+	}
 
 	// (학생, 강사, 행정) 멤버 아이디 찾기
 	public String searchMemberAccountId(Map<String, Object> map) {
@@ -103,10 +124,11 @@ public class AccountService {
 	}
 
 	// 회원가입
-	public void addMember(Member paramMember) {
+	public void addMember(Member paramMember,String path) {
 		// 디버깅
-		log.debug(TeamColor.PCW + "AccountService addMember" + TeamColor.TEXT_RESET);
-
+		log.debug(TeamColor.PCW + "AccountService addMember paramMember "+ paramMember + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService addMember path "+ path + TeamColor.TEXT_RESET);
+		
 		// 레벨 변수 선언
 		String level = "";
 		
@@ -126,6 +148,52 @@ public class AccountService {
 		accountMapper.insertAccount(paramMember);
 		// member 테이블 insert
 		accountMapper.insertMember(paramMember);
+		
+		MultipartFile mf = paramMember.getMemberFile();
+		
+		// 원래 파일 이름 추출
+        String origName = mf.getOriginalFilename();
+        
+        // 파일 이름으로 쓸 UUID 생성 파일 이름 중복방지
+        String fileName = UUID.randomUUID().toString();
+        
+        // 확장자 추출(ex : .png)
+        String extension = origName.substring(origName.lastIndexOf("."));
+       
+        
+        // - 제거
+        fileName = fileName.replace("-", "");
+        // uuid와 확장자 결합
+		fileName += extension;
+        
+        // 파일을 불러올 때 사용할 파일 경로
+        String savedPath = path+fileName;
+        
+        // MemberFile 데이터바인딩
+        MemberFile memberFile = new MemberFile();
+        memberFile.setAccountId(paramMember.getAccountId());
+        memberFile.setMemberFileName(fileName);
+        memberFile.setMemberFileOriginName(origName);
+        memberFile.setMemberFileType(mf.getContentType());
+        memberFile.setMemberFileSize(mf.getSize());
+        
+        // 디버깅
+        log.debug(TeamColor.PCW + "AccountService memberFile :" + memberFile + TeamColor.TEXT_RESET);
+        
+        try {
+			// 파일 위치에 저장
+			mf.transferTo(new File(savedPath)); 
+		} catch (Exception e) {  		  //runTime계열 익셉션 아니라서 꼭 예외 처리 필요
+			e.printStackTrace();
+			
+			throw new RuntimeException(); //예외 처리하면 트랜잭션 발생안하니까 컴파일 가능한 예외 발생시켜주기
+		}
+        
+        // memberFile 파일 입력
+        int row = memberFileMapper.insertMemberFile(memberFile);
+        
+        // 디버깅
+        log.debug(TeamColor.PCW + "AccountService memberFile row:" + row + TeamColor.TEXT_RESET);
 	}
 
 	// 아이디 중복체크

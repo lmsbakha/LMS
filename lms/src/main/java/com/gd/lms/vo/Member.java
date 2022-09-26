@@ -1,5 +1,7 @@
 package com.gd.lms.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -20,4 +22,5 @@ public class Member {
 	private String memberDept;
 	private String memberCheck;
 	private String accountLevel;
+	private MultipartFile memberFile;
 }

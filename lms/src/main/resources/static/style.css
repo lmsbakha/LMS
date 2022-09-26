@@ -501,6 +501,7 @@ body {}
 }
 .header-right-info .nav>li>a>img{
 	width: 26px;
+	height : 26px;
     border-radius: 50%;
 }
 .header-right-info .author-project-icon{
@@ -4767,6 +4768,36 @@ div#sparklinehome canvas {
 }
 .chart-ds-n-ex{
 	display:none;
+}
+
+.filebox .upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 72%;
+    color: #999999;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #5cb85c;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
 }
 /*----------------------------------------*/
 /*  23. footer

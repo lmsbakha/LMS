@@ -2,6 +2,7 @@ package com.gd.lms.controller;
 
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.AccountService;
+import com.gd.lms.service.MemberService;
 import com.gd.lms.vo.Account;
 import com.gd.lms.vo.Member;
+import com.gd.lms.vo.MemberFile;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +28,9 @@ public class LoginController {
 	// AccountService 객체 주입
 	@Autowired
 	AccountService accountService;
+	// MemberService 객체 주입
+	@Autowired
+	MemberService memberService;
 	
 	// 휴면계정 Form
 	@GetMapping("/accountStateMember")
@@ -98,7 +104,7 @@ public class LoginController {
 			// 디버깅
 			log.debug(TeamColor.PCW + accountState + "상태입니다" + TeamColor.TEXT_RESET);
 			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
-			model.addAttribute("accountState", accountState);
+			redirectAttributes.addFlashAttribute("accountState", accountState);
 			return "redirect:/bakha/login";
 		}
 		
@@ -242,6 +248,14 @@ public class LoginController {
 		account.setAccountId(accountId);
 		account.setAccountLevel(accountLevel);
 		
+		// MemberFile 멤버사진 받아오기
+		Map<String,Object> memberMap = memberService.getMemberOne(account);
+		MemberFile memberFile = (MemberFile) memberMap.get("memberFile");
+		String memberFileName = memberFile.getMemberFileName();
+		session.setAttribute("memberFileName", memberFileName);
+		model.addAttribute("memberFile", memberFile);
+		
+		
 		return "/login/index";
 	}
 	
@@ -259,16 +273,22 @@ public class LoginController {
 	
 	// 회원가입 Action
 	@PostMapping("/register")
-	public String register(HttpSession session, Member paramMember) {
-		
+	public String register(HttpServletRequest request, Member paramMember) {
 		// 디버깅
 		log.debug(TeamColor.PCW + "LoginController PostMapping(register) paramMember : " + paramMember  + TeamColor.TEXT_RESET);
 		
-		accountService.addMember(paramMember);
+		// 이미지를 업로드할 폴더를 설정 
+		String path = request.getServletContext().getRealPath("/file/memberPhoto/");  
+		// 디버깅
+		log.debug(TeamColor.PCW + "LoginController PostMapping(register) path : " + path  + TeamColor.TEXT_RESET);
+		// 업로드한 이미지파일명 디버깅
+		log.debug(TeamColor.PCW + "LoginController PostMapping(register) fileName: " + paramMember.getMemberFile().getOriginalFilename() + TeamColor.TEXT_RESET);
+		
+		accountService.addMember(paramMember, path);
 		
 		return "redirect:/bakha/login";
 	}
-	
+
 	// 회원가입 승앤대기리스트 Form
 	@GetMapping("/loginCheck/approveWaitMemberList")
 	public String modifyAccountStateWaitMember(Model model, @RequestParam(value="memberCheck", defaultValue="all") String memberCheck) {
@@ -315,23 +335,4 @@ public class LoginController {
 		
 		return "redirect:/loginCheck/approveWaitMemberList";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

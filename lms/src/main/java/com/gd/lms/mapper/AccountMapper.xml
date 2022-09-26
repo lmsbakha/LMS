@@ -206,6 +206,7 @@
 			FROM student s INNER JOIN account a
 			ON s.account_id = a.account_id
 			WHERE s.account_id = a.account_id AND a.account_state = '대기'
+			ORDER BY s.create_date DESC;
 	</select>
 	<!-- /회원가입 학생 승인대기리스트 -->
 	
@@ -221,6 +222,7 @@
 			FROM teacher t INNER JOIN account a
 			ON t.account_id = a.account_id
 			WHERE t.account_id = a.account_id AND a.account_state = '대기'
+			ORDER BY t.create_date DESC;
 	</select>
 	<!-- /회원가입 강사 승인대기리스트 -->
 	
@@ -236,6 +238,7 @@
 			FROM manager m INNER JOIN account a
 			ON m.account_id = a.account_id
 			WHERE m.account_id = a.account_id AND a.account_state = '대기'
+			ORDER BY m.create_date DESC;
 	</select>
 	<!-- /회원가입 행정 승인대기리스트 -->
 	
@@ -254,17 +257,5 @@
 		WHERE account_id = #{accountId}
 	</update>
 	<!-- /회원가입 승인 -->
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 </mapper>

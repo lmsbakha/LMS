@@ -112,7 +112,7 @@
 			 	 </ul>
 				<div class="hpanel">
 					<div class="panel-body">
-						<form id="registerForm" action="${pageContext.request.contextPath}/register" id="registerForm" method="post">
+						<form id="registerForm" action="${pageContext.request.contextPath}/register" id="registerForm" method="post" enctype="multipart/form-data">
 							<div class="row">
 								<div class="form-group col-lg-12">
 								<input type="hidden" name="memberCheck" id="memberCheck" value="${memberCheck}">
@@ -131,7 +131,7 @@
 								</div>
 								<div class="form-group col-lg-12">
 									<label for="accountPw">비밀번호</label><br>
-									<span>(비밀번호는 영어 대소문자, 숫자, 특수문자를 포함해 최소 8문자 입력해 주셔야 합니다.)</span> 
+									<span class="help-block small">(비밀번호는 영어 대소문자, 숫자, 특수문자를 포함해 최소 8문자 입력해 주셔야 합니다.)</span> 
 									<input type="password" class="form-control" id="accountPw" name="accountPw" >
 									<span id="pwinfo"></span>	
 								</div>
@@ -182,12 +182,24 @@
 									<label for="memberAddress">주소</label>
 									<input style="margin-bottom: 5px" class="form-control" id="memberAddress" name="memberAddress" type="text" readonly="readonly"  placeholder="주소"/> 
 									<button type="button" class="btn btn-success btn-block form-group" id="addrBtn" style="margin-bottom: 5px">
-										<b>주소검색</b>
+									<b>주소검색</b>
 									</button>
 									<label for="memberDetailAddress">상세주소</label>
 									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요."  />
 									<span id="detailaddrinfo"></span>
 								</div>
+								<div class="form-group col-lg-12">
+									<label>회원 사진</label>
+									<br>
+									<span class="help-block small">(이미지 파일은 jpeg, jpg, png 확장자로 업로드해 주세요.)</span> 
+									<div class="filebox">
+									    <input class="upload-name" id="uploadFile" placeholder="파일첨부" readonly="readonly">
+									    <input type="file" id="memberFile" name="memberFile">
+									    <label for="memberFile">파일 찾기</label> 
+									</div>
+									<span id="fileinfo"></span>
+								</div>
+								
 					            <!-- 학생만 memberCheck eq 'student' -->
 					            <c:if test="${memberCheck eq 'student'}">
 						            <div class="form-group col-lg-12">
@@ -286,6 +298,7 @@
 			})
 		}
 	});
+	
 	// 이메일 중복검사
 	var reg_email = /^[0-9a-zA-Z]+(.[_a-z0-9-]+)*@(?:\w+\.)+\w+$/;
 
@@ -317,9 +330,23 @@
 		}
 	});
 	
+
 	// 유효성검사
 	var reg_pass = /(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w]).{8,}/;
 	var reg_phone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
+	var reg_file = /(.*?)\.(jpg|jpeg|png)$/i;
+	
+	// 파일 확장자 체크
+	$('#memberFile').blur(function() {
+		if($('#memberFile').val() == '') {
+			$('#fileinfo').text('');
+		} else if (!reg_file.test($("#memberFile").val())) {
+			$('#fileinfo').text('※ 파일 형식 또는 파일 확장자가 잘못되었습니다.');
+  		} else {
+  			$('#fileinfo').text('');
+  		}
+	});
+	
 	
 	$('#accountPw').blur(function() {
 		if ($('#accountPw').val() == '') {
@@ -466,8 +493,15 @@
 		} else if ($('#memberDetailAddress').val() == '') {
 			$('#detailaddrinfo').text('※ 상세주소를 입력해 주세요.');
 			$('#memberDetailAddress').focus();
+		} else if ($('#memberFile').val() == '') {
+			$('#detailaddrinfo').text('');
+			$('#fileinfo').text('※ 파일을 등록해 주세요.');
+			$('#uploadFile').focus();
+		} else if (!reg_file.test($("#memberFile").val())) {
+			$('#fileinfo').text('※ 파일 형식 또는 파일 확장자가 잘못되었습니다.');
+			$('#uploadFile').focus();
 		} else if ($('#memberGraduate').val() == 'default') {
-			$('#genderinfo').text('');
+			$('#fileinfo').text('');
 			$('#graduateinfo').text('※ 학력을 선택해 주세요.');
 			$('#memberGraduate').focus();
 		} else if ($('#memberMajor').val() == '') {
@@ -550,8 +584,15 @@
 			} else if ($('#memberDetailAddress').val() == '') {
 				$('#detailaddrinfo').text('※ 상세주소를 입력해 주세요.');
 				$('#memberDetailAddress').focus();
+			} else if ($('#memberFile').val() == '') {
+				$('#detailaddrinfo').text('');
+				$('#fileinfo').text('※ 파일을 등록해 주세요.');
+				$('#uploadFile').focus();
+			} else if (!reg_file.test($("#memberFile").val())) {
+				$('#fileinfo').text('※ 파일 형식 또는 파일 확장자가 잘못되었습니다.');
+				$('#uploadFile').focus();
 			} else if ($('#memberGraduate').val() == 'default') {
-				$('#genderinfo').text('');
+				$('#fileinfo').text('');
 				$('#graduateinfo').text('※ 학력을 선택해 주세요.');
 				$('#memberGraduate').focus();
 			} else if ($('#memberMajor').val() == '') {
@@ -571,6 +612,11 @@
 			}
 		}
 	});
+	
+	$("#memberFile").on('change',function(){
+		  var fileName = $("#memberFile").val().split("\\").pop();
+		  $(".upload-name").val(fileName);
+		});
 	</script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
