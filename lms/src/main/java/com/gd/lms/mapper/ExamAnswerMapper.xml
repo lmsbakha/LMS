@@ -34,7 +34,7 @@
 	<!--  -->
 	<select id="selectResultExam" parameterType="Map" resultType="Map">
 	SELECT 
-		a.exam_question_index examQuestionIndex
+		ea.exam_question_index examQuestionIndex
 		, m.question_answer questionAnswer
 		, ea.exam_answer_content examAnswerContent
 		, ea.exam_answer_state examAnswerState

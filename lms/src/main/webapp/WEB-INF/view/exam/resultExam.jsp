@@ -111,8 +111,7 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/exam">시험</a>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/exam">시험</a>
 											<span class="bread-slash">/</span></li>
 										<li><a href="#"> <span class="bread-blod"
 												style="font-weight: bold;">시험결과</span>
@@ -135,7 +134,7 @@
 					<div class="sparkline12-list">
 						<div class="sparkline12-hd">
 							<div class="main-sparkline12-hd">
-								<h1>성적표</h1>
+								<h1>시험결과</h1>
 								<hr>
 							</div>
 						</div>
@@ -147,12 +146,40 @@
 											<table class="table table-hover">
 												<thead>
 													<tr>
-														<th>문제</th>
-														<th>정답</th>
-														<th>${resultExam }</th>
+														<th>examQuestionIndex(문제번호)</th>
+														<th>examAnswerContent(제출한 답안)</th>
+														<th>examAnswerState(채점)</th>
+														<th>questionAnswer(정답)</th>
 													</tr>
 												</thead>
+												<tbody>
+													<c:forEach var="question" items="${resultExam }">
+														<!-- 정답인 경우 -->
+														<c:if test="${question.examAnswerState eq 'O'}">
+															<tr>
+																<td>${question.examQuestionIndex}</td>
+																<td>${question.examAnswerContent}</td>
+																<td>${question.examAnswerState}(정답)</td>
+																<td>${question.questionAnswer}</td>
+															</tr>
+														</c:if>
+														<!-- 오답인 경우 -->
+														<c:if test="${question.examAnswerState eq 'X'}">
+															<tr>
+																<td style="color: red;">${question.examQuestionIndex}</td>
+																<td style="color: red;">${question.examAnswerContent}</td>
+																<td style="color: red;">${question.examAnswerState}(오답)</td>
+																<td style="color: red;">${question.questionAnswer}</td>
+															</tr>
+														</c:if>
+													</c:forEach>
+												</tbody>
 											</table>
+											<a href="${pageContext.request.contextPath}/loginCheck/exam">
+												<button type="button" class="btn btn-custon-four btn-primary" style="float: ">
+													<i class="fa fa-check edu-checked-pro" aria-hidden="true">목록</i>
+												</button>
+											</a>
 										</div>
 									</div>
 								</div>
@@ -168,8 +195,6 @@
 	<!-- Start footer -->
 	<jsp:include page="../inc/footer.jsp" />
 	<!-- End footer -->
-
-
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<!-- jquery
 		============================================ -->

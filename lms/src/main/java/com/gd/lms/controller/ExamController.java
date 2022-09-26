@@ -330,9 +330,11 @@ public class ExamController {
 	// 리턴값 : resultExam.jsp
 	@GetMapping("/loginCheck/resultExam")
 	public String resultExam(Model model, @RequestParam(value = "examNo") int examNo, @RequestParam(value = "educationNo") int educationNo) {
-		//service call
+		// service call
 		List<Map<String, Object>> resultExam = examAnswerService.getResultExam(examNo, educationNo);
+		// 디버깅
 		log.debug(TeamColor.PSJ + resultExam + "<-- resultExam" + TeamColor.TEXT_RESET);
+		// model에 값 셋팅
 		model.addAttribute("resultExam", resultExam);
 		return "exam/resultExam";
 	}

@@ -127,14 +127,13 @@
 											<form action="${pageContext.request.contextPath}/loginCheck/submitExam" method="post">
 											<input type="hidden" value="${param.examNo}" id="examNo" name="examNo" readonly="readonly" />
 											<input type="hidden" class="form-control" value="${studentInfo.educationNo}" id="educationNo" name="educationNo" readonly="readonly" />
-												<c:forEach var="one" items="${examOne}">
+												<c:forEach var="one" items="${examOne}" varStatus="status">
 													<!-- 객관식 유형일 경우 -->
 													<c:if test="${one.questionType eq '객관식'}">
 														<div class="form-group-inner">
 															<div class="row">
 																<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 																	<label class="login2 pull-right pull-right-pro">문제${one.examQuestionNo}.</label>
-																	<label class="login2 pull-right pull-right-pro">${one.examQuestionIndex} <-- index</label>
 																	<input type="hidden" value="${one.examQuestionIndex}" id="examQuestionIndex" name="examQuestionIndex">
 																	<input type="hidden" value="객관식" id="questionType" name="questionType">
 																</div>
@@ -148,7 +147,7 @@
 																	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 																		<div class="i-checks pull-right">
 																			<label style="margin-top: 5px">
-																			<input type="radio" value="${example.multiplechoiceExampleId}" id="examAnswerContent${one.examQuestionIndex}" name="examAnswerContent${one.examQuestionIndex}"> <i></i> (${example.multiplechoiceExampleId})
+																			<input type="radio" value="${example.multiplechoiceExampleId}" id="examAnswerContent${status.count }" name="examAnswerContent${status.count }"> <i></i>(${example.multiplechoiceExampleId})
 																			</label>
 																		</div>
 																	</div>
@@ -175,7 +174,6 @@
 															<div class="row">
 																<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 																	<label class="login2 pull-right pull-right-pro">문제${one.examQuestionNo}.</label>
-																	<label class="login2 pull-right pull-right-pro">${one.examQuestionIndex} <-- index</label>
 																	<input type="hidden" value="${one.examQuestionIndex}" id="examQuestionIndex" name="examQuestionIndex">
 																	<input type="hidden" value="단답형" id="questionType" name="questionType">
 																</div>
@@ -185,10 +183,10 @@
 															</div>
 															<div class="row">
 																<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-																	<label class="login2 pull-right pull-right-pro">정답 :</label>
+																	<label class="login2 pull-right pull-right-pro">정답 : </label>
 																</div>
 																<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-																	<input type="text" class="form-control" id="examAnswerContent${one.examQuestionIndex}" name="examAnswerContent${one.examQuestionIndex}" placeholder="정답을 입력해주세요" />
+																	<input type="text" class="form-control" id="examAnswerContent${status.count }" name="examAnswerContent${status.count }" placeholder="정답을 입력해주세요" />
 																</div>
 															</div>
 														</div>
