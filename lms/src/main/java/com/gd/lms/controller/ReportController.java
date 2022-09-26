@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.MemberService;
 import com.gd.lms.service.ReportService;
-import com.gd.lms.service.TeacherService;
 import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
 
@@ -35,7 +35,7 @@ public class ReportController {
 	
 	// TeacherService 객체 주입
 	@Autowired
-	TeacherService teacherService;
+	MemberService memberService;
 
 
 	// 과제 리스트 조회
@@ -82,7 +82,7 @@ public class ReportController {
 		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
 
 		// 로그인한 아이디의 강사 정보 받아오기
-		Map<String, Object> infoAboutTeacher = teacherService.getInfoAboutTeacher(accountId);
+		Map<String, Object> infoAboutTeacher = memberService.getInfoAboutTeacher(accountId);
 		// 디버깅
 		log.debug(TeamColor.PSY + infoAboutTeacher + "<-- infoAboutTeacher" + TeamColor.TEXT_RESET);
 		

@@ -12,18 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.EducationService;
 import com.gd.lms.service.LectureService;
+import com.gd.lms.service.MemberService;
 import com.gd.lms.service.ReportService;
 import com.gd.lms.service.ReportSubmitService;
-import com.gd.lms.service.TeacherService;
-import com.gd.lms.vo.Education;
-import com.gd.lms.vo.Lecture;
-import com.gd.lms.vo.LectureSubject;
-import com.gd.lms.vo.ReportSubmitForm;
 import com.gd.lms.vo.Report;
 import com.gd.lms.vo.ReportSubmit;
 
@@ -52,7 +47,7 @@ public class ReportSubmitController {
 
 	// TeacherService 객체 주입
 	@Autowired
-	TeacherService teacherService;
+	MemberService memberService;
 
 	// LectureService 객체 주입
 	@Autowired
@@ -86,6 +81,7 @@ public class ReportSubmitController {
 			return "redirect:/report/reportSubmitList";
 		}
 	} // end reportSubmitList @GetMapping
+
 
 	// 학생별 제출한 과제 리스트 조회 메소드
 	// 파라미터 : reportSubmitListById 담을 Model
@@ -126,6 +122,12 @@ public class ReportSubmitController {
 	} // end reportSubmitListById
 
 	// 강좌별 제출한 과제 리스트 조회 메소드
+	// 강좌리스트, 강의리스트 보여주는 페이지
+	// 파라미터 : Model model
+	// 리턴값 : reportSubmitListBySubject.jsp로 이동
+	
+	
+	// 강좌별 제출한 과제 리스트 조회 메소드
 	// reportSubmitList Form
 	// 파라미터 : infoAboutTeacher, subjectNameList 담을 Model
 	// 리턴값 : reportSubmitList.jsp로 이동
@@ -136,14 +138,9 @@ public class ReportSubmitController {
 		// 파라미터값 디버깅
 		log.debug(TeamColor.PSY + educationNo + "<--educationNo" + TeamColor.TEXT_RESET);
 
-		// 요청 받은 값 Map 객체에 셋팅
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("educationNo", educationNo);
-		log.debug(TeamColor.PSY + paramMap + "<--paramMap" + TeamColor.TEXT_RESET);
-
 		// lectureSubject 리스트 model값으로 보내기
 		List<ReportSubmit> reportSubmitListBySubject = reportSubmitService.getReportListBySubject(educationNo);
-		// 디버깅
+		// 디버깅   
 		log.debug(TeamColor.PSY + reportSubmitListBySubject + "<-- reportSubmitListBySubject" + TeamColor.TEXT_RESET);
 
 		// 모델단에 전체과목리스트와 과목과정 기간을 addAttribute해서 폼으로 전달

@@ -112,7 +112,9 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pageContext.request.contextPath}/loginCheck/reportList">과제</a> <span class="bread-slash">/</span></li>
+										<li><a
+											href="${pageContext.request.contextPath}/loginCheck/reportList">과제</a>
+											<span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">제출리스트</span></li>
 									</ul>
 								</div>
@@ -145,8 +147,8 @@
 											class="form-control custom-select-value" name="lectureName"
 											id="lectureName" required="required">
 											<option value="defalut">::::::::: 강좌선택 :::::::::</option>
-											<c:forEach var="lectureList" items="${lectureList}">
-												<option value="${lectureList.lectureName}">${lectureList.lectureName}</option>
+											<c:forEach var="lecture" items="${lectureListByTeacher}">
+												<option value="${lecture.lectureName }">${lecture.lectureName }</option>
 											</c:forEach>
 										</select>
 									</div>

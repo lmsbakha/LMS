@@ -72,9 +72,9 @@ public class ReportSubmitService {
 	// 리턴값 : List<Map<String,Object>>
 	public List<ReportSubmit> getReportListBySubject(int educationNo) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@getReportListById Service" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@getReportListBySubject Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + educationNo + "<-- accountId" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + educationNo + "<-- educationNo" + TeamColor.TEXT_RESET);
 
 		// 리턴값 받아올 객체 생성
 		Map<String, Object> returnMap = new HashMap<>();
