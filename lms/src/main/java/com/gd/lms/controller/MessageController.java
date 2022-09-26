@@ -1,7 +1,14 @@
 package com.gd.lms.controller;
 
+import org.springframework.stereotype.Controller;
+
+@Controller
 public class MessageController {
-	// 메시지 리스트 조회
+	// 전체 메시지 리스트 조회
+	
+	// 받은 메시지 리스트 조회
+	
+	//보낸 메시지 리스트 조회
 	
 	// 안 읽은 메시지 카운팅
 	
