@@ -45,7 +45,7 @@
 	</select>
 	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
 
-	<!-- 제출한 과제 리스트 조회 메소드 -->
+	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
 	<select id="selectReportListBySubject" parameterType="Map"
 		resultType="com.gd.lms.vo.ReportSubmit">
 		SELECT DISTINCT
@@ -76,13 +76,16 @@
 		account_id,
 		report_submit_title,
 		report_submit_content,
-		report_submit_score,update_date, create_date)
+		report_submit_state,
+		report_submit_score,
+		update_date, create_date)
 		VALUES (
 		#{reportNo}
 		,#{educationNo}
 		,#{accountId}
 		,#{reportSubmitTitle}
 		,#{reportSubmitContent}
+		,'Y'
 		,'F',
 		NOW(),NOW())
 	</insert>
@@ -117,6 +120,7 @@
 		rs.report_submit_title reportSubmitTitle,
 		rs.report_submit_content reportSubmitContent,
 		rs.report_submit_score reportSubmitScore,
+		rs.report_submit_state reportSubmitState,
 		rs.create_date createDate,
 		rsf.report_submit_filename reportSubmitFilename,
 		rsf.report_submit_file_type reportSubmitFileType

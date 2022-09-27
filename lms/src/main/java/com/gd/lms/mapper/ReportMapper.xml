@@ -5,8 +5,7 @@
 	<!-- 전체 과제 리스트 조회하기 -->
 	<select id="selectReportList" resultType="com.gd.lms.vo.Report">
 		SELECT
-		report_no
-		reportNo
+		report_no reportNo
 		, subject_name subjectName
 		, report_title reportTitle
 		, report_content reportContent

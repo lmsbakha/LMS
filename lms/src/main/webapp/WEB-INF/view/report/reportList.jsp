@@ -197,7 +197,7 @@
 														</button>
 												</a></td>
 											</c:if>
-											<c:if test="${sessionLevel == 1}">
+											<c:if test="${sessionLevel == 1} && ">
 												<td><a
 													href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
 														<button data-toggle="tooltip" title="submit"
