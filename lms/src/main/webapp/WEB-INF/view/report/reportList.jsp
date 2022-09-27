@@ -137,7 +137,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
-						<div class="product-status-wrap drp-lst">
+						<div class="product-status-wrap drp-lst"  style="padding:2%;">
 							<h4>ReportList</h4>
 							<hr>
 							<c:if test="${sessionLevel == 1}">
@@ -149,13 +149,12 @@
 							</c:if>
 							<c:if test="${sessionLevel >= 2}">
 								<div class="add-product">
-								<a
-										href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">
-										학생 과제 제출 리스트</a>
 									<a
+										href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">
+										학생 과제 제출 리스트</a> <a
 										href="${pageContext.request.contextPath}/loginCheck/addReport">과제
 										추가</a>
-									
+
 								</div>
 							</c:if>
 							<div class="asset-inner">
@@ -197,14 +196,20 @@
 														</button>
 												</a></td>
 											</c:if>
-											<c:if test="${sessionLevel == 1} && ">
-												<td><a
-													href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="submit"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-														</button>
-												</a></td>
+
+											<c:if test="${sessionLevel == 1}">
+												<c:forEach var="studentSubmit"
+													items="${reportSubmitListByStudent}">
+													<c:if test="${studentSubmit != null && studentSubmit.reportSubmitState ne 'N'}">
+														<td><a
+															href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
+																<button data-toggle="tooltip" title="submit"
+																	class="pd-setting-ed" type="button">
+																	<i class="fa fa-pencil-square-o" aria-hidden="true">제출하기</i>
+																</button>
+														</a></td>
+													</c:if>
+												</c:forEach>
 											</c:if>
 										</tr>
 									</c:forEach>

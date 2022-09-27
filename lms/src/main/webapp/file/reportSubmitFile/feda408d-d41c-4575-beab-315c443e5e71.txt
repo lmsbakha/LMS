@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.lms.mapper.ReportSubmitMapper">
+
+	<!--전체 제출한 과제 리스트 조회 메소드 -->
+	<select id="selectReportList" resultType="List">
+		SELECT
+		r.subject_name
+		subjectName,
+		rs.report_submit_no reportSubmitNo,
+		rs.education_no
+		educationNo,
+		rs.account_id accountId,
+		rs.report_no reporNo,
+		rs.report_submit_title reportSubmitTitle,
+		rs.report_submit_content
+		reportSubmitContent,
+		rs.report_submit_score
+		reportSubmitScore,
+		rs.create_date createDate
+		FROM report_submit rs INNER
+		JOIN report r
+		USING(report_no)
+		ORDER BY rs.create_date DESC
+	</select>
+
+	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
+	<select id="selectReportListById" parameterType="Map"
+		resultType="com.gd.lms.vo.ReportSubmit">
+		SELECT
+		r.subject_name subjectName,
+		rs.report_submit_no
+		reportSubmitNo,
+		rs.education_no educationNo,
+		rs.account_id accountId,
+		rs.report_no reporNo,
+		rs.report_submit_title reportSubmitTitle,
+		rs.report_submit_content
+		reportSubmitContent,
+		rs.report_submit_score
+		reportSubmitScore,
+		rs.create_date createDate
+		FROM report_submit rs INNER
+		JOIN report r
+		USING(report_no)
+		WHERE account_id = #{accountId}
+		ORDER BY
+		rs.create_date DESC
+	</select>
+	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
+
+	<!-- 제출한 과제 리스트 조회 메소드 -->
+	<select id="selectReportListBySubject" parameterType="Map"
+		resultType="com.gd.lms.vo.ReportSubmit">
+		SELECT DISTINCT
+		report_submit_no reportSubmitNo,
+		education_no
+		educationNo,
+		account_id accountId,
+		report_no reporNo,
+		report_submit_title reportSubmitTitle,
+		report_submit_content
+		reportSubmitContent,
+		report_submit_score reportSubmitScore,
+		create_date
+		createDate
+		FROM report_submit INNER JOIN lecture_subject
+		WHERE
+		lecture_name = #{lectureName}
+	</select>
+	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
+
+	<!-- 과제 제출하기 메소드 -->
+	<insert id="insertReportSubmit"
+		parameterType="com.gd.lms.vo.ReportSubmit">
+		INSERT INTO
+		report_submit (
+		report_no,
+		education_no,
+		account_id,
+		report_submit_title,
+		report_submit_content,
+		report_submit_score,update_date, create_date)
+		VALUES (
+		#{reportNo}
+		,#{educationNo}
+		,#{accountId}
+		,#{reportSubmitTitle}
+		,#{reportSubmitContent}
+		,'F',
+		NOW(),NOW())
+	</insert>
+	<!-- 과제 제출하기 메소드 -->
+
+	<!-- 과제 첨부파일 제출하기 메소드 -->
+	<insert id="insertReportSubmitFile"
+		parameterType="com.gd.lms.vo.ReportSubmitFile">
+		INSERT INTO report_submit_file (
+		report_submit_no,
+		report_submit_filename,
+		report_submit_origin_name,
+		report_submit_file_type,
+		report_submit_file_size, create_date)
+		VALUES(
+		#{reportSubmitNo},
+		#{reportSubmitFilename},
+		#{reportSubmitOriginName},
+		#{reportSubmitFileType},
+		#{reportSubmitFileSize}, now() )
+	</insert>
+	<!-- 과제 첨부파일 제출하기 메소드 -->
+
+	<!-- 제출한 과제 상세보기 -->
+	<select id="ReportSubmitOne" parameterType="Map"
+		resultType="com.gd.lms.vo.ReportSubmit">
+		SELECT
+		rs.report_submit_no reportSubmitNo,
+		rs.education_no educationNo,
+		rs.account_id accountId,
+		rs.report_no reportNo,
+		rs.report_submit_title reportSubmitTitle,
+		rs.report_submit_content reportSubmitContent,
+		rs.report_submit_score reportSubmitScore,
+		rs.create_date createDate,
+		rsf.report_submit_filename reportSubmitFilename,
+		rsf.report_submit_file_type reportSubmitFileType
+		FROM report_submit rs
+		INNER JOIN report_submit_file rsf
+		USING(report_submit_no)
+		WHERE report_submit_no = #{reportSubmitNo}
+	</select>
+	<!-- 제출한 과제 상세보기 -->
+
+	<!-- 제출한 과제 수정하기 Action -->
+	<update id="updateReportSubmit"
+		parameterType="com.gd.lms.vo.ReportSubmit">
+		UPDATE report_submit
+		SET report_submit_title =
+		#{reportSubmitTitle},
+		report_submit_content = #{reportSubmitContent},
+		update_date= now()
+		WHERE
+		report_submit_no = #{reportSubmitNo}
+	</update>
+	<!-- 제출한 과제 수정하기 Action -->
+
+	<!-- 제출한 과제 점수 수정하기 -->
+	<update id="updateReportScore" parameterType="int">
+		UPDATE
+		report_submit
+		SET report_submit_score = #{reportSubmitScore},
+		update_date = now()
+		where
+		report_submit_no = #{reportSubmitNo}
+	</update>
+	<!-- 제출한 과제 점수 수정하기 -->
+
+	<!-- 제출한 과제 삭제하기 -->
+	<delete id="deleteReportSubmit" parameterType="int">
+		DELETE FROM
+		report_submit WHERE report_submit_no = #{reportNo}
+	</delete>
+	<!-- 제출한 과제 삭제하기 -->
+</mapper>

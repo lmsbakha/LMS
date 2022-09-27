@@ -149,19 +149,19 @@
 										</div>
 										<div class="form-group">
 											<label for="reportSubmitTitle">reportSubmitTitle</label> <input
-												type="text" class="form-control" id="reportSubmitTitle"
+												type="text" class="form-control" required="required" id="reportSubmitTitle"
 												name="reportSubmitTitle">
 										</div>
 										<div class="form-group edit-ta-resize res-mg-t-15">
 											<label for="reportSubmitContent">reportSubmitContent</label>
-											<textarea name="reportSubmitContent" id="reportSubmitContent"
+											<textarea name="reportSubmitContent" required="required" id="reportSubmitContent"
 												name="reportSubmitContent"></textarea>
 										</div>
 										<div class="form-group alert-up-pd">
 											<div class="dz-message needsclick download-custom">
 												<i class="fa fa-download edudropnone" aria-hidden="true"></i>
 												<input name="reportSubmitFile" id="filename" class="form-control"
-													type="file" multiple="multiple" accept=".txt,.zip">
+													type="file" multiple="multiple" required="required" accept=".txt,.zip">
 											</div>
 										</div>
 									</div>
@@ -284,6 +284,12 @@ $('#addReportSubmitBtn').click(function() {
 	}else if ($('#reportContent').val() == '') {
 		alert('reportSubmitContent를 입력해주세요.');
 		$('#reportSubmitContent').focus();
+	}else if ($('#filename').val() == '') {
+		alert('파일을 업로드해주세요.');
+		$('#filename').focus();
+	}else if ($('#filename').val() == '') {
+		alert('파일을 업로드해주세요.');
+		$('#filename').focus();
 	}else {
 		alert('과제를 제출하시겠습니까?');
 		 $( '#addreportSubmitForm' ).submit();

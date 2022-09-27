@@ -29,15 +29,17 @@ public class ReportService {
 
 	// 전체 과제 리스트 조회하는 메소드
 	// 파라미터 : X
-	// 리턴값 : boardList, lastPage
+	// 리턴값 : reportList
 	public List<Report> getReportList() {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@getReportList Service" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY +  "<--lectureName" + TeamColor.TEXT_RESET);
 
-		// ReportMapper 실행
+		// Mapper Call
 		List<Report> reportList = reportMapper.selectReportList();
 		// 디버깅
-		log.debug(TeamColor.PSY + reportList.toString() + "<-- reportList" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportList + "<-- reportList" + TeamColor.TEXT_RESET);
 
 		return reportList;
 	} // end getReportList

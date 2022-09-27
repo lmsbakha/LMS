@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.MemberService;
 import com.gd.lms.service.ReportService;
+import com.gd.lms.service.ReportSubmitService;
 import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
+import com.gd.lms.vo.ReportSubmit;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,27 +34,41 @@ public class ReportController {
 	// ReportService 객체 주입
 	@Autowired
 	ReportService reportService;
-	
+
 	// TeacherService 객체 주입
 	@Autowired
 	MemberService memberService;
 
+	// ReportSubmitService 객체 주입
+	@Autowired
+	ReportSubmitService reportSubmitService;
 
 	// 강좌별 과제 리스트 조회
 	// 파라미터 : reportList값 넘겨줄 Model
 	// 리턴값 : reportList.jsp로 이동
 	@GetMapping("/loginCheck/reportList")
-	public String reportdList(Model model) {
+	public String reportdList(Model model, HttpSession session) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
-		
+
+		// 세션 받아오기
+		String accountId = (String) session.getAttribute("sessionId");
+		// 로그인한 Student의 아이디 확인 디버깅
+		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+
+		// Student에 관한 과제 제출 정보 가져오기
+		List<ReportSubmit> reportSubmitListByStudent = reportSubmitService.getReportListById(accountId);
+		// reportSubmitListByStudent 디버깅
+		log.debug(TeamColor.PSY + reportSubmitListByStudent + "<-- reportSubmitListByStudent" + TeamColor.TEXT_RESET);
+
 		// service call
 		List<Report> reportList = reportService.getReportList();
 		log.debug(TeamColor.PSY + reportList + "<--reportList" + TeamColor.TEXT_RESET);
 
 		// reportList로 값 넘겨주기
 		model.addAttribute("reportList", reportList);
-		
+		model.addAttribute("reportSubmitListByStudent", reportSubmitListByStudent);
+
 		if (reportList != null) {
 			// 성공
 			log.debug(TeamColor.PSY + " 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
@@ -74,7 +90,7 @@ public class ReportController {
 	String addReport(Model model, HttpSession session) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReport Controller" + TeamColor.TEXT_RESET);
-		
+
 		// 세션 받아오기
 		String accountId = (String) session.getAttribute("sessionId");
 		// 로그인한 강사의 아이디 확인
@@ -84,16 +100,16 @@ public class ReportController {
 		Map<String, Object> infoAboutTeacher = memberService.getInfoAboutTeacher(accountId);
 		// 디버깅
 		log.debug(TeamColor.PSY + infoAboutTeacher + "<-- infoAboutTeacher" + TeamColor.TEXT_RESET);
-		
+
 		// lectureSubject 리스트 model값으로 보내기
 		List<LectureSubject> subjectNameList = reportService.getlectureSubject();
 		// 디버깅
 		log.debug(TeamColor.PSY + subjectNameList + "<-- subjectNameList" + TeamColor.TEXT_RESET);
-		
+
 		// 모델단에 전체과목리스트와 과목과정 기간을 addAttribute해서 폼으로 전달
 		model.addAttribute("subjectNameList", subjectNameList);
 		model.addAttribute("infoAboutTeacher", infoAboutTeacher);
-		
+
 		return "report/addReport";
 	} // end addReport
 
@@ -102,8 +118,8 @@ public class ReportController {
 	// 파라미터 : Report
 	// 리턴값 : reportList.jsp로 이동
 	@PostMapping("/loginCheck/addReport")
-	String addReport(@RequestParam("subjectName") String subjectName,
-			@RequestParam("reportTitle") String reportTitle, @RequestParam("reportContent") String reportContent,
+	String addReport(@RequestParam("subjectName") String subjectName, @RequestParam("reportTitle") String reportTitle,
+			@RequestParam("reportContent") String reportContent,
 			@RequestParam("reportStartDate") String reportStartDate,
 			@RequestParam("reportEndDate") String reportEndDate) {
 		// 디버깅 영역구분
@@ -118,7 +134,7 @@ public class ReportController {
 		paramReport.setSubjectName(subjectName);
 		// 셋팅값 디버깅
 		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
-		
+
 		// 과제 출제 service call
 		int row = reportService.addReport(paramReport);
 
@@ -154,14 +170,14 @@ public class ReportController {
 
 		return "report/modifyReport";
 	} // end modifyReport @GetMapping
-	
+
 	// 출제한 과제 수정하는 메소드
 	// modifyReport Action
 	// 파라미터 : 받아온 Report
 	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동
 	@PostMapping("/loginCheck/modifyReport")
-	public String modifyReport(@RequestParam("reportNo") int reportNo,
-			@RequestParam("reportTitle") String reportTitle, @RequestParam("reportContent") String reportContent,
+	public String modifyReport(@RequestParam("reportNo") int reportNo, @RequestParam("reportTitle") String reportTitle,
+			@RequestParam("reportContent") String reportContent,
 			@RequestParam("reportStartDate") String reportStartDate,
 			@RequestParam("reportEndDate") String reportEndDate) {
 		// 디버깅 영역구분
@@ -176,7 +192,7 @@ public class ReportController {
 		paramReport.setReportStartDate(reportStartDate);
 		// 셋팅값 디버깅
 		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
-		
+
 		// 과제 수정 service call
 		int modifyReport = reportService.modifyReport(paramReport);
 		// 디버깅
@@ -201,7 +217,7 @@ public class ReportController {
 		log.debug(TeamColor.PSY + "\n\n@removeReport Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
-		
+
 		// 과제 삭제 service call
 		int removeReport = reportService.removeReport(reportNo);
 		// 파라미터

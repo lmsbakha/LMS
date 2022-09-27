@@ -129,7 +129,7 @@
 				id="reportListForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="product-status-wrap drp-lst">
+						<div class="product-status-wrap drp-lst"  style="padding:2%;">
 							<h4>Report SubmitList</h4>
 							<hr>
 							<div class="add-product">
@@ -140,13 +140,15 @@
 							<div class="asset-inner">
 								<table>
 									<tr>
+										<th>reportSubjectNo</th>
 										<th>subjectName</th>
 										<th>reportSubmitTitle</th>
 										<th>createDate</th>
-										<th>Setting</th>
+										<th></th>
 									</tr>
 									<c:forEach var="listById" items="${listById}">
 										<tr>
+											<td>${listById.reportSubmitNo}</td>
 											<td>${listById.subjectName}</td>
 											<td>
 											<a href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${listById.reportSubmitNo}">
@@ -157,15 +159,15 @@
 												href="${pageContext.request.contextPath}
 												/loginCheck/modifyReportSubmit?reportSubmitNo=${listById.reportSubmitNo}">
 													<button data-toggle="tooltip" title="Edit"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+														class="pd-setting-ed" type="button" >
+														<i class="fa fa-pencil-square-o" aria-hidden="true">수정하기</i>
 													</button>
 											</a> <a
 												href="${pageContext.request.contextPath}
 												/loginCheck/removeReportSubmit?reportSubmitNo=${listById.reportSubmitNo}">
 													<button data-toggle="tooltip" title="Trash"
 														class="pd-setting-ed" type="button">
-														<i class="fa fa-trash-o" aria-hidden="true"></i>
+														<i class="fa fa-trash-o" aria-hidden="true">삭제하기</i>
 													</button>
 											</a></td>
 										</tr>

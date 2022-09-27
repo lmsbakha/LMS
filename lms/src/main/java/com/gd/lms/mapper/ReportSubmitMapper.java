@@ -47,7 +47,7 @@ public interface ReportSubmitMapper {
 	// 제출한 과제 상세보기 메소드
 	// 파라미터 : reportSubmitNo
 	// 리턴값 : Map<String, Object>
-	List<ReportSubmit> ReportSubmitOne(Map<String, Object> paramMapS);
+	List<ReportSubmit> ReportSubmitOne(Map<String, Object> paramMap);
 
 	// 제출한 과제 수정하는 메소드 Action
 	// 파라미터 : ReportSubmit

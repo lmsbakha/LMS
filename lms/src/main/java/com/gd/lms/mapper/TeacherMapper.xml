@@ -2,13 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.TeacherMapper">
 	<!-- accountId로 확인 강사의 lecture 리스트 -->
-	<select id="selectInfoAboutTeacher" parameterType="String" resultType="Map">
-		SELECT 
+	<select id="selectInfoAboutTeacher" parameterType="String"
+		resultType="Map">
+		SELECT
 		t.teacher_name teacherName
 		, l.lecture_active lectureActive
-		, l.lecture_name lectureName
+		, l.lecture_name
+		lectureName
 		, l.lecture_start_date lectureStartDate
-		, l.lecture_end_date lectureEndDate
+		, l.lecture_end_date
+		lectureEndDate
 		FROM teacher t
 		INNER JOIN lecture l
 		USING(teacher_name)
@@ -18,31 +21,45 @@
         ]]>
 		ORDER BY l.lecture_start_date DESC
 	</select>
-	
+
+	<!-- accountId로 확인 강사의 subject 리스트 -->
+	<select id="">
+		SELECT subject_name subjectName, lecture_name lectureName,
+		lecture_subject_no lectureSubjectNo FROM lecture_subject
+		WHERE lecture_name = (SELECT
+		l.lecture_name lectureName
+		FROM teacher t
+		INNER JOIN lecture l
+		USING(teacher_name)
+		WHERE t.account_id=#{accountId})
+
+	</select>
 	<!-- 강사목록 리스트 -->
-	<select id="selectTeacherList" resultType="com.gd.lms.vo.Teacher">
+	<select id="selectTeacherList"
+		resultType="com.gd.lms.vo.Teacher">
 		SELECT
-			  account_id accountId
-			, teacher_name teacherName
-			, teacher_gender teacherGender
-			, teacher_birth teacherBirth
-			, create_date createDate
-		FROM teacher	
+		account_id accountId
+		, teacher_name teacherName
+		, teacher_gender teacherGender
+		, teacher_birth teacherBirth
+		, create_date createDate
+		FROM teacher
 	</select>
 	<!-- /강사목록 리스트 -->
-	
+
 	<!-- 강사 개인정보 상세보기 -->
-	<select id="selectTeacherOne" parameterType="String" resultType="com.gd.lms.vo.Teacher">
+	<select id="selectTeacherOne" parameterType="String"
+		resultType="com.gd.lms.vo.Teacher">
 		SELECT
-			  account_id accountId
-			, teacher_name teacherName
-			, teacher_gender teacherGender
-			, teacher_birth teacherBirth
-			, teacher_email teacherEmail
-			, teacher_address teacherAddress
-			, teacher_detailaddress teacherDetailAddress
-			, teacher_phone teacherPhone
-			, create_date createDate
+		account_id accountId
+		, teacher_name teacherName
+		, teacher_gender teacherGender
+		, teacher_birth teacherBirth
+		, teacher_email teacherEmail
+		, teacher_address teacherAddress
+		, teacher_detailaddress teacherDetailAddress
+		, teacher_phone teacherPhone
+		, create_date createDate
 		FROM teacher
 		WHERE account_id = #{accountId}
 	</select>
@@ -51,15 +68,16 @@
 	<!-- 강사 개인정보 수정하기 -->
 	<update id="updateTeacher" parameterType="com.gd.lms.vo.Teacher">
 		UPDATE teacher
-		SET teacher_name = #{teacherName}
-			, teacher_gender = #{teacherGender}
-			, teacher_birth = #{teacherBirth}
-			, teacher_email = #{teacherEmail}
-			, teacher_address = #{teacherAddress}
-			, teacher_detailaddress = #{teacherDetailAddress}
-			, teacher_phone = #{teacherPhone}
-			, update_date updateDate
-		WHERE account_id = #{accountId}	
+		SET
+		teacher_name = #{teacherName}
+		, teacher_gender = #{teacherGender}
+		, teacher_birth = #{teacherBirth}
+		, teacher_email = #{teacherEmail}
+		, teacher_address = #{teacherAddress}
+		, teacher_detailaddress = #{teacherDetailAddress}
+		, teacher_phone = #{teacherPhone}
+		, update_date updateDate
+		WHERE account_id = #{accountId}
 	</update>
 	<!-- /강사 개인정보 수정하기 -->
 
@@ -69,12 +87,14 @@
 		WHERE account_id = #{accountId}
 	</delete>
 	<!-- /강사 개인정보 강사테이블에서 삭제하기 (탈퇴) -->
-	
+
 	<!-- 강사 개인정보 accountState 탈퇴로 수정하기 (탈퇴) -->
-	<update id="updateAccountStateTeacher" parameterType="com.gd.lms.vo.Account">
+	<update id="updateAccountStateTeacher"
+		parameterType="com.gd.lms.vo.Account">
 		UPDATE account
 		SET account_state = '탈퇴'
-		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
+		WHERE account_id =
+		#{accountId} AND account_pw = PASSWORD(#{accountPw})
 	</update>
 	<!-- /강사 개인정보 accountState 탈퇴로 수정하기 (탈퇴) -->
 

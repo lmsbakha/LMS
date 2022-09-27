@@ -109,7 +109,7 @@
 						<div class="breadcome-list single-page-breadcome">
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-									<ul class="breadcome-menu" style="float: left;">
+									<ul class="breadcome-menu" style="float: left;" >
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
 										<li><a
@@ -132,7 +132,7 @@
 				id="reportListForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="product-status-wrap drp-lst">
+						<div class="product-status-wrap drp-lst"  style="padding:2%;">
 							<h4>Report SubmitList</h4>
 							<hr>
 							<div class="add-product">

@@ -95,7 +95,6 @@ public class ReportSubmitController {
 			// 실패
 			log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회 실패" + TeamColor.TEXT_RESET);
 		}
-
 		// reportSubmitListById로 이동
 		return "report/reportSubmitListById";
 	} // end reportSubmitListById
@@ -197,13 +196,13 @@ public class ReportSubmitController {
 		// Service Call
 		reportSubmitService.addReportSubmit(reportSubmitForm);
 
-		return "redirect:/loginCheck/reportSubmitList";
+		return "redirect:/loginCheck/reportSubmitListById";
 	}
 
 	// 제출한 과제 상세보기 메소드
 	// reportSubmitOne Form
 	// 파라미터 : reportSubmitOne 담을 Model
-	// 리턴값: reportOne.jsp로 이동
+	// 리턴값: reportSubmitOne.jsp로 이동
 	@GetMapping("/loginCheck/reportSubmitOne")
 	String reportOne(Model model, @RequestParam("reportSubmitNo") int reportSubmitNo) {
 		// 디버깅 영역구분
@@ -211,6 +210,12 @@ public class ReportSubmitController {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmitNo + "<--reportSubmitNo" + TeamColor.TEXT_RESET);
 
+		// 요청 받은 값 Map 객체에 셋팅
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("reportSubmitNo",reportSubmitNo);
+		// paramMap 디버깅
+		log.debug(TeamColor.PSY + paramMap + "<--paramMap" + TeamColor.TEXT_RESET);
+		
 		// Service Call
 		List<ReportSubmit> reportSubmitOne = reportSubmitService.reportSubmitOne(reportSubmitNo);
 		// reportSubmitOne 디버깅
@@ -226,7 +231,6 @@ public class ReportSubmitController {
 			// 실패
 			log.debug(TeamColor.PSY + " 제출한 과제 상세보기 실패" + TeamColor.TEXT_RESET);
 		}
-		
 		return "report/reportSubmitOne";
 	} // end reportSubmitOne
 
@@ -283,7 +287,6 @@ public class ReportSubmitController {
 		model.addAttribute("reportSubmitOne", reportSubmitOne);
 
 		return "report/modifyReportSubmit";
-
 	} // end modifyReportSubmit @GetMapping
 
 	// 제출한 과제 수정하는 메소드
@@ -291,36 +294,14 @@ public class ReportSubmitController {
 	// 파라미터 : ReportSubmit
 	// 리턴값 : int
 	@PostMapping("/loginCheck/modifyReportSubmit")
-	String modifyReportSubmit(@RequestParam("reportSubmitTitle") String reportSubmitTitle,
-			@RequestParam("reportSubmitContent") String reportSubmitContent,
-			@RequestParam("reportSubmitNo") int reportSubmitNo) {
+	String modifyReportSubmit(ReportSubmitForm reportSubmitForm) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@modifyReportSubmit Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportSubmitTitle + "<-- reportSubmitTitle" + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PSY + reportSubmitContent + "<-- reportSubmitContent" + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
-
-		// 파라미터 값 셋팅
-		ReportSubmit reportSubmit = new ReportSubmit();
-		reportSubmit.setReportSubmitContent(reportSubmitContent);
-		reportSubmit.setReportSubmitNo(reportSubmitNo);
-		reportSubmit.setReportSubmitTitle(reportSubmitTitle);
-		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitForm + "<-- reportSubmitTitle" + TeamColor.TEXT_RESET);
 
 		// Service Call
-		int modifyReportSubmit = reportSubmitService.modifyReportSubmit(reportSubmit);
-		// modifyReportSubmit 디버깅
-		log.debug(TeamColor.PSY + modifyReportSubmit + "<-- modifyReportSubmit" + TeamColor.TEXT_RESET);
-
-		if (modifyReportSubmit != 0) {
-			// 성공
-			log.debug(TeamColor.PSY + " 제출한 과제 수정 성공" + TeamColor.TEXT_RESET);
-		} else {
-			// 실패
-			log.debug(TeamColor.PSY + " 제출한 과제 수정 실패" + TeamColor.TEXT_RESET);
-		}
+		reportSubmitService.modifyReportSubmit(reportSubmitForm);
 
 		// reportSubmitListById로 이동
 		return "report/reportSubmitListById";
@@ -337,18 +318,9 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportNo" + TeamColor.TEXT_RESET);
 
 		// 과제 삭제 service call
-		int removeReportSubmit = reportSubmitService.removeReportSubmit(reportSubmitNo);
-		// 파라미터
-		log.debug(TeamColor.PSY + removeReportSubmit + "<-- removremoveReportSubmiteReport" + TeamColor.TEXT_RESET);
+		reportSubmitService.removeReportSubmit(reportSubmitNo);
 
-		if (reportSubmitNo != 0) {
-			// 성공
-			log.debug(TeamColor.PSY + " 과제 삭제 성공" + TeamColor.TEXT_RESET);
-		} else {
-			// 실패
-			log.debug(TeamColor.PSY + " 과제 삭제 실패" + TeamColor.TEXT_RESET);
-		}
 		// reportList로 리다이렉트
-		return "redirect:/loginCheck/reportReportList";
+		return "redirect:/loginCheck/reportReportListById";
 	} // end
 }

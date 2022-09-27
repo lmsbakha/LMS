@@ -106,7 +106,7 @@
 				id="addReportForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:3%;">
-						<div class="product-status-wrap drp-lst">
+						<div class="product-status-wrap drp-lst"  style="padding:2%;">
 							<h4>Add Report</h4>
 							<hr>
 							<div class="form-group">

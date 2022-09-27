@@ -129,7 +129,7 @@
 				id="reportListForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="product-status-wrap drp-lst">
+						<div class="product-status-wrap drp-lst"  style="padding:2%;">
 							<h4>Modify ReportScore</h4>
 							<hr>
 							<div class="form-group">
