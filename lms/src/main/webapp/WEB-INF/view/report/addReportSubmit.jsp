@@ -113,7 +113,7 @@
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
 										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">과제</a>
+											href="${pageContext.request.contextPath}/loginCheck/reportList">과제</a>
 											<span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">제출</span></li>
 									</ul>
@@ -141,8 +141,8 @@
 										<hr>
 										<div class="form-group">
 											<label for="subjectName">subjectName</label>
-											 <input name="subjectName" id="subjectName" type="text" class="form-control" value="${reportOne.subjectName}" readonly>
-											 <input type="hidden" name="reportNo" value="${reportOne.reportNo}">
+											 <input name="subjectName" id="subjectName" type="text" class="form-control" value="${addReportSubmitForm.subjectName}" readonly>
+											 <input type="hidden" name="reportNo" value="${addReportSubmitForm.reportNo}">
 											 <input type="hidden" name="educationNo" value="${EducationInfo.educationNo}">
 											 <input type="hidden" name="accountId" value="${EducationInfo.accountId}">
 
@@ -160,7 +160,7 @@
 										<div class="form-group alert-up-pd">
 											<div class="dz-message needsclick download-custom">
 												<i class="fa fa-download edudropnone" aria-hidden="true"></i>
-												<input name="filename" id="filename" class="form-control"
+												<input name="reportSubmitFile" id="filename" class="form-control"
 													type="file" multiple="multiple" accept=".txt,.zip">
 											</div>
 										</div>

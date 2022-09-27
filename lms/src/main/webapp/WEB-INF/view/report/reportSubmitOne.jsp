@@ -110,16 +110,12 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
-										<c:if test="${sessionLevel >= 2}">
-											<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-											<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-											<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
-										</c:if>
-										<c:if test="${sessionLevel == 1}">
-											<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-											<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-											<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
-										</c:if>
+										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
+										<li><a
+											href="${pageContext.request.contextPath}/loginCheck/reportList">과제</a>
+											<span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">제출</span></li>
 									</ul>
 								</div>
 							</div>
@@ -132,86 +128,48 @@
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<form
-				action="${pageContext.request.contextPath}/loginCheck/reportList"
-				id="reportListForm" method="post">
+				action="${pageContext.request.contextPath}/loginCheck/ReportSubmitOne"
+				id="modifyReportSubmitForm" method="post">
 				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-						style="padding: 1%;">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst">
-							<h4>ReportList</h4>
+							<h4>Modify ReportSubmit</h4>
 							<hr>
-							<c:if test="${sessionLevel == 1}">
-								<div class="add-product">
-									<a
-										href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">나의
-										과제 제출 리스트</a>
+							<div class="form-group">
+								<label for="reportSubmitNo">reportSubmitNo</label> <input
+									name="reportSubmitNo" class="form-control" type="text"
+									value="${reportSubmitOne.reportSubmitNo}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="reportNo">reportNo</label> <input name="reportNo"
+									id="reportNo" type="text" class="form-control"
+									value="${reportSubmitOne.reportNo}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="reportSubmitTitle">reportSubmitTitle</label> <input
+									name="reportSubmitTitle" id="reportSubmitTitle" type="text"
+									class="form-control"
+									value="${reportSubmitOne.reportSubmitTitle}">
+							</div>
+							<div class="form-group edit-ta-resize res-mg-t-15">
+								<label for="reportSubmitContent">reportSubmitContent</label>
+								<textarea name="reportSubmitContent" id="reportSubmitContent">${reportSubmitOne.reportSubmitContent}</textarea>
+							</div>
+							<div class="form-group alert-up-pd">
+								<div class="dz-message needsclick download-custom">
+									<i class="fa fa-download edudropnone" aria-hidden="true"></i> <input
+										name="reportSubmitFile" id="filename" class="form-control"
+										type="file" multiple="multiple" accept=".txt,.zip" value="">
 								</div>
-							</c:if>
-							<c:if test="${sessionLevel >= 2}">
-								<div class="add-product">
-								<a
-										href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">
-										학생 과제 제출 리스트</a>
-									<a
-										href="${pageContext.request.contextPath}/loginCheck/addReport">과제
-										추가</a>
-									
-								</div>
-							</c:if>
-							<div class="asset-inner">
-								<table>
-									<tr>
-										<th>reportNo</th>
-										<th>subjectName</th>
-										<th>reportTitle</th>
-										<th>createDate</th>
-										<th>Setting</th>
-									</tr>
-									<c:forEach var="report" items="${reportList}">
-										<tr>
-											<td>${report.reportNo}</td>
-											<td>${report.subjectName}</td>
-											<td>
-												<div class="menu">
-													<a>${report.reportTitle}</a>
-													<div>
-														<textarea name="reportContent" id="reportContent"
-															style="width: 300px; border-color: white;" readonly>
-															 ${report.reportContent}</textarea>
-													</div>
-												</div>
-											</td>
-											<td>${report.createDate}</td>
-											<c:if test="${sessionLevel >= 2}">
-												<td><a
-													href="${pageContext.request.contextPath}/loginCheck/modifyReport?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="Edit"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-														</button>
-												</a><a
-													href="${pageContext.request.contextPath}/loginCheck/removeReport?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="Trash"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-trash-o" aria-hidden="true"></i>
-														</button>
-												</a></td>
-											</c:if>
-											<c:if test="${sessionLevel == 1}">
-												<td><a
-													href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="submit"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-														</button>
-												</a></td>
-											</c:if>
-										</tr>
-									</c:forEach>
-								</table>
 							</div>
 						</div>
+						<div class="payment-adress">
+							<button type="button" id="ReportSubmitOneBtn"
+								class="btn btn-primary waves-effect waves-light"
+								style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
+						</div>
 					</div>
+
 				</div>
 			</form>
 			<!-- </form> -->
@@ -222,6 +180,7 @@
 	<!-- End footer -->
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
 	<!-- jquery
 		============================================ -->
 	<script
@@ -292,6 +251,13 @@
 		src="${pageContext.request.contextPath}/js/calendar/fullcalendar.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script>
+	<!-- dropzone JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/dropzone/dropzone.js"></script>
+	<!-- tab JS
+		============================================ -->
+	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 	<!-- plugins JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/plugins.js"></script>
@@ -301,62 +267,6 @@
 	<!-- tawk chat JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
-	<!-- data table JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/tableExport.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/data-table-active.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-editable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-editable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-resizable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/colResizable-1.5.source.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-export.js"></script>
-	<!--  editable JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/editable/jquery.mockjax.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/mock-active.js"></script>
-	<script src="${pageContext.request.contextPath}/js/editable/select2.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/moment.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/bootstrap-datetimepicker.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/bootstrap-editable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/xediable-active.js"></script>
-	<!-- Chart JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/peity/peity-active.js"></script>
-	<!-- tab JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
+
 </body>
-<script>
-	    // html dom 이 다 로딩된 후 실행된다.    
-	$(document).ready(function() {
-		// menu 클래스 바로 하위에 있는 a 태그를 클릭했을때       
-		$(".menu>a").click(function() {
-			var submenu = $(this).next("div");
-			// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 부드럽게 펼치기           
-			if (submenu.is(":visible")) {
-				submenu.slideUp();
-			} else {
-				submenu.slideDown();
-			}
-		});
-	});
-</script>
 </html>

@@ -130,7 +130,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst">
-							<h4>Report List</h4>
+							<h4>Report SubmitList</h4>
 							<hr>
 							<div class="add-product">
 								<a
@@ -140,17 +140,18 @@
 							<div class="asset-inner">
 								<table>
 									<tr>
-										<th>reportName</th>
+										<th>subjectName</th>
 										<th>reportSubmitTitle</th>
-										<th>reportSubmitScore</th>
 										<th>createDate</th>
 										<th>Setting</th>
 									</tr>
 									<c:forEach var="reportSubmit" items="${reportSubmitListById}">
 										<tr>
-											<td>${reportSubmit.reportNo}</td>
-											<td>${reportSubmit.reportSubmitTitle}</td>
-											<td>${reportSubmit.reportSubmitScore}</td>
+											<td>${reportSubmit.subjectName}</td>
+											<td>
+											<a href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${reportSubmit.reportSubmitNo}">
+													${reportSubmit.reportSubmitTitle} </a>
+											</td>
 											<td>${reportSubmit.createDate}</td>
 											<td><a
 												href="${pageContext.request.contextPath}
