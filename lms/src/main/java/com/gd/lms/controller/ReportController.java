@@ -38,7 +38,7 @@ public class ReportController {
 	MemberService memberService;
 
 
-	// 과제 리스트 조회
+	// 강좌별 과제 리스트 조회
 	// 파라미터 : reportList값 넘겨줄 Model
 	// 리턴값 : reportList.jsp로 이동
 	@GetMapping("/loginCheck/reportList")
