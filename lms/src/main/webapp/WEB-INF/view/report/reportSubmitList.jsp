@@ -147,15 +147,15 @@
 											class="form-control custom-select-value" name="lectureName"
 											id="lectureName" required="required">
 											<option value="defalut">::::::::: 강좌선택 :::::::::</option>
-											<c:forEach var="lecture" items="${lectureNameList}">
-												<option value="${lecture.lectureName }">${lecture.lectureName }</option>
+											<c:forEach var="lectureNameList" items="${lectureNameList}">
+												<option value="${lectureNameList.lectureName }">${lectureNameList.lectureName }</option>
 											</c:forEach>
 										</select>
 									</div>
 									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 										<a
 											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList"><button
-												title="Edit" class="pd-setting-ed" type="submit">선택</button></a>
+												title="reportsubmitList" class="pd-setting-ed" type="submit">선택</button></a>
 									</div>
 								</div>
 							</div>
@@ -169,7 +169,7 @@
 										<th>accuontId</th>
 										<th>reportSubmitScore</th>
 									</tr>
-									<c:forEach var="SubmitList" items="${SubmitList}">
+									<c:forEach var="SubmitList" items="${ReportSubmitListBySubject}">
 										<tr>
 											<td>${SubmitList.reportNo}</td>
 											<td>${SubmitList.subjectName}</td>

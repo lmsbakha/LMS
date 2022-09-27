@@ -138,7 +138,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
 						<div class="product-status-wrap drp-lst">
-							<h4>Report List</h4>
+							<h4>ReportList</h4>
 							<hr>
 							<c:if test="${sessionLevel == 1}">
 								<div class="add-product">

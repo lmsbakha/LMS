@@ -17,10 +17,11 @@ public interface ReportSubmitFileMapper {
 	// 리턴값 : int
 	int insertReportSubmitFile(ReportSubmitFile reportSubmitFile);
 
-	// 제출한 과제 수정하는 메소드
+	// 제출한 과제 상세 조회하기 메소드
 	// modifyReportSubmit Form
 	// 파라미터 : reportSubmitNo
 	// 리턴값 : ReportSubmit
+	ReportSubmitFile selectReportsubmitFile(int reportSubmitNo);
 
 	// 과제 수정하기 첨부파일 업로드 메소드
 	// modifyReportSubmit Action
