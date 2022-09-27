@@ -104,59 +104,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
 						<h4>시험</h4>
-						<hr>
-						<div class="sparkline12-graph">
-							<div class="basic-login-form-ad">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="all-form-element-inner">
-											<!-- 해당 lecture 조회 -->
-											<form action="${pageContext.request.contextPath}/loginCheck/lectureListByTeacher" method="post">
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">Lecture 조회</label>
-														</div>
-														<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-															<div class="form-select-list">
-																<select class="form-control custom-select-value" name="lectureName" id="lectureName" required="required">
-																	<option value="defalut">--------강좌선택-------</option>
-																	<c:forEach var="l" items="${lectureListByTeacher}">
-																		<option value="${l.lectureName }">${l.lectureName }</option>
-																	</c:forEach>
-																</select>
-															</div>
-														</div>
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<button type="submit" class="btn btn-custon-rounded-two btn-primary">강좌선택</button>
-														</div>
-													</div>
-												</div>
-											</form>
-											<!-- /해당 lecture 조회 -->
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="product-status mg-b-15">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="product-status-wrap drp-lst">
-						<h4>시험리스트 
-							<div class="btn-custom-groups-one btn-mg-b-10" style="float: right;">
-								<button type="button" class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/questionBank' ">문제은행</button>
-								<button type="button" class="btn btn-warning" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/addExam' ">시험출제</button>
-							</div>
-						</h4>
-						<!-- 문제 출제 하기 -->
+						<!-- 시험 응시 하기 -->
 						<div class="asset-inner">
 							<table>
 								<tr>
@@ -168,30 +116,33 @@
 									<th>examEndDate</th>
 									<th style="width: 150px">Setting</th>
 								</tr>
-								<c:if test="${empty examListByLecture }">
+								<c:forEach var="map" items="${examList}">
 									<tr>
-										<td colspan="7" style="text-align: center;">lecture를 먼저 선택해주세요</td>
-									</tr>
-								</c:if>
-								<c:if test="${not empty examListByLecture }">
-									<c:forEach var="map" items="${examListByLecture}">
-										<tr>
-											<td>${map.examNo}</td>
-											<td>${map.lectureName}</td>
-											<td>${map.subjectName}</td>
-											<td>${map.examTitle}</td>
-											<td>${map.examStartDate}</td>
-											<td>${map.examEndDate}</td>
-											<td>
-											 	<a href="${pageContext.request.contextPath}/loginCheck/examOne?examNo=${map.examNo}">
-													<button class="btn btn-sm btn-custon-rounded-three btn-primary">
-														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>상세보기
+										<td>${map.examNo}</td>
+										<td>${map.lectureName}</td>
+										<td>${map.subjectName}</td>
+										<td>${map.examTitle}</td>
+										<td>${map.examStartDate}</td>
+										<td>${map.examEndDate}</td>
+										<td>
+											<!-- 시험 응시 전이라면 시험응시 버튼--> 
+											<c:if test="">
+												<a href="${pageContext.request.contextPath}/loginCheck/submitExam?examNo=${map.examNo}">
+													<button class="btn btn-custon-rounded-three btn-danger">
+														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>시험응시
 													</button>
-												</a> 
-											</td>
-										</tr>
-									</c:forEach>
-								</c:if>
+												</a>
+											</c:if> <!-- 시험 응시 후라면 제출완료-->
+											<c:if test="">
+												<a href="${pageContext.request.contextPath}/loginCheck/resultExam?examNo=${map.examNo}&educationNo=${map.educationNo}">
+													<button class="btn btn-custon-rounded-three btn-success">
+														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>응시완료
+													</button>
+												</a>
+											</c:if>
+										</td>
+									</tr>
+								</c:forEach>
 							</table>
 						</div>
 					</div>
@@ -199,6 +150,7 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- Start footer -->
 	<jsp:include page="../inc/footer.jsp" />
 	<!-- End footer -->

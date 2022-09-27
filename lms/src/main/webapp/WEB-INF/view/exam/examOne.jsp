@@ -112,10 +112,10 @@
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
 										<li><a
-											href="${pageContext.request.contextPath}/loginCkeck/exam">시험</a>
+											href="${pageContext.request.contextPath}/loginCheck/exam">시험</a>
 											<span class="bread-slash">/</span></li>
 										<li><a href="#"> <span class="bread-blod"
-												style="font-weight: bold;">시험 상세보기</span>
+												style="font-weight: bold;">시험지 (상세보기)</span>
 										</a></li>
 									</ul>
 								</div>
@@ -135,7 +135,7 @@
 					<div class="sparkline12-list">
 						<div class="sparkline12-hd">
 							<div class="main-sparkline12-hd">
-								<h1>시험 상세보기</h1>
+								<h1>시험지 (상세보기)</h1>
 								<hr>
 							</div>
 						</div>
@@ -203,7 +203,7 @@
 															</div>
 															<div class="row">
 																<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-																	<label class="login2 pull-right pull-right-pro">정답
+																	<label class="login2 pull-right pull-right-pro">답
 																		:</label>
 																</div>
 																<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
@@ -214,18 +214,6 @@
 														</div>
 													</c:if>
 												</c:forEach>
-												<div class="form-group-inner">
-													<div class="login-btn-inner">
-														<div class="row">
-															<div class="col-lg-12">
-																<div class="login-horizental cancel-wp pull-right form-bc-ele">
-																	<button class="btn btn-white" type="reset">취소</button>
-																	<button class="btn btn-sm btn-primary login-submit-cs" type="button">수정하기</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
 											</form>
 										</div>
 									</div>

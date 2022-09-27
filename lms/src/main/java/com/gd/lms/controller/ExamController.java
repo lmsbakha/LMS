@@ -77,13 +77,12 @@ public class ExamController {
 	private ExamAnswerService examAnswerService;
 
 	//=============================================================================
-	// 강사전용
+	// 								강사전용
 	//=============================================================================
 
-	/*
-	 * [강사전용] 시험 메인페이지로 이동하는 메소드 파라미터 : sessionId Model 리턴값 : lectureListByTeacher
-	 * exam.jsp
-	 */
+	// [강사전용] 시험 메인페이지로 이동하는 메소드 
+	// 파라미터 : sessionId Model 
+	//리턴값 : lectureListByTeacher exam.jsp
 	@GetMapping("/loginCheck/exam")
 	public String exam(HttpSession session, Model model) {
 		// 세션에 저장된 값을 지역변수로 저장
@@ -99,10 +98,9 @@ public class ExamController {
 		return "exam/exam"; // forwarding으로 보내줌
 	}
 
-	/*
-	 * [강사전용] 문제은행 페이지를 보여주는 메소드 파라미터 : 객관식 문제를 담은 List를 view로 전송할 Model, 검색어
-	 * subjectName 리턴값: 객관식 문제 리스트를 보여줄 문제 은행 view --> questionBank.jsp로 이동
-	 */
+	// [강사전용] 문제은행 페이지를 보여주는 메소드 
+	// 파라미터 : 객관식 문제를 담은 List를 view로 전송할 Model, 검색어 subjectName 
+	// 리턴값 : 객관식 문제 리스트를 보여줄 문제 은행 view --> questionBank.jsp로 이동
 	@GetMapping("/loginCheck/questionBank")
 	public String questionBank(Model model, @RequestParam(value = "subjectName", required = false) String subjectName) {
 		// 파라미터 디버깅
@@ -124,10 +122,9 @@ public class ExamController {
 		return "exam/questionBank";
 	}
 
-	/*
-	 * [강사전용] 시험을 출제하는 페이지를 보여주는 메소드 파라미터 : List<Map<String, Object>를 담아둘 Model
-	 * 리턴값:시험문제를 출제하기 위한 form인 addExam.jsp로 이동
-	 */
+	// [강사전용] 시험을 출제하는 페이지를 보여주는 메소드 
+	// 파라미터 : List<Map<String, Object>를 담아둘 Model
+	// 리턴값:시험문제를 출제하기 위한 form인 addExam.jsp로 이동
 	@GetMapping("/loginCheck/addExam")
 	public String addExam(HttpSession session, Model model) {
 		String accountId = (String) session.getAttribute("sessionId");
@@ -150,9 +147,9 @@ public class ExamController {
 		return "exam/addExam";
 	}
 
-	/*
-	 * [강사전용] 시험을 출제하는 액션 메소드 파라미터 : 리턴 값 : addExam으로 이동하고 alertMsg로 성공 실패 여부 보내주기
-	 */
+	// [강사전용] 시험을 출제하는 액션 메소드 
+	// 파라미터 : ...
+	// 리턴 값 : addExam으로 이동하고 alertMsg로 성공 실패 여부 보내주기
 	@PostMapping("/loginCheck/addExam")
 	public String addExam(RedirectAttributes redirectAttributes, @RequestParam(value = "subjectName") String subjectName, @RequestParam(value = "examTitle") String examTitle, @RequestParam(value = "examContent") String examContent,
 			@RequestParam(value = "multipleCnt") int multipleCnt, @RequestParam(value = "shortAnswerCnt") int shortAnswerCnt, @RequestParam(value = "examStartDate") String examStartDate,
@@ -194,15 +191,10 @@ public class ExamController {
 		return "exam/addQuestionInBank";
 	}
 
-	/*
-	 * [강사전용] MultiplechoiceService에서 객관식 문제를 추가한 후 객관식 보기 추가 파라미터 :
-	 * Map<String,Object>에 파라미터 담아서 서비스로 전송 리턴값 : 문제 추가 유무를 알리는 msg, 문제 제출 폼
-	 * addQuestionInBank.jsp으로 이동
-	 * 
-	 * model 대신 RedirectAttributes 사용 --> redirect로 할거여서 model단에 알람메시지를
-	 * addAttribute하면 전달이 안되기 때문에 addFlashAttribute --> 1회성으로 메세지를 보여주면 되기 때문에
-	 * addAttribute을 사용하지 않고 addFlashAttribute 사용함
-	 */
+	// [강사전용] MultiplechoiceService에서 객관식 문제를 추가한 후 객관식 보기 추가 
+	// 파라미터 : Map<String,Object>에 파라미터 담아서 서비스로 전송 
+	// 리턴값 : 문제 추가 유무를 알리는 msg, 문제 제출 폼 addQuestionInBank.jsp으로 이동
+	// model 대신 RedirectAttributes 사용 --> redirect로 할거여서 model단에 알람메시지를 addAttribute하면 전달이 안되기 때문에 addFlashAttribute --> 1회성으로 메세지를 보여주면 되기 때문에 addAttribute을 사용하지 않고 addFlashAttribute 사용함
 	@PostMapping("/loginCheck/addMultipleChoice")
 	public String addExam(RedirectAttributes redirectAttributes, @RequestParam(value = "subjectName") String subjectName, @RequestParam(value = "questionTitle") String questionTitle,
 			@RequestParam(value = "questionAnswer") String questionAnswer, @RequestParam(value = "answer1") String answer1, @RequestParam(value = "answer2") String answer2, @RequestParam(value = "answer3") String answer3,
@@ -250,8 +242,9 @@ public class ExamController {
 	}
 
 	//=============================================================================
-	// 학생전용
+	// 									학생전용
 	//=============================================================================
+
 	// 시험 응시 폼
 	// 파라미터 : SessionId
 	// 리턴값 : 시험지(examAnswerIndex, examNo, examQuestionNo, multiplechoice & multiplechoiceExample에 관련된 데이터), 학생이름, educationNo
@@ -278,7 +271,7 @@ public class ExamController {
 	}
 
 	// 시험 응시 액션
-	// 파라미터 : SessionId
+	// 파라미터 : ...
 	// 리턴값 : 점수를 보여주는 resultExam.jsp이동
 	@PostMapping("/loginCheck/submitExam")
 	public String submitExam(RedirectAttributes redirectAttributes, @RequestParam(value = "examNo") int examNo, @RequestParam(value = "educationNo") int educationNo, @RequestParam(value = "examQuestionIndex") String examQuestionIndex,
@@ -319,6 +312,7 @@ public class ExamController {
 		// 디버깅
 		log.debug(TeamColor.PSJ + resultMap.get("score") + "<-- 맞은 갯수 score" + TeamColor.TEXT_RESET);
 
+		redirectAttributes.addAttribute("score", resultMap.get("score"));
 		redirectAttributes.addAttribute("educationNo", educationNo);
 		redirectAttributes.addAttribute("examNo", examNo);
 
@@ -329,14 +323,34 @@ public class ExamController {
 	// 파라미터 : Model
 	// 리턴값 : resultExam.jsp
 	@GetMapping("/loginCheck/resultExam")
-	public String resultExam(Model model, @RequestParam(value = "examNo") int examNo, @RequestParam(value = "educationNo") int educationNo) {
+	public String resultExam(Model model, @RequestParam(value = "examNo") int examNo, @RequestParam(value = "educationNo") int educationNo, @RequestParam(value = "score") int score) {
 		// service call
 		List<Map<String, Object>> resultExam = examAnswerService.getResultExam(examNo, educationNo);
 		// 디버깅
 		log.debug(TeamColor.PSJ + resultExam + "<-- resultExam" + TeamColor.TEXT_RESET);
 		// model에 값 셋팅
+		model.addAttribute("score", score);
 		model.addAttribute("resultExam", resultExam);
 		return "exam/resultExam";
+	}
+
+	// 시험 메인 페이지 
+	// 파라미터 : accountId(Session)
+	// 리턴값 : 시험리스트
+	@GetMapping("/loginCheck/examForStudent")
+	public String examForStudent(HttpSession session, Model model) {
+		// 로그인한 아이디
+		String accountId = (String) session.getAttribute("sessionId");
+		// 디버깅
+		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+
+		// service call
+		List<Map<String, Object>> examList = examService.getExamListForStudentByAccountId(accountId);
+
+		// view에 전달하기 위해서 model에 추가
+		model.addAttribute("examList", examList);
+
+		return "exam/examForStudent";
 	}
 
 }

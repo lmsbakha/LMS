@@ -276,7 +276,7 @@
 																	<td>${map.createDate}</td>
 																	<td>
 																		<a href="${pageContext.request.contextPath}/loginCheck/shortAnswerQuestionOne?questionNo=${map.questionNo}"> 
-																			<button class="btn btn-sm btn-custon-rounded-three btn-warning">
+																			<button class="btn btn-sm btn-custon-rounded-three btn-primary">
 																				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>수정하기
 																			</button>
 																		</a> 

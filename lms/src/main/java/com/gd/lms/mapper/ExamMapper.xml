@@ -39,4 +39,40 @@
 		WHERE ls.lecture_name=#{lectureName}
 		ORDER BY exam_start_date DESC
 	</select>
+	
+	<!-- 학생 아이디에 따른 시험 목록 가져오기 -->
+	<select id="selectExamListForStudentByAccountId" parameterType="String" resultType="Map">
+		SELECT 
+			z.account_id accountId
+			, z.education_no educationNo
+			, z.lecture_name lectureName
+			, e.exam_no examNo
+			, e.subject_name subjectName
+			, e.exam_title examTitle
+			, e.exam_content examContent
+			, e.exam_start_date examStartDate
+			, e.exam_end_date examEndDate
+		FROM exam e
+		INNER JOIN (
+			SELECT t.account_id, t.lecture_name, t.education_no, ls.subject_name
+			FROM lecture_subject ls
+			INNER JOIN (
+				SELECT e.account_id, e.education_no, l.lecture_name 
+				FROM education e
+				INNER JOIN lecture l
+					USING(lecture_name)
+					WHERE e.account_id='student' AND e.education_state='수강중'
+			)t
+			USING(lecture_name)
+		)z
+		USING(subject_name)
+		WHERE 
+		 <![CDATA[
+      	 e.exam_start_date <= CURDATE() AND CURDATE() <= e.exam_end_date
+        ]]>
+        ORDER BY e.exam_end_date DESC
+	</select>
+	
+	<!-- 시험 응시여부 확인 -->
+	
 </mapper>

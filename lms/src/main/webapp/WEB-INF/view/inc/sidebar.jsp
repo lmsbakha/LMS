@@ -36,10 +36,24 @@
                                 <li>
                                  <a title="reportSubmitList" href="${pageContext.request.contextPath}/loginCheck/reportList"><span class="mini-sub-pro">과제</span></a>      
                                 </li>
-                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">시험</span></a></li>
+                                <!-- 학생이 로그인 했을 경우 -->
+                                <c:if test="${sessionLevel == 1}">
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/examForStudent"><span class="mini-sub-pro">시험</span></a></li>
+                                </c:if>
+                                <!-- 강사가 로그인 했을 경우 -->
+                                <c:if test="${sessionLevel == 2}">
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/exam"><span class="mini-sub-pro">시험</span></a></li>
+                                </c:if>
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">성적</span></a></li>
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">출결현황</span></a></li>
-                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">출결관리</span></a></li>
+                                <!-- 강사 아이디로 로그인했을 경우 -->
+                                <c:if test="${sessionLevel == 2}">
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/attendanceForTeacher"><span class="mini-sub-pro">출결관리</span></a></li>
+                                </c:if>
+                                <!-- 행정 아이디로 로그인했을 경우 -->
+                                <c:if test="${sessionLevel >= 3}">
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/attendanceForTeacher"><span class="mini-sub-pro">출결관리</span></a></li>
+                                </c:if>
                             </ul>
                         </li>
                         <li>

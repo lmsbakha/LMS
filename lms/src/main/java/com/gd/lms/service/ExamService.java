@@ -37,6 +37,21 @@ public class ExamService {
 	@Autowired
 	private ShortAnswerQuestionMapper shortAnswerQuestionMapper;
 
+	// 학생 아이디 값에 따른 ExamList
+	// 파라미터 : acccountId
+	// 리턴값 : List<Map<String, Object>> 시험리스트
+	public List<Map<String, Object>> getExamListForStudentByAccountId(String accountId) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+
+		// ExamMapper call 후 리턴 객체에 담기
+		List<Map<String, Object>> examListByAccountId = examMapper.selectExamListForStudentByAccountId(accountId);
+		// 디버깅
+		log.debug(TeamColor.PSJ + examListByAccountId + "<-- examListByAccountId" + TeamColor.TEXT_RESET);
+
+		return examListByAccountId;
+	}
+
 	// lecture에 출제된 ExamList
 	// 파라미터 : lectureName
 	// 리턴값 : List<Map<String, Object>>
@@ -81,7 +96,7 @@ public class ExamService {
 		int examNo = paramExam.getExamNo();
 		// 디버깅
 		log.debug(TeamColor.PSJ + examNo + "<-- examNo" + TeamColor.TEXT_RESET);
-		
+
 		//---------------------------------------------------------------------------객관식
 		// multiplechoiceMapper로 전달할 파라미터 객체 생성
 		Map<String, Object> paramMultiplechoiceRandom = new HashMap<>();
@@ -89,7 +104,7 @@ public class ExamService {
 		paramMultiplechoiceRandom.put("multipleCnt", paramMap.get("multipleCnt"));
 		// 디버깅
 		log.debug(TeamColor.PSJ + paramMultiplechoiceRandom + "<-- paramRandom" + TeamColor.TEXT_RESET);
-		
+
 		// 객관식 문제 랜덤하게 multipleCnt 만큼 뽑아와서 List에 저장
 		List<Map<String, Object>> multiplechoiceExamList = multiplechoiceMapper.selectMultiplechoiceListByRandom(paramMultiplechoiceRandom);
 		// 디버깅
@@ -102,14 +117,14 @@ public class ExamService {
 		paramShortAnswerQuestionRandom.put("shortAnswerCnt", paramMap.get("shortAnswerCnt"));
 		// 디버깅
 		log.debug(TeamColor.PSJ + paramShortAnswerQuestionRandom + "<-- paramRandom" + TeamColor.TEXT_RESET);
-		
+
 		// 단답형 문제 랜덤하게 뽑아서 리스트에 저장
 		List<Map<String, Object>> shortAnswerQuestionExamList = shortAnswerQuestionMapper.getShortAnswerQuestionListByRandom(paramShortAnswerQuestionRandom);
 		// 디버깅
 		log.debug(TeamColor.PSJ + shortAnswerQuestionExamList + "<-- shortAnswerQuestionExamList" + TeamColor.TEXT_RESET);
 
 		// 디버깅
-		log.debug(TeamColor.PSJ +"------exam_question에 문제 추가 시작------" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSJ + "------exam_question에 문제 추가 시작------" + TeamColor.TEXT_RESET);
 		// 문제은행에서 뽑아온 객관식 문제 리스트를 exam_question table에 저장
 		for (int i = 1; i <= (int) paramMap.get("multipleCnt"); i++) { //객관식 문제만큼 추가
 			Map<String, Object> paramExamQuestionMap = new HashMap<>();
@@ -133,7 +148,7 @@ public class ExamService {
 			log.debug(TeamColor.PSJ + i + "문제 추가 완료" + TeamColor.TEXT_RESET);
 		}
 		// 디버깅
-		log.debug(TeamColor.PSJ +"------exam_question에 문제 추가 완료------" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSJ + "------exam_question에 문제 추가 완료------" + TeamColor.TEXT_RESET);
 		return 1;
 	}
 

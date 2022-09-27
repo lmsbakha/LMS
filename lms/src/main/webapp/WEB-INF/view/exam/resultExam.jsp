@@ -136,6 +136,7 @@
 							<div class="main-sparkline12-hd">
 								<h1>시험결과</h1>
 								<hr>
+								<br>
 							</div>
 						</div>
 						<div class="sparkline12-graph">
@@ -143,13 +144,13 @@
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<div class="all-form-element-inner">
-											<table class="table table-hover">
+											<table class="table table-bordered table-hover">
 												<thead>
-													<tr>
-														<th>examQuestionIndex(문제번호)</th>
-														<th>examAnswerContent(제출한 답안)</th>
-														<th>examAnswerState(채점)</th>
-														<th>questionAnswer(정답)</th>
+													<tr class="active">
+														<th style="width: 73px">문제번호</th>
+														<th>제출한 답안</th>
+														<th>채점</th>
+														<th>정답</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -157,7 +158,7 @@
 														<!-- 정답인 경우 -->
 														<c:if test="${question.examAnswerState eq 'O'}">
 															<tr>
-																<td>${question.examQuestionIndex}</td>
+																<td style="text-align: center;">${question.examQuestionIndex}</td>
 																<td>${question.examAnswerContent}</td>
 																<td>${question.examAnswerState}(정답)</td>
 																<td>${question.questionAnswer}</td>
@@ -166,17 +167,20 @@
 														<!-- 오답인 경우 -->
 														<c:if test="${question.examAnswerState eq 'X'}">
 															<tr>
-																<td style="color: red;">${question.examQuestionIndex}</td>
+																<td style="color: red;text-align: center;">${question.examQuestionIndex}</td>
 																<td style="color: red;">${question.examAnswerContent}</td>
 																<td style="color: red;">${question.examAnswerState}(오답)</td>
 																<td style="color: red;">${question.questionAnswer}</td>
 															</tr>
 														</c:if>
 													</c:forEach>
+													<tr>
+														<th colspan="4" style="text-align: right;">총점 : ${score*10} 점 </th>
+													</tr>
 												</tbody>
 											</table>
-											<a href="${pageContext.request.contextPath}/loginCheck/exam">
-												<button type="button" class="btn btn-custon-four btn-primary" style="float: ">
+											<a href="${pageContext.request.contextPath}/loginCheck/examForStudent">
+												<button type="button" class="btn btn-custon-four btn-primary" style="float:right; ">
 													<i class="fa fa-check edu-checked-pro" aria-hidden="true">목록</i>
 												</button>
 											</a>
