@@ -113,7 +113,7 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="review-content-section">
                                                 <div id="dropzone1" class="pro-ad addcoursepro">
-                                                    <form action="${pageContext.request.contextPath}/loginCheck/modifyNotice" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="modifyNoticeForm" method="post">
+                                                    <form action="${pageContext.request.contextPath}/loginCheck/modifyNotice" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="modifyNoticeForm" method="post" enctype="multipart/form-data">
                                                         <div class="row">
                                                             <div class="form-group edit-ta-resize res-mg-t-15">
                                                                 <div class="form-group">

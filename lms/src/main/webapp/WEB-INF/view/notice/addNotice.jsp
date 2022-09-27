@@ -113,7 +113,8 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="review-content-section" >
                                                 <div id="dropzone1" class="pro-ad addcoursepro" >
-                                                    <form action="${pageContext.request.contextPath}/loginCheck/addNotice" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="addNoticeForm" method="post" >
+                                                
+                                                    <form action="${pageContext.request.contextPath}/loginCheck/addNotice" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="addNoticeForm" method="post" enctype="multipart/form-data" >
                                                         <div class="row">
                                                             <div class="form-group edit-ta-resize res-mg-t-15">
                                                                 <div class="form-group">
@@ -134,25 +135,29 @@
 																</div>
 															</div>
 														</div>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="payment-adress">
-                                                                    <button type="submit" id="addNoticeSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
-                                                                </div>
-                                                            </div>
+														
+														<div class="form-group col-lg-12">
+									                		<div class="row">
+	                                                            <div class="col-lg-12">
+	                                                                <div class="payment-adress">
+	                                                                    <button type="submit" id="addNoticeSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
+	                                                                </div>
+	                                                            </div>
+	                                                    	</div>
                                                     	</div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                                 	</form>
+                                                  
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
     <!-- footer -->
 	<jsp:include page="../inc/footer.jsp" />
 </div>

@@ -46,7 +46,6 @@ public class NoticeService {
 	}
 	
 	// 공지사항 상세보기 
-	/*
 	public Notice showNoticeOne(int noticeNo) {
 		log.debug(TeamColor.LHN + "selectNoticeOne 호출" + TeamColor.TEXT_RESET);
 		// 수정할 객체
@@ -57,53 +56,82 @@ public class NoticeService {
 		log.debug(TeamColor.LHN+ "notice : " +notice + TeamColor.TEXT_RESET);
 		return notice;
 	}
-	*/
+	
 	
 	//공지사항 신규 작성 액션
-	public int addNotice(Notice notice, NoticeFile noticeFile, String path) {
+	// 파일없
+	
+//	public int addNotice(Notice notice) {
+//		// 디버깅
+//		log.debug(TeamColor.LHN + " addNotice 실행" + TeamColor.TEXT_RESET);
+//		int addNotice = 0;	// 리턴값
+//		log.debug(TeamColor.LHN + "Notice: " + notice + TeamColor.TEXT_RESET);
+//		// 매퍼 실행
+//		addNotice = noticeMapper.insertNotice(notice);
+//		return addNotice;
+//	}
+	
+	
+	//파일있
+	public int addNotice(Notice notice, String path) {
 		// 디버깅
-		log.debug(TeamColor.LHN + " addNotice 실행" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + " addNotice(+file) 실행" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + " addNotice(+file) 실행" + TeamColor.TEXT_RESET);
+		
 		int addNotice = 0;	// 리턴값
 		log.debug(TeamColor.LHN + "Notice: " + notice + TeamColor.TEXT_RESET);
+		
 		// 매퍼 실행
-		addNotice = noticeMapper.insertNotice(notice);
-		if(noticeFile.getNoticeFileList()!=null && noticeFile.getNoticeFileList().get(0).getSize()>0 && addNotice == 1) {
-			log.debug(TeamColor.LHN + "첨부파일 있음" + TeamColor.TEXT_RESET);
-			log.debug(TeamColor.LHN + "첨부파일 갯수: " + noticeFile.getNoticeFileList().size() + TeamColor.TEXT_RESET);
-			
-			for(MultipartFile mf : noticeFile.getNoticeFileList()) {
-				// mf=>noticeFile
-				NoticeFile noticeFileOne = new NoticeFile();
-				
-				// OriginalFileName 요청
-				String noticeFileOriginName = mf.getOriginalFilename();
-				// 확장자 저장
-				String ext = noticeFileOriginName.substring(noticeFileOriginName.lastIndexOf("."));
-				
-				// UUID
-				String noticeFileName = UUID.randomUUID().toString();
-				noticeFileName = noticeFileName+ext;
-				
-				noticeFileOne.setNoticeNo(notice.getNoticeNo());
-				noticeFileOne.setNoticeFileName(noticeFileName);
-				noticeFileOne.setNoticeFileOriginName(noticeFileOriginName);
-				noticeFileOne.setNoticeFileType(mf.getContentType());
-				noticeFileOne.setNoticeFileSize(mf.getSize());
-				// 디버깅
-				log.debug(TeamColor.LHN + "첨부파일: " + noticeFileOne + TeamColor.TEXT_RESET);
-				
-				try {
-					//경로+이름으로 파일 저장
-					mf.transferTo(new File(path+noticeFileName));
-				} catch (Exception e) {
-					e.printStackTrace();
-					// 새로운 예외 발생=> @Transactional 작동
-					throw new RuntimeException(); // RuntimeException은 예외처리를 하지 않아도 컴파일됨
-				}
-			}
+		noticeMapper.insertNotice(notice);
+		MultipartFile mf = notice.getNoticeFile();
+//		addNotice = noticeMapper.insertNotice(notice);
+//		log.debug(TeamColor.LHN + "addNotice: " + addNotice + TeamColor.TEXT_RESET);
+//		
+//		MultipartFile mf = notice.getNoticeFile();
+//		log.debug(TeamColor.LHN + "MultipartFile: " + mf + TeamColor.TEXT_RESET);
+//		
+		//원본 파일명
+		String originName = mf.getOriginalFilename();	
+		log.debug(TeamColor.LHN + "originName: " + originName + TeamColor.TEXT_RESET);
+
+		// 랜덤으로 생성되는 고유 파일명(UUID)
+		String fileName = UUID.randomUUID().toString();	
+		log.debug(TeamColor.LHN + "fileName: " + fileName + TeamColor.TEXT_RESET);
+		
+		//확장자 확인
+		String ext = originName.substring(originName.lastIndexOf("."));	
+		log.debug(TeamColor.LHN + "ext: " + ext + TeamColor.TEXT_RESET);
+
+		// uuid+확장자
+		fileName=fileName+ext;
+		log.debug(TeamColor.LHN + "fileName(file+ext): " + fileName + TeamColor.TEXT_RESET);
+		
+		// NoticeFile 객체에 적용
+		NoticeFile noticeFile = new NoticeFile();
+		noticeFile.setAccountId(notice.getAccountId());
+		noticeFile.setNoticeFileName(fileName);
+		noticeFile.setNoticeFileOriginName(originName);
+		noticeFile.setNoticeFileType(mf.getContentType());
+		noticeFile.setNoticeFileSize(mf.getSize());
+		
+		log.debug(TeamColor.LHN + "noticeFile: " + noticeFile + TeamColor.TEXT_RESET);
+		// 파일 저장 경로
+		String savePath = path+fileName;
+		
+		try {
+			// 파일 저장
+			mf.transferTo(new File(savePath));
+		} catch (Exception e) {
+			e.printStackTrace();
+			// 새로운 예외 발생=> @Transactional 작동
+			throw new RuntimeException(); // RuntimeException은 예외처리를 하지 않아도 컴파일됨
 		}
+		// noticeFile 파일 입력
+        int row = noticeFileMapper.insertNoticeFile(noticeFile);
+
 		// 디버깅
 		log.debug(TeamColor.LHN + "addNotice: "+ addNotice  + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "noticeFile 입력: "+ row  + TeamColor.TEXT_RESET);
 		return addNotice;
 	}
 	
@@ -114,15 +142,14 @@ public class NoticeService {
 	}
 	
 	// 공지글 수정 폼
-	// 파일이 없는 경우: 파일 값이 있/없
-	public Map<String, Object> showNoticeOne(int noticeNo)  {
-		
-		log.debug(TeamColor.LHN + "공지글 상세보기/수정 폼 호출" + TeamColor.TEXT_RESET);
+	public Notice modifyNoticeForm(int noticeNo) {
+		log.debug(TeamColor.LHN + "updateNoticeForm 호출" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo +  TeamColor.TEXT_RESET);
 		// 수정할 객체
 		Notice notice = noticeMapper.updateNoticeForm(noticeNo);
 		log.debug(TeamColor.LHN+ "(Service)notice : " +notice + TeamColor.TEXT_RESET);
-				
+		
+		/*
 		// 게시글과 파일 묶기
 		Map<String, Object> noticeOneReturnMap = new HashMap<>();
 		
@@ -143,8 +170,8 @@ public class NoticeService {
 		
 		noticeOneReturnMap.put("notice", notice);
 		
-		
-		return noticeOneReturnMap;
+		*/
+		return notice;
 	}
 	
 	// 공지글 수정 액션
