@@ -24,7 +24,7 @@ public interface ReportSubmitMapper {
 	// 학생별 제출한 과제 리스트 조회 메소드
 	// 파라미터 : accountId
 	// 리턴값 : List<Map<String,Object>>
-	Map<String, Object> selectReportListById(Map<String, Object> paramMap);
+	List<ReportSubmit> selectReportListById(Map<String, Object> paramMap);
 
 	// 강좌별 제출한 과제 리스트 조회 메소드
 	// 파라미터 : educationNo

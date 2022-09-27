@@ -35,17 +35,4 @@ public class LectureService {
 		log.debug(TeamColor.PSJ + lectureListByTeacher + "<-- lectureListByTeacher" + TeamColor.TEXT_RESET);
 		return lectureListByTeacher;
 	}
-
-	// reportSubmitList 강좌리스트 조회
-	public List<Lecture> getLectureNameByTeacher(String teacherName) {
-		// 파라미터 디버깅
-		log.debug(TeamColor.PSJ + teacherName + "<-- teacherName" + TeamColor.TEXT_RESET);
-
-		// LectureMapper에서 lectureName 받아오기
-		List<Lecture> lectureNameList = lectureMapper.selectLectureNameByTeacher(teacherName);
-		// 디버깅
-		log.debug(TeamColor.PSJ + lectureNameList + "<-- lectureNameList" + TeamColor.TEXT_RESET);
-		
-		return lectureNameList;
-	} // end getLectureNameByTeacher
 }

@@ -27,21 +27,21 @@ public class ReportService {
 	@Autowired
 	LectureSubjectMapper lectureSubjectMapper;
 
-	  // 전체 과제 리스트 조회하는 메소드
-	   // 파라미터 : X
-	   // 리턴값 : boardList, lastPage
-	   public List<Report> getReportList() {
-	      // 디버깅 영역구분
-	      log.debug(TeamColor.PSY + "\n\n@getReportList Service" + TeamColor.TEXT_RESET);
+	// 전체 과제 리스트 조회하는 메소드
+	// 파라미터 : X
+	// 리턴값 : boardList, lastPage
+	public List<Report> getReportList() {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@getReportList Service" + TeamColor.TEXT_RESET);
 
-	      // ReportMapper 실행
-	      List<Report> reportList = reportMapper.selectReportList();
-	      // 디버깅
-	      log.debug(TeamColor.PSY + reportList.toString() + "<-- reportList" + TeamColor.TEXT_RESET);
-	      
-	      return reportList;
-	   } // end getReportList
-	   
+		// ReportMapper 실행
+		List<Report> reportList = reportMapper.selectReportList();
+		// 디버깅
+		log.debug(TeamColor.PSY + reportList.toString() + "<-- reportList" + TeamColor.TEXT_RESET);
+
+		return reportList;
+	} // end getReportList
+
 	// addReport에 필요한 subjecteName, lectureStartDate , lectureEndDate 가져오기
 	// 파라미터 : X
 	// 리턴값 : List<LectureSubject>
@@ -73,7 +73,7 @@ public class ReportService {
 		return addReport;
 	} // end addReport
 
-	// 출제한 과제 수정하는 메소드 
+	// 출제한 과제 수정하는 메소드
 	// getReportOne Form
 	// 파라미터 : Report
 	// 리턴값 : int
@@ -91,7 +91,7 @@ public class ReportService {
 		return getReportOne;
 	} // end getReportOne
 
-	// 출제한 과제 수정하는 메소드 
+	// 출제한 과제 수정하는 메소드
 	// modifyReport Action
 	// 파라미터 : Report
 	// 리턴값 : int

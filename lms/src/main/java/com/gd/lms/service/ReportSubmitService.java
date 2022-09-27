@@ -44,7 +44,7 @@ public class ReportSubmitService {
 	// 학생별 제출한 과제 리스트 조회 메소드
 	// 파라미터 : accountId
 	// 리턴값 : List<Map<String,Object>>
-	public Map<String, Object> getReportListById(String accountId) {
+	public  List<ReportSubmit> getReportListById(String accountId) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@getReportListById Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
@@ -59,7 +59,7 @@ public class ReportSubmitService {
 		paramMap.put("accountId", accountId);
 
 		// Mapper call
-		Map<String, Object> reportSubmitListById = reportSubmitMapper.selectReportListById(paramMap);
+		List<ReportSubmit> reportSubmitListById = reportSubmitMapper.selectReportListById(paramMap);
 		// 파마리터 디버깅
 		log.debug(TeamColor.PSY + paramMap + "<-- paramMap" + TeamColor.TEXT_RESET);
 		// Mapper에서 받아온 ReportSubmitListById 값 디버깅

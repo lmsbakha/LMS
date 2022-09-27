@@ -20,10 +20,10 @@ public interface ReportMapper {
 	// 리턴값 : int
 	int selectReportTotalCount();
 	
-	// lectureSubject의 subjectName 가져오기
-	// 파라미터 : X
+	// reportSubmit와 관련된 subjectName 가져오기
+	// 파라미터 : reportNo
 	// 리턴값 : List<LectureSubject>
-	List<LectureSubject> selectLectureSubjectName();
+	List<LectureSubject> selectLectureSubject(int reportNo);
 	
 	// 과제 출제하는 메소드
 	// 파라미터 : Report

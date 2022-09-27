@@ -80,16 +80,15 @@ public class ReportSubmitController {
 		paramMap.put("acountId", acountId);
 		// paramMap 디버깅
 		log.debug(TeamColor.PSY + paramMap + "<--paramMap" + TeamColor.TEXT_RESET);
-
+		
 		// Service Call
-		Map<String, Object> reportSubmitListById = reportSubmitService.getReportListById(acountId);
+		List<ReportSubmit> listById = reportSubmitService.getReportListById(acountId);
 		// reportSubmitListById 디버깅
-		log.debug(TeamColor.PSY + reportSubmitListById + "<--reportSubmitListById" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + listById + "<--listById" + TeamColor.TEXT_RESET);
 
 		// model에 담기
-		model.addAttribute("reportSubmitListById", reportSubmitListById);
-
-		if (reportSubmitListById != null) {
+		model.addAttribute("listById", listById);
+		if (listById != null) {
 			// 성공
 			log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
 		} else {
@@ -229,7 +228,7 @@ public class ReportSubmitController {
 		}
 		
 		return "report/reportSubmitOne";
-	} // end reportOne
+	} // end reportSubmitOne
 
 	// 제출한 과제 점수 수정하는 메소드
 	// modifyReportScore Form

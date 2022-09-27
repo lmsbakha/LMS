@@ -26,26 +26,22 @@
 
 	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
 	<select id="selectReportListById" parameterType="Map"
-		resultType="com.gd.lms.vo.ReportSubmit">
-		SELECT
-		r.subject_name subjectName,
-		rs.report_submit_no
-		reportSubmitNo,
-		rs.education_no educationNo,
-		rs.account_id accountId,
-		rs.report_no reporNo,
-		rs.report_submit_title reportSubmitTitle,
-		rs.report_submit_content
-		reportSubmitContent,
-		rs.report_submit_score
-		reportSubmitScore,
-		rs.create_date createDate
-		FROM report_submit rs INNER
-		JOIN report r
+		resultType="Map">
+		SELECT 
+			r.subject_name subjectName,
+			rs.report_submit_no reportSubmitNo,
+			rs.education_no educationNo,
+			rs.account_id accountId,
+			rs.report_no reporNo,
+			rs.report_submit_title reportSubmitTitle,
+			rs.report_submit_content reportSubmitContent,
+			rs.report_submit_score reportSubmitScore,
+			rs.create_date createDate
+		FROM report_submit rs 
+		INNER JOIN report r
 		USING(report_no)
 		WHERE account_id = #{accountId}
-		ORDER BY
-		rs.create_date DESC
+		ORDER BY rs.create_date DESC
 	</select>
 	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
 

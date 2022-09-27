@@ -15,6 +15,4 @@ public interface LectureMapper {
 	 * */
 	List<Lecture> selectlectureListByTeacher(String accountId);
 	
-	// reportSubmitList 강좌리스트 조회
-	List<Lecture> selectLectureNameByTeacher(String teacherName);
 }

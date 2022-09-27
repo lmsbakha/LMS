@@ -10,16 +10,4 @@
 		USING(teacher_name)
 		WHERE t.account_id =#{accountId}
 	</select>
-
-	<!-- reportSubmitList 강좌리스트 조회 
-
-	<select id="selectLectureNameByTeacher"
-		resultType="com.gd.lms.vo.Lecture" parameterType="String">
-		SELECT
-		lecture_name
-		lectureName
-		FROM lecture
-		WHERE teacher_name= #{teacherName}
-	</select>
-	-->
 </mapper>

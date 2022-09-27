@@ -145,24 +145,24 @@
 										<th>createDate</th>
 										<th>Setting</th>
 									</tr>
-									<c:forEach var="reportSubmit" items="${reportSubmitListById}">
+									<c:forEach var="listById" items="${listById}">
 										<tr>
-											<td>${reportSubmit.subjectName}</td>
+											<td>${listById.subjectName}</td>
 											<td>
-											<a href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${reportSubmit.reportSubmitNo}">
-													${reportSubmit.reportSubmitTitle} </a>
+											<a href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${listById.reportSubmitNo}">
+													${listById.reportSubmitTitle} </a>
 											</td>
-											<td>${reportSubmit.createDate}</td>
+											<td>${listById.createDate}</td>
 											<td><a
 												href="${pageContext.request.contextPath}
-												/loginCheck/modifyReportSubmit?reportSubmitNo=${reportSubmit.reportSubmitNo}">
+												/loginCheck/modifyReportSubmit?reportSubmitNo=${listById.reportSubmitNo}">
 													<button data-toggle="tooltip" title="Edit"
 														class="pd-setting-ed" type="button">
 														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 													</button>
 											</a> <a
 												href="${pageContext.request.contextPath}
-												/loginCheck/removeReportSubmit?reportSubmitNo=${reportSubmit.reportSubmitNo}">
+												/loginCheck/removeReportSubmit?reportSubmitNo=${listById.reportSubmitNo}">
 													<button data-toggle="tooltip" title="Trash"
 														class="pd-setting-ed" type="button">
 														<i class="fa fa-trash-o" aria-hidden="true"></i>
