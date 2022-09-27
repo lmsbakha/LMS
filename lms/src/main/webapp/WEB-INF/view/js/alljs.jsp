@@ -67,6 +67,10 @@
     <!-- tab JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/js/tab.js"></script>
+     <!-- icheck JS
+		============================================ -->
+    <script src="${pageContext.request.contextPath}/js/icheck/icheck.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/icheck/icheck-active.js"></script>
     <!-- plugins JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/js/plugins.js"></script>

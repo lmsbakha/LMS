@@ -36,8 +36,11 @@ public interface AccountMapper {
 	// (학생, 강사, 행정) 멤버 비밀번호 찾기 아이디와 이름이 일치한다면 cnt 받기
 	int selectMemberAccountPw(Map<String,Object> map);
 	
-	// (학생, 강사 ,행정) 멤버 비밀번호 변경해주기 - 비밀번호 찾기를 통해 변경해주는 경우
-	int updateSearchMemberAccountPw(Account account);
+	// 개인 정보 수정 및 탈퇴 하기위한 비밀번호 확인
+	int accountPwCheck(Account account);
+	
+	// (학생, 강사 ,행정) 멤버 비밀번호 변경해주기 OR 비밀번호 찾기를 통해 변경해주는 경우
+	int updateMemberAccountPw(Account account);
 	
 	// 회원가입 메서드
 	int insertMember(Member paramMember);

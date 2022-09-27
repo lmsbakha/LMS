@@ -128,6 +128,7 @@
                                 <span class="help-block small" id="nameinfo"></span>
                             </div>
                             	<button type="button" id="searchBtn" class="btn btn-success-search btn-block">비밀번호 찾기</button>
+                            	<hr>
                             	<button type="button" class="btn btn-success btn-block" onclick="location.href='${pageContext.request.contextPath}/bakha/login'">로그인 하러가기</button>
                           </c:if>
                            </form>

@@ -89,7 +89,8 @@
     <!-- Start tobbar -->
 	<jsp:include page="../inc/topbar.jsp"/>
     <!-- End tobbar --> 
-        <!-- Static Table Start -->
+    <br>
+    <!-- Static Table Start -->
         <div class="data-table-area mg-b-15">
             <div class="container-fluid">
                 <div class="row">

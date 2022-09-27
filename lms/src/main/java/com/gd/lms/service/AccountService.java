@@ -120,7 +120,7 @@ public class AccountService {
 		// 디버깅
 		log.debug(TeamColor.PCW + "AccountService modifySearchMemberAccountPw " + account + TeamColor.TEXT_RESET);
 
-		return accountMapper.updateSearchMemberAccountPw(account);
+		return accountMapper.updateMemberAccountPw(account);
 	}
 
 	// 회원가입
@@ -180,6 +180,12 @@ public class AccountService {
         // 디버깅
         log.debug(TeamColor.PCW + "AccountService memberFile :" + memberFile + TeamColor.TEXT_RESET);
         
+        // memberFile 파일 입력
+        int row = memberFileMapper.insertMemberFile(memberFile);
+        
+        // 디버깅
+        log.debug(TeamColor.PCW + "AccountService memberFile row:" + row + TeamColor.TEXT_RESET);
+        
         try {
 			// 파일 위치에 저장
 			mf.transferTo(new File(savedPath)); 
@@ -189,11 +195,6 @@ public class AccountService {
 			throw new RuntimeException(); //예외 처리하면 트랜잭션 발생안하니까 컴파일 가능한 예외 발생시켜주기
 		}
         
-        // memberFile 파일 입력
-        int row = memberFileMapper.insertMemberFile(memberFile);
-        
-        // 디버깅
-        log.debug(TeamColor.PCW + "AccountService memberFile row:" + row + TeamColor.TEXT_RESET);
 	}
 
 	// 아이디 중복체크

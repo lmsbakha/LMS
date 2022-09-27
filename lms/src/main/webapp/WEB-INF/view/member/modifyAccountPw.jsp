@@ -10,62 +10,58 @@
 <title>Password Recevery | Kiaalap - Kiaalap Admin Template</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- favicon
 ============================================ -->
-<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico">
 <!-- Google Fonts
 ============================================ -->
 <link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet">
 <!-- Bootstrap CSS
 ============================================ -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <!-- Bootstrap CSS
 ============================================ -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 <!-- owl.carousel CSS
 ============================================ -->
-<link rel="stylesheet" href="css/owl.carousel.css">
-<link rel="stylesheet" href="css/owl.theme.css">
-<link rel="stylesheet" href="css/owl.transitions.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.transitions.css">
 <!-- animate CSS
 ============================================ -->
-<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <!-- normalize CSS
 ============================================ -->
-<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css">
 <!-- main CSS
 ============================================ -->
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 <!-- morrisjs CSS
 ============================================ -->
-<link rel="stylesheet" href="css/morrisjs/morris.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/morrisjs/morris.css">
 <!-- mCustomScrollbar CSS
 ============================================ -->
-<link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/scrollbar/jquery.mCustomScrollbar.min.css">
 <!-- metisMenu CSS
 ============================================ -->
-<link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
-<link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/metisMenu/metisMenu.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/metisMenu/metisMenu-vertical.css">
 <!-- calendar CSS
 ============================================ -->
-<link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
-<link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar/fullcalendar.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar/fullcalendar.print.min.css">
 <!-- forms CSS
 ============================================ -->
-<link rel="stylesheet" href="css/form/all-type-forms.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/form/all-type-forms.css">
 <!-- style CSS
 ============================================ -->
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
 <!-- responsive CSS
 ============================================ -->
-<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
 <!-- modernizr JS
 ============================================ -->
-<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
@@ -81,9 +77,12 @@
 			<div class="content-error">
 				<div class="hpanel">
                     <div class="panel-body poss-recover">
-                        <form action="${pageContext.request.contextPath}/modifySearchAccountPw" method="post" id="updatePwForm">
+                        <form action="${pageContext.request.contextPath}/loginCheck/modifyAccountPw" method="post" id="updatePwForm">
                              <div class="form-group">
-								<input type="hidden" name="accountId" id="accountId" value="${accountId}">
+                                <label class="control-label" for="accountPw">Id</label>
+                                <input type="text" name="accountId" readonly="readonly" value="${accountId}" class="form-control">
+                            </div>
+                             <div class="form-group">
                                 <label class="control-label" for="accountPw">New PassWord</label>
                                 <span class="help-block small"><b>(비밀번호는 영어 대소문자, 숫자, 특수문자를 포함해 최소 8문자 입력해 주셔야 합니다.)</b></span>
                                 <input type="password" placeholder="Enter your password..."  name="accountPw" id="accountPw" class="form-control">

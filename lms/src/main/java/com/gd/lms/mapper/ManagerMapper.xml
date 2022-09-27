@@ -63,13 +63,4 @@
 	</update>
 	<!-- /행정 개인정보 accountState 탈퇴로 수정하기 (탈퇴) -->
 
-	<!-- 행정 개인정보 수정&삭제를 위한 비밀번호확인 -->
-	<select id="checkAccountPw" parameterType="com.gd.lms.vo.Account" resultType="int">
-		SELECT COUNT(*)
-		FROM account
-		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
-	</select>
-	<!-- /행정 개인정보 수정&삭제를 위한 비밀번호확인 -->
-
-
 </mapper>

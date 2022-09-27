@@ -25,7 +25,4 @@ public interface ManagerMapper {
 	// 행정 개인정보 accountState 탈퇴로 수정하기 (탈퇴)
 	int updateAccountStateManager(Account account);
 	
-	// 행정 개인정보 수정&삭제를 위한 비밀번호확인
-	int checkAccountPw(Account account);
-	
 }

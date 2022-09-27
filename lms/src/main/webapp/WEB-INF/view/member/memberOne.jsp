@@ -339,9 +339,9 @@
 												</c:choose>
 												<div style="text-align: right;">
 												<c:if test="${accountLevel < 4 && sessionId eq member.accountId }">
-													<a type="button" class="btn btn-custon-rounded-three btn-primary" href="">비밀번호 수정</a>
-													<a type="button" class="btn btn-custon-rounded-three btn-primary" href="">정보 수정</a>
-													<a type="button" class="btn btn-custon-rounded-three btn-danger" href="">회원 탈퇴</a>
+													<a type="button" class="btn btn-custon-rounded-three btn-primary" href="${pageContext.request.contextPath}/loginCheck/checkAccountPw?path=modifyAccountPw">비밀번호 수정</a>
+													<a type="button" class="btn btn-custon-rounded-three btn-primary" href="${pageContext.request.contextPath}/loginCheck/checkAccountPw?path=modifyMember">정보 수정</a>
+													<a type="button" class="btn btn-custon-rounded-three btn-danger" href="${pageContext.request.contextPath}/loginCheck/checkAccountPw?path=removeMember">회원 탈퇴</a>
 												</c:if>
 												</div>
 											</div>

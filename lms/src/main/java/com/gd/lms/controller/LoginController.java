@@ -289,7 +289,7 @@ public class LoginController {
 		return "redirect:/bakha/login";
 	}
 
-	// 회원가입 승앤대기리스트 Form
+	// 회원가입 승인 대기리스트 Form
 	@GetMapping("/loginCheck/approveWaitMemberList")
 	public String modifyAccountStateWaitMember(Model model, @RequestParam(value="memberCheck", defaultValue="all") String memberCheck) {
 		

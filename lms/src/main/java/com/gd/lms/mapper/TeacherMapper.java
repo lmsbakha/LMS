@@ -30,6 +30,4 @@ public interface TeacherMapper {
 	// 강사 개인정보 accountState 탈퇴로 수정하기 (탈퇴)
 	int updateAccountStateTeacher(Account account);
 	
-	// 강사 개인정보 수정&삭제를 위한 비밀번호확인
-	int checkAccountPw(Account account);
 }
