@@ -128,7 +128,7 @@
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<form
-				action="${pageContext.request.contextPath}/loginCheck/ReportSubmitOne"
+				action="${pageContext.request.contextPath}/loginCheck/reportSubmitOne"
 				id="modifyReportSubmitForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -148,18 +148,18 @@
 							<div class="form-group">
 								<label for="reportSubmitTitle">reportSubmitTitle</label> <input
 									name="reportSubmitTitle" id="reportSubmitTitle" type="text"
-									class="form-control"
+									class="form-control" readonly
 									value="${reportSubmitOne.reportSubmitTitle}">
 							</div>
 							<div class="form-group edit-ta-resize res-mg-t-15">
 								<label for="reportSubmitContent">reportSubmitContent</label>
-								<textarea name="reportSubmitContent" id="reportSubmitContent">${reportSubmitOne.reportSubmitContent}</textarea>
+								<textarea name="reportSubmitContent" id="reportSubmitContent" style="background-color: #e5e6e7;" readonly>${reportSubmitOne.reportSubmitContent}</textarea>
 							</div>
 							<div class="form-group alert-up-pd">
 								<div class="dz-message needsclick download-custom">
 									<i class="fa fa-download edudropnone" aria-hidden="true"></i> <input
 										name="reportSubmitFile" id="filename" class="form-control"
-										type="file" multiple="multiple" accept=".txt,.zip" value="">
+										type="file" multiple="multiple" accept=".txt,.zip" value="${reportSubmitOne.reportSubmitFilename}" readonly>
 								</div>
 							</div>
 						</div>

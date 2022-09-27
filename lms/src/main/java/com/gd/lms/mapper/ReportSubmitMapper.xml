@@ -5,9 +5,11 @@
 	<!--전체 제출한 과제 리스트 조회 메소드 -->
 	<select id="selectReportList" resultType="List">
 		SELECT
-		r.subject_name subjectName,
+		r.subject_name
+		subjectName,
 		rs.report_submit_no reportSubmitNo,
-		rs.education_no educationNo,
+		rs.education_no
+		educationNo,
 		rs.account_id accountId,
 		rs.report_no reporNo,
 		rs.report_submit_title reportSubmitTitle,
@@ -27,19 +29,23 @@
 		resultType="com.gd.lms.vo.ReportSubmit">
 		SELECT
 		r.subject_name subjectName,
-		rs.report_submit_no reportSubmitNo,
+		rs.report_submit_no
+		reportSubmitNo,
 		rs.education_no educationNo,
 		rs.account_id accountId,
 		rs.report_no reporNo,
 		rs.report_submit_title reportSubmitTitle,
 		rs.report_submit_content
 		reportSubmitContent,
-		rs.report_submit_score reportSubmitScore,
+		rs.report_submit_score
+		reportSubmitScore,
 		rs.create_date createDate
-		FROM report_submit rs INNER JOIN report r
+		FROM report_submit rs INNER
+		JOIN report r
 		USING(report_no)
 		WHERE account_id = #{accountId}
-		ORDER BY rs.create_date DESC
+		ORDER BY
+		rs.create_date DESC
 	</select>
 	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
 
@@ -104,21 +110,26 @@
 	</insert>
 	<!-- 과제 첨부파일 제출하기 메소드 -->
 
-	<!-- 제출한 과제 수정하기 Form -->
-	<select id="ReportSubmitOne" parameterType="int"
+	<!-- 제출한 과제 상세보기 -->
+	<select id="ReportSubmitOne" parameterType="Map"
 		resultType="com.gd.lms.vo.ReportSubmit">
-		SELECT report_submit_no reportSubmitNo,education_no
-		educationNo, report_no reportNo,
-		account_id
-		accountId,report_submit_title reportSubmitTitle,
-		report_submit_content
-		reportSubmitContent ,report_submit_score reportSubmitSCore,
-		update_date updateDate, create_date createDate
-		FROM report_submit
-		WHERE
-		report_submit_no = #{reportSubmitNo}
+		SELECT
+		rs.report_submit_no reportSubmitNo,
+		rs.education_no educationNo,
+		rs.account_id accountId,
+		rs.report_no reportNo,
+		rs.report_submit_title reportSubmitTitle,
+		rs.report_submit_content reportSubmitContent,
+		rs.report_submit_score reportSubmitScore,
+		rs.create_date createDate,
+		rsf.report_submit_filename reportSubmitFilename,
+		rsf.report_submit_file_type reportSubmitFileType
+		FROM report_submit rs
+		INNER JOIN report_submit_file rsf
+		USING(report_submit_no)
+		WHERE report_submit_no = #{reportSubmitNo}
 	</select>
-	<!-- 제출한 과제 수정하기 Form -->
+	<!-- 제출한 과제 상세보기 -->
 
 	<!-- 제출한 과제 수정하기 Action -->
 	<update id="updateReportSubmit"

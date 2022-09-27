@@ -44,10 +44,10 @@ public interface ReportSubmitMapper {
 	// 과제 첨부파일 제출하기 메소드 Action
 	int insertReportSubmitFile(ReportSubmitFile reportSubmitFile);
 
-	// 제출한 과제 수정하는 메소드 Form
+	// 제출한 과제 상세보기 메소드
 	// 파라미터 : reportSubmitNo
-	// 리턴값 : int
-	ReportSubmit ReportSubmitOne(int reportSubmitNo);
+	// 리턴값 : Map<String, Object>
+	List<ReportSubmit> ReportSubmitOne(Map<String, Object> paramMapS);
 
 	// 제출한 과제 수정하는 메소드 Action
 	// 파라미터 : ReportSubmit

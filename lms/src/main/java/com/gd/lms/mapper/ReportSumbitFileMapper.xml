@@ -20,8 +20,10 @@
 	<!-- 과제 제출 첨부파일 업로드 메소드 -->
 
 	<!-- 제출 과제별 첨부파일 상세 조회하기 메소드 -->
-	<select id="selectReportsubmitFile" parameterType="int" resultType="com.gd.lms.vo.ReportSubmitFile">
+	<select id="selectReportSubmitFile" parameterType="int"
+		resultType="com.gd.lms.vo.ReportSubmitFile">
 		select
+		report_submit_file_no reportSubmitFileNo,
 		report_submit_no reportSubmitNo,
 		report_submit_filename
 		reportSubmitFilename,
@@ -34,4 +36,11 @@
 		report_submit_no = #{reportSubmitNo}
 	</select>
 	<!-- 제출 과제별 첨부파일 상세 조회하기 메소드 -->
+
+	<!-- 제출한 첨부파일 삭제 메소드 -->
+	<delete id="deleteReportSubmitFile" parameterType="int">
+		DELETE FROM report_submit_file WHERE
+		report_submit_no= #{reportSubmitNo}
+	</delete>
+	<!-- 제출한 첨부파일 삭제 메소드 -->
 </mapper>
