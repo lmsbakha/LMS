@@ -179,7 +179,7 @@
 												<td>${map.lectureName}</td>
 												<td>${map.teacherName}</td>
 												<td>
-													<a href="${pageContext.request.contextPath}/loginCheck/modifyAttendance?attendanceNo=${map.attendanceNo}">
+													<a href="#">
 														<button type="button" class="btn btn-custon-rounded-two btn-primary">
 															<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i>상세보기
 														</button>

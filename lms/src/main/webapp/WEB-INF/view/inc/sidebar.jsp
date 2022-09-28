@@ -48,12 +48,12 @@
                                 <!-- 강사 아이디로 로그인했을 경우 -->
                                 <c:if test="${sessionLevel == 2}">
                                 <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/attendanceForTeacher"><span class="mini-sub-pro">출결현황</span></a></li>
-                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/attendanceForTeacher"><span class="mini-sub-pro">학생관리</span></a></li>
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/studentbookForTeacher"><span class="mini-sub-pro">학생관리</span></a></li>
                                 </c:if>
                                 <!-- 행정 아이디로 로그인했을 경우 -->
                                 <c:if test="${sessionLevel >= 3}">
                                 <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/attendanceForManager"><span class="mini-sub-pro">출결현황</span></a></li>
-                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/attendanceForTeacher"><span class="mini-sub-pro">학생관리</span></a></li>
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/studentbookForManager"><span class="mini-sub-pro">학생관리</span></a></li>
                                 </c:if>
                             </ul>
                         </li>
