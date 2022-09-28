@@ -49,7 +49,26 @@ public class NoticeService {
 		return notice;
 	}
 	
-	
+	// 공지사항 페이징
+	public Map<String, Object> getNoticeListByPage(Map<String, Object> map) {
+
+		int totalCnt = noticeMapper.selectTotalNotice(); // 총 개수
+		int rowPerPage = (int)map.get("rowPerPage"); // 한 페이지당 행 개수
+		int beginRow = ((int)map.get("currentPage")-1)*10; // 시작 row
+		
+		int lastPage = totalCnt/ rowPerPage; // 마지막 페이지
+		if(totalCnt % rowPerPage != 0) { // 나눠떨어지지않는다면
+			lastPage += 1; // 마지막페이지 +1 해주기
+		}
+		
+		map.put("beginRow", beginRow);
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("lastPage", lastPage);
+		
+		return returnMap;
+
+		
+	}
 	//공지사항 신규 작성 액션
 
 	

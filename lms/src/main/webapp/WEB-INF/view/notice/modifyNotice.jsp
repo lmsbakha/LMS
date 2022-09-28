@@ -200,4 +200,20 @@
       ============================================ -->
    <script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
 </body>
+<script>
+
+$('#modifyNoticeSubmit').click(function() {
+	if ($('#noticeTitle').val() == '') {
+		alert("제목을 입력해 주세요.");
+		$('#noticeTitle').focus();
+		return false;
+	}else if ($('#noticeContent').val() == '') {
+		alert('내용을 입력해주세요.');
+		$('#noticeContent').focus();
+		return false;
+	}
+});
+
+
+</script>
 </html>

@@ -115,8 +115,6 @@
                                             <label for="noticeContent">본문</label>
                                             <p><!-- 본문 --> ${notice.noticeContent}</p>
                                             <hr>
-                                            <label for="uploadedFile">첨부파일</label>
-                                            <p><!-- 파일 목록 -->
                                             <div class="add-product">
                                 				<a href="/lms/loginCheck/noticeList">목록으로</a>                           				
                             				</div>

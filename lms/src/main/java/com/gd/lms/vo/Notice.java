@@ -13,5 +13,4 @@ public class Notice {
 	private int noticeCount;		// 조회수
 	private String createDate;		// 작성일
 	private String updateDate;		// 수정일
-	private MultipartFile noticeFile;	
 }

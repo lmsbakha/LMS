@@ -151,6 +151,7 @@
     <!-- footer -->
 	<jsp:include page="../inc/footer.jsp" />
 </div>
+
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
    <!-- jquery
@@ -206,138 +207,20 @@
     <!-- dropzone JS
 		============================================ -->
     <script src="js/dropzone/dropzone.js"></script>
-    <!-- 작업 중
-    <script>
-    $(document).ready(function() {	
-    	edit_mode_note();
-    	//$("div#my_file_upload").dropzone({ url: "/editor/file_upload" });
-    	$(".file-dropzone").on('dragover', handleDragEnter);
-    	$(".file-dropzone").on('dragleave', handleDragLeave);
-    	$(".file-dropzone").on('drop', handleDragLeave);
-
-    	function handleDragEnter(e) {
-    		this.classList.add('drag-over');
-    	}
-
-    	function handleDragLeave(e) {
-    		this.classList.remove('drag-over');
-    	}
-
-    	Dropzone.autoDiscover = false;	// 초기화
-    	
-    	$("div#my_file_upload").dropzone({ url: "/editor/file_uploads" ,
-    		addRemoveLinks : true,
-    			maxFilesize : 256,
-    		  dictResponseError: 'Error uploading file!',
-    		  headers: {
-    		    'X-CSRF-TOKEN': $("#csrf_token").val()
-    		    , uid : $('#i_uid').val()
-    		  },
-    		  params: {
-    		         uid: $('#i_uid').val()
-    		    },
-    		  uploadMultiple : true,
-    		  thumbnailWidth: 180,
-    		  thumbnailHeight: 120,
-    		  parallelUploads: 100,		
-    		  maxFiles: 255,
-    		  autoProcessQueue : true,
-    		  accept: function(file, done) {
-    			    if (file.name == "") {
-    			      done("제한사항 없어도 될듯 한뎅?");
-    			    }
-    			    else {			    	
-    			    	done(); 
-    			    	}
-    			  },
-    	init : function() {
-    		var myDropzone = this;
-    		var count = myDropzone.options.maxFiles;
-    		var url = "/editor/file_list";
-    		var data = JSON.stringify({ 
-    			uid : $('#i_uid').val()
-    		});
-    		
-    		var callback_init=function (data) {
-                if (data.data != '' && data.data != undefined) {
-                	var existingFileCount = 0;
-                    $.each(data.data, function (index, item) {
-                        var mockFile = {
-                            name: item.mt_filename,
-                            size: item.mt_contentlength,
-                            seq: item.idx
-                        };
-                        var filePath = "/editor/get_editor_thumbnail_image/?idx="+item.idx;
-                        myDropzone.emit("addedfile", mockFile);
-                        myDropzone.emit("thumbnail", mockFile, filePath);
-                        myDropzone.emit("success", mockFile);
-                        myDropzone.emit("complete", mockFile);                    
-                        myDropzone.files.push(mockFile);
-                        //file.previewElement.classList.add("dz-processing"); //sms;
-                        //file.previewElement.classList.add("dz-complete");
-                        existingFileCount = existingFileCount + 1;
-                    });
-                    myDropzone.options.maxFiles = myDropzone.options.maxFiles - existingFileCount;
-                }
-            };
-    		getPostData(url,data,callback_init);
-    		
-    		this.on("maxfilesexceeded", function (file) {
-    			showmessage("알림","한번에 올릴수 있는 파일의 갯수 제한을 넘었습니다",2000,'');
-    			myDropzone.removeFile(file);
-    		});
-            
-            this.on("success", function( file, resp, formData ){
-            	existingFileCount=0;
-            	var type = $("#"+id).data("type");
-            	if(resp != null && resp != '' && resp != undefined) {
-    	        	if(resp.data != null && resp.data != '' && resp.data != undefined) {
-    	    			var existingFileCount = 0;
-    	    			$.each(resp.data, function(){
-    	    				if(this.mt_filename==file.name)
-    	    				{
-    	    					file.previewElement.appendChild(Dropzone.createElement("<input type='hidden' name='fileId' value='" + this.fileId + "'/>"));
-    	    					existingFileCount = existingFileCount + 1;
-    	    				}
-    	    			});
-    	    		}
-            	}
-            	if(file.seq != null && file.seq != '' && file.seq != undefined) {
-    				file.previewElement.appendChild(Dropzone.createElement("<input type='hidden' name='fileId' value='" + file.seq + "'/>"));
-        		}
-            });
-            
-            this.on("removedfile", function (data) {
-            	var id = $(data.previewElement).find('input[name=fileId]').val();
-        		var sql_state_value = 'delete';
-        		var data = JSON.stringify({
-        			   sql_state : sql_state_value		 
-        			 , idx : id    	
-        			 , uid : $('#i_uid').val()
-        		   	 , mt_input_id : $('#login_mt_id').val()
-        			 , mt_update_id : $('#login_mt_id').val()
-        		});
-        		var url ='/editor/editor_note_delete_img';
-        		getPostData(url,data,null);
-        		myDropzone.options.maxFiles = myDropzone.options.maxFiles + 1;
-        		if(count < myDropzone.options.maxFiles) myDropzone.options.maxFiles = count;
-        	    });
-    		}
-    	
-    	});
-    	$('.push').click(function() {
-    		$('.dropzone').each(function() {
-    			alert("어휴.");
-    		});
-    	});
-
-
-    });
-    
-    
-    </script>
-    
-     -->
-       
 </body>
+
+<script>
+
+$('#addNoticeSubmit').click(function() {
+	if ($('#noticeTitle').val() == '') {
+		alert("제목을 입력해 주세요.");
+		$('#noticeTitle').focus();
+		return false;
+	}else if ($('#noticeContent').val() == '') {
+		alert('내용을 입력해주세요.');
+		$('#noticeContent').focus();
+		return false;
+	}
+});
+</script>
 </html>

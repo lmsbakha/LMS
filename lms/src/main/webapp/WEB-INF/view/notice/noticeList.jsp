@@ -115,7 +115,7 @@
                                         <th>No</th>
                                         <th>Id</th>
                                         <th>Title</th>
-                                        <th>Content</th>
+                                        <!-- <th>Content</th> -->
                                         <th>Counts</th>
                                         <th>CreateDate</th>
                                         <th>UpdateDAte</th>
@@ -126,7 +126,7 @@
                                     	<td><a href="${pageContext.request.contextPath}/loginCheck/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeNo}</a></td>
                                     	<td>${notice.accountId}</td>
                                     	<td><a href="${pageContext.request.contextPath}/loginCheck/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
-                                    	<td><a href="${pageContext.request.contextPath}/loginCheck/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeContent}</a></td>
+                                    	<!-- <td><a href="${pageContext.request.contextPath}/loginCheck/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeContent}</a></td> -->
                                     	<td>${notice.noticeCount}</td>
                                     	<td>${notice.createDate}</td>
                                     	<td>${notice.updateDate}</td>
@@ -142,21 +142,15 @@
                                   	</c:forEach>
                                 </table>
                             </div>
+                            <!--
                             <div class="custom-pagination">
                             	<ul class="pagination">
-                            	<c:if test="${currentPage > 1}">
-											<li class="page-item"><a class="page-link" href="/loginCheck/noticeList?currentPage=${currentPage-1}">이전</a></li>
-								</c:if>
-									<li class="page-item"><a class="page-link" href="#">Previous</a></li>
 									<li class="page-item"><a class="page-link" href="#">1</a></li>
 									<li class="page-item"><a class="page-link" href="#">2</a></li>
 									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">Next</a></li>
-								<c:if test="${currentPage < lastPage}">
-									<li class="page-item"><a class="page-link" href="/loginCheck/noticeList?currentPage=${currentPage+1}">다음</a></li>
-								</c:if>
 								</ul>
-                            </div>
+                            </div>     
+                              -->                       
                         </div>
                     </div>
                 </div>

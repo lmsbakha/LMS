@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.mapper.AccountMapper;
+import com.gd.lms.service.AccountService;
 import com.gd.lms.service.NoticeService;
+import com.gd.lms.vo.Manager;
 import com.gd.lms.vo.Notice;
+import com.gd.lms.vo.Student;
+import com.gd.lms.vo.Teacher;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,16 +28,34 @@ import lombok.extern.slf4j.Slf4j;
 public class NoticeController {
 	@Autowired
 	NoticeService noticeService;
+	AccountService accountService;
+	AccountMapper accountMapper;
 	
 	// 공지 리스트 페이지
 	@GetMapping("/loginCheck/noticeList")
-	public String noticeList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
-		log.debug(TeamColor.LHN + "게시글 리스트 조회" + TeamColor.TEXT_RESET);
+	public String noticeList(HttpServletRequest request, Model model) {
+		log.debug(TeamColor.LHN + "게시글 리스트 조회" + TeamColor.TEXT_RESET);	
+		
+		// userId에 대한 level 가져오기
+		HttpSession session = request.getSession();
+		log.debug(TeamColor.LHN + "session: " + session + TeamColor.TEXT_RESET);	
+		
+		String accountId = (String)session.getAttribute("sessionId");	
+		log.debug(TeamColor.LHN + "accountId: " + accountId + TeamColor.TEXT_RESET);
+		
+//		int userLevel = accountService.getMemberLevelByAccountId(accountId);
+//		log.debug(TeamColor.LHN + "userLevel: " + userLevel + TeamColor.TEXT_RESET);
+		
 		// 리스트 불러오기
 		List<Notice> noticeList = noticeService.getNoticeList();	
+		log.debug(TeamColor.LHN + "noticeList: " + noticeList + TeamColor.TEXT_RESET);
+		
 		
 		// model에 데이터 세팅
 		model.addAttribute("noticeList", noticeList);
+//		model.addAttribute("userLevel", userLevel);
+		model.addAttribute("accountId", accountId);
+
 		return "notice/noticeList";
 	}
 	
@@ -61,21 +84,15 @@ public class NoticeController {
 		String accountId = (String) session.getAttribute("sessionId");
 		notice.setAccountId(accountId);
 		log.debug(TeamColor.LHN + "accountId" + accountId +  TeamColor.TEXT_RESET);
-	
+		log.debug(TeamColor.LHN + "notice" + notice +  TeamColor.TEXT_RESET);
+		
+		// int accountLevel = accountMapper.selectMemberLevelByAccountId(accountId);
+		// int accountLevel = accountService.getMemberLevelByAccountId(accountId);
+		// log.debug(TeamColor.LHN + "accountLevel" + accountLevel +  TeamColor.TEXT_RESET);
+		
+		// notice 적용
 		noticeService.addNotice(notice);
 		
-		// 입력 내용 notice 적용
-		int addNotice = noticeService.addNotice(notice);
-		
-		// 작성 성공
-		if (addNotice != 0) {
-			log.debug(TeamColor.LHN + "게시글 등록 성공" + TeamColor.TEXT_RESET);
-		
-			// 작성 실패
-		} else {
-			log.debug(TeamColor.LHN + "게시글 등록 실패" + TeamColor.TEXT_RESET);
-		}
-
 		// 공지 리스트로
 		return "redirect:/loginCheck/noticeList";
 	} 
