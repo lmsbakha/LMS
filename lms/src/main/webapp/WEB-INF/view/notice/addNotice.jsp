@@ -125,17 +125,7 @@
                                                                     <label for="noticeContent">본문</label> <textarea name="noticeContent" id="noticeContent"  class="form-control" style="resize: none;"></textarea>
                                                                 </div>
                                                             </div>
-                                                        </div>
-									                  	<div class="table table-write" id="add_mt">
-															<div id="notice_file_upload" class="dz-message needsclick download-custom">
-															<i class="fa fa-download edudropnone" aria-hidden="true"></i>
-															<h2 class="edudropnone">드래그 또는 클릭하여 파일 첨부</h2>
-																<div class="fallback">
-																<input name="file" type="file" multiple />
-																</div>
-															</div>
-														</div>
-														
+                                                        </div>	
 														<div class="form-group col-lg-12">
 									                		<div class="row">
 	                                                            <div class="col-lg-12">

@@ -67,23 +67,19 @@ public class NoticeController {
 		notice.setAccountId(accountId);
 		log.debug(TeamColor.LHN + "accountId" + accountId +  TeamColor.TEXT_RESET);
 	
-		//폴더 지정
-		String path = request.getServletContext().getRealPath("/file/noticeFile/"); 
-		log.debug(TeamColor.LHN + "path: " + path + TeamColor.TEXT_RESET);	//디버깅
-		
-		noticeService.addNotice(notice, path);
+		noticeService.addNotice(notice);
 		
 		// 입력 내용 notice 적용
-//		int addNotice = noticeService.addNotice(notice);
-//		
-//		// 작성 성공
-//		if (addNotice != 0) {
-//			log.debug(TeamColor.LHN + "게시글 등록 성공" + TeamColor.TEXT_RESET);
-//		
-//			// 작성 실패
-//		} else {
-//			log.debug(TeamColor.LHN + "게시글 등록 실패" + TeamColor.TEXT_RESET);
-//		}
+		int addNotice = noticeService.addNotice(notice);
+		
+		// 작성 성공
+		if (addNotice != 0) {
+			log.debug(TeamColor.LHN + "게시글 등록 성공" + TeamColor.TEXT_RESET);
+		
+			// 작성 실패
+		} else {
+			log.debug(TeamColor.LHN + "게시글 등록 실패" + TeamColor.TEXT_RESET);
+		}
 
 		// 공지 리스트로
 		return "redirect:/loginCheck/noticeList";
@@ -157,7 +153,6 @@ public class NoticeController {
 		}
 			log.debug(TeamColor.LHN +" 삭제 실패 " + TeamColor.TEXT_RESET);
 			
-		// 파일 있을 경우 함께 삭제
 		
 		return "redirect:/loginCheck/noticeList";
 		
