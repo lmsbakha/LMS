@@ -137,7 +137,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
-						<div class="product-status-wrap drp-lst"  style="padding:2%;">
+						<div class="product-status-wrap drp-lst" style="padding: 2%;">
 							<h4>ReportList</h4>
 							<hr>
 							<c:if test="${sessionLevel == 1}">
@@ -163,14 +163,15 @@
 										<th>reportNo</th>
 										<th>subjectName</th>
 										<th>reportTitle</th>
-										<th>createDate</th>
-										<th>Setting</th>
+										<th>reportStartDate</th>
+										<th>reportEndDate</th>
+										<th></th>
 									</tr>
-									<c:forEach var="report" items="${reportList}">
+									<c:forEach var="report" items="${reportSubmitByStudent}">
 										<tr>
 											<td>${report.reportNo}</td>
 											<td>${report.subjectName}</td>
-											<td>
+											<td style="width: 350px;">
 												<div class="menu">
 													<a>${report.reportTitle}</a>
 													<div>
@@ -180,7 +181,9 @@
 													</div>
 												</div>
 											</td>
-											<td>${report.createDate}</td>
+											<td>${report.reportStartDate}</td>
+											<td>${report.reportEndDate}</td>
+											<!-- sessionId가 교사나 행정이라면 -->
 											<c:if test="${sessionLevel >= 2}">
 												<td><a
 													href="${pageContext.request.contextPath}/loginCheck/modifyReport?reportNo=${report.reportNo}">
@@ -196,20 +199,27 @@
 														</button>
 												</a></td>
 											</c:if>
-
+											
+											<!-- sessionId가 학생이라면 -->
 											<c:if test="${sessionLevel == 1}">
-												<c:forEach var="studentSubmit"
-													items="${reportSubmitListByStudent}">
-													<c:if test="${studentSubmit != null && studentSubmit.reportSubmitState ne 'N'}">
+													<c:if test="${report.state == 0 }">
 														<td><a
 															href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
 																<button data-toggle="tooltip" title="submit"
 																	class="pd-setting-ed" type="button">
-																	<i class="fa fa-pencil-square-o" aria-hidden="true">제출하기</i>
+																	<i class="fa fa-pencil-square-o" aria-hidden="true">과제제출</i>
 																</button>
 														</a></td>
 													</c:if>
-												</c:forEach>
+													<c:if test="${report.state == 1 }">
+														<td><a
+															href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${report.reportSubmitNo}">
+																<button data-toggle="tooltip" title="submit"
+																	class="pd-setting-ed" type="button">
+																	<i class="fa fa-pencil-square-o" aria-hidden="true">제출확인</i>
+																</button>
+														</a></td>
+													</c:if>
 											</c:if>
 										</tr>
 									</c:forEach>

@@ -131,24 +131,6 @@ public class ReportSubmitController {
 		return "report/reportSubmitList";
 	}
 
-	/*
-	 * // 강좌별 제출한 과제 리스트 조회 메소드 // reportSubmitList Action // 파라미터 :
-	 * reportSubmitList 담을 Model // 리턴값 : reportSubmitList.jsp로 이동
-	 * 
-	 * @PostMapping("/loginCheck/reportSubmitList") String reportSubmitList(Model
-	 * model, @RequestParam("lectureName") String lectureName) { // 디버깅 영역구분
-	 * log.debug(TeamColor.PSY + "\n\n@reportSubmitList Controller" +
-	 * TeamColor.TEXT_RESET); // 파라미터 디버깅 log.debug(TeamColor.PSY + lectureName +
-	 * "<--lectureName" + TeamColor.TEXT_RESET);
-	 * 
-	 * // 강좌별 제출한 과제 리스트 받아오기 Service Call List<ReportSubmit> lectureNameList =
-	 * reportSubmitService.getReportListBySubject(lectureName);
-	 * 
-	 * if (lectureNameList != null) { // 성공 log.debug(TeamColor.PSY + " 강좌리스트 조회 성공"
-	 * + TeamColor.TEXT_RESET); } else { // 실패 log.debug(TeamColor.PSY +
-	 * " 강좌리스트 조회 실패" + TeamColor.TEXT_RESET); } return
-	 * "redirect:/loginCheck/reportSubmitList"; }
-	 */
 	// 과제 제출하기 메소드
 	// addReportSubmit Form
 	// 파라미터:reportNo

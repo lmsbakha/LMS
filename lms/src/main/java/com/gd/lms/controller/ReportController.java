@@ -1,5 +1,6 @@
 package com.gd.lms.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,25 +52,20 @@ public class ReportController {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
 
-		// 세션 받아오기
+		// 세션아이디 받아오기
 		String accountId = (String) session.getAttribute("sessionId");
 		// 로그인한 Student의 아이디 확인 디버깅
 		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
 
-		// Student에 관한 과제 제출 정보 가져오기
-		List<ReportSubmit> reportSubmitListByStudent = reportSubmitService.getReportListById(accountId);
+		// 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보 Serivce Call
+		List<Map<String, Object>>  reportSubmitByStudent = reportService.getReportListStateInfo(accountId);
 		// reportSubmitListByStudent 디버깅
-		log.debug(TeamColor.PSY + reportSubmitListByStudent + "<-- reportSubmitListByStudent" + TeamColor.TEXT_RESET);
-
-		// service call
-		List<Report> reportList = reportService.getReportList();
-		log.debug(TeamColor.PSY + reportList + "<--reportList" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitByStudent + "<-- reportSubmitListByStudent" + TeamColor.TEXT_RESET);
 
 		// reportList로 값 넘겨주기
-		model.addAttribute("reportList", reportList);
-		model.addAttribute("reportSubmitListByStudent", reportSubmitListByStudent);
+		model.addAttribute("reportSubmitByStudent", reportSubmitByStudent);
 
-		if (reportList != null) {
+		if (reportSubmitByStudent != null) {
 			// 성공
 			log.debug(TeamColor.PSY + " 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
 			// reportList로 이동

@@ -16,51 +16,73 @@ import com.gd.lms.vo.ReportSubmitFile;
 @Mapper
 public interface ReportSubmitMapper {
 	
-	// 제출한 과제 전체 리스트 조회 메소드
-	// 파라미터 : X
-	// 리턴값 : List<Map<String,Object>>
+	/*
+	 * 제출한 과제 전체 리스트 조회 메소드
+	 * 파라미터 : X
+	 * 리턴값 : List<Map<String,Object>>
+	 */
 	List<ReportSubmit> selectReportList();
 	
-	// 학생별 제출한 과제 리스트 조회 메소드
-	// 파라미터 : accountId
-	// 리턴값 : List<Map<String,Object>>
+	/*
+	 * 학생별 제출한 과제 리스트 조회 메소드
+	 * 파라미터 : accountId
+	 * 리턴값 : List<Map<String,Object>>
+	 */
 	List<ReportSubmit> selectReportListById(Map<String, Object> paramMap);
 
-	// 강좌별 제출한 과제 리스트 조회 메소드
-	// 파라미터 : educationNo
-	// 리턴값 : List<Map<String,Object>>
+	/*
+	 * 강좌별 제출한 과제 리스트 조회 메소드
+	 * 파라미터 : educationNo
+	 * 리턴값 : List<Map<String,Object>>
+	 */
 	List<ReportSubmit> selectReportListBySubject(String lectureName);
-
-	// 과제 제출하기 메소드 Form
-	// 파라미터: X
-	// 리턴값 : int
+	
+	/* 
+	 * 과제 제출하기 메소드 Form
+	 * 파라미터: X
+	 * 리턴값 : int
+	 */
 	ReportSubmit addReportSubmitForm(int reportNo);
-
-	// 과제 제출하기 메소드 Action
-	// 파라미터 : reportNo
-	// 리턴값 : int
+	
+	/*
+	 * 과제 제출하기 메소드 Action
+	 * 파라미터 : reportNo
+	 * 리턴값 : int
+	 */
 	int insertReportSubmit(ReportSubmit reportSubmit);
 
-	// 과제 첨부파일 제출하기 메소드 Action
+	/*
+	 * 과제 첨부파일 제출하기 메소드 Action
+	 * 파라미터 : reportSubmitFile
+	 * 리턴값 : int
+	 */
 	int insertReportSubmitFile(ReportSubmitFile reportSubmitFile);
 
-	// 제출한 과제 상세보기 메소드
-	// 파라미터 : reportSubmitNo
-	// 리턴값 : Map<String, Object>
+	/*
+	 * 제출한 과제 상세보기 메소드
+	 * 파라미터 : reportSubmitNo
+	 * 리턴값 : Map<String, Object>
+     */	
 	List<ReportSubmit> ReportSubmitOne(Map<String, Object> paramMap);
 
-	// 제출한 과제 수정하는 메소드 Action
-	// 파라미터 : ReportSubmit
-	// 리턴값 : int
+	/*
+	 * 제출한 과제 수정하는 메소드 Action
+	 * 파라미터 : ReportSubmit
+	 * 리턴값 : int
+	 */
 	int updateReportSubmit(ReportSubmit reportSubmit);
 
-	// 제출한 과제 점수 수정하는 메소드 Action
-	// 파라미터 : reportSubmitNo
-	// 리턴값 : int
+	/*
+	 * 제출한 과제 점수 수정하는 메소드 Action
+	 * 파라미터 : reportSubmitNo
+	 * 리턴값 : int
+	 */
 	int updateReportScore(int reportSubmitNo);
 
-	// 제출한 과제 삭제하는 메소드
-	// 파라미터 : reportSubmitNo
-	// 리턴값 : int
+	/*
+	 *  제출한 과제 삭제하는 메소드
+	 *  파라미터 : reportSubmitNo
+	 *  리턴값 : int
+	 */
 	int deleteReportSubmit(int reportSubmitNo);
 }
