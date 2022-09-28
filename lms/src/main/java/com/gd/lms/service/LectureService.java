@@ -25,7 +25,7 @@ public class LectureService {
 	 */
 	public List<Lecture> getLectureListByAccoutId(String accountId) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@getLectureListByAccoutId Service" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSJ + "\n\n@getLectureListByAccoutId Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
 
