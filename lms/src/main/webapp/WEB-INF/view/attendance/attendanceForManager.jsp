@@ -86,12 +86,56 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
-										<li><a href="${pageContext.request.contextPath}/loginCheck/index">Home</a> <span class="bread-slash">/</span></li>
-										<li><a href="#">나의 강의</a> <span class="bread-slash">/</span></li>
-										<li><a href="${pageContext.request.contextPath}/loginCheck/attendanceForTeacher">
-												<span class="bread-blod" style="font-weight: bold;">출결관리</span>
-											</a></li>
+										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">학생관리</span></li>
 									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="product-status mg-b-15">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="product-status-wrap drp-lst">
+						<h4>학생관리</h4>
+						<hr>
+						<div class="sparkline12-graph">
+							<div class="basic-login-form-ad">
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="all-form-element-inner">
+											<!-- 해당 lecture 조회 -->
+											<form action="${pageContext.request.contextPath}/loginCheck/lectureListByManagerForAttendance" method="post">
+												<div class="form-group-inner">
+													<div class="row">
+														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+															<label class="login2 pull-right pull-right-pro">Lecture 조회</label>
+														</div>
+														<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+															<div class="form-select-list">
+																<select class="form-control custom-select-value" name="lectureName" id="lectureName" required="required">
+																	<option value="defalut">--------Lecture 선택-------</option>
+																	<c:forEach var="l" items="${lectureListByManager}">
+																		<option value="${l.lectureName }">${l.lectureName }</option>
+																	</c:forEach>
+																</select>
+															</div>
+														</div>
+														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+															<button type="submit" class="btn btn-custon-rounded-two btn-primary">조회하기</button>
+														</div>
+													</div>
+												</div>
+											</form>
+											<!-- /해당 lecture 조회 -->
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -106,93 +150,46 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<ul id="myTabedu1" class="tab-review-design">
-							<li class="active"><a href="#attendanceForTeacher">출결관리</a></li>
-						</ul>
-						<%-- 	<div class="add-product">
-							<a href="${pageContext.request.contextPath}/loginCheck/addQuestionInBank">문제추가</a>
-						</div> --%>
-						<!-- 문제은행에서 문제 삭제에 성공했을 때 -->
-						<c:if test="${alertMsg eq 'Success'}">
-							<div class="alert alert-success alert-success-style1">
-								<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-									<span class="icon-sc-cl" aria-hidden="true">&times;</span>
-								</button>
-								<i class="fa fa-check edu-checked-pro admin-check-pro" aria-hidden="true"></i>
-								<p>
-									<strong>Success!</strong> 문제 삭제에 성공하였습니다.
-								</p>
-							</div>
-						</c:if>
-						<!-- 문제은행에서 문제 삭제에 실패했을 때 -->
-						<c:if test="${alertMsg eq 'Fail'}">
-							<div class="alert alert-danger alert-mg-b alert-success-style4">
-								<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-									<span class="icon-sc-cl" aria-hidden="true">&times;</span>
-								</button>
-								<i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
-								<p>
-									<strong>Fail!</strong> 문제 삭제에 실패하였습니다.
-								</p>
-							</div>
-						</c:if>
-						<!-- FK 때문에 삭제가 안되는 경우 -->
-						<c:if test="${alertMsg eq 'Error'}">
-							<div class="alert alert-danger alert-mg-b alert-success-style4">
-								<button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-									<span class="icon-sc-cl" aria-hidden="true">&times;</span>
-								</button>
-								<i class="fa fa-times edu-danger-error admin-check-pro" aria-hidden="true"></i>
-								<p>
-									<strong>Fail!</strong> 문제 삭제가 불가능합니다. 삭제를 원하시면 exam에서 먼저 삭제해주세요
-								</p>
-							</div>
-						</c:if>
-						<div id="myTabContent" class="tab-content custom-product-edit">
-							<div class="product-tab-list tab-pane fade active in" id="attendanceForTeacher">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="sparkline13-list">
-											<div class="sparkline13-graph">
-												<div class="datatable-dashv1-list custom-datatable-overright">
-													<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
-														<thead>
-															<tr>
-																<th>attendanceNo</th>
-																<th>scheduleNo</th>
-																<th>studentName</th>
-																<th>educationNo</th>
-																<th>attendanceState</th>
-																<th>attendanceReason(비고)</th>
-																<th style="width: 150px">Setting</th>
-															</tr>
-														</thead>
-														<tbody>
-															<c:forEach var="map" items="${attendanceList}">
-																<tr>
-																	<td>${map.attendanceNo}</td>
-																	<td>${map.scheduleNo}</td>
-																	<td>${map.studentName}</td>
-																	<td>${map.educationNo}</td>
-																	<td>${map.attendanceState}</td>
-																	<td>${map.attendanceReason}</td>
-																	<td>
-																		<a href="${pageContext.request.contextPath}/loginCheck/modifyAttendance?attendanceNo=${map.attendanceNo}">
-																			<button class="btn btn-sm btn-custon-rounded-three btn-danger">
-																				<i class="fa fa-trash-o" aria-hidden="true"></i>수정하기
-																			</button>
-																		</a>
-																	</td>
-																</tr>
-															</c:forEach>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+						<h4>수강생 목록</h4>
+						<!-- 문제 출제 하기 -->
+						<div class="asset-inner">
+							<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+								<thead>
+									<tr>
+										<th>educationNo(학번)</th>
+										<th>studentName(학생이름)</th>
+										<th>studentId(학생ID)</th>
+										<th>lectureName(강좌)</th>
+										<th>teacherName(담임)</th>
+										<th style="width: 150px">Setting</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:if test="${empty attendanceList }">
+										<tr>
+											<td colspan="7" style="text-align: center;">lecture를 먼저 선택해주세요</td>
+										</tr>
+									</c:if>
+									<c:if test="${not empty attendanceList }">
+										<c:forEach var="map" items="${attendanceList}">
+											<tr>
+												<td>${map.educationNo}</td>
+												<td>${map.studentName}</td>
+												<td>${map.studentId}</td>
+												<td>${map.lectureName}</td>
+												<td>${map.teacherName}</td>
+												<td>
+													<a href="${pageContext.request.contextPath}/loginCheck/modifyAttendance?attendanceNo=${map.attendanceNo}">
+														<button type="button" class="btn btn-custon-rounded-two btn-primary">
+															<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i>상세보기
+														</button>
+													</a>
+												</td>
+											</tr>
+										</c:forEach>
+									</c:if>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -266,31 +263,5 @@
 	<!-- tawk chat JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
-	<!-- data table JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/data-table/bootstrap-table.js"></script>
-	<script src="${pageContext.request.contextPath}/js/data-table/tableExport.js"></script>
-	<script src="${pageContext.request.contextPath}/js/data-table/data-table-active.js"></script>
-	<script src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-editable.js"></script>
-	<script src="${pageContext.request.contextPath}/js/data-table/bootstrap-editable.js"></script>
-	<script src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-resizable.js"></script>
-	<script src="${pageContext.request.contextPath}/js/data-table/colResizable-1.5.source.js"></script>
-	<script src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-export.js"></script>
-	<!--  editable JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/editable/jquery.mockjax.js"></script>
-	<script src="${pageContext.request.contextPath}/js/editable/mock-active.js"></script>
-	<script src="${pageContext.request.contextPath}/js/editable/select2.js"></script>
-	<script src="${pageContext.request.contextPath}/js/editable/moment.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/editable/bootstrap-datetimepicker.js"></script>
-	<script src="${pageContext.request.contextPath}/js/editable/bootstrap-editable.js"></script>
-	<script src="${pageContext.request.contextPath}/js/editable/xediable-active.js"></script>
-	<!-- Chart JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/peity/peity-active.js"></script>
-	<!-- tab JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 </body>
 </html>

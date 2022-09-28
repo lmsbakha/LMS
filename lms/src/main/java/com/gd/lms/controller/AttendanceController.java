@@ -20,14 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class AttendanceController {
-	// AttendanceService 객체 주입
-	@Autowired
-	private AttendanceService attendanceService;
-
 	// LectureService 객체 주입
 	@Autowired
 	private LectureService lectureService;
-	
+
 	// [강사전용] 강의중인 Class의 학생들 출석부 불러오기
 	// 파라미터 : sessionId
 	// 리턴값 : attendanceForTeacher 페이지로 이동 /학생 출석부 리스트(attendanceList)
@@ -37,12 +33,25 @@ public class AttendanceController {
 		String accountId = (String) session.getAttribute("sessionId");
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-		
+
 		//LectureService에서 lectureList가져오기
 		List<Lecture> lectureListByTeacher = lectureService.getLectureListByAccoutId(accountId);
 		// model 단에 값 저장해서 보내줌
 		model.addAttribute("lectureListByTeacher", lectureListByTeacher);
 
 		return "attendance/attendanceForTeacher"; //포워딩으로 전송
+	}
+
+	// [행정/총관리자] 강의중인 Class의 학생들 출석부 불러오기
+	// 파라미터 : X
+	// 리턴값 : attendanceForManager 페이지로 이동 /학생 출석부 리스트(attendanceList)
+	@GetMapping("/loginCheck/attendanceForManager")
+	public String attendanceForManager(Model model) {
+		//LectureService에서 lectureList가져오기
+		List<Lecture> lectureListByManager = lectureService.getLectureListByAccoutId();
+		// model 단에 값 저장해서 보내줌
+		model.addAttribute("lectureListByManager", lectureListByManager);
+
+		return "attendance/attendanceForManager"; //포워딩으로 전송
 	}
 }

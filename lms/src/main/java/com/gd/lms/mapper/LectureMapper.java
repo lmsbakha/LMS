@@ -8,11 +8,14 @@ import com.gd.lms.vo.Lecture;
 
 @Mapper
 public interface LectureMapper {
-	/*
-	 * lectureList 받아오기
-	 * 파라미터 : String accountId
-	 * 리턴값 : List<Lecture>
-	 * */
+	// lectureList 받아오기
+	// 파라미터 : X
+	// 리턴값 : List<Lecture>
+	List<Lecture> selectlectureListByManager();
+
+	// lectureList 받아오기
+	// 파라미터 : String accountId
+	// 리턴값 : List<Lecture>
 	List<Lecture> selectlectureListByTeacher(String accountId);
-	
+
 }

@@ -20,9 +20,21 @@ public class LectureService {
 	@Autowired
 	private LectureMapper lectureMapper;
 
-	/*
-	 * lectureList 가져오는 메소드 파라미터 : accountId 리턴값: List<Lecture>
-	 */
+	// lectureList 가져오는 메소드 
+	// 파파라미터 : X 
+	// 리턴값: List<Lecture>
+	public List<Lecture> getLectureListByAccoutId() {
+		// LectureMapper에서 lectureList 받아오기
+		List<Lecture> lectureListByManager = lectureMapper.selectlectureListByManager();
+		// 디버깅
+		log.debug(TeamColor.PSJ + lectureListByManager + "<-- lectureListByManager" + TeamColor.TEXT_RESET);
+		
+		return lectureListByManager;
+	}
+	
+	// lectureList 가져오는 메소드 
+	// 파파라미터 : accountId 
+	// 리턴값: List<Lecture>
 	public List<Lecture> getLectureListByAccoutId(String accountId) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSJ + "\n\n@getLectureListByAccoutId Service" + TeamColor.TEXT_RESET);

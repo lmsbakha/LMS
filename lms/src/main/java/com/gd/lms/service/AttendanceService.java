@@ -41,4 +41,19 @@ public class AttendanceService {
 		
 		return attendanceList;
 	}
+
+	// 강좌의 학생 출석부
+	// 파라미터 :  lectureName
+	// 리턴값 : List<Map<String,Object>>
+	public List<Map<String, Object>> getAttendanceListByManager(String lectureName) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
+		
+		// Mapper에서 출석부 리스트 받아오기
+		List<Map<String, Object>> attendanceList = attendanceMapper.selectAttendanceListByManager(lectureName);
+		// 디버깅
+		log.debug(TeamColor.PSJ + attendanceList + "<-- attendanceList" + TeamColor.TEXT_RESET);
+		
+		return attendanceList;
+	}
 }

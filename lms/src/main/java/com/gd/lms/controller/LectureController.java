@@ -46,8 +46,8 @@ public class LectureController {
 	}
 
 	// [강사전용] 출석 메인페이지로 이동하는 메소드
-	// 파라미터 : 사용자가 선택한 lectureName,accountId 
-	// 리턴값 : lecture에서 출제된 시험리스트
+	// 파라미터 : 사용자가 선택한 lectureName, 강사 accountId 
+	// 리턴값 : 선택된 강좌의 학생출석부를 보여주는 출결관리 페이지
 	@PostMapping("/loginCheck/lectureListByTeacherForAttendance")
 	public String lectureListByTeacherForAttendance(RedirectAttributes redirectAttributes,HttpSession session, @RequestParam(value = "lectureName") String lectureName) {
 		// 파라미터 디버깅
@@ -59,6 +59,22 @@ public class LectureController {
 		List<Map<String, Object>> attendanceList = attendanceService.getAttendanceListByTeacher(accountId, lectureName);
 		// redirectAttributes을 통해서 값 전달
 		redirectAttributes.addFlashAttribute("attendanceList", attendanceList);
+		
 		return "redirect:/loginCheck/attendanceForTeacher";
+	}
+
+	// [행정/총관리자] 출석 메인페이지로 이동하는 메소드
+	// 파라미터 : 사용자가 선택한 lectureName
+	// 리턴값 : 강좌의 학생 출석부를 보여주는 출결관리 페이지
+	@PostMapping("/loginCheck/lectureListByManagerForAttendance")
+	public String lectureListByManagerForAttendance(RedirectAttributes redirectAttributes,@RequestParam(value = "lectureName") String lectureName) {
+		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
+		
+		// 출석부 리스트 service call
+		List<Map<String, Object>> attendanceList = attendanceService.getAttendanceListByManager(lectureName);
+		// redirectAttributes을 통해서 값 전달
+		redirectAttributes.addFlashAttribute("attendanceList", attendanceList);
+		
+		return "redirect:/loginCheck/attendanceForManager";
 	}
 }

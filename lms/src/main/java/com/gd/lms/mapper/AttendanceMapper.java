@@ -10,4 +10,9 @@ public interface AttendanceMapper {
 	// 파라미터 : Map<String, Object> map (accountId, lectureName)
 	// 리턴값 : List<Map<String,Object>>
 	List<Map<String, Object>> selectAttendanceListByTeacher(Map<String, Object> map);
+
+	// 각 클래스 학생들 출석부 가져오기
+	// 파라미터 : lectureName
+	// 리턴값 : List<Map<String,Object>>
+	List<Map<String, Object>> selectAttendanceListByManager(String lectureName);
 }

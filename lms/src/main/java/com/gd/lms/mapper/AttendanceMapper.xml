@@ -29,4 +29,27 @@
 	ON s.account_id =w.studentId
 	ORDER BY w.education_no ASC
 	</select>
+
+	<!-- 강사가 담당하는 출석부 가져오기 -->
+	<select id="selectAttendanceListByManager" parameterType="String" resultType="Map">
+	SELECT 
+		w.education_no educationNo
+		, s.student_name studentName
+		, w.lecture_name lectureName
+		, w.studentId studentId
+		, w.teacher_name teacherName
+	FROM student s
+	INNER JOIN (
+			SELECT e.education_no, e.lecture_name, e.account_id studentId, z.teacher_name
+			FROM education e
+			INNER JOIN(
+				SELECT l.lecture_name, l.teacher_name
+				FROM lecture l
+				WHERE lecture_name=#{lectureName}
+			)z
+			ON e.lecture_name = z.lecture_name 
+		)w
+	ON s.account_id = w.studentId
+	ORDER BY w.education_no ASC
+	</select>
 </mapper>

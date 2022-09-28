@@ -88,7 +88,7 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">출결관리</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">학생관리</span></li>
 									</ul>
 								</div>
 							</div>
@@ -103,7 +103,7 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<h4>출결관리</h4>
+						<h4>학생관리</h4>
 						<hr>
 						<div class="sparkline12-graph">
 							<div class="basic-login-form-ad">
@@ -150,7 +150,7 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<h4>출석부</h4>
+						<h4>수강생 목록</h4>
 						<!-- 문제 출제 하기 -->
 						<div class="asset-inner">
 							<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
@@ -178,11 +178,13 @@
 												<td>${map.studentId}</td>
 												<td>${map.lectureName}</td>
 												<td>${map.teacherName}</td>
-												<td><a href="${pageContext.request.contextPath}/loginCheck/modifyAttendance?attendanceNo=${map.attendanceNo}">
-														<button class="btn btn-sm btn-custon-rounded-three btn-danger">
-															<i class="fa fa-trash-o" aria-hidden="true"></i>출결관리
+												<td>
+													<a href="${pageContext.request.contextPath}/loginCheck/modifyAttendance?attendanceNo=${map.attendanceNo}">
+														<button type="button" class="btn btn-sm btn-custon-rounded-two btn-primary">
+															<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i>상세보기
 														</button>
-													</a></td>
+													</a>
+												</td>
 											</tr>
 										</c:forEach>
 									</c:if>
