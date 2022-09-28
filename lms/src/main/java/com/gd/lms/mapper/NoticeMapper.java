@@ -10,7 +10,7 @@ import com.gd.lms.vo.Notice;
 @Mapper
 public interface NoticeMapper {
 	// 공지사항 리스트
-	List<Notice> selectNoticeList(Map<String, Object>noticeMap);
+	List<Notice> selectNoticeList();
 	// 총 공지글 개수
 	int selectTotalNotice();
 	// 공지사항 작성 액션

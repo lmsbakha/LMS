@@ -33,16 +33,8 @@ public class NoticeService {
 	}
 
 	// 공지사항 리스트
-	public List<Notice> getNoticeList(int beginRow, int rowPerPage) {
-		Map<String, Object> noticeMap = new HashMap<String, Object>();
-		noticeMap.put("beginRow", beginRow);
-		noticeMap.put("rowPerPage", rowPerPage);
-		// 디버그
-		log.debug(TeamColor.LHN + "beginRow" + beginRow+ TeamColor.TEXT_RESET);
-		log.debug(TeamColor.LHN + "rowPerPage" + rowPerPage+ TeamColor.TEXT_RESET);
-
-
-		return noticeMapper.selectNoticeList(noticeMap);
+	public List<Notice> getNoticeList() {
+		return noticeMapper.selectNoticeList();
 	}
 	
 	// 공지사항 상세보기 

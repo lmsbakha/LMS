@@ -28,13 +28,8 @@ public class NoticeController {
 	@GetMapping("/loginCheck/noticeList")
 	public String noticeList(Model model, @RequestParam(defaultValue = "1") int currentPage) {
 		log.debug(TeamColor.LHN + "게시글 리스트 조회" + TeamColor.TEXT_RESET);
-		
-		final int ROW_PER_PAGE = 10;						// 페이지 당 게시글 수		
-		int beginRow = (currentPage-1)*ROW_PER_PAGE;		// 시작 페이지
-		int totalNotice = noticeService.countTotalNotice();	// 총 공지 수
-		int totalPage = totalNotice/ROW_PER_PAGE; 			// 전체 페이지 수
 		// 리스트 불러오기
-		List<Notice> noticeList = noticeService.getNoticeList(beginRow, ROW_PER_PAGE);	
+		List<Notice> noticeList = noticeService.getNoticeList();	
 		
 		// model에 데이터 세팅
 		model.addAttribute("noticeList", noticeList);
