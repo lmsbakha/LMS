@@ -94,6 +94,7 @@
                                 <span class="help-block small" id="pwckinfo"></span>
                             </div>
                             	<button type="button" id="updateBtn" class="btn btn-success-search btn-block">비밀번호 변경</button>
+								<button type="button" class="btn btn-danger btn-block" onclick="location.href='${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${accountId}'">취소</button>
                            </form>
                     </div>
                 </div>

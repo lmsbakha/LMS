@@ -64,6 +64,9 @@
 		============================================ -->
     <script src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/peity/peity-active.js"></script>
+    <!-- dropzone JS
+		============================================ -->
+    <script src="${pageContext.request.contextPath}/js/dropzone/dropzone.js"></script>
     <!-- tab JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/js/tab.js"></script>

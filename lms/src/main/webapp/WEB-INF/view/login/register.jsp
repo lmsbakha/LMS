@@ -174,7 +174,7 @@
 									<span id="birthinfo"></span>	
 								</div>
 								<div class="form-group col-lg-12">
-									<label for="memberPhone">전화번호</label> 
+									<label for="memberPhone">연락처</label> 
 									<input class="form-control" type="tel" id="memberPhone" name="memberPhone" required="required" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"/>
 									<span id="phoneinfo"></span>
 								</div>
@@ -184,6 +184,9 @@
 									<button type="button" class="btn btn-success btn-block form-group" id="addrBtn" style="margin-bottom: 5px">
 									<b>주소검색</b>
 									</button>
+									<span id="addrinfo"></span>
+									<br>
+									<br>
 									<label for="memberDetailAddress">상세주소</label>
 									<input class="form-control" id="memberDetailAddress" name="memberDetailAddress" type="text" placeholder="상세주소를 입력해주세요."  />
 									<span id="detailaddrinfo"></span>
@@ -194,12 +197,11 @@
 									<span class="help-block small">(이미지 파일은 jpeg, jpg, png 확장자로 업로드해 주세요.)</span> 
 									<div class="filebox">
 									    <input class="upload-name" id="uploadFile" placeholder="파일첨부" readonly="readonly">
-									    <input type="file" id="memberFile" name="memberFile">
+									    <input type="file" id="memberFile" name="memberFile" required="required">
 									    <label for="memberFile">파일 찾기</label> 
 									</div>
 									<span id="fileinfo"></span>
 								</div>
-								
 					            <!-- 학생만 memberCheck eq 'student' -->
 					            <c:if test="${memberCheck eq 'student'}">
 						            <div class="form-group col-lg-12">
@@ -214,7 +216,7 @@
 						            </div>
 							    <div class="form-group col-lg-12">
 									<label for="memberMajor">전공</label> 
-									<input class="form-control" placeholder="전공을 입력해주세요." id="memberMajor" name="memberMajor" value=>
+									<input class="form-control" placeholder="전공을 입력해주세요." id="memberMajor" name="memberMajor">
 									<span id="majorinfo"></span>	
 								</div>       
 						            <div class="form-group col-lg-12">
@@ -338,8 +340,8 @@
 	
 	// 파일 확장자 체크
 	$('#memberFile').blur(function() {
-		if($('#memberFile').val() == '') {
-			$('#fileinfo').text('');
+		if($('#uploadFile').val() == ''){
+			alert("※ 파일을 선택해 주세요.");			
 		} else if (!reg_file.test($("#memberFile").val())) {
 			$('#fileinfo').text('※ 파일 형식 또는 파일 확장자가 잘못되었습니다.');
   		} else {
@@ -497,6 +499,8 @@
 			$('#detailaddrinfo').text('');
 			$('#fileinfo').text('※ 파일을 등록해 주세요.');
 			$('#uploadFile').focus();
+		} else if($('#uploadFile').val() == ''){
+			alert("※ 파일을 선택해 주세요.");			
 		} else if (!reg_file.test($("#memberFile").val())) {
 			$('#fileinfo').text('※ 파일 형식 또는 파일 확장자가 잘못되었습니다.');
 			$('#uploadFile').focus();
@@ -588,6 +592,8 @@
 				$('#detailaddrinfo').text('');
 				$('#fileinfo').text('※ 파일을 등록해 주세요.');
 				$('#uploadFile').focus();
+			} else if($('#uploadFile').val() == ''){
+				alert("※ 파일을 선택해 주세요.");			
 			} else if (!reg_file.test($("#memberFile").val())) {
 				$('#fileinfo').text('※ 파일 형식 또는 파일 확장자가 잘못되었습니다.');
 				$('#uploadFile').focus();

@@ -84,7 +84,7 @@
 						<div class="form-group">
 							<input type="password" id="accountPw" name="accountPw"  placeholder="******" class="form-control">
 						</div>
-						<div style="text-align:left; font-size:17px;">
+						<div style="text-align:left;">
 						<span id="pwinfo"></span>
 						</div>
 						<br>
@@ -99,7 +99,7 @@
 	                           </div>
 		   				</c:if>
 						<button id="checkBtn" class="btn btn-primary btn-block" type="button">본인 확인</button><br>
-						<button class="btn btn-success btn-block" type="button" onclick="history.back();">돌아 가기</button>
+						<button class="btn btn-success btn-block" type="button" onclick="location.href='${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${accountId}'">돌아 가기</button>
 					</form>
 					</c:when>
 					<c:when test="${path eq 'modifyMember'}">
@@ -111,7 +111,9 @@
 						<div class="form-group">
 							<input type="password" id="accountPw" name="accountPw"  placeholder="******" class="form-control">
 						</div>
+						<div style="text-align:left;">
 						<span id="pwinfo"></span>
+						</div>
 						<br>
 						<c:if test="${alertMsg eq 'Fail'}">
 	                           <div class="alert alert-danger alert-mg-b alert-success-style4">
@@ -124,7 +126,7 @@
 	                           </div>
 		   				</c:if>
 						<button id="checkBtn" class="btn btn-primary btn-block" type="button">본인 확인</button><br>
-						<button class="btn btn-success btn-block" type="button" onclick="history.back();">돌아 가기</button>
+						<button class="btn btn-success btn-block" type="button" onclick="location.href='${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${accountId}'">돌아 가기</button>
 					</form>
 					</c:when>
 					<c:when test="${path eq 'removeMember'}">
@@ -136,7 +138,17 @@
 						<div class="form-group">
 							<input type="password" id="accountPw" name="accountPw"  placeholder="******" class="form-control">
 						</div>
+						<div style="text-align:left;">
 						<span id="pwinfo"></span>
+						</div>
+						<br>
+						<div class="form-group edit-ta-resize">
+                          <h5 style="text-align:left;"><strong>탈퇴 사유</strong></h5>
+                           <textarea name="outReason" id="outReason"></textarea>
+                       </div>
+                       <div style="text-align:left;">
+                       <span id="reasoninfo"></span>
+					   </div>
 						<br>
 						<c:if test="${alertMsg eq 'Fail'}">
 	                           <div class="alert alert-danger alert-mg-b alert-success-style4">
@@ -148,8 +160,8 @@
 	                              </span>
 	                           </div>
 		   				</c:if>
-						<button id="checkBtn" class="btn btn-primary btn-block" type="button">본인 확인</button><br>
-						<button class="btn btn-success btn-block" type="button" onclick="history.back();">돌아 가기</button>
+						<button id="checkBtn" class="btn btn-primary btn-block" type="button">회원 탈퇴</button><br>
+						<button class="btn btn-success btn-block" type="button" onclick="location.href='${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${accountId}'">돌아 가기</button>
 					</form>
 					</c:when>
 					</c:choose>
@@ -166,6 +178,7 @@
 	<!-- End script -->
 	
 	<script>
+	
     // 유효성검사
     $('#accountPw').blur(function() {
 		if ($('#accountPW').val() == '') {
@@ -180,8 +193,12 @@
 		if($('#accountPw').val() == ''){
 			$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
 			$('#accountPw').focus();
-		} else {
-			$('#pwinfo').text('');
+		} else if($("#outReason").val() == ""){
+    		$('#pwinfo').text('');
+    		$('#reasoninfo').text('※ 탈퇴사유를 입력해 주세요.');
+    	    $("#outReason").val("");
+    	    $("#outReason").focus();
+    	} else {
 			$('#checkPwForm').submit();
 		}
 	})
@@ -193,8 +210,12 @@
 			if($('#accountPw').val() == ''){
 				$('#pwinfo').text('※ 비밀번호를 입력해 주세요.');
 				$('#accountPw').focus();
-			} else {
-				$('#pwinfo').text('');
+			} else if($("#outReason").val() == ""){
+	    		$('#pwinfo').text('');
+	    		$('#reasoninfo').text('※ 탈퇴사유를 입력해 주세요.');
+	    	    $("#outReason").val("");
+	    	    $("#outReason").focus();
+	    	} else {
 				$('#checkPwForm').submit();
 			}
 		}

@@ -119,7 +119,18 @@
 								<ul class="breadcome-menu">
 									<li><a href="#">Home</a> <span class="bread-slash">/</span>
 									</li>
-									<li><span class="bread-blod">Student Profile</span></li>
+									<c:if test="${accountLevel eq 1}">
+										<li><span class="bread-blod">Student Profile</span></li>
+									</c:if>
+									<c:if test="${accountLevel eq 2}">
+										<li><span class="bread-blod">Teacher Profile</span></li>
+									</c:if>
+									<c:if test="${accountLevel eq 3}">
+									<li><span class="bread-blod">Manager Profile</span></li>
+									</c:if>
+									<c:if test="${accountLevel eq 4}">
+										<li><span class="bread-blod">Admin Profile</span></li>
+									</c:if>
 								</ul>
 							</div>
 						</div>
@@ -157,7 +168,7 @@
 						<div style="text-align: right;">
 							<c:if test="${sessionId eq member.accountId }">
 								<a type="button" class="btn btn-custon-rounded-three btn-success"
-									href="">사진수정</a>
+									href="${pageContext.request.contextPath}/loginCheck/modifyMemberFile?memberFileName=${memberFile.memberFileName}">사진수정</a>
 							</c:if>	
 						</div>
 					</div>

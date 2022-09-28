@@ -55,7 +55,7 @@
 			, student_graduate = #{studentGraduate}
 			, student_major = #{studentMajor}
 			, student_military = #{studentMilitary}			
-			, update_date updateDate
+			, update_date = NOW()
 		WHERE account_id = #{accountId}	
 	</update>
 	<!-- /학생 개인정보 수정하기 -->

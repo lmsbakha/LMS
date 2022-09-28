@@ -182,7 +182,7 @@
 	<select id="selectStudentEmailCnt" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 			FROM student
-			WHERE student_email=#{email}
+			WHERE student_email= #{email}
 	</select>
 	<!-- /이메일 중복체크 / student -->	
 	
@@ -190,7 +190,7 @@
 	<select id="selectTeacherEmailCnt" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 			FROM teacher
-			WHERE teacher_email=#{email}
+			WHERE teacher_email= #{email}
 	</select>
 	<!-- /이메일 중복체크 / teacher -->	
 	
@@ -198,7 +198,7 @@
 	<select id="selectManagerEmailCnt" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 			FROM manager
-			WHERE manager_email=#{email}
+			WHERE manager_email= #{email}
 	</select>
 	<!-- /이메일 중복체크 / manager -->
 	

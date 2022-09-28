@@ -1,3 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.lms.mapper.OutRecordMapper"></mapper>
+<mapper namespace="com.gd.lms.mapper.OutRecordMapper">
+	<!--  탈퇴 사유 -->
+		<insert id="insertOutReasonByMember" parameterType="com.gd.lms.vo.OutRecord">
+			INSERT INTO out_record
+				(account_id
+				, out_reason
+				, create_date)
+			VALUES(
+				  #{accountId}
+				, #{outReason}
+				, NOW())	
+		</insert>
+	<!-- /탈퇴 사유 -->
+
+</mapper>

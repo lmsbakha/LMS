@@ -159,7 +159,6 @@ public class AccountService {
         
         // 확장자 추출(ex : .png)
         String extension = origName.substring(origName.lastIndexOf("."));
-       
         
         // - 제거
         fileName = fileName.replace("-", "");

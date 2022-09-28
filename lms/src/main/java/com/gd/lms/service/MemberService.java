@@ -13,12 +13,14 @@ import com.gd.lms.mapper.AccountMapper;
 import com.gd.lms.mapper.AdminMapper;
 import com.gd.lms.mapper.ManagerMapper;
 import com.gd.lms.mapper.MemberFileMapper;
+import com.gd.lms.mapper.OutRecordMapper;
 import com.gd.lms.mapper.StudentMapper;
 import com.gd.lms.mapper.TeacherMapper;
 import com.gd.lms.vo.Account;
 import com.gd.lms.vo.Admin;
 import com.gd.lms.vo.Manager;
 import com.gd.lms.vo.MemberFile;
+import com.gd.lms.vo.OutRecord;
 import com.gd.lms.vo.Student;
 import com.gd.lms.vo.Teacher;
 
@@ -48,6 +50,10 @@ public class MemberService {
 	@Autowired
 	private AccountMapper accountMapper;
 
+	// OutRecordMapper 객체 주입
+	@Autowired
+	private OutRecordMapper outRecordMapper;
+	
 	// MemberFileMapper 객체 주입
 	@Autowired
 	private MemberFileMapper memberFileMapper;
@@ -214,7 +220,7 @@ public class MemberService {
 	}
 
 	// 학생 탈퇴하기
-	public int removeStudent(Account account) {
+	public int removeStudent(Account account, OutRecord outRecord) {
 
 		// 디버깅
 		log.debug(TeamColor.PCW + "MemberService removeStudent account : " + account + TeamColor.TEXT_RESET);
@@ -223,6 +229,10 @@ public class MemberService {
 		// 디버깅
 		log.debug(TeamColor.PCW + "MemberService removeStudent accountStateRow : " + accountStateRow
 				+ TeamColor.TEXT_RESET);
+		
+		outRecordMapper.insertOutReasonByMember(outRecord);
+		// 디버깅
+		log.debug(TeamColor.PCW + "MemberService removeStudent outRecord : " + outRecord + TeamColor.TEXT_RESET);
 
 		return studentMapper.deleteStudent(account.getAccountId());
 	}
@@ -241,7 +251,7 @@ public class MemberService {
 	}
 
 	// 강사 탈퇴하기
-	public int removeTeacher(Account account) {
+	public int removeTeacher(Account account, OutRecord outRecord) {
 
 		// 디버깅
 		log.debug(TeamColor.PCW + "MemberService removeTeacher account : " + account + TeamColor.TEXT_RESET);
@@ -250,6 +260,10 @@ public class MemberService {
 		// 디버깅
 		log.debug(TeamColor.PCW + "MemberService removeTeacher accountStateRow : " + accountStateRow
 				+ TeamColor.TEXT_RESET);
+		
+		outRecordMapper.insertOutReasonByMember(outRecord);
+		// 디버깅
+		log.debug(TeamColor.PCW + "MemberService removeStudent outRecord : " + outRecord + TeamColor.TEXT_RESET);
 
 		return teacherMapper.deleteTeacher(account.getAccountId());
 	}
@@ -268,7 +282,7 @@ public class MemberService {
 	}
 
 	// 행정 탈퇴하기
-	public int removeManager(Account account) {
+	public int removeManager(Account account, OutRecord outRecord) {
 
 		// 디버깅
 		log.debug(TeamColor.PCW + "MemberService removeManager account : " + account + TeamColor.TEXT_RESET);
@@ -277,21 +291,25 @@ public class MemberService {
 		// 디버깅
 		log.debug(TeamColor.PCW + "MemberService removeManager accountStateRow : " + accountStateRow
 				+ TeamColor.TEXT_RESET);
+		
+		outRecordMapper.insertOutReasonByMember(outRecord);
+		// 디버깅
+		log.debug(TeamColor.PCW + "MemberService removeStudent outRecord : " + outRecord + TeamColor.TEXT_RESET);
 
 		return managerMapper.deleteManager(account.getAccountId());
 	}
 
 	// memberFile 수정하기 (삭제 후 재업로드)
-	public int modifyMemberFile(String accountId, String path, String memberFileName, MultipartFile mf) {
+	public int modifyMemberFile(String accountId, String path, String prMemberFileName, MultipartFile newMemberFile) {
 
 		// 디버깅
 		log.debug(TeamColor.PCW + "MemberService modifyMemberFile accountId : " + accountId + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PCW + "MemberService modifyMemberFile path : " + path + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PCW + "MemberService modifyMemberFile memberFileName : " + memberFileName
+		log.debug(TeamColor.PCW + "MemberService modifyMemberFile memberFileName : " + prMemberFileName
 				+ TeamColor.TEXT_RESET);
 
 		// File - memberPhoto에서 기존 memberFile 삭제하기
-		File f = new File(path + memberFileName);
+		File f = new File(path + prMemberFileName);
 		f.delete(); // 삭제
 
 		// new memberFile 객체
@@ -305,7 +323,7 @@ public class MemberService {
 		// 삭제가 성공했다면 다시 재업로드
 		if (deleteRow == 1) {
 			// 원래 파일 이름 추출
-			String origName = mf.getOriginalFilename();
+			String origName = newMemberFile.getOriginalFilename();
 
 			// 파일 이름으로 쓸 UUID 생성 파일 이름 중복방지
 			String fileName = UUID.randomUUID().toString();
@@ -325,8 +343,8 @@ public class MemberService {
 			memberFile.setAccountId(accountId);
 			memberFile.setMemberFileName(fileName);
 			memberFile.setMemberFileOriginName(origName);
-			memberFile.setMemberFileType(mf.getContentType());
-			memberFile.setMemberFileSize(mf.getSize());
+			memberFile.setMemberFileType(newMemberFile.getContentType());
+			memberFile.setMemberFileSize(newMemberFile.getSize());
 
 			// 디버깅
 			log.debug(TeamColor.PCW + "MemberService modifyMemberFile :" + memberFile + TeamColor.TEXT_RESET);
@@ -340,7 +358,7 @@ public class MemberService {
 			if (insertRow == 1) {
 				try {
 					// 파일 위치에 저장
-					mf.transferTo(new File(savedPath));
+					newMemberFile.transferTo(new File(savedPath));
 				} catch (Exception e) { // runTime계열 익셉션 아니라서 꼭 예외 처리 필요
 					e.printStackTrace();
 
