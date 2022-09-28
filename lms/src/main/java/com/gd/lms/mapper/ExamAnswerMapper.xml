@@ -31,7 +31,7 @@
 	WHERE exam_question_index =#{examQuestionIndex} AND education_no=#{educationNo}
 	</update>
 	
-	<!--  -->
+	<!-- 시험결과 -->
 	<select id="selectResultExam" parameterType="Map" resultType="Map">
 	SELECT 
 		ea.exam_question_index examQuestionIndex

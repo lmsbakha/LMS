@@ -126,14 +126,15 @@
 										<td>${map.examEndDate}</td>
 										<td>
 											<!-- 시험 응시 전이라면 시험응시 버튼--> 
-											<c:if test="">
+											<c:if test="${map.submitCk == 0}">
 												<a href="${pageContext.request.contextPath}/loginCheck/submitExam?examNo=${map.examNo}">
 													<button class="btn btn-custon-rounded-three btn-danger">
 														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>시험응시
 													</button>
 												</a>
-											</c:if> <!-- 시험 응시 후라면 제출완료-->
-											<c:if test="">
+											</c:if> 
+											<!-- 시험 응시 후라면 제출완료-->
+											<c:if test="${map.submitCk != 0}">
 												<a href="${pageContext.request.contextPath}/loginCheck/resultExam?examNo=${map.examNo}&educationNo=${map.educationNo}">
 													<button class="btn btn-custon-rounded-three btn-success">
 														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>응시완료

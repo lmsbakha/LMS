@@ -154,9 +154,11 @@
 													</tr>
 												</thead>
 												<tbody>
+													<c:set var="score" value="0" />
 													<c:forEach var="question" items="${resultExam }">
 														<!-- 정답인 경우 -->
 														<c:if test="${question.examAnswerState eq 'O'}">
+															<c:set var="score" value="${score+1 }" />
 															<tr>
 																<td style="text-align: center;">${question.examQuestionIndex}</td>
 																<td>${question.examAnswerContent}</td>

@@ -308,7 +308,7 @@ public class ExamController {
 		}
 
 		//Service call
-		Map<String, Object> resultMap = examAnswerService.addAnswerSheet(answerSheet, examNo);
+		Map<String, Object> resultMap = examAnswerService.addAnswerSheet(answerSheet, educationNo, examNo);
 		// 디버깅
 		log.debug(TeamColor.PSJ + resultMap.get("score") + "<-- 맞은 갯수 score" + TeamColor.TEXT_RESET);
 
@@ -323,13 +323,16 @@ public class ExamController {
 	// 파라미터 : Model
 	// 리턴값 : resultExam.jsp
 	@GetMapping("/loginCheck/resultExam")
-	public String resultExam(Model model, @RequestParam(value = "examNo") int examNo, @RequestParam(value = "educationNo") int educationNo, @RequestParam(value = "score") int score) {
-		// service call
+	public String resultExam(Model model
+			, @RequestParam(value = "examNo") int examNo
+			, @RequestParam(value = "educationNo") int educationNo) {
+		// 시험결과(제출한 답안, 채점, 정답)을 가져오기 위해서 service call
 		List<Map<String, Object>> resultExam = examAnswerService.getResultExam(examNo, educationNo);
 		// 디버깅
 		log.debug(TeamColor.PSJ + resultExam + "<-- resultExam" + TeamColor.TEXT_RESET);
+		
+		// 맞은 개수를 가져오기 위해서
 		// model에 값 셋팅
-		model.addAttribute("score", score);
 		model.addAttribute("resultExam", resultExam);
 		return "exam/resultExam";
 	}

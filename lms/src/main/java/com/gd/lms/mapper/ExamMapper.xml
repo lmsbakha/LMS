@@ -52,6 +52,7 @@
 			, e.exam_content examContent
 			, e.exam_start_date examStartDate
 			, e.exam_end_date examEndDate
+			, (SELECT COUNT(*) FROM exam_submit WHERE education_no= z.education_no AND exam_no = e.exam_no) submitCk
 		FROM exam e
 		INNER JOIN (
 			SELECT t.account_id, t.lecture_name, t.education_no, ls.subject_name
@@ -72,7 +73,4 @@
         ]]>
         ORDER BY e.exam_end_date DESC
 	</select>
-	
-	<!-- 시험 응시여부 확인 -->
-	
 </mapper>
