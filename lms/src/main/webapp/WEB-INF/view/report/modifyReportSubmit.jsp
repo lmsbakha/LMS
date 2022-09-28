@@ -161,9 +161,16 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 							<div class="form-group alert-up-pd">
 								<div class="dz-message needsclick download-custom">
 									<i class="fa fa-download edudropnone" aria-hidden="true"></i> <input
-										name="reportSubmitFile" id="filename" class="form-control"
-										type="file" multiple="multiple" accept=".txt,.zip"
-										value="${reportSubmitOne.get(0).reportSubmitFilename}">
+										name="reportSubmitFilename" id="filename" class="form-control"
+										type="file" multiple="multiple" accept=".zip">
+										<input
+									name="reportSubmitNo" id="reportSubmitNo" type="hidden"
+									class="form-control" 
+									value="${reportSubmitOne.get(0).reportSubmitNo}">
+									<input
+									name="reportSubmitOriginName" id="reportSubmitOriginName" type="hidden"
+									class="form-control" 
+									value="${reportSubmitOne.get(0).reportSubmitFilename}">
 								</div>
 							</div>
 						</div>
@@ -273,6 +280,9 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 		} else if ($('#reportSubmitContent').val() == '') {
 			alert('reportSubmitContent를 입력해주세요.');
 			$('#reportContent').focus();
+		}else if ($('#reportSubmitFilename').val() == '') {
+			alert('파일을 업로드해주세요.');
+			$('#reportSubmitFilename').focus();
 		} else {
 			alert('과제를 수정하시겠습니까?');
 			$('#modifyReportSubmitForm').submit();

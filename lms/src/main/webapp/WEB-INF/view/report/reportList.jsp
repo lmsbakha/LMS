@@ -201,8 +201,8 @@
 											</c:if>
 											
 											<!-- sessionId가 학생이라면 -->
-											<c:if test="${sessionLevel == 1}">
-													<c:if test="${report.state == 0 }">
+											<c:if test="${sessionLevel eq 1}">
+													<c:if test="${report.state eq 0 }">
 														<td><a
 															href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
 																<button data-toggle="tooltip" title="submit"
@@ -211,9 +211,9 @@
 																</button>
 														</a></td>
 													</c:if>
-													<c:if test="${report.state == 1 }">
+													<c:if test="${report.state eq 1 }">
 														<td><a
-															href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${report.reportSubmitNo}">
+															href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">
 																<button data-toggle="tooltip" title="submit"
 																	class="pd-setting-ed" type="button">
 																	<i class="fa fa-pencil-square-o" aria-hidden="true">제출확인</i>

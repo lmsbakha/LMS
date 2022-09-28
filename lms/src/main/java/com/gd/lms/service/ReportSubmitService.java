@@ -40,9 +40,7 @@ public class ReportSubmitService {
 	ReportSubmitFileMapper reportSubmitFileMapper;
 
 	/*
-	 * 학생별 제출한 과제 리스트 조회 메소드
-	 * 파라미터 : accountId
-	 * 리턴값 : List<Map<String,Object>>
+	 * 학생별 제출한 과제 리스트 조회 메소드 파라미터 : accountId 리턴값 : List<Map<String,Object>>
 	 */
 	public List<ReportSubmit> getReportListById(String accountId) {
 		// 디버깅 영역구분
@@ -70,11 +68,9 @@ public class ReportSubmitService {
 
 		return reportSubmitListById;
 	} // end getReportListById
-	
+
 	/*
-	 * 강좌별 제출한 과제 리스트 조회 메소드
-	 * 파라미터 : accountId
-	 * 리턴값 : List<Map<String,Object>>
+	 * 강좌별 제출한 과제 리스트 조회 메소드 파라미터 : accountId 리턴값 : List<Map<String,Object>>
 	 */
 	public List<ReportSubmit> getReportListBySubject(String lectureName) {
 		// 디버깅 영역구분
@@ -103,12 +99,9 @@ public class ReportSubmitService {
 
 		return ReportSubmitListBySubject;
 	} // end getReportSubmitListBySubject
-	
+
 	/*
-	 * 과제 제출하는 메소드
-	 * addReportSubmit Form
-	 * 파라미터 : reportNo
-	 * 리턴값 : ReportSubmit
+	 * 과제 제출하는 메소드 addReportSubmit Form 파라미터 : reportNo 리턴값 : ReportSubmit
 	 */
 	public ReportSubmit addReportSubmitForm(int reportSubmitNo) {
 		// 디버깅 영역구분
@@ -124,10 +117,8 @@ public class ReportSubmitService {
 	} // end addReportSubmitForm
 
 	/*
-	 * 과제 제출하는 메소드
-	 * addReportSubmit Action
-	 * 파라미터 : ReportSubmit, ReportSubmitFile
-	 * 리턴값 : ReportSubmit
+	 * 과제 제출하는 메소드 addReportSubmit Action 파라미터 : ReportSubmit, ReportSubmitFile 리턴값
+	 * : ReportSubmit
 	 */
 	public void addReportSubmit(ReportSubmitForm reportSubmitForm) {// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Service" + TeamColor.TEXT_RESET);
@@ -230,9 +221,7 @@ public class ReportSubmitService {
 	} // end addReportSubmit
 
 	/*
-	 * 제출한 과제 상세보기 메소드
-	 * 파라미터 : reportSubmitNo
-	 * 리턴값 : List<ReportSubmit>
+	 * 제출한 과제 상세보기 메소드 파라미터 : reportSubmitNo 리턴값 : List<ReportSubmit>
 	 */
 	public List<ReportSubmit> reportSubmitOne(int reportSubmitNo) {
 		// 디버깅 영역구분
@@ -260,33 +249,22 @@ public class ReportSubmitService {
 	} // end ReportSubmitOne
 
 	/*
-	 * 제출한 과제 수정하는 메소드
-	 * modifyReportSubmit Action
-	 * 파라미터 : ReportSubmitForm
-	 * 리턴값 : X
+	 * 제출한 과제 수정하는 메소드 modifyReportSubmit Action 파라미터 : ReportSubmit,
+	 * ReportSubmitFile 리턴값 : X
 	 */
-	public void modifyReportSubmit(ReportSubmitForm reportSubmitForm) {
+	public void modifyReportSubmit(ReportSubmit paramReportSubmit, ReportSubmitFile paramReportSubmitFile) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportSubmit Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportSubmitForm + "<-- reportSubmitForm" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + paramReportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + paramReportSubmitFile + "<-- reportSubmitFile" + TeamColor.TEXT_RESET);
 
 		// 요청값 받아오기
-		int reportSubmitNo = reportSubmitForm.getReportSubmitNo();
-		String reportSubmitTitle = reportSubmitForm.getReportSubmitTitle();
-		String reportSubmitContent = reportSubmitForm.getReportSubmitContent();
-		MultipartFile file = reportSubmitForm.getReportSubmitFile();
-		// 요청값 디버깅
-		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PSY + reportSubmitTitle + "<-- reportSubmitTitle" + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PSY + reportSubmitContent + "<-- reportSubmitContent" + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PSY + file + "<-- file" + TeamColor.TEXT_RESET);
-
 		// ReportSubmit 입력
 		ReportSubmit reportSubmit = new ReportSubmit();
-		reportSubmit.setReportSubmitContent(reportSubmitContent);
-		reportSubmit.setReportSubmitNo(reportSubmitNo);
-		reportSubmit.setReportSubmitTitle(reportSubmitTitle);
+		reportSubmit.setReportSubmitContent(paramReportSubmit.getReportSubmitContent());
+		reportSubmit.setReportSubmitNo(paramReportSubmit.getReportSubmitNo());
+		reportSubmit.setReportSubmitTitle(paramReportSubmit.getReportSubmitTitle());
 		// reportSubmit 디버깅
 		log.debug(TeamColor.PSY + reportSubmit + "<--reportSubmit" + TeamColor.TEXT_RESET);
 
@@ -295,72 +273,26 @@ public class ReportSubmitService {
 		// reportSubmitMapper에서 받아온 modifyReportSubmit 값 디버깅
 		log.debug(TeamColor.PSY + modifyReportSubmit + "<-- modifyReportSubmit" + TeamColor.TEXT_RESET);
 
-		if (file != null) {
-			// file 디버깅
-			log.debug(TeamColor.PSY + file + "<--file" + TeamColor.TEXT_RESET);
+		// ReportSubmitFile 요청값 받아오기
+		String reportSubmitFilename = paramReportSubmitFile.getReportSubmitFilename();
+		String orignFilename = paramReportSubmitFile.getReportSubmitOriginName();
 
-			// 새로운 파일 객체 생성
-			ReportSubmitFile reportSubmiFile = new ReportSubmitFile();
-			reportSubmiFile.setReportSubmitNo(reportSubmitNo);
+		// ReportSubmit 입력
+		ReportSubmitFile reportSubmiFile = new ReportSubmitFile();
+		reportSubmiFile.setReportSubmitNo(reportSubmit.getReportSubmitNo());
+		reportSubmiFile.setReportSubmitFilename(reportSubmitFilename);
+		reportSubmiFile.setReportSubmitOriginName(orignFilename);
+		// 디버깅
+		log.debug(TeamColor.PSY + reportSubmiFile + "<--reportSubmiFile" + TeamColor.TEXT_RESET);
 
-			// 랜던이름 생성 API
-			String fileName = UUID.randomUUID().toString();
-			// 중복되지않는 문자이름 직접 생성 or API
-			reportSubmiFile.setReportSubmitFilename(fileName);
-
-			// 원본이름
-			String reportSubmitOriginName = file.getOriginalFilename();
-			// 디버깅
-			log.debug(TeamColor.PSY + reportSubmitOriginName + "<--reportSubmitOriginName" + TeamColor.TEXT_RESET);
-			// 마지막 점 위치
-			int ext = reportSubmitOriginName.lastIndexOf(".");
-			// 디버깅
-			log.debug(TeamColor.PSY + ext + "<--ext" + TeamColor.TEXT_RESET);
-			// 오리지널이름 뒤에서 점까지 자르기
-			String fileExt = reportSubmitOriginName.substring(ext + 1);
-			// 디버깅
-			log.debug(TeamColor.PSY + fileExt + "<--fileExt" + TeamColor.TEXT_RESET);
-
-			// 오리지널 이름 구하기
-			String originName = reportSubmitOriginName.substring(reportSubmitOriginName.length() - ext,
-					reportSubmitOriginName.length());
-			// 디버깅
-			log.debug(TeamColor.PSY + originName + "<--originName" + TeamColor.TEXT_RESET);
-
-			// 오리지널 이름
-			reportSubmiFile.setReportSubmitOriginName(originName);
-			// 첨부파일 타입
-			reportSubmiFile.setReportSubmitFileType(fileExt);
-			// 첨부파일 사이즈
-			reportSubmiFile.setReportSubmitFileSize(file.getSize());
-			// reportSubmiFile 디버깅
-			log.debug(TeamColor.PSY + reportSubmiFile + "<--reportSubmiFile" + TeamColor.TEXT_RESET);
-
-			// reportSubmitMapper call
-			int modifyReportSubmitFile = reportSubmitFileMapper.updateReportSubmitFile(reportSubmiFile);
-			// modifyReportSubmitFile 디버깅
-			log.debug(TeamColor.PSY + modifyReportSubmitFile + "<--modifyReportSubmitFile" + TeamColor.TEXT_RESET);
-
-			// 파일저장
-			File f = new File("C:\\Users\\Park\\git-LMS\\lms\\src\\main\\webapp\\file\\reportSubmitFile\\" + fileName
-					+ "." + fileExt);
-			// f 디버깅 C:\Users\Park\git-LMS\lms\src
-			log.debug(TeamColor.PSY + f + "<--f" + TeamColor.TEXT_RESET);
-
-			try {
-				file.transferTo(f);
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-				// Transactional 구동조건 -> 예외 발생
-				throw new RuntimeException();
-			}
-		} // end if문
+		// reportSubmitMapper call
+		int modifyReportSubmitFile = reportSubmitFileMapper.updateReportSubmitFile(reportSubmiFile);
+		// modifyReportSubmitFile 디버깅
+		log.debug(TeamColor.PSY + modifyReportSubmitFile + "<--modifyReportSubmitFile" + TeamColor.TEXT_RESET);
 	} // end modifyReportSubmit
 
 	/*
-	 * 제출한 과제 점수 수정하는 메소드
-	 * 파라미터 : reportSubmitNo
-	 * 리턴값 : int
+	 * 제출한 과제 점수 수정하는 메소드 파라미터 : reportSubmitNo 리턴값 : int
 	 */
 	public int modifyReportScore(int reportSubmitNo) {
 		// 디버깅 영역구분
@@ -377,9 +309,7 @@ public class ReportSubmitService {
 	}
 
 	/*
-	 * 제출한 과제 삭제하는 메소드
-	 * 파라미터 : reportSubmitNo
-	 * 리턴값 : int
+	 * 제출한 과제 삭제하는 메소드 파라미터 : reportSubmitNo 리턴값 : int
 	 */
 	public void removeReportSubmit(int reportSubmitNo) {
 		// 디버깅 영역구분

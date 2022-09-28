@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.EducationService;
@@ -80,7 +81,7 @@ public class ReportSubmitController {
 		paramMap.put("acountId", acountId);
 		// paramMap 디버깅
 		log.debug(TeamColor.PSY + paramMap + "<--paramMap" + TeamColor.TEXT_RESET);
-		
+
 		// Service Call
 		List<ReportSubmit> listById = reportSubmitService.getReportListById(acountId);
 		// reportSubmitListById 디버깅
@@ -194,10 +195,10 @@ public class ReportSubmitController {
 
 		// 요청 받은 값 Map 객체에 셋팅
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("reportSubmitNo",reportSubmitNo);
+		paramMap.put("reportSubmitNo", reportSubmitNo);
 		// paramMap 디버깅
 		log.debug(TeamColor.PSY + paramMap + "<--paramMap" + TeamColor.TEXT_RESET);
-		
+
 		// Service Call
 		List<ReportSubmit> reportSubmitOne = reportSubmitService.reportSubmitOne(reportSubmitNo);
 		// reportSubmitOne 디버깅
@@ -237,22 +238,22 @@ public class ReportSubmitController {
 
 		return "report/modifyReportScore";
 	} // end modifyReportScore @GetMapping
-		// 교사용
-		// 제출한 과제 점수 수정하는 메소드
-		// modifyReportScore Action
-		// 파라미터 : reportSubmitNo
-		// 리턴값 : ReportSubmit , ReportSubmitFile
 
+	// 교사용
+	// 제출한 과제 점수 수정하는 메소드
+	// modifyReportScore Action
+	// 파라미터 : reportSubmitNo
+	// 리턴값 : ReportSubmit , ReportSubmitFile
 	@PostMapping("/loginCheck/modifyReportScore")
 	String modifyReportScore() {
 		return null;
 
 	} // end modifyReportScore @PostMapping
 
-	// 제출한 과제 수정하는 메소드
-	// modifyReportSubmit Form
-	// 파라미터 : ReportSubmit
-	// 리턴값 : int
+	/*
+	 * 제출한 과제 수정하는 메소드 modifyReportSubmit Form 파라미터 : reportSubmitNo 담을 Model 리턴값:
+	 * modifyReportSubmit.jsp로 이동
+	 */
 	@GetMapping("/loginCheck/modifyReportSubmit")
 	String modifyReportSubmit(Model model, @RequestParam("reportSubmitNo") int reportSubmitNo) {
 		// 디버깅 영역구분
@@ -271,19 +272,44 @@ public class ReportSubmitController {
 		return "report/modifyReportSubmit";
 	} // end modifyReportSubmit @GetMapping
 
-	// 제출한 과제 수정하는 메소드
-	// modifyReportSubmit Action
-	// 파라미터 : ReportSubmit
-	// 리턴값 : int
+	/*
+	 * 제출한 과제 수정하는 메소드 
+	 * modifyReportSubmit Action 
+	 * 파라미터 : reportSubmitNo 담을 Model 
+	 * 리턴값: reportSubmitListById.jsp로 이동
+	 */
 	@PostMapping("/loginCheck/modifyReportSubmit")
-	String modifyReportSubmit(ReportSubmitForm reportSubmitForm) {
+	String modifyReportSubmit(@RequestParam("reportSubmitTitle") String reportSubmitTitle,
+			@RequestParam("reportSubmitNo") int reportSubmitNo,
+			@RequestParam("reportSubmitContent") String reportSubmitContent,
+			@RequestParam("reportSubmitFilename") String reportSubmitFilename,
+			@RequestParam("reportSubmitOriginName") String reportSubmitOriginName) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@modifyReportSubmit Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportSubmitForm + "<-- reportSubmitTitle" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitTitle + "<-- reportSubmitTitle" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitContent + "<-- reportSubmitContent" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitFilename + "<-- reportSubmitFilename" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitOriginName + "<-- reportSubmitOriginName" + TeamColor.TEXT_RESET);
+
+		// ReportSubmit 요청값 셋팅
+		ReportSubmit reportSubmit = new ReportSubmit();
+		reportSubmit.setReportSubmitContent(reportSubmitContent);
+		reportSubmit.setReportSubmitTitle(reportSubmitTitle);
+		reportSubmit.setReportSubmitNo(reportSubmitNo);
+		// 요청값 디버깅
+		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
+
+		ReportSubmitFile reportSubmitFile = new ReportSubmitFile();
+		reportSubmitFile.setReportSubmitFilename(reportSubmitFilename);
+		reportSubmitFile.setReportSubmitFileNo(reportSubmitNo);
+		reportSubmitFile.setReportSubmitOriginName(reportSubmitOriginName);
+		// 요청값 디버깅
+		log.debug(TeamColor.PSY + reportSubmitFile + "<-- reportSubmitFile" + TeamColor.TEXT_RESET);
 
 		// Service Call
-		reportSubmitService.modifyReportSubmit(reportSubmitForm);
+		reportSubmitService.modifyReportSubmit(reportSubmit, reportSubmitFile);
 
 		// reportSubmitListById로 이동
 		return "report/reportSubmitListById";

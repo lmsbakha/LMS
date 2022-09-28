@@ -38,15 +38,12 @@
 	<!-- 제출 과제별 첨부파일 상세 조회하기 메소드 -->
 
 	<!-- 제출한 첨부파일 수정 메소드 -->
-	<delete id="updateReportSubmitFile" parameterType="int">
+	<update id="updateReportSubmitFile" parameterType="int">
 		UPDATE report_submit_file SET
 			report_submit_filename = #{reportSubmitFilename},
-			report_submit_origin_name = #{reportSubmitOriginName},
-			report_submit_file_type = #{reportSubmitFileType},
-			report_submit_file_size = #{reportSubmitFileSize}
+			report_submit_origin_name = #{reportSubmitOriginName}
 		WHERE report_submit_file_no = #{reportSubmitNo}
-
-	</delete>
+	</update>
 	<!-- 제출한 첨부파일 삭제 메소드 -->
 
 	<!-- 제출한 첨부파일 삭제 메소드 -->
