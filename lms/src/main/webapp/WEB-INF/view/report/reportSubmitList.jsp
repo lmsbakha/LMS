@@ -109,11 +109,11 @@
 						<div class="breadcome-list single-page-breadcome">
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-									<ul class="breadcome-menu" style="float: left;" >
+									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
 										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/reportList">과제</a>
+											href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList">과제</a>
 											<span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">제출리스트</span></li>
 									</ul>
@@ -132,33 +132,16 @@
 				id="reportListForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="product-status-wrap drp-lst"  style="padding:2%;">
+						<div class="product-status-wrap drp-lst" style="padding: 2%;">
 							<h4>Report SubmitList</h4>
 							<hr>
-							<div class="add-product">
-								<a
-									href="${pageContext.request.contextPath}/loginCheck/reportList">
-									과제 리스트</a>
-							</div>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-										<label for="subjectName">lectureName</label> <select
-											class="form-control custom-select-value" name="lectureName"
-											id="lectureName" required="required">
-											<option value="defalut">::::::::: 강좌선택 :::::::::</option>
-											<c:forEach var="lectureNameList" items="${lectureNameList}">
-												<option value="${lectureNameList.lectureName }">${lectureNameList.lectureName }</option>
-											</c:forEach>
-										</select>
-									</div>
-									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-										<a
-											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList"><button
-												title="reportsubmitList" class="pd-setting-ed" type="submit">선택</button></a>
-									</div>
+							<c:if test="${sessionLevel >= 2}">
+								<div class="add-product">
+									<a
+										href="${pageContext.request.contextPath}/loginCheck/addReport">과제
+										추가</a>
 								</div>
-							</div>
+							</c:if>
 							<div class="asset-inner">
 								<table>
 									<tr>
@@ -169,18 +152,19 @@
 										<th>accuontId</th>
 										<th>reportSubmitScore</th>
 									</tr>
-									<c:forEach var="SubmitList" items="${ReportSubmitListBySubject}">
+									<c:forEach var="reportSubmitList"
+										items="${reportSubmitList}">
 										<tr>
-											<td>${SubmitList.reportNo}</td>
-											<td>${SubmitList.subjectName}</td>
+											<td>${reportSubmitList.reportNo}</td>
+											<td>${reportSubmitList.subjectName}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportNo=${SubmitList.reportNo}">
-													${SubmitList.reportTitle} </a></td>
-											<td>${SubmitList.createDate}</td>
-											<td>${SubmitList.accuontId}</td>
-											<td>${SubmitList.reportSubmitScore}</td>
+												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportNo=${reportSubmitList.reportNo}">
+													${reportSubmitList.reportTitle} </a></td>
+											<td>${reportSubmitList.createDate}</td>
+											<td>${reportSubmitList.accuontId}</td>
+											<td>${reportSubmitList.reportSubmitScore}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?accountId=${SubmitList.accountId}">
+												href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?accountId=${reportSubmitList.accountId}">
 													<button data-toggle="tooltip" title="Edit"
 														class="pd-setting-ed" type="button">
 														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>

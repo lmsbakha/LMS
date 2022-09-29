@@ -40,7 +40,9 @@ public class ReportSubmitService {
 	ReportSubmitFileMapper reportSubmitFileMapper;
 
 	/*
-	 * 학생별 제출한 과제 리스트 조회 메소드 파라미터 : accountId 리턴값 : List<Map<String,Object>>
+	 * 학생별 제출한 과제 리스트 조회 메소드 
+	 * 파라미터 : accountId 
+	 * 리턴값 : List<Map<String,Object>>
 	 */
 	public List<ReportSubmit> getReportListById(String accountId) {
 		// 디버깅 영역구분
@@ -70,7 +72,9 @@ public class ReportSubmitService {
 	} // end getReportListById
 
 	/*
-	 * 강좌별 제출한 과제 리스트 조회 메소드 파라미터 : accountId 리턴값 : List<Map<String,Object>>
+	 * 강좌별 제출한 과제 리스트 조회 메소드 
+	 * 파라미터 : accountId 
+	 * 리턴값 : List<Map<String,Object>>
 	 */
 	public List<ReportSubmit> getReportListBySubject(String lectureName) {
 		// 디버깅 영역구분
@@ -100,6 +104,26 @@ public class ReportSubmitService {
 		return ReportSubmitListBySubject;
 	} // end getReportSubmitListBySubject
 
+	/*
+	 * 과제별 제출한 과제 리스트 조회 메소드 
+	 * 파라미터 : reportNo 
+	 * 리턴값 : List<ReportSubmit>
+	 * reportSubmitList.jsp
+	 */
+	public List<ReportSubmit> getReportListByReport(int reportNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@getReportListByReport Service" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportNo + "<-- reportNo" + TeamColor.TEXT_RESET);
+		
+		// Mapper Call
+		List<ReportSubmit> getReportListByReport = reportSubmitMapper.selectReportListByReport(reportNo);
+		// getReportListByReport 디버깅
+		log.debug(TeamColor.PSY + getReportListByReport + "<-- getReportListByReport" + TeamColor.TEXT_RESET);
+		
+		return getReportListByReport;
+	}
+	
 	/*
 	 * 과제 제출하는 메소드 addReportSubmit Form 파라미터 : reportNo 리턴값 : ReportSubmit
 	 */

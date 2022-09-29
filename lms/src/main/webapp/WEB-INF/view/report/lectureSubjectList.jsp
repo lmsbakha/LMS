@@ -180,13 +180,6 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
 						<h4>강의리스트</h4>
-						<c:if test="${sessionLevel >= 2}">
-							<div class="add-product">
-								<a
-									href="${pageContext.request.contextPath}/loginCheck/addReport">과제
-									추가</a>
-							</div>
-						</c:if>
 						<div class="asset-inner">
 							<table>
 								<tr>

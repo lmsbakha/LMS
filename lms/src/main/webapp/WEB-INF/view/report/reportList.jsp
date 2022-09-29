@@ -144,6 +144,13 @@
 						<div class="product-status-wrap drp-lst" style="padding: 2%;">
 							<h4>ReportList</h4>
 							<hr>
+							<c:if test="${sessionLevel >= 2}">
+								<div class="add-product">
+									<a
+										href="${pageContext.request.contextPath}/loginCheck/addReport">과제
+										추가</a>
+								</div>
+							</c:if>
 							<c:if test="${sessionLevel == 1}">
 								<div class="add-product">
 									<a
@@ -171,7 +178,8 @@
 													<a>${report.reportTitle}</a>
 													<div>
 														<textarea name="reportContent" id="reportContent"
-															style="width: 300px; height: 100px; border-color: white;" readonly>
+															style="width: 300px; height: 100px; border-color: white;"
+															readonly>
 															 ${report.reportContent}</textarea>
 													</div>
 												</div>
@@ -195,10 +203,10 @@
 												</a></td>
 												<td><a
 													href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="Edit"
+														<button data-toggle="tooltip" title="reportSubmitList"
 															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true">제출 과제
-																목록</i>
+															<i class="fa fa-pencil-square-o" aria-hidden="true">제출
+																과제 목록</i>
 														</button>
 												</a></td>
 											</c:if>
