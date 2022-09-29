@@ -43,8 +43,9 @@ public class NoticeController {
 		String accountId = (String)session.getAttribute("sessionId");	
 		log.debug(TeamColor.LHN + "accountId: " + accountId + TeamColor.TEXT_RESET);
 		
-//		int userLevel = accountService.getMemberLevelByAccountId(accountId);
-//		log.debug(TeamColor.LHN + "userLevel: " + userLevel + TeamColor.TEXT_RESET);
+		int userLevel = (int) session.getAttribute("sessionLevel");
+		log.debug(TeamColor.LHN + "userLevel: " + userLevel + TeamColor.TEXT_RESET);
+		
 		
 		// 리스트 불러오기
 		List<Notice> noticeList = noticeService.getNoticeList();	
@@ -53,7 +54,7 @@ public class NoticeController {
 		
 		// model에 데이터 세팅
 		model.addAttribute("noticeList", noticeList);
-//		model.addAttribute("userLevel", userLevel);
+		model.addAttribute("userLevel", userLevel);
 		model.addAttribute("accountId", accountId);
 
 		return "notice/noticeList";
@@ -75,7 +76,9 @@ public class NoticeController {
 			
 		log.debug(TeamColor.LHN + "게시글 작성" + TeamColor.TEXT_RESET);
 		Notice notice = new Notice();
-	
+		noticeContent = noticeContent.replace("\r\n","<br>");
+		log.debug(TeamColor.LHN + "자동 개행 적용" + noticeContent +  TeamColor.TEXT_RESET);
+		
 		// 입력 내용 notice 적용
 		notice.setNoticeTitle(noticeTitle);
 		notice.setNoticeContent(noticeContent);	
@@ -85,11 +88,7 @@ public class NoticeController {
 		notice.setAccountId(accountId);
 		log.debug(TeamColor.LHN + "accountId" + accountId +  TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + "notice" + notice +  TeamColor.TEXT_RESET);
-		
-		// int accountLevel = accountMapper.selectMemberLevelByAccountId(accountId);
-		// int accountLevel = accountService.getMemberLevelByAccountId(accountId);
-		// log.debug(TeamColor.LHN + "accountLevel" + accountLevel +  TeamColor.TEXT_RESET);
-		
+
 		// notice 적용
 		noticeService.addNotice(notice);
 		
