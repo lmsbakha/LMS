@@ -1,71 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Departments | Kiaalap - Kiaalap Admin Template</title>
+<title>Data Table | Kiaalap - Kiaalap Admin Template</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon
-      ============================================ -->
+		============================================ -->
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico">
 <!-- Google Fonts
-      ============================================ -->
+		============================================ -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
 <!-- Bootstrap CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <!-- Bootstrap CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 <!-- owl.carousel CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.transitions.css">
 <!-- animate CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <!-- normalize CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css">
 <!-- meanmenu icon CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/meanmenu.min.css">
 <!-- main CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 <!-- educate icon CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/educate-custon-icon.css">
 <!-- morrisjs CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/morrisjs/morris.css">
 <!-- mCustomScrollbar CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/scrollbar/jquery.mCustomScrollbar.min.css">
 <!-- metisMenu CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/metisMenu/metisMenu.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/metisMenu/metisMenu-vertical.css">
 <!-- calendar CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar/fullcalendar.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar/fullcalendar.print.min.css">
 <!-- style CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
 <!-- responsive CSS
-      ============================================ -->
+		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
 <!-- modernizr JS
-      ============================================ -->
+		============================================ -->
 <script src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
+
 <body>
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 	<!-- Start sidebar -->
 	<jsp:include page="../inc/sidebar.jsp" />
@@ -74,10 +75,7 @@
 	<!-- Start tobbar -->
 	<jsp:include page="../inc/topbar.jsp" />
 	<!-- End tobbar -->
-
-	<!-- Main Contents -->
 	<div class="header-advance-area">
-		<!-- Mobile Menu end -->
 		<div class="breadcome-area">
 			<div class="container-fluid">
 				<div class="row">
@@ -86,9 +84,9 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
-										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/index">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의관리</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">수강생관리</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">교재관리</span></li>
 									</ul>
 								</div>
 							</div>
@@ -102,106 +100,176 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="product-status-wrap drp-lst">
-						<h4>수강생관리</h4>
-						<hr>
-						<div class="sparkline12-graph">
-							<div class="basic-login-form-ad">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="all-form-element-inner">
-											<!-- 해당 lecture 조회 -->
-											<form action="${pageContext.request.contextPath}/loginCheck/lectureListByTeacherForAttendance" method="post">
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">Lecture 조회</label>
-														</div>
-														<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-															<div class="form-select-list">
-																<select class="form-control custom-select-value" name="lectureName" id="lectureName" required="required">
-																	<option value="defalut">--------Lecture 선택-------</option>
-																	<c:forEach var="l" items="${lectureListByTeacher}">
-																		<option value="${l.lectureName }">${l.lectureName }</option>
-																	</c:forEach>
-																</select>
-															</div>
-														</div>
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<button type="submit" class="btn btn-custon-rounded-two btn-primary">조회하기</button>
-														</div>
-													</div>
-												</div>
-											</form>
-											<!-- /해당 lecture 조회 -->
-										</div>
-									</div>
-								</div>
-							</div>
+					<div class="product-status-wrap">
+						<h4>교재관리</h4>
+						<div class="add-product">
+							<a href="#">교재추가</a>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="product-status mg-b-15">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="product-status-wrap drp-lst">
-						<h4>수강생 목록</h4>
-						<!-- 문제 출제 하기 -->
 						<div class="asset-inner">
-							<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
-								<thead>
-									<tr>
-										<th>educationNo(학번)</th>
-										<th>studentName(학생이름)</th>
-										<th>studentId(학생ID)</th>
-										<th>lectureName(강좌)</th>
-										<th>teacherName(담임)</th>
-										<th style="width: 150px">Setting</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:if test="${empty attendanceList }">
-										<tr>
-											<td colspan="7" style="text-align: center;">lecture를 먼저 선택해주세요</td>
-										</tr>
-									</c:if>
-									<c:if test="${not empty attendanceList }">
-										<c:forEach var="map" items="${attendanceList}">
-											<tr>
-												<td>${map.educationNo}</td>
-												<td>${map.studentName}</td>
-												<td>${map.studentId}</td>
-												<td>${map.lectureName}</td>
-												<td>${map.teacherName}</td>
-												<td>
-													<a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${map.studentId}">
-														<button type="button" class="btn btn-sm btn-custon-rounded-two btn-primary">
-															<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i>상세보기
-														</button>
-													</a>
-												</td>
-											</tr>
-										</c:forEach>
-									</c:if>
-								</tbody>
+							<table>
+								<tr>
+									<th>No</th>
+									<th>Image</th>
+									<th>Name of Asset</th>
+									<th>Status</th>
+									<th>Subject</th>
+									<th>Department</th>
+									<th>Type</th>
+									<th>Price</th>
+									<th>Setting</th>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td><img src="img/product/book-1.jpg" alt="" /></td>
+									<td>Web Development Book</td>
+									<td>
+										<button class="pd-setting">Active</button>
+									</td>
+									<td>Html, Css</td>
+									<td>CSE</td>
+									<td>Book</td>
+									<td>$1500</td>
+									<td>
+										<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
+											<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+										</button>
+										<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										</button>
+									</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td><img src="img/product/book-2.jpg" alt="" /></td>
+									<td>Quality Bol pen</td>
+									<td>
+										<button class="ps-setting">Paused</button>
+									</td>
+									<td>PHP</td>
+									<td>CSE</td>
+									<td>CD</td>
+									<td>$1700</td>
+									<td>
+										<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
+											<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+										</button>
+										<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										</button>
+									</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td><img src="img/product/book-3.jpg" alt="" /></td>
+									<td>Box of pendrive</td>
+									<td>
+										<button class="ds-setting">Disabled</button>
+									</td>
+									<td>Java</td>
+									<td>CSE</td>
+									<td>Book</td>
+									<td>$1500</td>
+									<td>
+										<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
+											<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+										</button>
+										<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										</button>
+									</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td><img src="img/product/book-4.jpg" alt="" /></td>
+									<td>Quality Bol pen</td>
+									<td>
+										<button class="pd-setting">Active</button>
+									</td>
+									<td>PHP</td>
+									<td>CSE</td>
+									<td>CD</td>
+									<td>$1200</td>
+									<td>
+										<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
+											<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+										</button>
+										<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										</button>
+									</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td><img src="img/product/book-1.jpg" alt="" /></td>
+									<td>Web Development Book</td>
+									<td>
+										<button class="pd-setting">Active</button>
+									</td>
+									<td>Wordpress</td>
+									<td>CSE</td>
+									<td>Book</td>
+									<td>$1800</td>
+									<td>
+										<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
+											<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+										</button>
+										<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										</button>
+									</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td><img src="img/product/book-2.jpg" alt="" /></td>
+									<td>Quality Bol pen</td>
+									<td>
+										<button class="ps-setting">Paused</button>
+									</td>
+									<td>Java</td>
+									<td>CSE</td>
+									<td>CD</td>
+									<td>$1000</td>
+									<td>
+										<button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
+											<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+										</button>
+										<button data-toggle="tooltip" title="Trash" class="pd-setting-ed">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										</button>
+									</td>
+								</tr>
 							</table>
 						</div>
+						<div class="custom-pagination">
+							<ul class="pagination">
+								<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">Next</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Start footer -->
-	<jsp:include page="../inc/footer.jsp" />
-	<!-- End footer -->
+	<div class="footer-copyright-area">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="footer-copy-right">
+						<p>
+							Copyright © 2018. All rights reserved. Template by
+							<a href="https://colorlib.com/wp/templates/">Colorlib</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
 
-
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<!-- jquery
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/vendor/jquery-1.12.4.min.js"></script>
@@ -226,11 +294,6 @@
 	<!-- scrollUp JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/jquery.scrollUp.min.js"></script>
-	<!-- counterup JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/counterup/jquery.counterup.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/counterup/waypoints.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/counterup/counterup-active.js"></script>
 	<!-- mCustomScrollbar JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -241,14 +304,8 @@
 	<script src="${pageContext.request.contextPath}/js/metisMenu/metisMenu-active.js"></script>
 	<!-- morrisjs JS
 		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/morrisjs/raphael-min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/morrisjs/morris.js"></script>
-	<script src="${pageContext.request.contextPath}/js/morrisjs/morris-active.js"></script>
-	<!-- morrisjs JS
-		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/sparkline/jquery.sparkline.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/sparkline/jquery.charts-sparkline.js"></script>
-	<script src="${pageContext.request.contextPath}/js/sparkline/sparkline-active.js"></script>
 	<!-- calendar JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/calendar/moment.min.js"></script>
@@ -264,4 +321,5 @@
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
 </body>
+
 </html>

@@ -85,9 +85,9 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
-										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">시험</span></li>
+										<li><a href="${pageContext.request.contextPath}/loginCheck/index">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">강의관리</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">시험관리</span></li>
 									</ul>
 								</div>
 							</div>
@@ -151,8 +151,7 @@
 					<div class="product-status-wrap drp-lst">
 						<h4>시험리스트 
 							<div class="btn-custom-groups-one btn-mg-b-10" style="float: right;">
-								<button type="button" class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/questionBank' ">문제은행</button>
-								<button type="button" class="btn btn-warning" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/addExam' ">시험출제</button>
+								<button type="button" class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/addExam' ">시험출제</button>
 							</div>
 						</h4>
 						<!-- 문제 출제 하기 -->

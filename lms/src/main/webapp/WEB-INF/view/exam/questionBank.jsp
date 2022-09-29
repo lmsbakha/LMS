@@ -112,10 +112,7 @@
 										<li><a
 											href="${pageContext.request.contextPath}/loginCheck/index">Home</a>
 											<span class="bread-slash">/</span></li>
-										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/exam">시험</a>
-											<span class="bread-slash">/</span></li>
+										<li><a href="#">강의관리</a> <span class="bread-slash">/</span></li>
 										<li><a
 											href="${pageContext.request.contextPath}/loginCheck/questionBank">
 												<span class="bread-blod" style="font-weight: bold;">문제은행</span>
