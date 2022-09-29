@@ -151,6 +151,7 @@
 											<th>성별</th>
 											<th>생년월일</th>
 											<th>가입날짜</th>
+											<th>Setting</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -162,6 +163,7 @@
 													<td>${s.studentGender}</td>
 													<td>${s.studentBirth}</td>
 													<td>${s.createDate}</td>
+													<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${s.accountId}"></a></td>
 												</tr>
 											</c:forEach>
 										</c:if>
