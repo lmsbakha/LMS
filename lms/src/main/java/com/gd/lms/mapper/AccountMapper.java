@@ -18,7 +18,7 @@ public interface AccountMapper {
 	// 계정 활성화 상태값 수정 - 휴면 -> 활성화 
 	int updateAccountStateByMember(Account account);
 	
-	// 계정 마지막 로그인날짜로부터 90일동안 로그인안했다면 활성화 상태값 수정 - 활성화 -> 휴면
+	// 계정 마지막 로그인날짜로부터 90일동안 로그인 안했다면 활성화 상태값 수정 - 활성화 -> 휴면
 	int updateAccountStateByMemberLastLogin();
 	
 	// 로그인 - 로그인 아이디와 비밀번호가 맞다면 해당 level값 출력해주는 메서드
@@ -41,6 +41,21 @@ public interface AccountMapper {
 	
 	// (학생, 강사 ,행정) 멤버 비밀번호 변경해주기 OR 비밀번호 찾기를 통해 변경해주는 경우
 	int updateMemberAccountPw(Account account);
+	
+	// (학생, 강사, 행정) 멤버 비밀번호 변경날짜 업데이트
+	int updateAccountPwRecordUpdateDate(String updateDate);
+	
+	// (학생, 강사, 행정) 멤버 마지막 비밀번호 변경한 날짜
+	String selectAccountPwRecordUpdteDate(String accountId);
+	
+	// (학생, 강사, 행정) 멤버 마지막 비밀번호 변경 날짜로부터 몇일 지났는지
+	int selectAccountPwRecordByDiffDate(String accountId);
+	
+	// (학생, 강사, 행정) 비밀번호 변경시 새로운 비밀번호와 기존 비밀번호 비교
+	int checkNewAccoutPwByPrAccoutPw(Account account);
+	
+	// (학생, 강사, 행정) 비밀번호 변경시 pw_record 테이블에 추가
+	int insertPwRecordByAccount(Account account);
 	
 	// 회원가입 메서드
 	int insertMember(Member paramMember);

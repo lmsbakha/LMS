@@ -91,6 +91,15 @@
                           	    <span id="passinfo"></span>
                           	    <input type="hidden" name="accountState" id="accountState">
                             </div>
+                             <c:if test="${later eq 'Success'}">
+	                           <div class="alert alert-success alert-mg-b alert-success-style4">
+	                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+	                                 <span class="icon-sc-cl" aria-hidden="true">&times;</span>
+	                              </button>
+	                               <h4> ※ 비밀번호 변경 기간이 3개월 연장되었습니다.<br><br>
+	                               		  &nbsp;&nbsp;&nbsp;다시 로그인 부탁드립니다.</h4>
+	                           </div>
+                            </c:if>
                             <c:if test="${accountState == null && alertMsg eq 'Fail'}">
 	                           <div class="alert alert-danger alert-mg-b alert-success-style4">
 	                              <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
@@ -144,6 +153,24 @@
            						<a class="search"  href="${pageContext.request.contextPath}/searchAccountPw">비밀번호 찾기</a>
 							</div>
 						</form>
+						<c:if test="${ msg != null}">
+                    	  <div class="alert alert-warning alert-st-three" role="alert">
+                            <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+										<span class="icon-sc-cl" aria-hidden="true">×</span>
+							</button>
+                             <h4>
+                              <i class="fa fa-exclamation-triangle edu-warning-danger admin-check-pro admin-check-pro-none" aria-hidden="true"></i>&nbsp;비밀번호를 변경한지 3개월이 지났습니다.
+                              <br>
+                              <br>
+                             </h4>
+                             <h4>&nbsp;&nbsp;&nbsp;&nbsp;회원님의 개인정보를 위해 비밀번호를 변경하시겠습니까?</h4>  
+                             <br>
+                              <div style="text-align:right;">
+                            	<a  class="btn btn-primary"  href="${pageContext.request.contextPath}/laterAccountPw?later=yes&accountId=${accountId}">3개월 연장하기</a>&nbsp;
+           						<a type="button" class="btn btn-success"  href="${pageContext.request.contextPath}/laterAccountPw?later=no&accountId=${accountId}">비밀번호 변경하기</a>
+							</div>
+                          </div>
+                       </c:if>
                     </div>
                 </div>
 			</div>

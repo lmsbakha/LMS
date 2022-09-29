@@ -235,6 +235,9 @@ public class MemberController {
 		log.debug(TeamColor.PCW + " MemberController PostMapping(/loginCheck/modifyAccountPw) row : " + accountPw + TeamColor.TEXT_RESET);
 
 		if(row == 1) {
+			int addRow = accountService.addPwRecord(account);
+			// 디버깅
+			log.debug(TeamColor.PCW + " 패스워드기록 테이블 추가 addRow : " + addRow + TeamColor.TEXT_RESET);
 			return "redirect:/loginCheck/logout";
 		} else {
 			// 디버깅

@@ -109,7 +109,7 @@
 	<jsp:include page="../js/alljs.jsp"/>
     <!-- End script --> 
     
-    <script>
+     <script>
 	    // 유효성 
 		// 비밀번호 유효성
 		var reg_pass = /(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w]).{8,}/;
@@ -152,9 +152,27 @@
 				$('#pwckinfo').text('');
 				$('#pwckinfo').text('※ 비밀번호와 일치하지 않습니다.');
 			} else {
-				$('#updatePwForm').submit();
+				// 비동기 호출
+				$.ajax({
+					type :'POST',
+					url : '${pageContext.request.contextPath}/checkNewAccountPwByPrAccountPw',
+					data : {
+						accountId:"${accountId}", accountPw:$('#accountPw').val()
+					},
+					success : function(pw) {
+						console.log('pw :', pw);
+						if (pw == 'false') {
+							alert('※ 이전 비밀번호와 동일한 비밀번호 입니다. 다른 비밀번호로 설정해 주세요.');
+							$('#accountPw').val('');
+							$('#accountPwCk').val('');
+							$('#accountPw').focus();
+						} else {
+							$('#updatePwForm').submit();
+						}
+					}
+				})
 			}
-		})
+		});
 	  	
 		// Enter키 유효성검사
 	$(document).keypress(function(e) {
@@ -175,7 +193,25 @@
 				$('#pwckinfo').text('');
 				$('#pwckinfo').text('※ 비밀번호와 일치하지 않습니다.');
 			} else {
-				$('#updatePwForm').submit();
+				// 비동기 호출
+				$.ajax({
+					type :'POST',
+					url : '${pageContext.request.contextPath}/checkNewAccountPwByPrAccountPw',
+					data : {
+						accountId:"${accountId}", accountPw:$('#accountPw').val()
+					},
+					success : function(pw) {
+						console.log('pw :', pw);
+						if (pw == 'false') {
+							alert('※ 이전 비밀번호와 동일한 비밀번호 입니다. 다른 비밀번호로 설정해 주세요.');
+							$('#accountPw').val('');
+							$('#accountPwCk').val('');
+							$('#accountPw').focus();
+						} else {
+							$('#updatePwForm').submit();
+						}
+					}
+				})
 			}
 		}
 	});
