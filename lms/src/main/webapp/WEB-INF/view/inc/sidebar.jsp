@@ -6,6 +6,7 @@
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
     <!-- Start Left menu area -->
+    
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
@@ -21,6 +22,92 @@
 								   <span class="mini-click-non">Home</span>
 								</a>
                         </li>
+                        <!-- 학생 로그인 시 -->
+                        <c:if test="${sessionLevel == 1}">
+	                        <li>
+	                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-apps icon-wrap"></span> <span class="mini-click-non">나의 강의실</span></a>
+	                            <ul class="submenu-angle app-mini-nb-dp" aria-expanded="false">
+	                                <li> <a title="reportSubmitList" href="${pageContext.request.contextPath}/loginCheck/reportList"><span class="mini-sub-pro">과제</span></a> </li>
+	                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/examForStudent"><span class="mini-sub-pro">시험</span></a></li>
+	                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">성적</span></a></li>
+	                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">교재</span></a></li>
+	                                <li><a title="Departments List" href="#"><span class="mini-sub-pro">출결현황</span></a></li>
+	                            </ul>
+	                        </li>
+	                        <li>
+	                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-form icon-wrap"></span> <span class="mini-click-non">커뮤니티</span></a>
+	                            <ul class="submenu-angle interface-mini-nb-dp" aria-expanded="false">
+	                               <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">공지사항</span></a></li>
+	                               <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">문의사항</span></a></li>
+	                            </ul>
+	                        </li>
+                        </c:if>
+                        <!-- /학생 로그인 시 -->
+                        
+                        <!-- 강사 로그인 시 -->
+                        <c:if test="${sessionLevel == 2}">
+                         <li>
+                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-apps icon-wrap"></span> <span class="mini-click-non">강의관리</span></a>
+                            <ul class="submenu-angle app-mini-nb-dp" aria-expanded="false">
+                           		<li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/studentbookForTeacher"><span class="mini-sub-pro">수강생관리</span></a></li>
+                                <li><a title="reportSubmitList" href="${pageContext.request.contextPath}/loginCheck/reportList"><span class="mini-sub-pro">과제관리</span></a></li>
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/exam"><span class="mini-sub-pro">시험관리</span></a></li>
+                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">성적관리</span></a></li>
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/questionBank"><span class="mini-sub-pro">문제은행관리</span></a></li>
+                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">교재관리</span></a></li>
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/attendanceForTeacher"><span class="mini-sub-pro">출결관리</span></a></li>
+                                
+                            </ul>
+                       	 </li>
+                       	 <li>
+                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-form icon-wrap"></span> <span class="mini-click-non">커뮤니티</span></a>
+                            <ul class="submenu-angle interface-mini-nb-dp" aria-expanded="false">
+                               <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">공지사항</span></a></li>
+                               <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">문의사항</span></a></li>
+                            </ul>
+	                     </li>
+                        </c:if>
+                        <!-- /강사 로그인 시 -->
+                        
+                        <!-- 행정 로그인 시 -->
+                        <c:if test="${sessionLevel >= 3}">
+                         <li>
+                            <a class="has-arrow" href="all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">회원관리</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a href="${pageContext.request.contextPath}/loginCheck/memberList?memberCheck=student"><span class="mini-sub-pro">학생관리</span></a></li>
+                                <li><a  href="${pageContext.request.contextPath}/loginCheck/memberList?memberCheck=teacher"><span class="mini-sub-pro">강사관리</span></a></li>
+                                <li><a  href="${pageContext.request.contextPath}/loginCheck/memberList?memberCheck=teacher"><span class="mini-sub-pro">직원관리</span></a></li>
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/attendanceForManager"><span class="mini-sub-pro">출결관리</span></a></li>
+                                 <!-- 총관리자 로그인 시 -->
+                                <c:if test="${sessionLevel == 4}">
+                      			   <li><a title="Students Profile" href="${pageContext.request.contextPath}/loginCheck/approveWaitMemberList"><span class="mini-sub-pro">가입승인</span></a></li>
+                       			 </c:if>
+                             	 <!-- /총관리자 로그인 시 -->
+                            </ul>
+                        </li>
+                       <li>
+                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-apps icon-wrap"></span> <span class="mini-click-non">강좌관리</span></a>
+                            <ul class="submenu-angle app-mini-nb-dp" aria-expanded="false">
+                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">강좌관리</span></a></li>
+                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">과목관리</span></a></li>
+                                <li><a title="reportSubmitList" href="${pageContext.request.contextPath}/loginCheck/reportList"><span class="mini-sub-pro">과제관리</span></a></li>
+                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">시험관리</span></a></li>
+                                <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/questionBank"><span class="mini-sub-pro">문제은행관리</span></a></li>
+                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">성적관리</span></a></li>
+                                <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">교재관리</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                           <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-form icon-wrap"></span> <span class="mini-click-non">커뮤니티</span></a>
+                           <ul class="submenu-angle interface-mini-nb-dp" aria-expanded="false">
+                              <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">공지사항</span></a></li>
+                              <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">문의사항</span></a></li>
+                           </ul>
+	                     </li>
+                        </c:if>
+                        <!-- /행정 로그인 시 -->
+                        
+                        <!--
                          <li>
                             <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-message icon-wrap"></span> <span class="mini-click-non">Mailbox</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
@@ -36,21 +123,17 @@
                                 <li>
                                  <a title="reportSubmitList" href="${pageContext.request.contextPath}/loginCheck/reportList"><span class="mini-sub-pro">과제</span></a>      
                                 </li>
-                                <!-- 학생이 로그인 했을 경우 -->
                                 <c:if test="${sessionLevel == 1}">
                                 <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/examForStudent"><span class="mini-sub-pro">시험</span></a></li>
                                 </c:if>
-                                <!-- 강사가 로그인 했을 경우 -->
                                 <c:if test="${sessionLevel == 2}">
                                 <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/exam"><span class="mini-sub-pro">시험</span></a></li>
                                 </c:if>
                                 <li><a title="Departments List" href="departments.html"><span class="mini-sub-pro">성적</span></a></li>
-                                <!-- 강사 아이디로 로그인했을 경우 -->
                                 <c:if test="${sessionLevel == 2}">
                                 <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/attendanceForTeacher"><span class="mini-sub-pro">출결현황</span></a></li>
                                 <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/studentbookForTeacher"><span class="mini-sub-pro">학생관리</span></a></li>
                                 </c:if>
-                                <!-- 행정 아이디로 로그인했을 경우 -->
                                 <c:if test="${sessionLevel >= 3}">
                                 <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/attendanceForManager"><span class="mini-sub-pro">출결현황</span></a></li>
                                 <li><a title="Departments List" href="${pageContext.request.contextPath}/loginCheck/studentbookForManager"><span class="mini-sub-pro">학생관리</span></a></li>
@@ -111,6 +194,8 @@
                             </ul>
                         </li>
                         </c:if>
+                          -->
+                        
                     </ul>
                 </nav>
             </div>

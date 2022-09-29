@@ -62,7 +62,7 @@
 				FROM education e
 				INNER JOIN lecture l
 					USING(lecture_name)
-					WHERE e.account_id=${accountId} AND e.education_state='수강중'
+					WHERE e.account_id=#{accountId}
 			)t
 			USING(lecture_name)
 		)z
