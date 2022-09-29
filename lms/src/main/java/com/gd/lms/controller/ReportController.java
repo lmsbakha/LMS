@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.LectureService;
 import com.gd.lms.service.MemberService;
 import com.gd.lms.service.ReportService;
 import com.gd.lms.service.ReportSubmitService;
+import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
 import com.gd.lms.vo.ReportSubmit;
@@ -43,41 +45,29 @@ public class ReportController {
 	// ReportSubmitService 객체 주입
 	@Autowired
 	ReportSubmitService reportSubmitService;
+	
+	// ReportSubmitService 객체 주입
+	@Autowired
+	LectureService lectureService;
 
-	// 강좌별 과제 리스트 조회
-	// 파라미터 : reportList값 넘겨줄 Model
-	// 리턴값 : reportList.jsp로 이동
+	// [강사전용] 강좌별 강의리스트 메인페이지로 이동하는 메소드 
+	// 파라미터 : sessionId Model 
+	//리턴값 : reportList.jsp
 	@GetMapping("/loginCheck/reportList")
-	public String reportdList(Model model, HttpSession session) {
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@reportList Controller" + TeamColor.TEXT_RESET);
-
-		// 세션아이디 받아오기
+	public String reportList(HttpSession session, Model model) {
+		// 세션에 저장된 값을 지역변수로 저장
 		String accountId = (String) session.getAttribute("sessionId");
-		// 로그인한 Student의 아이디 확인 디버깅
-		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+		// 디버깅
+		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
 
-		// 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보 Serivce Call
-		List<Map<String, Object>>  reportSubmitByStudent = reportService.getReportListStateInfo(accountId);
-		// reportSubmitListByStudent 디버깅
-		log.debug(TeamColor.PSY + reportSubmitByStudent + "<-- reportSubmitListByStudent" + TeamColor.TEXT_RESET);
+		//LectureService에서 lectureList가져오기
+		List<Lecture> lectureListByTeacher = lectureService.getLectureListByAccoutId(accountId);
+		// model 단에 값 저장해서 보내줌
+		model.addAttribute("lectureListByTeacher", lectureListByTeacher);
 
-		// reportList로 값 넘겨주기
-		model.addAttribute("reportSubmitByStudent", reportSubmitByStudent);
-
-		if (reportSubmitByStudent != null) {
-			// 성공
-			log.debug(TeamColor.PSY + " 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
-			// reportList로 이동
-			return "report/reportList";
-		} else {
-			// 실패
-			log.debug(TeamColor.PSY + " 과제 리스트 조회실패" + TeamColor.TEXT_RESET);
-			// index로 리다이렉트
-			return "redirect:/loginCheck/reportList";
-		}
+		return "report/reportList"; // forwarding으로 보내줌
 	} // end reportList @GetMapping
-
+	
 	// 과제 출제하는 메소드
 	// addReport Form
 	// 파라미터 : List<LectureSubject>를 담아둘 Model, 세션 값

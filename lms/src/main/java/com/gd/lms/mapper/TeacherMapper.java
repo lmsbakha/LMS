@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.Account;
+import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Teacher;
 
 @Mapper
@@ -14,6 +15,13 @@ public interface TeacherMapper {
 	// 파라미터 : 계정아이디
 	// 리턴값: Map<String, Object> teacherName, lectureName, lectureActive, lectureStartDate, lectureEndDate
 	Map<String, Object> selectInfoAboutTeacher(String accountId);
+	
+	/*
+	 * 강사와 관련된 lecture_subject 정보 받아오기
+	 * 파라미터 : 계정아이디
+	 * 리턴값: List<LectureSubject> lectureName, subjectName, lectureSubjectNo
+	 */
+	List<LectureSubject> lectureSubmitInfoByTeacher(String accountId);
 	
 	// 강사목록 리스트
 	List<Teacher> selectTeacherList();

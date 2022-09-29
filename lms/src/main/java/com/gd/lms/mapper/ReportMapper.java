@@ -26,9 +26,10 @@ public interface ReportMapper {
 	// 파라미터 : reportNo
 	// 리턴값 : List<LectureSubject>
 	List<LectureSubject> selectLectureSubject(int reportNo);
-
+	
 
 	/*
+	 * 학생용
 	 * 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보를 추출하는 메소드 
 	 * 파라미터 : accountId
 	 * 리턴값 : Map<String, Object> 

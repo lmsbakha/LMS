@@ -23,7 +23,7 @@
 								</a>
                         </li>
                         <!-- 학생 로그인 시 -->
-                        <c:if test="${sessionLevel == 1}">
+                        <c:if test="${sessionLevel == 1}">   
 	                        <li>
 	                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-apps icon-wrap"></span> <span class="mini-click-non">나의 강의실</span></a>
 	                            <ul class="submenu-angle app-mini-nb-dp" aria-expanded="false">

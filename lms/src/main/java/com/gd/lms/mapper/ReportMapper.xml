@@ -3,29 +3,33 @@
 <mapper namespace="com.gd.lms.mapper.ReportMapper">
 
 	<!-- 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보를 추출하는 메소드 -->
-	<select id="selectReportListStateInfo" resultType="Map" parameterType="String">
+	<select id="selectReportListStateInfo" resultType="Map"
+		parameterType="String">
 		SELECT
-			z.account_id accountId
-			, z.education_no educationNo
-			, z.lecture_name lectureName
-			, r.report_no reportNo
-			, r.subject_name subjectName
-			, r.report_title reportTitle
-			, r.report_content reportContent
-			, r.report_start_date reportStartDate
-			, r.report_end_date reportEndDate
-			, (SELECT COUNT(*) FROM report_submit 
+		z.account_id accountId
+		, z.education_no educationNo
+		, z.lecture_name lectureName
+		, r.report_no reportNo
+		, r.subject_name subjectName
+		, r.report_title reportTitle
+		, r.report_content reportContent
+		, r.report_start_date reportStartDate
+		, r.report_end_date reportEndDate
+		, (SELECT COUNT(*) FROM report_submit
 		WHERE education_no= z.education_no AND report_no = r.report_no) state
-		FROM report r
+		FROM
+		report r
 		INNER JOIN (
-		SELECT t.account_id, t.lecture_name, t.education_no, ls.subject_name
+		SELECT t.account_id, t.lecture_name,
+		t.education_no, ls.subject_name
 		FROM lecture_subject ls
 		INNER JOIN (
 		SELECT e.account_id, e.education_no, l.lecture_name
 		FROM education e
 		INNER JOIN lecture l
 		USING(lecture_name)
-		WHERE e.account_id= #{accountId} AND e.education_state='수강중' )t
+		WHERE e.account_id=
+		#{accountId})t
 		USING(lecture_name) )z
 		USING(subject_name)
 		WHERE
@@ -33,37 +37,60 @@
 		ORDER BY r.report_end_date DESC
 	</select>
 	<!-- 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보를 추출하는 메소드 -->
-	
+
 	<!-- 강좌별 과제 리스트 조회하기 -->
 	<select id="selectReportList" resultType="com.gd.lms.vo.Report">
 		SELECT
-		report_no reportNo,
+		report_no
+		reportNo,
 		subject_name subjectName,
 		report_title reportTitle,
 		report_content reportContent,
 		report_start_date reportStartDate,
 		report_end_date reportEndDate,
 		update_date updateDate,
-		create_date createDate
+		create_date
+		createDate
 		FROM report
 		ORDER BY report_no DESC
 	</select>
 	<!-- 전체 과제 리스트 조회하기 -->
 
-	<!-- reportNo와 관련된 subjectName 가져오기 -->
-	<select id="selectLectureSubject" resultType="List" parameterType="int">
-		SELECT report_no reportNo
+	<!-- 과목당 과제 조회 -->
+	<select id="">
+	SELECT report_no reportNo
 		, subject_name subjectName
 		, report_title reportTitle
 		, report_content reportContent
 		, report_start_date reportStartDate
 		, report_end_date reportEndDate
 		, update_date updateDate
+		, create_date createDate 
+	FROM report 
+	WHERE subject_name= #{subjectName}
+	</select>
+	<!-- 과목당 과제 조회 -->
+
+	<!-- reportNo와 관련된 subjectName 가져오기 -->
+	<select id="selectLectureSubject" resultType="List"
+		parameterType="int">
+		SELECT report_no reportNo
+		, subject_name subjectName
+		,
+		report_title reportTitle
+		, report_content reportContent
+		,
+		report_start_date reportStartDate
+		, report_end_date reportEndDate
+		,
+		update_date updateDate
 		, create_date createDate
 		FROM report
-		WHERE report_no =
+		WHERE
+		report_no =
 		(SELECT report_no FROM
-		report_submit WHERE report_submit_no= #{reportNo});
+		report_submit WHERE report_submit_no=
+		#{reportNo});
 	</select>
 	<!-- lectureSubject의 subjectName 가져오기 -->
 
