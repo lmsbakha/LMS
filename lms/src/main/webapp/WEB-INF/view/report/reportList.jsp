@@ -171,7 +171,7 @@
 													<a>${report.reportTitle}</a>
 													<div>
 														<textarea name="reportContent" id="reportContent"
-															style="width: 300px; border-color: white;" readonly>
+															style="width: 300px; height: 100px; border-color: white;" readonly>
 															 ${report.reportContent}</textarea>
 													</div>
 												</div>
@@ -197,7 +197,7 @@
 													href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${report.reportNo}">
 														<button data-toggle="tooltip" title="Edit"
 															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true">제출과제
+															<i class="fa fa-pencil-square-o" aria-hidden="true">제출 과제
 																목록</i>
 														</button>
 												</a></td>

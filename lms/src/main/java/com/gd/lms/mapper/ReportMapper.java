@@ -19,6 +19,11 @@ public interface ReportMapper {
 	 */
 	List<Map<String, Object>> selectReportListBySubjectName(String subjectName);
 
+	/*
+	 * 강의 과제 조회하는 메소드
+	 * 
+	 * 
+	 */
 	// report 전체 과제 수를 추출하는 메소드
 	// 파라미터 : reportNo
 	// 리턴값 : int

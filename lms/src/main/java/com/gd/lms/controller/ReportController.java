@@ -55,7 +55,9 @@ public class ReportController {
 	LectureSubjectService lectureSubjectService;
 
 	/*
-	 * 강좌 리스트 정보 받아오기 파라미터 : 강사 아이디 accountId 리턴값 : lectureListByTeacher
+	 * 강좌 리스트 정보 받아오기 
+	 * 파라미터 : 강사 아이디 accountId 
+	 * 리턴값 : lectureListByTeacher
 	 */
 	@GetMapping("/loginCheck/lectureSubjectList")
 	String lectureSubjectList(HttpSession session, Model model) {
@@ -76,7 +78,9 @@ public class ReportController {
 	}
 
 	/*
-	 * 강의 리스트 정보 조회하기 파라미터 : 강좌명 lectureName 리턴값 : lectureSubjectList.jsp로 이동
+	 * 강의 리스트 정보 조회하기 
+	 * 파라미터 : 강좌명 lectureName 
+	 * 리턴값 : lectureSubjectList.jsp로 이동
 	 */
 	@PostMapping("/loginCheck/lectureSubjectList")
 	String lectureSubjectList(RedirectAttributes redirectAttributes,
@@ -98,6 +102,11 @@ public class ReportController {
 		return "redirect:/loginCheck/lectureSubjectList";
 	}
 
+	/*
+	 * 강의별 과제 리스트 조회하기
+	 * 파라미터 : subjectName
+	 * 리턴값 : reportList.jsp로 이동
+	 */
 	@GetMapping("/loginCheck/reportList")
 	String reportList(@RequestParam("subjectName") String subjectName, Model model) {
 		// 디버깅 영역구분
@@ -211,6 +220,7 @@ public class ReportController {
 	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동
 	@PostMapping("/loginCheck/modifyReport")
 	public String modifyReport(@RequestParam("reportNo") int reportNo, @RequestParam("reportTitle") String reportTitle,
+			@RequestParam("subjectName") String subjectName,
 			@RequestParam("reportContent") String reportContent,
 			@RequestParam("reportStartDate") String reportStartDate,
 			@RequestParam("reportEndDate") String reportEndDate) {
@@ -221,6 +231,7 @@ public class ReportController {
 		Report paramReport = new Report();
 		paramReport.setReportNo(reportNo);
 		paramReport.setReportTitle(reportTitle);
+		paramReport.setSubjectName(subjectName);
 		paramReport.setReportContent(reportContent);
 		paramReport.setReportEndDate(reportEndDate);
 		paramReport.setReportStartDate(reportStartDate);
@@ -228,9 +239,10 @@ public class ReportController {
 		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
 
 		// 과제 수정 service call
-		int modifyReport = reportService.modifyReport(paramReport);
+		int modifyReport = reportService.modifyReport(paramReport); 
 		// 디버깅
-		System.out.println("modifyReport");
+		log.debug(TeamColor.PSY + modifyReport + "<-- modifyReport" + TeamColor.TEXT_RESET);
+
 		if (modifyReport != 0) {
 			// 성공
 			log.debug(TeamColor.PSY + " 과제 수정 성공" + TeamColor.TEXT_RESET);
@@ -239,7 +251,7 @@ public class ReportController {
 			log.debug(TeamColor.PSY + " 과제 수정 실패" + TeamColor.TEXT_RESET);
 		}
 		// reportList로 리다이렉트
-		return "redirect:/loginCheck/reportList";
+		return "redirect:/loginCheck/lectureSubjectList";
 	} // end modifyReport @PostMapping
 
 	// 행정용 출제한 과제 삭제하는 메소드

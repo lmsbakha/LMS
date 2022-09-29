@@ -146,7 +146,7 @@
 															<div class="form-select-list">
 																<select class="form-control custom-select-value"
 																	name="lectureName" id="lectureName" required="required">
-																	<option value="defalut">--------강좌선택-------</option>
+																	<option value="defalut">------------------------강좌선택-----------------------</option>
 																	<c:forEach var="l" items="${lectureListByTeacher}">
 																		<option value="${l.lectureName }">${l.lectureName }</option>
 																	</c:forEach>
@@ -193,7 +193,7 @@
 									<th>lectureSubjectNo</th>
 									<th>lectureName</th>
 									<th>subjectName</th>
-									<th style="width: 150px">Setting</th>
+									<th style="width: 150px">reportList</th>
 								</tr>
 								<c:if test="${empty lectureSubjectList}">
 									<tr>
@@ -212,7 +212,7 @@
 												href="${pageContext.request.contextPath}/loginCheck/reportList?subjectName=${lectureSubjectList.subjectName}">
 													<button data-toggle="tooltip" title="submit"
 														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true">과제리스트</i>
+														<i class="fa fa-pencil-square-o" aria-hidden="true">과제 리스트</i>
 													</button>
 											</a></td>
 										</tr>
