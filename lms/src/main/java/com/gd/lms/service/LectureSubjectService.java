@@ -22,7 +22,7 @@ public class LectureSubjectService {
 	private LectureSubjectMapper lectureSubjectMapper;
 
 	// 강사가 강의하는 lecture 리스트 가져오기 위한 메소드
-	// 파라미터 : 로그인한 강사 아이디(accountId)
+	// 파라미터 : 강좌명(lectureName)
 	// 리턴값: List<Map<String, Object>>
 	public List<Map<String, Object>> getLectureSubjectList(String lectureName) {
 		// 파라미터 디버깅
@@ -50,8 +50,6 @@ public class LectureSubjectService {
 	 * 리턴값 : 강사와 관련된 강의 정보 List<LectureSubject>
 	 */
 	public List<LectureSubject> lectureSubjectInfoByTeacher(String accountId){
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@lectureSubmitInfoByTeacher Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
 		

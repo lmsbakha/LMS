@@ -29,9 +29,8 @@ public class ReportService {
 	LectureSubjectMapper lectureSubjectMapper;
 
 	/*
-	 * 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보를 추출하는 메소드 
-	 * 파라미터 : educationNo 
-	 * 리턴값 : List<Map<String,Object>>
+	 * 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보를 추출하는 메소드 파라미터 : educationNo 리턴값
+	 * : List<Map<String,Object>>
 	 */
 	public List<Map<String, Object>> getReportListStateInfo(String accountId) {
 		// 디버깅 영역구분
@@ -43,21 +42,40 @@ public class ReportService {
 		List<Map<String, Object>> ReportListStateInfo = reportMapper.selectReportListStateInfo(accountId);
 		// ReportListStateInfo 디버깅
 		log.debug(TeamColor.PSY + ReportListStateInfo + "<-- ReportListStateInfo" + TeamColor.TEXT_RESET);
-		
+
 		return ReportListStateInfo;
 	} // end getReportListStateInfo
 
-	// 전체 과제 리스트 조회하는 메소드
-	// 파라미터 : X
-	// 리턴값 : reportList
-	public List<Map<String, Object>> getReportList(String accountId) {
+	/*
+	 * 강의별 과제리스트 조회하는 메소드 
+	 * 파라미터 : lectureName 
+	 * 리턴값 : List<Map<String, Object>> 과제 리스트
+	 */
+	public List<Map<String, Object>> getReportListBySubjectName(String subjectName) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@getReportList Service" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + subjectName + "<--subjectName" + TeamColor.TEXT_RESET);
+
+		// reportMapper Call
+		List<Map<String, Object>> reportList = reportMapper.selectReportListBySubjectName(subjectName);
+		// 디버깅
+		log.debug(TeamColor.PSY + reportList + "<-- reportList" + TeamColor.TEXT_RESET);
+		
+		return reportList;
+	}
+
+	// [강사전용] 강좌별 강의리스트 메인페이지로 이동하는 메소드
+	// 파라미터 : accountId
+	// 리턴값 : List<Map<String, Object>> 과제 리스트
+	public List<Map<String, Object>> getReportList(String lectureName) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@getReportList Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + "<--lectureName" + TeamColor.TEXT_RESET);
 
 		// Mapper Call
-		List<Map<String, Object>> reportList = reportMapper.selectReportList(accountId);
+		List<Map<String, Object>> reportList = reportMapper.selectReportListBySubjectName(lectureName);
 		// 디버깅
 		log.debug(TeamColor.PSY + reportList + "<-- reportList" + TeamColor.TEXT_RESET);
 
