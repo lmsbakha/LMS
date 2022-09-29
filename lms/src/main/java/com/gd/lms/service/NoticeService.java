@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 public class NoticeService {
 	@Autowired
 	private NoticeMapper noticeMapper;
-	private NoticeFileMapper noticeFileMapper;
 
 	// 개시글 갯수
 	public int countTotalNotice() {

@@ -28,8 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 public class NoticeController {
 	@Autowired
 	NoticeService noticeService;
-	AccountService accountService;
-	AccountMapper accountMapper;
 	// 공지 리스트 페이지
 	@GetMapping("/loginCheck/noticeList")
 	public String noticeList(HttpServletRequest request, Model model) {

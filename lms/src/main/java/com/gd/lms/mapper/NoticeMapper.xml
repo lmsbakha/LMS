@@ -8,7 +8,6 @@
 				notice_no noticeNo, 
 				account_id accountId, 
 				notice_title noticeTitle, 
-				notice_content noticeContent, 
 				notice_count noticeCount, 
 				create_date createDate, 
 				update_date updateDate

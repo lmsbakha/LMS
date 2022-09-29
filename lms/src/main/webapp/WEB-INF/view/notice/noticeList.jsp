@@ -117,18 +117,16 @@
                                         <th>No</th>
                                         <th>Id</th>
                                         <th>Title</th>
-                                        <!-- <th>Content</th> -->
                                         <th>Counts</th>
                                         <th>CreateDate</th>
-                                        <th>UpdateDAte</th>
+                                        <th>UpdateDate</th>
                                         <th>Setting</th>
                                     </tr>
                                     <c:forEach var="notice" items="${noticeList}">
                                     <tr>
                                     	<td><a href="${pageContext.request.contextPath}/loginCheck/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeNo}</a></td>
                                     	<td>${notice.accountId}</td>
-                                    	<td><a href="${pageContext.request.contextPath}/loginCheck/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
-                                    	<!-- <td><a href="${pageContext.request.contextPath}/loginCheck/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeContent}</a></td> -->
+                                    	<td><a href="${pageContext.request.contextPath}/loginCheck/noticeOne?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td> 
                                     	<td>${notice.noticeCount}</td>
                                     	<td>${notice.createDate}</td>
                                     	<td>${notice.updateDate}</td>
@@ -148,7 +146,7 @@
                                   	</c:forEach>
                                 </table>
                             </div>
-                            <!-- -->  
+                            <!--  
                             <div class="custom-pagination">
                             	<ul class="pagination">
                             	<c:if test="${currentPage > 1}">
@@ -162,14 +160,12 @@
 								</c:if>
 								</ul>
                             </div>     
-                                                  
+                              -->                     
                         </div>
                     </div>
                 </div>
             </div>
         </div>
- 
-    
     <!-- footer -->
 	<jsp:include page="../inc/footer.jsp" />
 

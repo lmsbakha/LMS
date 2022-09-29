@@ -4247,7 +4247,7 @@ div#sparklinehome canvas {
 	border:1px solid #006DF0;
 }
 .add-professors .form-group, .addcoursepro .form-group{
-	margin: 10px 0px;
+	margin: 10px 10px;
 }
 .add-professors .file-upload-inner.ts-forms input[type="text"]{
 	margin: 10px 0px;
