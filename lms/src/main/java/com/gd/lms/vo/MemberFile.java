@@ -9,6 +9,6 @@ public class MemberFile {
 	private String memberFileName;			// 사진 첨부파일 새 이름
 	private String memberFileOriginName;	// 사진 첨부파일 원본 이름
 	private String memberFileType;			// 사진 첨부파일 타입
-	private long memberFileSize;				// 사진 첨부파일 크기
+	private long memberFileSize;			// 사진 첨부파일 크기
 	private String createDate;				// 사진 첨부파일 등록일
 }

@@ -89,7 +89,25 @@ public class LoginController {
 			redirectAttributes.addFlashAttribute("alertMsg", "Fail");
 			return "redirect:/bakha/login";
 		}
-
+		
+		// 마지막 비밀번호 변경 며칠 지났는지
+		int pwRecordDiffDate = accountService.getAccountPwRecordByDiffDate(paramAccount.getAccountId());
+		// 디버깅
+		log.debug(TeamColor.PCW + " pwRecordDiffDate : " + pwRecordDiffDate + TeamColor.TEXT_RESET);
+		if(pwRecordDiffDate > 90) { // 90일 이상 지났다면
+			String msg = "later";
+			model.addAttribute("accountId", account.getAccountId());
+			model.addAttribute("msg", msg);
+			// 로그인 성공 분기
+			account = accountService.getLogin(paramAccount);
+			if(account == null) {
+				log.debug(TeamColor.PCW + "로그인 정보가 일치하지 않습니다." + TeamColor.TEXT_RESET);
+				redirectAttributes.addFlashAttribute("alertMsg", "Fail");
+				return "redirect:/bakha/login";  // 로그인 실패시
+			}
+			return "login/login"; // 로그인 성공시
+		}
+		
 		String accountState = accountService.getAccountState(paramAccount);
 		// 디버깅
 		log.debug(TeamColor.PCW + accountState + "상태입니다" + TeamColor.TEXT_RESET);
@@ -207,9 +225,31 @@ public class LoginController {
 		return "login/modifySearchAccountPw";
 	}
 	
+	// 비밀번호 연장 Form
+	@GetMapping("/laterAccountPw")
+	public String laterAccountPw(RedirectAttributes redirectAttributes
+								, @RequestParam(value = "later") String later
+								, @RequestParam(value = "accountId") String accountId) {
+		// 디버깅
+		log.debug(TeamColor.PCW + " LoginController GetMappingg(laterAccountPw) accountId : " + accountId + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + " LoginController GetMappingg(laterAccountPw) later : " + later + TeamColor.TEXT_RESET);
+		
+		if(later.equals("yes")) {
+			accountService.modifyLastLoginDateByChangeAccountPwDate(accountId);
+			// 디버깅
+			log.debug(TeamColor.PCW + " 비밀번호 변경 3개월 기간 연장 성공! " + later + TeamColor.TEXT_RESET);
+			redirectAttributes.addFlashAttribute("later", "Success");
+			return "redirect:/bakha/login";
+		}
+		
+		// 연장 말고 비밀번호 변경경로 디버깅
+		log.debug(TeamColor.PCW + " 비밀번호 변경 폼으로 이동! " + later + TeamColor.TEXT_RESET);
+		return "redirect:/modifySearchAccountPw?accountId=" + accountId;
+	}
+	 
 	// (학생, 강사, 행정) 멤버 비밀번호 변경 Form - 찾기를 통해 변경하는 경우
 	@GetMapping("/modifySearchAccountPw")
-	public String searchModifyAccountPw(Model model , @RequestParam(value="accountId") String accountId) {
+	public String searchModifyAccountPw(Model model , @RequestParam(value = "accountId") String accountId) {
 		
 		// 디버깅
 		log.debug(TeamColor.PCW + " LoginController GetMappingg(modifySearchAccountPw) accountId : " + accountId + TeamColor.TEXT_RESET);
@@ -226,9 +266,17 @@ public class LoginController {
 		// 디버깅
 		log.debug(TeamColor.PCW + " LoginController PostMappingg(searchModifyAccountPw) account : " + account + TeamColor.TEXT_RESET);
 		
-		accountService.modifySearchMemberAccountPw(account);
-		
-		return "login/login";
+		int row = accountService.modifySearchMemberAccountPw(account);
+		if(row == 1) {
+			int addRow = accountService.addPwRecord(account);
+			// 디버깅
+			log.debug(TeamColor.PCW + " 패스워드기록 테이블 추가 addRow : " + addRow + TeamColor.TEXT_RESET);
+			return "login/login";
+		} else {
+			// 디버깅
+			log.debug(TeamColor.PCW + " 패스워드 변경 실패" + TeamColor.TEXT_RESET);
+			return "login/modifySearchAccountPw";
+		}
 	}
 	
 	// index Form
