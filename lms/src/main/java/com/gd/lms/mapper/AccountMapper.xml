@@ -38,6 +38,8 @@
 	</select>
 	<!-- /로그인 -->
 	
+	
+	
 	<!-- 마지막 로그인날짜 업데이트 -->
 	<update id="updateLastLoginDate" parameterType="String">
 		UPDATE account
@@ -117,6 +119,56 @@
 		WHERE account_id = #{accountId}
 	</update>
 	<!-- /멤버 비밀번호 변경 -->
+	
+	<!-- (학생, 강사, 행정) 멤버 비밀번호 변경날짜 업데이트 -->
+	<update id="updateAccountPwRecordUpdateDate" parameterType="String">
+		UPDATE pw_record
+		SET update_date = NOW()
+		WHERE update_date = #{updateDate}
+	</update>  
+	<!-- /(학생, 강사, 행정) 멤버 비밀번호 변경날짜 업데이트 -->
+	
+	<!-- (학생, 강사, 행정) 멤버 마지막 비밀번호 변경한 날짜 -->
+	<select id="selectAccountPwRecordUpdteDate" parameterType="String"
+		resultType="String">
+		SELECT
+			update_date updateDate
+		FROM pw_record
+		WHERE account_id = #{accountId}
+		ORDER BY update_date DESC
+		LIMIT 1
+	</select>
+	<!-- /(학생, 강사, 행정) 멤버 마지막 비밀번호 변경한 날짜-->
+	
+	<!-- (학생, 강사, 행정) 멤버 마지막 비밀번호 변경 날짜로부터 몇일 지났는지 -->
+	<select id="selectAccountPwRecordByDiffDate" parameterType="String"
+		resultType="int">
+		SELECT
+			DATEDIFF(NOW(), update_date)
+		FROM pw_record
+		WHERE account_id = #{accountId}
+		ORDER BY update_date DESC
+		LIMIT 0, 1
+	</select>
+	<!-- /(학생, 강사, 행정) 멤버 마지막 비밀번호 변경 날짜로부터 몇일 지났는지 -->
+	
+	<!-- (학생, 강사, 행정) 비밀번호 변경시 새로운 비밀번호와 기존 비밀번호 비교 -->
+	<select id="checkNewAccoutPwByPrAccoutPw" parameterType="com.gd.lms.vo.Account"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM pw_record
+		WHERE account_id = #{accountId} AND account_pw = PASSWORD(#{accountPw})
+		ORDER BY update_date DESC 
+		LIMIT 0,1
+	</select>
+	<!-- /(학생, 강사, 행정) 비밀번호 변경시 새로운 비밀번호와 기존 비밀번호 비교 -->
+	
+	<!-- (학생, 강사, 행정) 비밀번호 변경시 pw_record 테이블에 추가 -->
+	<insert id="insertPwRecordByAccount" parameterType="com.gd.lms.vo.Account">
+		INSERT INTO pw_record
+			VALUES(#{accountId},PASSWORD(#{accountPw}),NOW())
+	</insert>
+	<!-- /(학생, 강사, 행정) 비밀번호 변경시 pw_record 테이블에 추가 -->
 	
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="com.gd.lms.vo.Member">

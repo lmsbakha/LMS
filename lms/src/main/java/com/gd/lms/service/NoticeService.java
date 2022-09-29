@@ -94,6 +94,10 @@ public class NoticeService {
 		log.debug(TeamColor.LHN + "noticeNo: " + noticeNo +  TeamColor.TEXT_RESET);
 		// 수정할 객체
 		Notice notice = noticeMapper.updateNoticeForm(noticeNo);
+		String noticeContent = notice.getNoticeContent();
+		noticeContent = noticeContent.replace("<br>", "\r\n");
+		notice.setNoticeContent(noticeContent);
+		log.debug(TeamColor.LHN + "자동 개행 적용" + noticeContent +  TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN+ "(Service)notice : " +notice + TeamColor.TEXT_RESET);
 		return notice;
 	}

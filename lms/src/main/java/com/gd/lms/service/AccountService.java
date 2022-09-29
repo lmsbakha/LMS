@@ -6,7 +6,6 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.commons.TeamColor;
@@ -62,6 +61,7 @@ public class AccountService {
 	
 	// 로그인
 	public Account getLogin(Account paramAccount) {
+		
 		// 디버깅
 		log.debug(TeamColor.PCW + "AccountService getLogin paramAccount" + paramAccount + TeamColor.TEXT_RESET);
 
@@ -72,7 +72,7 @@ public class AccountService {
 		// 마지막 로그인 날짜 업데이트 해주기
 		int row = accountMapper.updateLastLoginDate(paramAccount.getAccountId());
 		// 디버깅
-		log.debug(TeamColor.PCW + "AccountService getLogin row" + row + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + "AccountService getLogin row : " + row + TeamColor.TEXT_RESET);
 
 		return account;
 	}
@@ -118,9 +118,62 @@ public class AccountService {
 	// (학생, 강사, 행정) 멤버 비밀번호 변경
 	public int modifySearchMemberAccountPw(Account account) {
 		// 디버깅
-		log.debug(TeamColor.PCW + "AccountService modifySearchMemberAccountPw " + account + TeamColor.TEXT_RESET);
-
-		return accountMapper.updateMemberAccountPw(account);
+		log.debug(TeamColor.PCW + "AccountService modifySearchMemberAccountPw account : " + account + TeamColor.TEXT_RESET);
+		
+		int row = accountMapper.updateMemberAccountPw(account);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService modifySearchMemberAccountPw row :  " + row + TeamColor.TEXT_RESET);
+		
+		
+		return row;
+	}
+	
+	// 비밀번호 기간 연장을 위한 마지막 로그인 날짜 업데이트
+	public void modifyLastLoginDateByChangeAccountPwDate(String accountId) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService modifyLastLoginDateByChangeAccountPwDate accountId : " + accountId + TeamColor.TEXT_RESET);
+		
+		// 마지막 비밀번호 변경 날짜 
+		String accountPwRecordDate = accountMapper.selectAccountPwRecordUpdteDate(accountId);
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService modifyLastLoginDateByChangeAccountPwDate accountPwRecordDate : " + accountPwRecordDate + TeamColor.TEXT_RESET);
+		
+		// 비밀번호 변경 날짜 업데이트
+		accountMapper.updateAccountPwRecordUpdateDate(accountPwRecordDate);
+	}
+		
+		
+	// (학생, 강사, 행정) 멤버 마지막 비밀번호 변경 날짜로부터 몇일 지났는지
+	public int getAccountPwRecordByDiffDate(String accountId) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService getAccountPwRecordByDiffDate accountId : " + accountId + TeamColor.TEXT_RESET);
+		
+		return accountMapper.selectAccountPwRecordByDiffDate(accountId);
+	}
+	
+	// (학생, 강사, 행정) 비밀번호 변경시 새로운 비밀번호와 기존 비밀번호 비교
+	public int checkNewAccountPwByPrAccountPw(Account account) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService CheckNewAccountPwByPrAccountPw account  : " + account + TeamColor.TEXT_RESET);
+		
+		int cnt = accountMapper.checkNewAccoutPwByPrAccoutPw(account);
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService CheckNewAccountPwByPrAccountPw cnt  : " + cnt + TeamColor.TEXT_RESET);
+		
+		return cnt;
+	}
+	
+	// pw_record 테이블에 변경 비밀번호 삽입
+	public int addPwRecord(Account account) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + "AccountService addPwRecord account  : " + account + TeamColor.TEXT_RESET);
+		
+		return accountMapper.insertPwRecordByAccount(account);
 	}
 
 	// 회원가입

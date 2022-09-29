@@ -106,9 +106,11 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-status-wrap">
                             <h4>Notice List</h4>
+                            <c:if test="${ userLevel gt 2}"> 
                             <div class="add-product">
-                                <a href="/lms/loginCheck/addNotice">글쓰기</a>
+                                  <a href="/lms/loginCheck/addNotice">글쓰기</a>
                             </div>
+                           </c:if>
                             <div class="asset-inner">
                                 <table>
                                     <tr>
@@ -131,26 +133,36 @@
                                     	<td>${notice.createDate}</td>
                                     	<td>${notice.updateDate}</td>
                                     	<td>
+                                    		<c:if test="${accountId eq notice.accountId}"> 
                                     		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" 
                                     		href="${pageContext.request.contextPath}/loginCheck/modifyNoticeForm?noticeNo=${notice.noticeNo}">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
+                                            </c:if>
+                                            <c:if test="${userLevel eq 4 || accountId eq notice.accountId}"> 
                                             <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" 
                                             href="${pageContext.request.contextPath}/loginCheck/removeNotice?noticeNo=${notice.noticeNo}">
                                             <i class="fa fa-trash-o" aria-hidden="true" ></i></a>
+                                            </c:if>
                                         </td>
                                     </tr>
                                   	</c:forEach>
                                 </table>
                             </div>
-                            <!--
+                            <!-- -->  
                             <div class="custom-pagination">
                             	<ul class="pagination">
+                            	<c:if test="${currentPage > 1}">
+											<li class="page-item"><a class="page-link" href="/loginCheck/noticeList?currentPage=${currentPage-1}">이전</a></li>
+								</c:if>
 									<li class="page-item"><a class="page-link" href="#">1</a></li>
 									<li class="page-item"><a class="page-link" href="#">2</a></li>
 									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<c:if test="${currentPage < lastPage}">
+									<li class="page-item"><a class="page-link" href="/loginCheck/noticeList?currentPage=${currentPage+1}">다음</a></li>
+								</c:if>
 								</ul>
                             </div>     
-                              -->                       
+                                                  
                         </div>
                     </div>
                 </div>

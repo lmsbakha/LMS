@@ -95,6 +95,7 @@
                                 <span class="help-block small" id="pwckinfo"></span>
                             </div>
                             	<button type="button" id="updateBtn" class="btn btn-success-search btn-block">비밀번호 변경</button>
+                            	<button  type="button" class="btn btn-danger btn-block" onclick="location.href='${pageContext.request.contextPath}/bakha/login'">취소</button>
                            </form>
                     </div>
                 </div>
@@ -152,9 +153,27 @@
 				$('#pwckinfo').text('');
 				$('#pwckinfo').text('※ 비밀번호와 일치하지 않습니다.');
 			} else {
-				$('#updatePwForm').submit();
+				// 비동기 호출
+				$.ajax({
+					type :'POST',
+					url : '${pageContext.request.contextPath}/checkNewAccountPwByPrAccountPw',
+					data : {
+						accountId:"${accountId}", accountPw:$('#accountPw').val()
+					},
+					success : function(pw) {
+						console.log('pw :', pw);
+						if (pw == 'false') {
+							alert('※ 이전 비밀번호와 동일한 비밀번호 입니다. 다른 비밀번호로 설정해 주세요.');
+							$('#accountPw').val('');
+							$('#accountPwCk').val('');
+							$('#accountPw').focus();
+						} else {
+							$('#updatePwForm').submit();
+						}
+					}
+				})
 			}
-		})
+		});
 	  	
 		// Enter키 유효성검사
 	$(document).keypress(function(e) {
@@ -175,7 +194,25 @@
 				$('#pwckinfo').text('');
 				$('#pwckinfo').text('※ 비밀번호와 일치하지 않습니다.');
 			} else {
-				$('#updatePwForm').submit();
+				// 비동기 호출
+				$.ajax({
+					type :'POST',
+					url : '${pageContext.request.contextPath}/checkNewAccountPwByPrAccountPw',
+					data : {
+						accountId:"${accountId}", accountPw:$('#accountPw').val()
+					},
+					success : function(pw) {
+						console.log('pw :', pw);
+						if (pw == 'false') {
+							alert('※ 이전 비밀번호와 동일한 비밀번호 입니다. 다른 비밀번호로 설정해 주세요.');
+							$('#accountPw').val('');
+							$('#accountPwCk').val('');
+							$('#accountPw').focus();
+						} else {
+							$('#updatePwForm').submit();
+						}
+					}
+				})
 			}
 		}
 	});
