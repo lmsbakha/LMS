@@ -120,7 +120,9 @@
                                         <th>Counts</th>
                                         <th>CreateDate</th>
                                         <th>UpdateDate</th>
+                                        <c:if test="${userLevel eq 4 || accountId eq notice.accountId}"> 
                                         <th>Setting</th>
+                                        </c:if>
                                     </tr>
                                     <c:forEach var="notice" items="${noticeList}">
                                     <tr>
