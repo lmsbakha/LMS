@@ -127,8 +127,14 @@
                                         <td>${qna.accountId}</td>
                                         <td><a href="${pageContext.request.contextPath}/loginCheck/qnaOne?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
                                         <td>
-                                        	<button class="pd-setting"> 대기중 </button>
-											<button class="pd-setting"> 답변완료 </button>	 
+                                        	<c:choose>
+                                        		<c:when test="${qna.qnaQuestionState eq '대기중'}">
+                                        			<a href="${pageContext.request.contextPath}/loginCheck/qnaOne?qnaNo=${qna.qnaNo}"><button class="btn btn-info widget-btn-2 btn-sm" > 대기중 </button></a>
+                                        		</c:when>
+                                        		<c:otherwise>
+													<a href="${pageContext.request.contextPath}/loginCheck/qnaOne?qnaNo=${qna.qnaNo}"><button class="btn btn-success widget-btn-1 btn-sm"> 답변완료 </button></a>	 
+												</c:otherwise>
+											</c:choose>
                                         </td>
                                         <td>${qna.createDate}</td>
                                         <td>${qna.updateDate}</td>
