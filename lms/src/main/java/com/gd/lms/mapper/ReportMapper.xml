@@ -56,6 +56,7 @@
 	<!-- 전체 과제 리스트 조회하기 -->
 
 	<!-- 과목당 과제 조회 -->
+	<!-- reportList.jsp -->
 	<select id="selectReportListBySubjectName" parameterType="String" resultType="Map">
 	SELECT
 		report_no reportNo,

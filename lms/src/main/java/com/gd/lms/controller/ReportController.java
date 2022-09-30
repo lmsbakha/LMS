@@ -121,9 +121,17 @@ public class ReportController {
 		
 		// model 단에 값 저장해서 보내줌
 		model.addAttribute("reportList", reportList);
-
+		
+		if (reportList != null) {
+			// 성공
+			log.debug(TeamColor.PSY + " 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
+		} else {
+			// 실패
+			log.debug(TeamColor.PSY + " 과제 리스트 조회 실패" + TeamColor.TEXT_RESET);
+		}
+		// reportList로 이동
 		return "report/reportList";
-	}
+	} // end reportList
 
 	// 과제 출제하는 메소드
 	// addReport Form

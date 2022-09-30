@@ -141,22 +141,22 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 							<div class="form-group">
 								<label for="reportSubmitNo">reportSubmitNo</label> <input
 									name="reportSubmitNo" class="form-control" type="text"
-									value="${reportSubmitOne.get(0).reportSubmitNo}" readonly>
+									value="${reportSubmitOne.reportSubmitNo}" readonly>
 							</div>
 							<div class="form-group">
 								<label for="reportNo">reportNo</label> <input name="reportNo"
 									id="reportNo" type="text" class="form-control"
-									value="${reportSubmitOne.get(0).reportNo}" readonly>
+									value="${reportSubmitOne.reportNo}" readonly>
 							</div>
 							<div class="form-group">
 								<label for="reportSubmitTitle">reportSubmitTitle</label> <input
 									name="reportSubmitTitle" id="reportSubmitTitle" type="text"
 									class="form-control" 
-									value="${reportSubmitOne.get(0).reportSubmitTitle}" required="required">
+									value="${reportSubmitOne.reportSubmitTitle}" required="required">
 							</div>
 							<div class="form-group edit-ta-resize res-mg-t-15">
 								<label for="reportSubmitContent">reportSubmitContent</label>
-								<textarea name="reportSubmitContent" id="reportSubmitContent" required="required">${reportSubmitOne.get(0).reportSubmitContent}</textarea>
+								<textarea name="reportSubmitContent" id="reportSubmitContent" required="required">${reportSubmitOne.reportSubmitContent}</textarea>
 							</div>
 							<div class="form-group alert-up-pd">
 								<div class="dz-message needsclick download-custom">
@@ -166,11 +166,11 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 										<input
 									name="reportSubmitNo" id="reportSubmitNo" type="hidden"
 									class="form-control" 
-									value="${reportSubmitOne.get(0).reportSubmitNo}">
+									value="${reportSubmitOne.reportSubmitNo}">
 									<input
 									name="reportSubmitOriginName" id="reportSubmitOriginName" type="hidden"
 									class="form-control" 
-									value="${reportSubmitOne.get(0).reportSubmitFilename}">
+									value="${reportSubmitOne.reportSubmitFilename}">
 								</div>
 							</div>
 						</div>

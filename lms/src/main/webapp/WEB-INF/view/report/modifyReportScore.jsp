@@ -112,13 +112,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/reportList">과제</a>
-											<span class="bread-slash">/</span></li>
-										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">제출</a>
-											<span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">상세보기</span></li>
+										<li><a href="#">과제</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">제출리스트</span></li>
 									</ul>
 								</div>
 							</div>
@@ -136,51 +131,56 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="product-status-wrap drp-lst" style="padding: 2%;">
-							<h4>Modify ReportSubmitScore </h4>
+							<h4>Report SubmitList</h4>
 							<hr>
-							<div class="form-group">
-								<label for="reportSubmitNo">reportSubmitNo</label> <input
-									name="reportSubmitNo" class="form-control" type="text"
-									value="${reportSubmitOne.get(0).reportSubmitNo}" readonly>
+							<div class="asset-inner">
+								<table>
+									<tr style="text-align: center;">
+										<th>reportSubmitNo</th>
+										<th>subjectName</th>
+										<th>reportTitle</th>
+										<th>createDate</th>
+										<th>accuontId</th>
+										<th>reportSubmitScore</th>
+										<th>modify</th>
+									</tr>
+									<form
+										action="${pageContext.request.contextPath}/loginCheck/modifyReportScore?
+											reportSubmitNo=${modufyScoreForm.reportSubmitNo}&reportSubmitScore=${modufyScoreForm.reportSubmitScore}"
+										method="post">
+										<tr style="text-align: center;">
+											<td><input type="text" name="reportSubmitNo"
+												value="${modufyScoreForm.reportSubmitNo}"></td>
+											<td>${modufyScoreForm.subjectName}</td>
+											<td><a
+												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${modufyScoreForm.reportSubmitNo}">
+													${modufyScoreForm.reportSubmitTitle} </a></td>
+											<td>${modufyScoreForm.createDate}</td>
+											<td>${modufyScoreForm.accountId}</td>
+											<td><select style="width: 200px;"
+												class="form-control custom-select-value"
+												name="reportSubmitScore" id="reportSubmitScore"
+												required="required">
+													<option value="defalut">::::점수::::</option>
+													<option value="A">A</option>
+													<option value="B">B</option>
+													<option value="C">C</option>
+													<option value="D">D</option>
+													<option value="F">F</option>
+											</select></td>
+											<td>
+												<button data-toggle="tooltip" title="Edit"
+													class="pd-setting-ed" type="button" id="modifyScoreBtn">
+													<i class="fa fa-pencil-square-o" aria-hidden="true">점수
+														수정</i>
+												</button>
+											</td>
+										</tr>
+									</form>
+								</table>
 							</div>
-							<div class="form-group">
-								<label for="reportNo">reportNo</label> <input name="reportNo"
-									id="reportNo" type="text" class="form-control"
-									value="${reportSubmitOne.get(0).reportNo}" readonly>
-							</div>
-							<div class="form-group">
-								<label for="reportSubmitTitle">reportSubmitTitle</label> <input
-									name="reportSubmitTitle" id="reportSubmitTitle" type="text"
-									class="form-control" readonly
-									value="${reportSubmitOne.get(0).reportSubmitTitle}">
-							</div>
-							<div class="form-group edit-ta-resize res-mg-t-15">
-								<label for="reportSubmitContent">reportSubmitContent</label>
-								<textarea name="reportSubmitContent" id="reportSubmitContent"
-									style="background-color: #e5e6e7;" readonly>${reportSubmitOne.get(0).reportSubmitContent}</textarea>
-							</div>
-							<div class="form-group edit-ta-resize res-mg-t-15">
-								<label for="reportSubmitScore">ReportSubmitScore</label>
-								<input name="reportSubmitScore" id="reportSubmitScore"
-									style="background-color: #e5e6e7;" value="${reportSubmitOne.get(0).reportSubmitScore}" readonly>
-							</div>
-							<div class="form-group alert-up-pd">
-								<div class="dz-message needsclick download-custom">
-									<i class="fa fa-download edudropnone" aria-hidden="true"></i> <input
-										name="reportSubmitFile" id="filename" class="form-control"
-										type="text" multiple="multiple"
-										value="${reportSubmitOne.get(0).reportSubmitOriginName}.${reportSubmitOne.get(0).reportSubmitFileType}"
-										readonly>
-								</div>
-							</div>
-						</div>
-						<div class="payment-adress">
-							<button type="button" id=modifyScoreBtn
-								class="btn btn-primary waves-effect waves-light"
-								style="float: right; margin-top: 3%; margin-right: 3%;">수정하기</button>
 						</div>
 					</div>
-
 				</div>
 			</form>
 			<!-- </form> -->
@@ -192,6 +192,7 @@
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
+	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<!-- jquery
 		============================================ -->
 	<script
@@ -262,13 +263,6 @@
 		src="${pageContext.request.contextPath}/js/calendar/fullcalendar.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script>
-	<!-- dropzone JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/dropzone/dropzone.js"></script>
-	<!-- tab JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 	<!-- plugins JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/plugins.js"></script>
@@ -278,11 +272,54 @@
 	<!-- tawk chat JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
+	<!-- data table JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/tableExport.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/data-table-active.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-editable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-editable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-resizable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/colResizable-1.5.source.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-export.js"></script>
+	<!--  editable JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/editable/jquery.mockjax.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/mock-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/editable/select2.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/moment.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/bootstrap-datetimepicker.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/bootstrap-editable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/xediable-active.js"></script>
+	<!-- Chart JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/peity/peity-active.js"></script>
+	<!-- tab JS
+		============================================ -->
+	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 </body>
 <script>
 	$('#modifyScoreBtn').click(function() {
 		if ($('#reportSubmitScore').val() == 'defalut') {
-			alert('점수를 선택해주세요.');
+			alert('reportSubmitScore를 입력해주세요.');
+			$('#reportSubmitScore').focus();
 		} else {
 			alert('점수를 수정하시겠습니까?');
 			$('#modifyReportScoreForm').submit();

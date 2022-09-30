@@ -113,9 +113,9 @@
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
 										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${reportSubmitList.reportNo}">과제</a>
+											href="#">과제</a>
 											<span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">제출리스트</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">제출리스트</span></li> 
 									</ul>
 								</div>
 							</div>
@@ -125,7 +125,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="product-status mg-b-15">
+ 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<form
 				action="${pageContext.request.contextPath}/loginCheck/reportSubmitList"
@@ -146,34 +146,44 @@
 								<table>
 									<tr style="text-align: center;">
 										<th>reportSubmitNo</th>
-										<th>reportNo</th>
 										<th>subjectName</th>
 										<th>reportTitle</th>
 										<th>createDate</th>
 										<th>accuontId</th>
 										<th>reportSubmitScore</th>
 										<th>modify</th>
+										<th>delete</th>
 									</tr>
 									<c:forEach var="reportSubmitList" items="${reportSubmitList}">
 										<tr style="text-align: center;">
 											<td>${reportSubmitList.reportSubmitNo}</td>
-											<td>${reportSubmitList.reportNo}</td>
 											<td>${reportSubmitList.subjectName}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${reportSubmitListㄴ.reportSubmitNo}">
+												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${reportSubmitList.reportSubmitNo}">
 													${reportSubmitList.reportSubmitTitle} </a></td>
 											<td>${reportSubmitList.createDate}</td>
 											<td>${reportSubmitList.accountId}</td>
 											<td>${reportSubmitList.reportSubmitScore}</td>
-											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?reportSubmitNo=${reportSubmitList.reportSubmitNo}">
-													<button data-toggle="tooltip" title="Edit"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true">점수
-															수정</i>
-													</button>
-											</a></td>
-										</tr>
+											<td>
+												<a
+													href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?reportSubmitNo=${reportSubmitList.reportSubmitNo}">
+														<button data-toggle="tooltip" title="Edit"
+															class="pd-setting-ed" type="button">
+															<i class="fa fa-pencil-square-o" aria-hidden="true">점수
+																수정하기</i>
+														</button>
+												</a>
+												</td>
+												<td>
+												<a
+													href="${pageContext.request.contextPath}/loginCheck/removeReportSubmit?reportNo=${report.reportNo}">
+														<button data-toggle="tooltip" title="Trash"
+															class="pd-setting-ed" type="button">
+															<i class="fa fa-trash-o" aria-hidden="true">삭제하기</i>
+														</button>
+												</a>
+											</td>
+										</tr>  
 									</c:forEach>
 								</table>
 							</div>

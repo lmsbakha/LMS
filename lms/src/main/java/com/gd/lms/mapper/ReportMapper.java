@@ -16,6 +16,7 @@ public interface ReportMapper {
 	 * 강의별 과제 리스트 조회하는 메소드
 	 * 파라미터 : subjectName
 	 * 리턴값 : List<Map<String, Object>>
+	 * reportList.jsp
 	 */
 	List<Map<String, Object>> selectReportListBySubjectName(String subjectName);
 

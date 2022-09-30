@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.commons.TeamColor;
@@ -101,10 +102,10 @@ public class ReportSubmitService {
 	} // end getReportSubmitListBySubject
 
 	/*
-	 * 과제별 제출한 과제 리스트 조회 메소드 파라미터 : reportNo 리턴값 : List<ReportSubmit>
-	 * reportSubmitList.jsp
+	 * 과제별 제출한 과제 리스트 조회 메소드 파라미터 : reportSubmitNo 리턴값 : List<Map<String, Object>>
+	 * 제출한 과제 리스트 reportSubmitList.jsp
 	 */
-	public Map<String, Object> getReportListByReport(int reportNo) {
+	public List<Map<String, Object>> getReportListByReport(int reportNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@getReportListByReport Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
@@ -113,21 +114,14 @@ public class ReportSubmitService {
 		// 리턴값 받아올 객체 생성
 		Map<String, Object> returnMap = new HashMap<>();
 
-		// ReportMapper에 넣어줄 매개변수 설정
-		Map<String, Object> paramMap = new HashMap<>();// paramMap에 값 넣어주기
-		paramMap.put("reportNo", reportNo);
-		// lectureName 디버깅
-		log.debug(TeamColor.PSY + paramMap + "<-- paramMap" + TeamColor.TEXT_RESET);
+		// reportSubmitMapper Call
+		List<Map<String, Object>> reportSubmitList = reportSubmitMapper.selectReportListByReport(reportNo);
+		// reportSubmitList 디버깅
+		log.debug(TeamColor.PSY + reportSubmitList + "<-- reportSubmitList" + TeamColor.TEXT_RESET);
 
-		// Mapper Call
-		Map<String, Object> getReportListByReport = reportSubmitMapper.selectReportListByReport(reportNo);
-		// getReportListByReport 디버깅
-		log.debug(TeamColor.PSY + getReportListByReport + "<-- getReportListByReport" + TeamColor.TEXT_RESET);
-
-		// list에 값 넣어주기
-		returnMap.put("getReportListByReport", getReportListByReport);
+		returnMap.put("reportSubmitList", reportSubmitList);
 		
-		return getReportListByReport;
+		return reportSubmitList;
 	} // end getReportListByReport
 
 	/*
@@ -251,9 +245,9 @@ public class ReportSubmitService {
 	} // end addReportSubmit
 
 	/*
-	 * 제출한 과제 상세보기 메소드 파라미터 : reportSubmitNo 리턴값 : List<ReportSubmit>
+	 * 제출한 과제 상세보기 메소드 파라미터 : reportSubmitNo 리턴값 : Map<String, Object>
 	 */
-	public List<ReportSubmit> reportSubmitOne(int reportSubmitNo) {
+	public Map<String, Object> reportSubmitOne(int reportSubmitNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportSubmitOne Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
@@ -263,7 +257,7 @@ public class ReportSubmitService {
 		Map<String, Object> returnMap = new HashMap<>();
 
 		// reportSubmitMapper call
-		List<ReportSubmit> reportSubmitOne = reportSubmitMapper.ReportSubmitOne(reportSubmitNo);
+		Map<String, Object> reportSubmitOne = reportSubmitMapper.ReportSubmitOne(reportSubmitNo);
 		// reportSubmitMapper에서 받아온 reportSubmitOne값 디버깅
 		log.debug(TeamColor.PSY + reportSubmitOne + "<-- reportSubmitOne" + TeamColor.TEXT_RESET);
 
@@ -274,7 +268,9 @@ public class ReportSubmitService {
 	} // end ReportSubmitOne
 
 	/*
-	 * 제출한 과제 수정하는 메소드 modifyReportSubmit Action 파라미터 : ReportSubmit,
+	 * 제출한 과제 수정하는 메소드 
+	 * modifyReportSubmit Action 
+	 * 파라미터 : ReportSubmit,
 	 * ReportSubmitFile 리턴값 : X
 	 */
 	public void modifyReportSubmit(ReportSubmit paramReportSubmit, ReportSubmitFile paramReportSubmitFile) {
@@ -316,8 +312,33 @@ public class ReportSubmitService {
 		log.debug(TeamColor.PSY + modifyReportSubmitFile + "<--modifyReportSubmitFile" + TeamColor.TEXT_RESET);
 	} // end modifyReportSubmit
 
+
 	/*
-	 * 제출한 과제 점수 수정하는 메소드 파라미터 : reportSubmitNo 리턴값 : int
+	 * 제출한 과제 점수 수정하는 메소드 Form
+	 * 파라미터 : reportSubmitNo
+	 * 리턴값 : reportSubmit
+	 * reportSubmitScore.jsp
+	 */
+	public ReportSubmit modufyReportSubmitScoreForm(int reportSubmitNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@modufyReportSubmitScoreForm Service" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
+		
+		// Mapper Call
+		ReportSubmit reportSubmit = reportSubmitMapper.updateReportSubmitScoreForm(reportSubmitNo);
+		// reportSubmitMapper에서 받아온 reportSubmit 값 디버깅
+		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
+		
+		return reportSubmit;
+	} // end modufyReportSubmitScoreForm
+	
+	/*
+	 * 제출한 과제 점수 수정하는 메소드 
+	 * modifyReportScore Action
+	 * 파라미터 : reportSubmitNo 
+	 * 리턴값 : int
+	 * modifyReportScore.jsp
 	 */
 	public int modifyReportScore(int reportSubmitNo) {
 		// 디버깅 영역구분

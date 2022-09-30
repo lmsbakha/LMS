@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.EducationService;
@@ -75,7 +76,7 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + reportNo + "<--reportNo" + TeamColor.TEXT_RESET);
 
 		// Service Call
-		Map<String, Object> reportSubmitList = reportSubmitService.getReportListByReport(reportNo);
+		List<Map<String, Object>> reportSubmitList = reportSubmitService.getReportListByReport(reportNo);
 		// 디버깅
 		log.debug(TeamColor.PSY + reportSubmitList + "<--reportSubmitList" + TeamColor.TEXT_RESET);
 
@@ -181,10 +182,10 @@ public class ReportSubmitController {
 		return "redirect:/loginCheck/reportSubmitListById";
 	}
 
-	// 제출한 과제 상세보기 메소드
-	// reportSubmitOne Form
-	// 파라미터 : reportSubmitOne 담을 Model
-	// 리턴값: reportSubmitOne.jsp로 이동
+	/*
+	 * 제출한 과제 상세보기 메소드 reportSubmitOne Form 파라미터 : reportSubmitOne 담을 Model 리턴값:
+	 * reportSubmitOne.jsp로 이동 reportSubmitOne.jsp
+	 */
 	@GetMapping("/loginCheck/reportSubmitOne")
 	String reportOne(Model model, @RequestParam("reportSubmitNo") int reportSubmitNo) {
 		// 디버깅 영역구분
@@ -199,7 +200,7 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + paramMap + "<--paramMap" + TeamColor.TEXT_RESET);
 
 		// Service Call
-		List<ReportSubmit> reportSubmitOne = reportSubmitService.reportSubmitOne(reportSubmitNo);
+		Map<String, Object> reportSubmitOne = reportSubmitService.reportSubmitOne(reportSubmitNo);
 		// reportSubmitOne 디버깅
 		log.debug(TeamColor.PSY + reportSubmitOne + "<--reportSubmitOne" + TeamColor.TEXT_RESET);
 
@@ -217,31 +218,28 @@ public class ReportSubmitController {
 	} // end reportSubmitOne
 
 	/*
-	 * 제출한 과제 점수 수정하는 메소드 modifyReportScore Form 파라미터 : reportSubmitNo 리턴값 :
-	 * modifyReportScore.jsp로 이동 modifyReportScore.jsp
+	 * 제출한 과제 점수 수정하는 메소드 
+	 * modifyReportScore Form 
+	 * 파라미터 : reportSubmitNo 
+	 * 리턴값 : modifyReportScore.jsp로 이동 
+	 * modifyReportScore.jsp
 	 */
 	@GetMapping("/loginCheck/modifyReportScore")
-	String modifyReportScore(Model model, @RequestParam("reportSubmitNo") int reportSubmitNo) {
+	String modifyReportScore(Model model, @RequestParam("reportSubmitNo") int reportSubmitNo){
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@modifyReportScore Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
 
-		// 요청 받은 값 Map 객체에 셋팅
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("reportSubmitNo", reportSubmitNo);
-		// paramMap 디버깅
-		log.debug(TeamColor.PSY + paramMap + "<--paramMap" + TeamColor.TEXT_RESET);
-
 		// Service Call
-		List<ReportSubmit> reportSubmitOne = reportSubmitService.reportSubmitOne(reportSubmitNo);
-		// reportSubmitOne 디버깅
-		log.debug(TeamColor.PSY + reportSubmitOne + "<--reportSubmitOne" + TeamColor.TEXT_RESET);
-
+		ReportSubmit modufyScoreForm = reportSubmitService.modufyReportSubmitScoreForm(reportSubmitNo);
+		// modufyScoreForm 디버깅
+		log.debug(TeamColor.PSY + modufyScoreForm + "<--modufyReportSubmitScoreForm" + TeamColor.TEXT_RESET);
+		
 		// 모델단에 제출한 과제를 addAttribute해서 폼으로 전달
-		model.addAttribute("reportSubmitOne", reportSubmitOne);
+		model.addAttribute("modufyScoreForm", modufyScoreForm);
 
-		if (reportSubmitOne != null) {
+		if (modufyScoreForm != null) {
 			// 성공
 			log.debug(TeamColor.PSY + " 점수 수정 페이지 상세보기 성공" + TeamColor.TEXT_RESET);
 		} else {
@@ -252,22 +250,26 @@ public class ReportSubmitController {
 	} // end modifyReportScore @GetMapping
 
 	/*
-	 * 교사용 제출한 과제 점수 수정하는 메소드 modifyReportScore Action 파라미터 : reportSubmitNo 리턴값 :
+	 * 교사용 제출한 과제 점수 수정하는 메소드 
+	 * modifyReportScore Action 
+	 * 파라미터 : reportSubmitNo 리턴값 :
 	 * modifyReportScore modifyReportScore.jsp
 	 */
 	@PostMapping("/loginCheck/modifyReportScore")
-	String modifyReportScore(@RequestParam("reportSubmitNo") int reportSubmitNo) {
+	String modifyReportScore(RedirectAttributes redirectAttributes,
+			@RequestParam("reportSubmitNo") int reportSubmitNo, @RequestParam("reportSubmitScore") String reportSubmitScore) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@modifyReportScore Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
 
 		// reportSubmitOne 리스트 model값으로 보내기 Service Call
-		List<ReportSubmit> reportSubmitOne = reportSubmitService.reportSubmitOne(reportSubmitNo);
+		Map<String, Object> reportSubmitOne = reportSubmitService.reportSubmitOne(reportSubmitNo);
 		// 디버깅
 		log.debug(TeamColor.PSY + reportSubmitOne + "<-- reportSubmitOne" + TeamColor.TEXT_RESET);
-		return null;
 
+		redirectAttributes.addAttribute("reportNo", reportSubmitOne.get("reportNo"));
+		return "redirect:/loginCheck/reportSubmitList";
 	} // end modifyReportScore @PostMapping
 
 	/*
@@ -275,14 +277,21 @@ public class ReportSubmitController {
 	 * modifyReportSubmit.jsp로 이동 modifyReportSubmit.jsp
 	 */
 	@GetMapping("/loginCheck/modifyReportSubmit")
-	String modifyReportSubmit(Model model, @RequestParam("reportSubmitNo") int reportSubmitNo) {
+	String modifyReportSubmit(Model model, @RequestParam("reportSubmitNo") int reportSubmitNo,
+			@RequestParam("reportSubmitScore") String reportSubmitScore) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@modifyReportSubmit Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitScore + "<-- reportSubmitScore" + TeamColor.TEXT_RESET);
 
+		// 요청값 받아오기
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("reportSubmitScore", reportSubmitScore);
+		paramMap.put("reportSubmitNo", reportSubmitNo);
+				
 		// reportSubmitOne 리스트 model값으로 보내기 Service Call
-		List<ReportSubmit> reportSubmitOne = reportSubmitService.reportSubmitOne(reportSubmitNo);
+		Map<String, Object> reportSubmitOne = reportSubmitService.reportSubmitOne(reportSubmitNo);
 		// 디버깅
 		log.debug(TeamColor.PSY + reportSubmitOne + "<-- reportSubmitOne" + TeamColor.TEXT_RESET);
 
@@ -337,7 +346,7 @@ public class ReportSubmitController {
 	// 파라미터 : reportSubmitNo
 	// 리턴값 : int
 	@GetMapping("/loginCheck/removeReportSubmit")
-	public String removeReportSubmit(@RequestParam("reportSubmitNo") int reportSubmitNo) {
+	public String removeReportSubmit(RedirectAttributes redirectAttributes, @RequestParam("reportSubmitNo") int reportSubmitNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@removeReportSubmit Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
@@ -347,6 +356,6 @@ public class ReportSubmitController {
 		reportSubmitService.removeReportSubmit(reportSubmitNo);
 
 		// reportList로 리다이렉트
-		return "redirect:/loginCheck/reportReportListById";
+		return "redirect:/loginCheck/reportSubmitList";
 	} // end
 }

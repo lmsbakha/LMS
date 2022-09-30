@@ -50,23 +50,24 @@ public class ReportService {
 	 * 강의별 과제리스트 조회하는 메소드 
 	 * 파라미터 : lectureName 
 	 * 리턴값 : List<Map<String, Object>> 과제 리스트
+	 * reportList.jsp
 	 */
 	public List<Map<String, Object>> getReportListBySubjectName(String subjectName) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@getReportList Service" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@getReportListBySubjectName Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + subjectName + "<--subjectName" + TeamColor.TEXT_RESET);
 
 		// reportMapper Call
 		List<Map<String, Object>> reportList = reportMapper.selectReportListBySubjectName(subjectName);
-		// 디버깅
+		// reportList 디버깅
 		log.debug(TeamColor.PSY + reportList + "<-- reportList" + TeamColor.TEXT_RESET);
 		
 		return reportList;
-	}
+	} // end getReportListBySubjectName
 
 	// [강사전용] 강좌별 강의리스트 메인페이지로 이동하는 메소드
-	// 파라미터 : accountId
+	// 파라미터 : lectureName XXX
 	// 리턴값 : List<Map<String, Object>> 과제 리스트
 	public List<Map<String, Object>> getReportList(String lectureName) {
 		// 디버깅 영역구분

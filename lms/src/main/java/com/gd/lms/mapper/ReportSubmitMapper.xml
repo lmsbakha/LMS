@@ -73,22 +73,21 @@
 
 	<!-- 과제별 제출한 과제 리스트 조회 메소드 -->
 	<!-- reportSubmitList.jsp -->
-	<select id="selectReportListByReport" parameterType="Map" resultType="Map">
+	<select id="selectReportListByReport" parameterType="int" resultType="Map">
 		SELECT
-			rs.report_submit_no reportSubmitNo,
-			rs.education_no educationNo,
-			rs.account_id accountId,
-			rs.report_no reportNo,
-			rs.report_submit_title reportSubmitTitle,
-			rs.report_submit_content reportSubmitContent,
-			rs.report_submit_score reportSubmitScore,
-			rs.report_submit_state reportSubmitState,
-			rs.create_date createDate,
-			r.subject_name subjectName
-		FROM report_submit rs INNER JOIN report r
-		USING(report_no)
+			report_submit_no reportSubmitNo,
+			education_no educationNo,
+			account_id accountId,
+			report_no reportNo,
+			report_submit_title reportSubmitTitle,
+			report_submit_content reportSubmitContent,
+			report_submit_score reportSubmitScore,
+			report_submit_state reportSubmitState,
+			create_date createDate,
+			(SELECT subject_name subjectName FROM report WHERE report_no= #{reportNo}) subjectName
+		FROM report_submit
 		WHERE report_no = #{reportNo}
-		ORDER BY report_no DESC
+		ORDER BY report_submit_no ASC
 	</select>
 	<!-- 과제별 제출한 과제 리스트 조회 메소드 -->
 
@@ -141,8 +140,7 @@
 	<!-- 과제 제출 첨부파일 업로드 메소드 -->
 
 	<!-- 제출한 과제 상세보기 -->
-	<select id="ReportSubmitOne" parameterType="int"
-		resultType="Map">
+	<select id="ReportSubmitOne" parameterType="int" resultType="Map">
 		SELECT
 			rs.report_submit_no reportSubmitNo,
 			rs.education_no educationNo,
@@ -171,15 +169,14 @@
 	<update id="updateReportSubmit"
 		parameterType="com.gd.lms.vo.ReportSubmit">
 		UPDATE report_submit SET
-		report_submit_title =
-		#{reportSubmitTitle},
+		report_submit_title = #{reportSubmitTitle},
 		report_submit_content = #{reportSubmitContent},
 		update_date= now()
 		WHERE report_submit_no = #{reportSubmitNo}
 	</update>
 	<!-- 제출한 과제 수정하기 Action -->
 	
-	<!-- 제출한 과제별 상세보기  -->
+	<!-- 제출한 과제 점수 수정하는 메소드 Form -->
 	<!-- modifyReportScore.jsp -->
 	<select id="updateReportSubmitScoreForm" parameterType="com.gd.lms.vo.ReportSubmit" resultType="com.gd.lms.vo.ReportSubmit">
 	SELECT 
@@ -196,7 +193,7 @@
 		report_submit 
 		WHERE report_submit_no= 3
 	</select>
-	<!-- 제출한 과제별 상세보기  -->
+	<!-- 제출한 과제 점수 수정하는 메소드 Form  -->
 		
 	<!-- 제출한 과제 점수 수정하기 -->
 	<!-- modifyReportScore.jsp -->
