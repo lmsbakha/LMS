@@ -31,12 +31,11 @@ public class LectureController {
 	// AttendanceService 객체 주입
 	@Autowired
 	private AttendanceService attendanceService;
-	
+
 	// LectureService 객체 주입
-	@Autowired 
+	@Autowired
 	private LectureService lectureService;
-	
-	
+
 	// [강사전용] 시험 메인페이지로 이동하는 메소드 
 	// 파라미터 : 사용자가 선택한 lectureName 
 	// 리턴값 : lecture에서 출제된 시험리스트
@@ -57,17 +56,17 @@ public class LectureController {
 	// 파라미터 : 사용자가 선택한 lectureName, 강사 accountId 
 	// 리턴값 : 선택된 강좌의 학생 출석부를 보여주는 학생관리 페이지
 	@PostMapping("/loginCheck/lectureListByTeacherForAttendance")
-	public String lectureListByTeacherForAttendance(RedirectAttributes redirectAttributes,HttpSession session, @RequestParam(value = "lectureName") String lectureName) {
+	public String lectureListByTeacherForAttendance(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam(value = "lectureName") String lectureName) {
 		// 파라미터 디버깅
 		String accountId = (String) session.getAttribute("sessionId");
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
-		
+
 		// 출석부 리스트 service call
 		List<Map<String, Object>> attendanceList = attendanceService.getAttendanceListByTeacher(accountId, lectureName);
 		// redirectAttributes을 통해서 값 전달
 		redirectAttributes.addFlashAttribute("attendanceList", attendanceList);
-		
+
 		return "redirect:/loginCheck/studentbookForTeacher";
 	}
 
@@ -75,32 +74,61 @@ public class LectureController {
 	// 파라미터 : 사용자가 선택한 lectureName
 	// 리턴값 : 강좌의 학생 출석부를 보여주는 학생관리 페이지
 	@PostMapping("/loginCheck/lectureListByManagerForAttendance")
-	public String lectureListByManagerForAttendance(RedirectAttributes redirectAttributes,@RequestParam(value = "lectureName") String lectureName) {
+	public String lectureListByManagerForAttendance(RedirectAttributes redirectAttributes, @RequestParam(value = "lectureName") String lectureName) {
 		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
-		
+
 		// 출석부 리스트 service call
 		List<Map<String, Object>> attendanceList = attendanceService.getAttendanceListByManager(lectureName);
 		// redirectAttributes을 통해서 값 전달
 		redirectAttributes.addFlashAttribute("attendanceList", attendanceList);
-		
+
 		return "redirect:/loginCheck/studentbookForManager";
 	}
-	
+
 	// [행정/총관리자] 강좌관리 페이지로 이동하는 메소드
 	// 파라미터 : X
 	// 리턴값 : 전체 강좌 목록 보여주기 
 	@GetMapping("/loginCheck/lecture")
 	public String getLecture(Model model) {
-		log.debug(TeamColor.PSJ + "강좌관리 탭으로 이동" +TeamColor.TEXT_RESET);
-		
+		log.debug(TeamColor.PSJ + "강좌관리 탭으로 이동" + TeamColor.TEXT_RESET);
+
 		// 전체 강좌목록 service call
 		List<Map<String, Object>> lectureList = lectureService.getLectureDetailList();
 		// 디버깅
-		log.debug(TeamColor.PSJ + lectureList + "<-- lectureList" +TeamColor.TEXT_RESET);
-		
+		log.debug(TeamColor.PSJ + lectureList + "<-- lectureList" + TeamColor.TEXT_RESET);
+
 		// model로 값 전송
 		model.addAttribute("lectureList", lectureList);
-		
+
 		return "lecture/lecture";
+	}
+
+	// [행정/총관리자] 강좌수정 페이지 폼
+	// 파라미터 : lectureName
+	// 리턴값 : 강좌수정 페이지 폼 
+	@GetMapping("/loginCheck/lectureOne")
+	public String getLectureOne(Model model, @RequestParam(value = "lectureName") String lectureName) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
+
+		// 강좌 상세정보 service call
+		Map<String, Object> lectureOne = lectureService.getLectureOne(lectureName);
+		// 디버깅
+		log.debug(TeamColor.PSJ + lectureOne + "<-- lectureOne" + TeamColor.TEXT_RESET);
+
+		// model로 값 전송
+		model.addAttribute("lectureOne", lectureOne);
+
+		return "lecture/lectureOne";
+	}
+	
+	// [행정/총관리자] 강좌 개설 폼
+	// 파라미터 : accountId
+	// 리턴값 : 강좌개설 페이지 폼 
+	@GetMapping("/loginCheck/addLecture")
+	public String addLecture(Model model) {
+		Map<String,Object> infoMap = lectureService.getInfoForAddLecture();
+		model.addAttribute("infoMap", infoMap);
+		return "lecture/addLecture";
 	}
 }

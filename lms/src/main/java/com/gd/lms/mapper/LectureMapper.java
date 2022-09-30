@@ -23,4 +23,9 @@ public interface LectureMapper {
 	// 파라미터 : X
 	// 리턴값 : List<Map<String,Object>>
 	List<Map<String,Object>> selectLectureDetailList();
+
+	// lectureOne 받아오기
+	// 파라미터 : lectureName
+	// 리턴값 : Map<String,Object>
+	Map<String,Object> selectLectureOne(String lectureName);
 }

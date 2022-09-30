@@ -88,7 +88,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="${pageContext.request.contextPath}/loginCheck/index">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의관리</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">강좌관리</span></li>
+										<li><a href="#">강좌관리</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">강좌수정</span></li>
 									</ul>
 								</div>
 							</div>
@@ -104,57 +105,75 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<h4>
-							강좌목록
-							<div class="btn-custom-groups-one btn-mg-b-10" style="float: right;">
-								<button type="button" class="btn btn-custon-rounded-four btn-danger" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/addLecture' ">
-									<b>+</b> 강좌추가
-								</button>
-							</div>
-						</h4>
+						<h4>강좌수정</h4>
 						<div class="asset-inner">
-							<table class="table-hover">
-								<tr class="table-info">
-									<th>강좌명</th>
-									<th>담당 강사</th>
-									<th>담당 매니저</th>
-									<th>강의실</th>
-									<th>개강일</th>
-									<th>종강일</th>
-									<th>lectureActive</th>
-									<th>lectureState</th>
-									<th>updateDate</th>
-									<th>createDate</th>
-									<th style="width: 150px">Setting</th>
-								</tr>
-								<c:forEach var="map" items="${lectureList}">
-									<tr>
-										<td>${map.lectureName}</td>
-										<td>${map.teacherName}</td>
-										<td>${map.managerName}</td>
-										<td>${map.lectureRoomName}</td>
-										<td>${map.lectureStartDate}</td>
-										<td>${map.lectureEndDate}</td>
-										<td>${map.lectureActive}</td>
-										<c:if test="${map.lectureState eq '대기'}">
-											<td><button class="ps-setting">${map.lectureState}</button></td>
-										</c:if>
-										<c:if test="${map.lectureState eq '수강'}">
-											<td><button class="pd-setting">${map.lectureState}</button></td>
-										</c:if>
-										<c:if test="${map.lectureState eq '수료'}">
-											<td><button class="ds-setting">${map.lectureState}</button></td>
-										</c:if>
-										<td>${map.updateDate}</td>
-										<td>${map.createDate}</td>
-										<td><a href="${pageContext.request.contextPath}/loginCheck/lectureOne?lectureName=${map.lectureName}">
-												<button class="btn btn-sm btn-custon-rounded-foue btn-primary">
-													<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i> 정보수정
-												</button>
-											</a></td>
+							<form action="">
+								<table>
+									<tr class="table-info">
+										<th>강좌명</th>
+										<td><input type="text" class="form-control" id="lectureName" name="lectureName" value="${lectureOne.lectureName}" readonly="readonly"></td>
 									</tr>
-								</c:forEach>
-							</table>
+									<tr class="table-info">
+										<th>담당 강사</th>
+										<td><input type="text" class="form-control" id="teacherName" name="teacherName" value="${lectureOne.teacherName}"></td>
+									</tr>
+									<tr class="table-info">
+										<th>담당 매니저</th>
+										<td><input type="text" class="form-control" id="managerName" name="managerName" value="${lectureOne.managerName}"></td>
+									</tr>
+									<tr class="table-info">
+										<th>강의실</th>
+										<td><input type="text" class="form-control" id="lectureRoomName" name="lectureRoomName" value="${lectureOne.lectureRoomName}"></td>
+									</tr>
+									<tr class="table-info">
+										<th>개강일</th>
+										<td><input type="date" class="form-control" id="lectureStartDate" name="lectureStartDate" value="${lectureOne.lectureStartDate}"></td>
+									</tr>
+									<tr class="table-info">
+										<th>종강일</th>
+										<td><input type="date" class="form-control" id="lectureEndDate" name="lectureEndDate" value="${lectureOne.lectureEndDate}"></td>
+									</tr>
+									<tr class="table-info">
+										<th>lectureActive</th>
+										<td>
+											<select id="lectureActive" name="lectureActive" class="form-control">
+													<option value='${lectureOne.lectureActive}' selected>${lectureOne.lectureActive}</option>
+													<c:if test="${lectureOne.lectureActive ne '개설대기'}">
+														<option value='개설대기'>개설대기</option>
+													</c:if>
+													<c:if test="${lectureOne.lectureActive ne '개설승인'}">
+														<option value='개설승인'>개설승인</option>
+													</c:if>
+											</select> 
+										</td>
+									</tr>
+									<tr class="table-info">
+										<th>lectureState</th>
+										<td>
+											<select id="lectureState" name="lectureState" class="form-control">
+													<option value='${lectureOne.lectureState}' selected>${lectureOne.lectureState}</option>
+													<c:if test="${lectureOne.lectureState ne '대기'}">
+														<option value='대기'>대기</option>
+													</c:if>
+													<c:if test="${lectureOne.lectureState ne '수강'}">
+														<option value='수강'>수강</option>
+													</c:if>
+													<c:if test="${lectureOne.lectureState ne '수료'}">
+														<option value='수료'>수료</option>
+													</c:if>
+											</select> 
+										</td>
+									</tr>
+									<tr class="table-info">
+										<th>updateDate</th>
+										<td>${lectureOne.updateDate}</td>
+									</tr>
+									<tr class="table-info">
+										<th>createDate</th>
+										<td>${lectureOne.createDate}</td>
+									</tr>
+								</table>
+							</form>
 						</div>
 					</div>
 				</div>

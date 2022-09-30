@@ -98,16 +98,15 @@
 			</div>
 		</div>
 	</div>
-	<div class="product-status mg-b-15">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<div class="row">
+		<div class="product-status mg-b-15">
+			<div class="container-fluid">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 					<div class="product-status-wrap drp-lst">
 						<div class="sparkline12-graph">
 							<div class="basic-login-form-ad">
 								<div class="row">
-
-									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<div class="product-status-wrap drp-lst">
 											<h4>Lecture 조회</h4>
 											<hr>
@@ -128,7 +127,7 @@
 																</div>
 															</div>
 															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-																<button type="submit" class="btn btn-custon-rounded-two btn-primary">조회하기</button>
+																<button type="submit" class="btn btn-custon-rounded-two" style="background-color: #4e5256; color: white;">조회하기</button>
 															</div>
 														</div>
 													</div>
@@ -137,7 +136,17 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+					<div class="product-status-wrap drp-lst">
+						<div class="sparkline12-graph">
+							<div class="basic-login-form-ad">
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<div class="product-status-wrap drp-lst">
 											<h4>수강생 목록</h4>
 											<!-- 문제 출제 하기 -->
@@ -145,7 +154,6 @@
 												<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
 													<thead>
 														<tr>
-															<th>educationNo(학번)</th>
 															<th>studentName(학생이름)</th>
 															<th>studentId(학생ID)</th>
 															<th>lectureName(강좌)</th>
@@ -162,18 +170,15 @@
 														<c:if test="${not empty attendanceList }">
 															<c:forEach var="map" items="${attendanceList}">
 																<tr>
-																	<td>${map.educationNo}</td>
 																	<td>${map.studentName}</td>
 																	<td>${map.studentId}</td>
 																	<td>${map.lectureName}</td>
 																	<td>${map.teacherName}</td>
-																	<td>
-																		<a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${map.studentId}">
+																	<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${map.studentId}">
 																			<button type="button" class="btn btn-sm btn-custon-rounded-two btn-primary">
 																				<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i> 상세보기
 																			</button>
-																		</a>
-																	</td>
+																		</a></td>
 																</tr>
 															</c:forEach>
 														</c:if>
@@ -190,6 +195,7 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- Start footer -->
 	<jsp:include page="../inc/footer.jsp" />
 	<!-- End footer -->
