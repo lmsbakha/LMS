@@ -147,7 +147,7 @@
 							<c:if test="${sessionLevel >= 2}">
 								<div class="add-product">
 									<a
-										href="${pageContext.request.contextPath}/loginCheck/addReport">과제
+										href="${pageContext.request.contextPath}/loginCheck/addReport?subjectName=${report.subjectName}">과제
 										추가</a>
 								</div>
 							</c:if>

@@ -137,30 +137,14 @@ public class ReportSubmitController {
 	// 파라미터:reportNo
 	// 리턴값 : addReportSubmit.jsp로 이둉
 	@GetMapping("/loginCheck/addReportSubmit")
-	public String addReportSubmit(Model model, HttpSession session, @RequestParam("reportNo") int reportNo) {
+	public String addReportSubmit(Model model, HttpSession session, @RequestParam("subjectName") String subjectName) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportNo + "<--reportNo" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + subjectName + "<--subjectName" + TeamColor.TEXT_RESET);
 
-		// addReportSubmitForm Service Call
-		Report addReportSubmitForm = reportService.getReportOne(reportNo);
-		// addReportSubmitForm 디버깅
-		log.debug(TeamColor.PSY + addReportSubmitForm + "<--addReportSubmitForm" + TeamColor.TEXT_RESET);
-
-		// 세션 받아오기
-		String accountId = (String) session.getAttribute("sessionId");
-		// 로그인한 강사의 아이디 확인
-		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-
-		// educationInfo Sevice Call
-		Education EducationInfo = educationService.getEducationInfo(accountId);
-		// addReportSubmitForm 디버깅
-		log.debug(TeamColor.PSY + EducationInfo + "<--EducationInfo" + TeamColor.TEXT_RESET);
-
-		// addReportSubmitForm, EducationInfo model값으로 보내기 Service Call
-		model.addAttribute("addReportSubmitForm", addReportSubmitForm);
-		model.addAttribute("EducationInfo", EducationInfo);
+		// subjectName model값으로 보내기 
+		model.addAttribute("subjectName", subjectName);
 
 		return "/report/addReportSubmit";
 	} // end addReportSubmit @GetMapping
@@ -232,14 +216,14 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
 
 		// Service Call
-		ReportSubmit modufyScoreForm = reportSubmitService.modufyReportSubmitScoreForm(reportSubmitNo);
+		Map<String, Object> modifyScoreForm = reportSubmitService.modifyReportSubmitScoreForm(reportSubmitNo);
 		// modufyScoreForm 디버깅
-		log.debug(TeamColor.PSY + modufyScoreForm + "<--modufyReportSubmitScoreForm" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + modifyScoreForm + "<--modifyScoreForm" + TeamColor.TEXT_RESET);
 		
 		// 모델단에 제출한 과제를 addAttribute해서 폼으로 전달
-		model.addAttribute("modufyScoreForm", modufyScoreForm);
+		model.addAttribute("modifyScoreForm", modifyScoreForm);
 
-		if (modufyScoreForm != null) {
+		if (modifyScoreForm != null) {
 			// 성공
 			log.debug(TeamColor.PSY + " 점수 수정 페이지 상세보기 성공" + TeamColor.TEXT_RESET);
 		} else {
@@ -262,14 +246,29 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + "\n\n@modifyReportScore Controller" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmitScore + "<-- reportSubmitScore" + TeamColor.TEXT_RESET);
 
-		// reportSubmitOne 리스트 model값으로 보내기 Service Call
-		Map<String, Object> reportSubmitOne = reportSubmitService.reportSubmitOne(reportSubmitNo);
+		// 요청갑 셋팅
+		ReportSubmit paramReportSubmit = new ReportSubmit();
+		paramReportSubmit.setReportSubmitNo(reportSubmitNo);
+		paramReportSubmit.setReportSubmitScore(reportSubmitScore);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + paramReportSubmit + "<-- paramReportSubmit" + TeamColor.TEXT_RESET);
+		
+		// modifyReportScore 리스트 model값으로 보내기 Service Call
+		int modifyReportScore = reportSubmitService.modifyReportScore(paramReportSubmit);
 		// 디버깅
-		log.debug(TeamColor.PSY + reportSubmitOne + "<-- reportSubmitOne" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + modifyReportScore + "<-- modifyReportScore" + TeamColor.TEXT_RESET);
 
-		redirectAttributes.addAttribute("reportNo", reportSubmitOne.get("reportNo"));
-		return "redirect:/loginCheck/reportSubmitList";
+		if (modifyReportScore != 0) {
+			// 성공
+			log.debug(TeamColor.PSY + " 점수 수정 성공" + TeamColor.TEXT_RESET);
+		} else {
+			// 실패
+			log.debug(TeamColor.PSY + " 점수 수정 실패" + TeamColor.TEXT_RESET);
+		}
+		
+		return "redirect:/loginCheck/lectureSubjectList";
 	} // end modifyReportScore @PostMapping
 
 	/*

@@ -112,14 +112,9 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-										<label for="subjectName">subjectName</label> <select
-											class="form-control custom-select-value" name="subjectName"
-											id="subjectName" required="required">
-											<option value="defalut">::::::::: 과목선택 :::::::::</option>
-											<c:forEach var="subject" items="${subjectNameList}">
-												<option value="${subject.subjectName}">${subject.subjectName}</option>
-											</c:forEach>
-										</select>
+										<label for="subjectName">subjectName</label>
+										<input name="subjectName" id="subjectName" type="text"
+									class="form-control" value="${subjectName}">
 									</div>
 								</div>
 							</div>

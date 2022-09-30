@@ -146,17 +146,20 @@
 									</tr>
 									<form
 										action="${pageContext.request.contextPath}/loginCheck/modifyReportScore?
-											reportSubmitNo=${modufyScoreForm.reportSubmitNo}&reportSubmitScore=${modufyScoreForm.reportSubmitScore}"
+											reportSubmitNo=${modifyScoreForm.reportSubmitNo}&reportSubmitScore=${modifyScoreForm.reportSubmitScore}"
 										method="post">
 										<tr style="text-align: center;">
-											<td><input type="text" name="reportSubmitNo"
-												value="${modufyScoreForm.reportSubmitNo}"></td>
-											<td>${modufyScoreForm.subjectName}</td>
+											<td><input type="text" style="border: none;"  name="reportSubmitNo"
+												value="${modifyScoreForm.reportSubmitNo}">
+												<input type="hidden" style="border: none;"  name="reportNo"
+												value="${modifyScoreForm.reportNo}">
+												</td>
+											<td>${modifyScoreForm.subjectName}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${modufyScoreForm.reportSubmitNo}">
-													${modufyScoreForm.reportSubmitTitle} </a></td>
-											<td>${modufyScoreForm.createDate}</td>
-											<td>${modufyScoreForm.accountId}</td>
+												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${modifyScoreForm.reportSubmitNo}">
+													${modifyScoreForm.reportSubmitTitle} </a></td>
+											<td>${modifyScoreForm.createDate}</td>
+											<td>${modifyScoreForm.accountId}</td>
 											<td><select style="width: 200px;"
 												class="form-control custom-select-value"
 												name="reportSubmitScore" id="reportSubmitScore"

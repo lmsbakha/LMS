@@ -135,13 +135,6 @@
 						<div class="product-status-wrap drp-lst" style="padding: 2%;">
 							<h4>Report SubmitList</h4>
 							<hr>
-							<c:if test="${sessionLevel >= 2}">
-								<div class="add-product">
-									<a
-										href="${pageContext.request.contextPath}/loginCheck/addReport">과제
-										추가</a>
-								</div>
-							</c:if>
 							<div class="asset-inner">
 								<table>
 									<tr style="text-align: center;">
@@ -166,7 +159,7 @@
 											<td>${reportSubmitList.reportSubmitScore}</td>
 											<td>
 												<a
-													href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?reportSubmitNo=${reportSubmitList.reportSubmitNo}">
+													href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?reportSubmitNo=${reportSubmitList.reportSubmitNo}&reportNo=${reportSubmitList.reportNo}">
 														<button data-toggle="tooltip" title="Edit"
 															class="pd-setting-ed" type="button">
 															<i class="fa fa-pencil-square-o" aria-hidden="true">점수
@@ -176,7 +169,7 @@
 												</td>
 												<td>
 												<a
-													href="${pageContext.request.contextPath}/loginCheck/removeReportSubmit?reportNo=${report.reportNo}">
+													href="${pageContext.request.contextPath}/loginCheck/removeReportSubmit?reportSubmitNo=${reportSubmitList.reportSubmitNo}">
 														<button data-toggle="tooltip" title="Trash"
 															class="pd-setting-ed" type="button">
 															<i class="fa fa-trash-o" aria-hidden="true">삭제하기</i>

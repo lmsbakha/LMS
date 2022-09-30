@@ -71,6 +71,26 @@ public class ReportSubmitService {
 	} // end getReportListById
 
 	/*
+	 * 제출한 과제별 정보 조회 메소드
+	 * 파라미터 : reportSubmitNo
+	 * 리턴값 : ReportSubmit
+	 * modifyReportSubmit.jsp -> 보류
+	 */
+	public ReportSubmit getReportSubmitInfo(int reportSubmitNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@getReportSubmitInfo Service" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
+		
+		// Mapper Call
+		ReportSubmit reportSubmitInfo = reportSubmitMapper.selectReportSubmitInfo(reportSubmitNo);
+		// 디버깅
+		log.debug(TeamColor.PSY + reportSubmitInfo + "<-- reportSubmitInfo" + TeamColor.TEXT_RESET);
+		
+		return reportSubmitInfo;
+	} // end getReportSubmitInfo
+	
+	/*
 	 * 강좌별 제출한 과제 리스트 조회 메소드 파라미터 : accountId 리턴값 : List<Map<String,Object>>
 	 */
 	public List<ReportSubmit> getReportListBySubject(String lectureName) {
@@ -319,19 +339,19 @@ public class ReportSubmitService {
 	 * 리턴값 : reportSubmit
 	 * reportSubmitScore.jsp
 	 */
-	public ReportSubmit modufyReportSubmitScoreForm(int reportSubmitNo) {
+	public Map<String, Object> modifyReportSubmitScoreForm(int reportSubmitNo) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@modufyReportSubmitScoreForm Service" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@modifyReportSubmitScoreForm Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
 		
 		// Mapper Call
-		ReportSubmit reportSubmit = reportSubmitMapper.updateReportSubmitScoreForm(reportSubmitNo);
+		Map<String, Object> reportSubmit = reportSubmitMapper.updateReportSubmitScoreForm(reportSubmitNo);
 		// reportSubmitMapper에서 받아온 reportSubmit 값 디버깅
 		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
 		
 		return reportSubmit;
-	} // end modufyReportSubmitScoreForm
+	} // end modifyReportSubmitScoreForm
 	
 	/*
 	 * 제출한 과제 점수 수정하는 메소드 
@@ -340,14 +360,14 @@ public class ReportSubmitService {
 	 * 리턴값 : int
 	 * modifyReportScore.jsp
 	 */
-	public int modifyReportScore(int reportSubmitNo) {
+	public int modifyReportScore(ReportSubmit reportSubmit) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@modifyReportScore Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + reportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
 
 		// reportSubmitMapper call
-		int modifyReportScore = reportSubmitMapper.updateReportScore(reportSubmitNo);
+		int modifyReportScore = reportSubmitMapper.updateReportScore(reportSubmit);
 		// reportSubmitMapper에서 받아온 removeReportSubmit 값 디버깅
 		log.debug(TeamColor.PSY + modifyReportScore + "<-- modifyReportScore" + TeamColor.TEXT_RESET);
 
@@ -357,7 +377,7 @@ public class ReportSubmitService {
 	/*
 	 * 제출한 과제 삭제하는 메소드 파라미터 : reportSubmitNo 리턴값 : int
 	 */
-	public void removeReportSubmit(int reportSubmitNo) {
+	public int removeReportSubmit(int reportSubmitNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@reportSubmit Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
@@ -372,6 +392,8 @@ public class ReportSubmitService {
 		int removeReportSubmit = reportSubmitMapper.deleteReportSubmit(reportSubmitNo);
 		// reportSubmitMapper에서 받아온 removeReportSubmit 값 디버깅
 		log.debug(TeamColor.PSY + removeReportSubmit + "<-- removeReportSubmit" + TeamColor.TEXT_RESET);
+		
+		return removeReportSubmit;
 	} // end removeReportSubmit
 
 }
