@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.transitions.css">
+<link href='${pageContext.request.contextPath}/lib/main.css' rel='stylesheet' />
 <!-- animate CSS
 		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
@@ -50,10 +51,9 @@
 		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/metisMenu/metisMenu.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/metisMenu/metisMenu-vertical.css">
-<!-- calendar CSS
-		============================================ -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar/fullcalendar.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar/fullcalendar.print.min.css">
+
+
+
 <!-- style CSS
 		============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
@@ -63,6 +63,58 @@
 <!-- modernizr JS
 		============================================ -->
 <script src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src='https://github.com/mozilla-comm/ical.js/releases/download/v1.4.0/ical.js'></script>
+<script src='${pageContext.request.contextPath}/lib/main.js'></script>
+<script src='${pageContext.request.contextPath}/packages/icalendar/main.global.js'></script>
+<!-- the moment-to-fullcalendar connector. must go AFTER the moment lib -->
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/moment@5.5.0/main.global.min.js'></script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+    });
+    calendar.render();
+  });
+
+</script>
+<style>
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+
+  #script-warning {
+    display: none;
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    padding: 0 10px;
+    line-height: 40px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    color: red;
+  }
+
+  #loading {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  #calendar {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 10px;
+  }
+
+</style>
 </head>
 <body>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -84,14 +136,6 @@
 						<div class="breadcome-list">
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-									<div class="breadcome-heading">
-										<form role="search" class="sr-input-func">
-											<input type="text" placeholder="Search..." class="search-int form-control">
-											<a href="#">
-												<i class="fa fa-search"></i>
-											</a>
-										</form>
-									</div>
 								</div>
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu">
@@ -109,80 +153,28 @@
 	<div class="calender-area mg-b-15">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-12">
+				<div class="col-lg-6">
+					<div id='script-warning'>
+				    <code>ics/feed.ics</code> must be servable
+				  </div>
+				  <div id='calendar'></div>
+				</div>
+				<div class="col-lg-6">
 					<div class="calender-inner">
-						<div id='calendar'></div>
+						출석 날짜를 선택해주세요
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="footer-copyright-area">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="footer-copy-right">
-						<p>
-							Copyright © 2018. All rights reserved. Template by
-							<a href="https://colorlib.com/wp/templates/">Colorlib</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<!-- Start footer -->
+	<jsp:include page="../inc/footer.jsp"/>
+    <!-- End footer -->  
+    
+    <!-- Start script -->
+	<jsp:include page="../js/alljs.jsp"/>
+    <!-- End script -->  
 
-	<!-- jquery
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/vendor/jquery-1.12.4.min.js"></script>
-	<!-- bootstrap JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-	<!-- wow JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
-	<!-- price-slider JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/jquery-price-slider.js"></script>
-	<!-- meanmenu JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/jquery.meanmenu.js"></script>
-	<!-- owl.carousel JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-	<!-- sticky JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
-	<!-- scrollUp JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/jquery.scrollUp.min.js"></script>
-	<!-- mCustomScrollbar JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/scrollbar/mCustomScrollbar-active.js"></script>
-	<!-- metisMenu JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/metisMenu/metisMenu.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/metisMenu/metisMenu-active.js"></script>
-	<!-- morrisjs JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/sparkline/jquery.sparkline.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/sparkline/jquery.charts-sparkline.js"></script>
-	<script src="${pageContext.request.contextPath}/js/sparkline/sparkline-active.js"></script>
-	<!-- calendar JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/calendar/moment.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/calendar/fullcalendar.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script>
-	<!-- plugins JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/plugins.js"></script>
-	<!-- main JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/main.js"></script>
-	<!-- tawk chat JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
 </body>
 
 </html>
