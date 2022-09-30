@@ -92,7 +92,7 @@
                                         <ul class="breadcome-menu" style="float: left;">
                                             <li><a href="#">Home</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><a href="/lms/loginCheck/noticeList">QnA</a> <span class="bread-slash"></span>
+                                            <li><a href="/lms/loginCheck/QnAList">QnA</a> <span class="bread-slash"></span>
                                         </ul>
                                     </div>
                                 </div>
@@ -119,7 +119,9 @@
                                         <th>State</th>
                                         <th>CreateDate</th>
                                         <th>UpdateDate</th>
+                                        <c:if test="${userLevel eq 4 || accountId eq qna.accountId}"> 
                                         <th>Setting</th>
+                                        </c:if>
                                     </tr>
                                     <c:forEach var="qna" items="${qnaList}">
                                     <tr>
@@ -139,12 +141,12 @@
                                         <td>${qna.createDate}</td>
                                         <td>${qna.updateDate}</td>
                                         <td>
-                                            <c:if test="${accountId eq notice.accountId}"> 
+                                            <c:if test="${accountId eq qna.accountId}"> 
                                     		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" 
                                     		href="${pageContext.request.contextPath}/loginCheck/modifyQnaForm?qnaNo=${qna.qnaNo}">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
                                             </c:if>
-                                            <c:if test="${userLevel eq 4 || accountId eq notice.accountId}"> 
+                                            <c:if test="${userLevel eq 4 || accountId eq qna.accountId}"> 
                                             <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" 
                                             href="${pageContext.request.contextPath}/loginCheck/removeQna?qnaNo=${qna.qnaNo}">
                                             <i class="fa fa-trash-o" aria-hidden="true" ></i></a>

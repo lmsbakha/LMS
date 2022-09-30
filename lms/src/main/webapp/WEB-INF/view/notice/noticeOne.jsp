@@ -87,7 +87,7 @@
                                             </li>
                                             <li><a href="/lms/loginCheck/noticeList">공지사항</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><a href="/lms/loginCheck/noticeList">상세보기</a> <span class="bread-slash"></span>
+                                            <li>상세보기 <span class="bread-slash"></span>
                                             </li>
                                         </ul>
                                     </div>

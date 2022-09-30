@@ -85,9 +85,9 @@
                                         <ul class="breadcome-menu" style="float: left;">
                                             <li><a href="#">Home</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><a href="/lms/loginCheck/noticeList">QnA</a> <span class="bread-slash">/</span>
+                                            <li><a href="/lms/loginCheck/QnAList">QnA</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><a href="/lms/loginCheck/noticeList">상세보기</a> <span class="bread-slash"></span>
+                                            <li>상세보기 <span class="bread-slash"></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -108,13 +108,16 @@
                                         <div class="blog-details blog-sig-details">
                                        	 	<label for="noticeTitle">제목</label>
                                             <h1> ${qnaQuestion.qnaQuestionTitle}</h1>
+                                            <p> 작성자: ${qnaQuestion.accountId}</p>
                                             <hr>
                                             <div style="font-size:12px; text-align:right;">작성일: ${qnaQuestion.createDate}</div>
                                             <div style="font-size:12px; text-align:right;">수정일: ${qnaQuestion.updateDate}</div>
                                             
                                             <label for="noticeContent">질문</label>
                                             <p>${qnaQuestion.qnaQuestionContent}</p>
+                                            <br>
                                             <hr>
+                                            <br>
                                             <div class="add-product">
                                 				<a href="/lms/loginCheck/QnAList">목록으로</a>                           				
                             				</div>
@@ -122,13 +125,16 @@
                                     </div>
                                     <c:if test="${qnaAnswer.qnaAnswerTitle != null}">
 	                                        <div class="blog-details blog-sig-details">
-	                                            <h3>${qnaAnswer.qnaAnswerTitle}</h3>
+	                                        	<label for="noticeTitle">제목</label>
+	                                            <h1>${qnaAnswer.qnaAnswerTitle}</h1>
+	                                            <p>작성자: ${qnaAnswer.accountId}</p>
 	                                            <hr>
 	                                            <div style="font-size:12px; text-align:right;">작성일: ${qnaAnswer.createDate}</div>
 	                                            <div style="font-size:12px; text-align:right;">수정일: ${qnaAnswer.updateDate}</div>
 	                                            
 	                                            <label for="noticeContent">답변</label>
 	                                            <p>${qnaAnswer.qnaAnswerContent}</p>
+	                                            <br>
 	                                            <hr>
                                         	</div>
                                        </c:if> 
