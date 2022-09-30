@@ -11,10 +11,12 @@ import com.gd.lms.vo.QnaQuestion;
 public interface QnaMapper {
 	// 질문 리스트 조회
 	List selectQnaList();
-	// 질문 상세보기
-	QnaQuestion selectQnaOne(int QnaNo);
+	
 	/////////////////////////////////////////////////////
 	
+	// 질문 상세보기
+	QnaQuestion selectQnaQuestionOne(int qnaNo);
+		
 	// 질문 작성 액션
 	int insertQuestion(QnaQuestion question);
 	// 질문 수정 액션
@@ -24,10 +26,14 @@ public interface QnaMapper {
 	
 	/////////////////////////////////////////////////////
 		
-	// 질문 작성 액션
+	// 답변 상세보기
+	QnaAnswer selectQnaAnswerOne(int qnaNo);
+	
+	// 답변 작성 액션
 	int insertAnswer(QnaAnswer answer);
-	// 질문 수정 액션
+	// 답변 수정 액션
 	int updateAnswer(QnaAnswer qna);
-	// 질문 삭제 액션	
+	// 답변 삭제 액션	
 	int deleteAnswer(int questionNo);
+
 }

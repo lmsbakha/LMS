@@ -1,6 +1,7 @@
 package com.gd.lms.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.QnaService;
@@ -39,7 +41,7 @@ public class QnaController {
 		log.debug(TeamColor.LHN + "userLevel: " + userLevel + TeamColor.TEXT_RESET);
 
 		// 리스트 불러오기
-		// 어차피 답변은 상세보기에서만 노출될 것이기 때문에 질문만 불러옴
+		// 어차피 답변은 상세보기에서만 노출될 것이기 때문에 질문 제목만 불러옴
 		List<QnaQuestion> qnaList = qnaService.getQnaList();	
 		log.debug(TeamColor.LHN + "qnaList: " + qnaList + TeamColor.TEXT_RESET);
 			
@@ -53,7 +55,16 @@ public class QnaController {
 	}
 	
 	// 질문 상세보기
-	
+	@GetMapping("/loginCheck/qnaOne")
+	public String QnaOne(Model model, @RequestParam("qnaNo") int qnaNo) {
+		log.debug(TeamColor.LHN + "qna 상세보기" + TeamColor.TEXT_RESET);
+		
+		Map<String, Object> qna = qnaService.showQnaOne(qnaNo);
+		log.debug(TeamColor.LHN + "qna 내용 " + qna +  TeamColor.TEXT_RESET);
+		
+		model.addAttribute("qnaQuestion", qna);
+		return "qna/qnaOne";
+	}
 	
 	/////////////////////////////////////////////////////
 	
@@ -64,7 +75,7 @@ public class QnaController {
 	// 질문 작성 액션
 	
 	
-	// 질문 수정 폼
+	// 질문 수정 폼 => 답변 완료 시 수정 불가, 삭제만 가능
 	
 	
 	// 질문 수정 액션
@@ -76,7 +87,7 @@ public class QnaController {
 	/////////////////////////////////////////////////////
 	
 	
-	// 답변 작성 폼
+	// 답변 작성 폼		=> 수정 없음 => 있음...
 	
 	
 	// 답변 작성 액션
@@ -84,9 +95,7 @@ public class QnaController {
 	
 	// 답변 수정 폼
 	
-	
 	// 답변 수정 액션
-	
 	
 	// 답변 삭제 액션
 }

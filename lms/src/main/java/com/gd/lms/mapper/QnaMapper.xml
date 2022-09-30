@@ -10,19 +10,42 @@
 				account_id 				accountId, 
 				qna_disclosure 			qnaQuestionDisclosure,
 				qna_state				qnaQuestionState,
-				create_date 			createDate
+				create_date 			createDate,
+				update_date				updateDate
 	FROM 		qna_question
 	ORDER BY 	create_date DESC
+	</select>
+
+	<!-- Qna 질문 상세보기 -->
+	<select id="selectQnaQuestionOne" parameterType="int" resultType="com.gd.lms.vo.QnaQuestion">
+	SELECT
+		qna_question_no 		qnaQuestionNo,
+		qna_question_title 		qnaQuestionTitle, 
+		qna_question_content 	qnaQuestionContent, 
+		account_id 				accountId, 
+		qna_disclosure 			qnaQuestionDisclosure,
+		qna_state				qnaQuestionState,
+		create_date 			createDate,
+		update_date				updateDate
+	FROM	qna_question
+	WHERE qna_question_no = ${qnaNo}
 	</select>
 
 
 
 
-
-
-
-
-
+	<!-- Qna 답변 상세보기 -->
+	<select id="selectQnaAnswerOne" parameterType="int" resultType="com.gd.lms.vo.QnaAnswer">
+	SELECT
+		qna_answer_no 			qnaAnswerNo,
+		qna_answer_title 		qnaAnswerTitle, 
+		qna_answer_content 		qnaAnswerContent, 
+		account_id 				accountId,
+		create_date 			createDate,
+		update_date				updateDate
+	FROM	qna_answer
+	WHERE qna_answer_no = ${qnaNo}
+	</select>
 
 
 

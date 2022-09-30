@@ -117,7 +117,8 @@
                                         <th>Id</th>
                                         <th>Title</th>
                                         <th>State</th>
-                                        <th>Date</th>
+                                        <th>CreateDate</th>
+                                        <th>UpdateDate</th>
                                         <th>Setting</th>
                                     </tr>
                                     <c:forEach var="qna" items="${qnaList}">
@@ -126,13 +127,22 @@
                                         <td>${qna.accountId}</td>
                                         <td><a href="${pageContext.request.contextPath}/loginCheck/qnaOne?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
                                         <td>
-                                           <button class="pd-setting"> 대기중 </button>
-												 
+                                        	<button class="pd-setting"> 대기중 </button>
+											<button class="pd-setting"> 답변완료 </button>	 
                                         </td>
                                         <td>${qna.createDate}</td>
+                                        <td>${qna.updateDate}</td>
                                         <td>
-                                            <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                            <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                            <c:if test="${accountId eq notice.accountId}"> 
+                                    		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" 
+                                    		href="${pageContext.request.contextPath}/loginCheck/modifyQnaForm?qnaNo=${qna.qnaNo}">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
+                                            </c:if>
+                                            <c:if test="${userLevel eq 4 || accountId eq notice.accountId}"> 
+                                            <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" 
+                                            href="${pageContext.request.contextPath}/loginCheck/removeQna?qnaNo=${qna.qnaNo}">
+                                            <i class="fa fa-trash-o" aria-hidden="true" ></i></a>
+                                            </c:if>
                                         </td>
                                     </tr>
                                    	</c:forEach>
