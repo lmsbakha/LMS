@@ -23,7 +23,7 @@ public interface ReportSubmitMapper {
 	 * 리턴값 : List<ReportSubmit>
 	 * reportSubmitList.jsp
 	 */
-	List<ReportSubmit> selectReportListByReport(int reportNo);
+	Map<String, Object> selectReportListByReport(int reportNo);
 	
 	/* 사용 X
 	 * 제출한 과제 전체 리스트 조회 메소드
@@ -72,7 +72,7 @@ public interface ReportSubmitMapper {
 	 * 파라미터 : reportSubmitNo
 	 * 리턴값 : Map<String, Object>
      */	
-	List<ReportSubmit> ReportSubmitOne(Map<String, Object> paramMap);
+	List<ReportSubmit> ReportSubmitOne(int reportNo);
 
 	/*
 	 * 제출한 과제 수정하는 메소드 Action
@@ -82,6 +82,15 @@ public interface ReportSubmitMapper {
 	int updateReportSubmit(ReportSubmit reportSubmit);
 
 	/*
+	 * 제출한 과제 점수 수정하는 메소드 Form
+	 * 파라미터 : reportSubmitNo
+	 * 리턴값 : int
+	 * reportSubmitScore.jsp
+	 */
+	List<ReportSubmit> updateReportSubmitScoreForm(ReportSubmit reportSubmit);
+
+	
+	/*
 	 * 제출한 과제 점수 수정하는 메소드 Action
 	 * 파라미터 : reportSubmitNo
 	 * 리턴값 : int
@@ -89,9 +98,11 @@ public interface ReportSubmitMapper {
 	int updateReportScore(int reportSubmitNo);
 
 	/*
-	 *  제출한 과제 삭제하는 메소드
-	 *  파라미터 : reportSubmitNo
-	 *  리턴값 : int
+	 * 관리자, 행정 가능
+	 * 제출한 과제 삭제하는 메소드
+	 * 파라미터 : reportSubmitNo
+	 * 리턴값 : int
+	 * 
 	 */
 	int deleteReportSubmit(int reportSubmitNo);
 }

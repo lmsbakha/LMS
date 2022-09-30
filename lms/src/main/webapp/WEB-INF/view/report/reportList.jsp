@@ -167,7 +167,7 @@
 										<th>reportStartDate</th>
 										<th>reportEndDate</th>
 										<th>modify / remove</th>
-										<th>reportSubmit</th>
+										<th style="width: 150px">reportSubmit</th>
 									</tr>
 									<c:forEach var="report" items="${reportList}">
 										<tr>

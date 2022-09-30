@@ -113,10 +113,10 @@
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
 										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/reportList">과제</a>
+											href="${pageContext.request.contextPath}/loginCheck/reportList?reportNo=${reportSubmitOne.get(0).reportNo}">과제</a>
 											<span class="bread-slash">/</span></li>
 										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">제출</a>
+											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${reportSubmitOne.get(0).reportNo}">제출 리스트</a>
 											<span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">상세보기</span></li>
 									</ul>
@@ -169,7 +169,7 @@
 							</div>
 						</div>
 						<div class="payment-adress">
-							<a href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById"><button type="button" id="ReportSubmitOneBtn"
+							<a href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${reportSubmitOne.get(0).reportNo}"><button type="button" id="ReportSubmitOneBtn"
 								class="btn btn-primary waves-effect waves-light"
 								style="float: right; margin-top: 3%; margin-right: 3%;">reportSubmitList</button></a>
 						</div>

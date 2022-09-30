@@ -112,7 +112,13 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
+										<li><a
+											href="${pageContext.request.contextPath}/loginCheck/reportList">과제</a>
+											<span class="bread-slash">/</span></li>
+										<li><a
+											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">제출</a>
+											<span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">상세보기</span></li>
 									</ul>
 								</div>
 							</div>
@@ -126,52 +132,55 @@
 		<div class="container-fluid">
 			<form
 				action="${pageContext.request.contextPath}/loginCheck/modifyReportScore"
-				id="reportListForm" method="post">
+				id="modifyReportScoreForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="product-status-wrap drp-lst"  style="padding:2%;">
-							<h4>Modify ReportScore</h4>
+						<div class="product-status-wrap drp-lst" style="padding: 2%;">
+							<h4>Modify ReportSubmitScore </h4>
 							<hr>
 							<div class="form-group">
-								<div class="row">
-									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-										<label for="subjectName">subjectName</label> <select
-											class="form-control custom-select-value" name="subjectName"
-											id="subjectName" required="required">
-											<option value="defalut">::::::::: 과목선택 :::::::::</option>
-											<c:forEach var="subject" items="${subjectNameList}">
-												<option value="${subject.subjectName}">${subject.subjectName}</option>
-											</c:forEach>
-										</select>
-									</div>
+								<label for="reportSubmitNo">reportSubmitNo</label> <input
+									name="reportSubmitNo" class="form-control" type="text"
+									value="${reportSubmitOne.get(0).reportSubmitNo}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="reportNo">reportNo</label> <input name="reportNo"
+									id="reportNo" type="text" class="form-control"
+									value="${reportSubmitOne.get(0).reportNo}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="reportSubmitTitle">reportSubmitTitle</label> <input
+									name="reportSubmitTitle" id="reportSubmitTitle" type="text"
+									class="form-control" readonly
+									value="${reportSubmitOne.get(0).reportSubmitTitle}">
+							</div>
+							<div class="form-group edit-ta-resize res-mg-t-15">
+								<label for="reportSubmitContent">reportSubmitContent</label>
+								<textarea name="reportSubmitContent" id="reportSubmitContent"
+									style="background-color: #e5e6e7;" readonly>${reportSubmitOne.get(0).reportSubmitContent}</textarea>
+							</div>
+							<div class="form-group edit-ta-resize res-mg-t-15">
+								<label for="reportSubmitScore">ReportSubmitScore</label>
+								<input name="reportSubmitScore" id="reportSubmitScore"
+									style="background-color: #e5e6e7;" value="${reportSubmitOne.get(0).reportSubmitScore}" readonly>
+							</div>
+							<div class="form-group alert-up-pd">
+								<div class="dz-message needsclick download-custom">
+									<i class="fa fa-download edudropnone" aria-hidden="true"></i> <input
+										name="reportSubmitFile" id="filename" class="form-control"
+										type="text" multiple="multiple"
+										value="${reportSubmitOne.get(0).reportSubmitOriginName}.${reportSubmitOne.get(0).reportSubmitFileType}"
+										readonly>
 								</div>
 							</div>
-							<div class="asset-inner">
-								<table>
-									<tr>
-										<th>reportNo</th>
-										<th>subjectName</th>
-										<th>reportTitle</th>
-										<th>createDate</th>
-										<th>accuontId</th>
-										<th>reportSubmitScore</th>
-									</tr>
-									<c:forEach var="reportSubmit" items="${reportSubmitList}">
-										<tr>
-											<td>${reportSubmit.reportNo}</td>
-											<td>${reportSubmit.subjectName}</td>
-											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportNo=${report.reportNo}">
-													${reportSubmit.reportTitle} </a></td>
-											<td>${reportSubmit.createDate}</td>
-											<td>${reportSubmit.accuontId}</td>
-											<td>${reportSubmit.reportSubmitScore}</td>
-										</tr>
-									</c:forEach>
-								</table>
-							</div>
+						</div>
+						<div class="payment-adress">
+							<button type="button" id=modifyScoreBtn
+								class="btn btn-primary waves-effect waves-light"
+								style="float: right; margin-top: 3%; margin-right: 3%;">수정하기</button>
 						</div>
 					</div>
+
 				</div>
 			</form>
 			<!-- </form> -->
@@ -183,7 +192,6 @@
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<!-- jquery
 		============================================ -->
 	<script
@@ -254,6 +262,13 @@
 		src="${pageContext.request.contextPath}/js/calendar/fullcalendar.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script>
+	<!-- dropzone JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/dropzone/dropzone.js"></script>
+	<!-- tab JS
+		============================================ -->
+	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 	<!-- plugins JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/plugins.js"></script>
@@ -263,47 +278,15 @@
 	<!-- tawk chat JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
-	<!-- data table JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/tableExport.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/data-table-active.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-editable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-editable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-resizable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/colResizable-1.5.source.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-export.js"></script>
-	<!--  editable JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/editable/jquery.mockjax.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/mock-active.js"></script>
-	<script src="${pageContext.request.contextPath}/js/editable/select2.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/moment.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/bootstrap-datetimepicker.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/bootstrap-editable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/xediable-active.js"></script>
-	<!-- Chart JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/peity/peity-active.js"></script>
-	<!-- tab JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 </body>
+<script>
+	$('#modifyScoreBtn').click(function() {
+		if ($('#reportSubmitScore').val() == 'defalut') {
+			alert('점수를 선택해주세요.');
+		} else {
+			alert('점수를 수정하시겠습니까?');
+			$('#modifyReportScoreForm').submit();
+		}
+	});
+</script>
 </html>

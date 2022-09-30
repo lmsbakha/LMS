@@ -54,32 +54,31 @@
 	<select id="selectReportListBySubject" parameterType="Map"
 		resultType="Map">
 		SELECT DISTINCT
-		report_submit_no reportSubmitNo,
-		education_no educationNo,
-		account_id accountId,
-		report_no reporNo,
-		report_submit_title reportSubmitTitle,
-		report_submit_content
-		reportSubmitContent,
-		report_submit_score reportSubmitScore,
-		report_submit_state reportSubmitState,
-		create_date createDate
+			report_submit_no reportSubmitNo,
+			education_no educationNo,
+			account_id accountId,
+			report_no reporNo,
+			report_submit_title reportSubmitTitle,
+			report_submit_content
+			reportSubmitContent,
+			report_submit_score reportSubmitScore,
+			report_submit_state reportSubmitState,
+			create_date createDate
 		FROM
-		report_submit rs INNER JOIN lecture_subject
+			report_submit rs INNER JOIN lecture_subject
 		WHERE
-		lecture_name =
-		#{lectureName}
+			lecture_name = #{lectureName}
 	</select>
 	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
 
 	<!-- 과제별 제출한 과제 리스트 조회 메소드 -->
-	<select id="selectReportListByReport" parameterType="int"
-		resultType="List">
+	<!-- reportSubmitList.jsp -->
+	<select id="selectReportListByReport" parameterType="Map" resultType="Map">
 		SELECT
 			rs.report_submit_no reportSubmitNo,
 			rs.education_no educationNo,
 			rs.account_id accountId,
-			rs.report_no reporNo,
+			rs.report_no reportNo,
 			rs.report_submit_title reportSubmitTitle,
 			rs.report_submit_content reportSubmitContent,
 			rs.report_submit_score reportSubmitScore,
@@ -103,23 +102,23 @@
 		</selectKey>
 		INSERT INTO
 		report_submit (
-		report_no,
-		education_no,
-		account_id,
-		report_submit_title,
-		report_submit_content,
-		report_submit_state,
-		report_submit_score,
-		update_date, create_date)
+			report_no,
+			education_no,
+			account_id,
+			report_submit_title,
+			report_submit_content,
+			report_submit_state,
+			report_submit_score,
+			update_date, create_date)
 		VALUES (
-		#{reportNo}
-		,#{educationNo}
-		,#{accountId}
-		,#{reportSubmitTitle}
-		,#{reportSubmitContent}
-		,'Y'
-		,'F',
-		NOW(),NOW())
+			#{reportNo}
+			,#{educationNo}
+			,#{accountId}
+			,#{reportSubmitTitle}
+			,#{reportSubmitContent}
+			,'Y'
+			,'F',
+			NOW(),NOW())
 	</insert>
 	<!-- 과제 제출하기 메소드 -->
 
@@ -142,31 +141,29 @@
 	<!-- 과제 제출 첨부파일 업로드 메소드 -->
 
 	<!-- 제출한 과제 상세보기 -->
-	<select id="ReportSubmitOne" parameterType="Map"
+	<select id="ReportSubmitOne" parameterType="int"
 		resultType="Map">
 		SELECT
-		rs.report_submit_no reportSubmitNo,
-		rs.education_no
-		educationNo,
-		rs.account_id accountId,
-		rs.report_no reportNo,
-		rs.report_submit_title reportSubmitTitle,
-		rs.report_submit_content
-		reportSubmitContent,
-		rs.report_submit_score reportSubmitScore,
-		rs.report_submit_state reportSubmitState,
-		rs.create_date createDate,
-		rsf.report_submit_file_no reportSubmitFileNo,
-		rsf.report_submit_filename reportSubmitFilename,
-		rsf.report_submit_origin_name reportSubmitOriginName,
-		rsf.report_submit_file_type reportSubmitFileType
-		FROM report_submit rs
+			rs.report_submit_no reportSubmitNo,
+			rs.education_no educationNo,
+			rs.account_id accountId,
+			rs.report_no reportNo,
+			rs.report_submit_title reportSubmitTitle,
+			rs.report_submit_content
+			reportSubmitContent,
+			rs.report_submit_score reportSubmitScore,
+			rs.report_submit_state reportSubmitState,
+			rs.create_date createDate,
+			rsf.report_submit_file_no reportSubmitFileNo,
+			rsf.report_submit_filename reportSubmitFilename,
+			rsf.report_submit_origin_name reportSubmitOriginName,
+			rsf.report_submit_file_type reportSubmitFileType
+		FROM report_submit rs 
 		INNER JOIN
-		report_submit_file rsf
+			report_submit_file rsf
 		USING(report_submit_no)
 		WHERE
-		report_submit_no =
-		#{reportSubmitNo}
+			report_submit_no = #{reportSubmitNo}
 	</select>
 	<!-- 제출한 과제 상세보기 -->
 
@@ -181,8 +178,28 @@
 		WHERE report_submit_no = #{reportSubmitNo}
 	</update>
 	<!-- 제출한 과제 수정하기 Action -->
-
+	
+	<!-- 제출한 과제별 상세보기  -->
+	<!-- modifyReportScore.jsp -->
+	<select id="updateReportSubmitScoreForm" parameterType="com.gd.lms.vo.ReportSubmit" resultType="com.gd.lms.vo.ReportSubmit">
+	SELECT 
+	report_submit_no reportSubmitNo,
+		report_no,
+		education_no,
+		account_id,
+		report_submit_title,
+		report_submit_content,
+		report_submit_state,
+		report_submit_score,
+		update_date, create_date
+		FROM 
+		report_submit 
+		WHERE report_submit_no= 3
+	</select>
+	<!-- 제출한 과제별 상세보기  -->
+		
 	<!-- 제출한 과제 점수 수정하기 -->
+	<!-- modifyReportScore.jsp -->
 	<update id="updateReportScore" parameterType="int">
 		UPDATE
 		report_submit

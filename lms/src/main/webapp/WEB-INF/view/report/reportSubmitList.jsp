@@ -113,7 +113,7 @@
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
 										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList">과제</a>
+											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${reportSubmitList.reportNo}">과제</a>
 											<span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">제출리스트</span></li>
 									</ul>
@@ -144,30 +144,33 @@
 							</c:if>
 							<div class="asset-inner">
 								<table>
-									<tr>
+									<tr style="text-align: center;">
+										<th>reportSubmitNo</th>
 										<th>reportNo</th>
 										<th>subjectName</th>
 										<th>reportTitle</th>
 										<th>createDate</th>
 										<th>accuontId</th>
 										<th>reportSubmitScore</th>
+										<th>modify</th>
 									</tr>
-									<c:forEach var="reportSubmitList"
-										items="${reportSubmitList}">
-										<tr>
+									<c:forEach var="reportSubmitList" items="${reportSubmitList}">
+										<tr style="text-align: center;">
+											<td>${reportSubmitList.reportSubmitNo}</td>
 											<td>${reportSubmitList.reportNo}</td>
 											<td>${reportSubmitList.subjectName}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportNo=${reportSubmitList.reportNo}">
-													${reportSubmitList.reportTitle} </a></td>
+												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${reportSubmitListㄴ.reportSubmitNo}">
+													${reportSubmitList.reportSubmitTitle} </a></td>
 											<td>${reportSubmitList.createDate}</td>
-											<td>${reportSubmitList.accuontId}</td>
+											<td>${reportSubmitList.accountId}</td>
 											<td>${reportSubmitList.reportSubmitScore}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?accountId=${reportSubmitList.accountId}">
+												href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?reportSubmitNo=${reportSubmitList.reportSubmitNo}">
 													<button data-toggle="tooltip" title="Edit"
 														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+														<i class="fa fa-pencil-square-o" aria-hidden="true">점수
+															수정</i>
 													</button>
 											</a></td>
 										</tr>
