@@ -38,7 +38,7 @@
 	<select id="selectQnaAnswerOne" parameterType="int" resultType="com.gd.lms.vo.QnaAnswer">
 	SELECT
 		qna_answer_no 			qnaAnswerNo,
-		qna_answer_title 		qnaAnswerTitle, 
+		qna_answer_title		qnaAnswerTitle,
 		qna_answer_content 		qnaAnswerContent, 
 		account_id 				accountId,
 		create_date 			createDate,

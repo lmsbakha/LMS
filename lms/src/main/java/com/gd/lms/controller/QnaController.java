@@ -1,7 +1,6 @@
 package com.gd.lms.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.QnaService;
+import com.gd.lms.vo.QnaAnswer;
 import com.gd.lms.vo.QnaQuestion;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,14 +44,15 @@ public class QnaController {
 		// 어차피 답변은 상세보기에서만 노출될 것이기 때문에 질문 제목만 불러옴
 		List<QnaQuestion> qnaList = qnaService.getQnaList();	
 		log.debug(TeamColor.LHN + "qnaList: " + qnaList + TeamColor.TEXT_RESET);
-			
+		
+		
 		// model에 데이터 세팅
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("userLevel", userLevel);
 		model.addAttribute("accountId", accountId);
+		
 
 		return "qna/qnaList";
-		
 	}
 	
 	// 질문 상세보기
@@ -59,10 +60,28 @@ public class QnaController {
 	public String QnaOne(Model model, @RequestParam("qnaNo") int qnaNo) {
 		log.debug(TeamColor.LHN + "qna 상세보기" + TeamColor.TEXT_RESET);
 		
-		Map<String, Object> qna = qnaService.showQnaOne(qnaNo);
-		log.debug(TeamColor.LHN + "qna 내용 " + qna +  TeamColor.TEXT_RESET);
+		// 대기중일 경우 질문만 노출, 답변완료 상태일 경우 답변까지 노출
+		boolean state = qnaService.qnaState(qnaNo);
+		log.debug(TeamColor.LHN + "답변여부" + state + TeamColor.TEXT_RESET);
 		
-		model.addAttribute("qnaQuestion", qna);
+		QnaQuestion qnaQuestion = qnaService.showQnaQuestionOne(qnaNo);
+		log.debug(TeamColor.LHN + "질문: " + qnaQuestion + TeamColor.TEXT_RESET);
+		
+		if(state==true) { 	// 답변 있을 경우
+			log.debug(TeamColor.LHN + "답변 있음" + TeamColor.TEXT_RESET);
+
+			QnaAnswer qnaAnswer = qnaService.showQnaAnswerOne(qnaNo);
+			log.debug(TeamColor.LHN + "답변: " + qnaAnswer + TeamColor.TEXT_RESET);	
+			
+			// model에 담기
+			model.addAttribute("qnaAnswer", qnaAnswer);
+		}else {				//답변 없을 경우
+			log.debug(TeamColor.LHN + "답변 없음" + TeamColor.TEXT_RESET);
+		}
+		
+		// model에 담기
+		model.addAttribute("qnaQuestion", qnaQuestion);
+
 		return "qna/qnaOne";
 	}
 	

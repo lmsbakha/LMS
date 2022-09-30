@@ -1,9 +1,13 @@
 package com.gd.lms.vo;
 
+import lombok.Data;
+
+@Data
 public class QnaAnswer {
-	private int qnaAnswerNo;				// qna 인덱스 번호
-	private String qnaAnswerTitle;			// 문의사항 제목		
+	private int qnaAnswerNo;				// qna 인덱스 번호	
+	private String qnaAnswerTitle;			// 문의사항 제목
 	private String qnaAnswerContent;		// 문의사항 내용	
 	private String accountId;				// 계정 아이디
 	private String createDate;				// 문의사항 등록일
+	private String updateDate;				// 문의사항 수정일
 }

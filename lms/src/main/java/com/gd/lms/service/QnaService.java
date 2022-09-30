@@ -22,47 +22,45 @@ public class QnaService {
 	@Autowired
 	private QnaMapper qnaMapper;
 	
-	
 	// 질문 리스트 조회
 	public List<QnaQuestion> getQnaList() {
 		return qnaMapper.selectQnaList();
 	}
 	
-	// 질문 상세보기
-	// 대기중일 경우 질문만 노출, 답변완료 상태일 경우 답변까지 노출
-	public Map showQnaOne(int qnaNo){
-		Map<String, Object> qnaMap = new HashMap();
-		
+	// 답변여부
+	public boolean qnaState(int qnaNo) {
 		// 객체에 mapper 질문글 담기
 		QnaQuestion qnaQuestion = null;
 		qnaQuestion = qnaMapper.selectQnaQuestionOne(qnaNo);
 		log.debug(TeamColor.LHN + "qnaQuestion: " + qnaQuestion + TeamColor.TEXT_RESET);
 		
 		String state = qnaQuestion.getQnaQuestionState();
-		log.debug(TeamColor.LHN + "state: " + state + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.LHN + "답변여부: " + (state.equals("답변완료")) + TeamColor.TEXT_RESET);
-		
-		// 답변여부가 "답변완료" 인 경우
-		if(state.equals("답변완료")) {	
-			log.debug(TeamColor.LHN + "답변 완료된 게시글입니다. " + TeamColor.TEXT_RESET);
-			
-			// 답변 담기
-			QnaAnswer qnaAnswer = null;
-			qnaAnswer = qnaMapper.selectQnaAnswerOne(qnaNo);
-			log.debug(TeamColor.LHN + "qnaAnswer: " + qnaAnswer + TeamColor.TEXT_RESET);
-			
-			qnaMap.put("qnaQuestion", qnaQuestion);
-			qnaMap.put("qnaAnswer", qnaAnswer);
-			log.debug(TeamColor.LHN + "qnaMap: " + qnaMap + TeamColor.TEXT_RESET);
-			
-		}else {	// 미답변일 경우
-			log.debug(TeamColor.LHN + "미답변 게시글입니다. " + TeamColor.TEXT_RESET);
-			
-			qnaMap.put("qnaQuestion", qnaQuestion);
-			log.debug(TeamColor.LHN + "qnaMap: " + qnaMap + TeamColor.TEXT_RESET);
-		}
-		return qnaMap;
+		log.debug(TeamColor.LHN + "답변여부: " + state + TeamColor.TEXT_RESET);
+		// 답변 시 true, 미답변 시 false
+		return state.equals("답변완료");
 	}
+	
+	// 질문 상세보기
+	public QnaQuestion showQnaQuestionOne(int qnaNo){
+		// 객체에 mapper 질문글 담기
+		QnaQuestion qnaQuestion = null;
+		qnaQuestion = qnaMapper.selectQnaQuestionOne(qnaNo);
+		log.debug(TeamColor.LHN + "qnaQuestion: " + qnaQuestion + TeamColor.TEXT_RESET);
+
+		return qnaQuestion;
+	}
+	
+	// 답변 상세보기
+	public QnaAnswer showQnaAnswerOne(int qnaNo) {
+		// 답변 담기
+		QnaAnswer qnaAnswer = null;
+		qnaAnswer = qnaMapper.selectQnaAnswerOne(qnaNo);
+		log.debug(TeamColor.LHN + "qnaAnswer: " + qnaAnswer + TeamColor.TEXT_RESET);
+		
+		return qnaAnswer;		
+	}
+	
+	
 	/////////////////////////////////////////////////////
 	
 	
