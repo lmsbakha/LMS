@@ -15,4 +15,20 @@
 		FROM lecture 
 		WHERE lecture_active='개설승인'
 	</select>
+	<!-- 강좌상세리스트 -->
+	<select id="selectLectureDetailList" resultType="Map">
+		SELECT 
+			lecture_name lectureName
+			, teacher_name teacherName
+			, manager_name managerName
+			, lecture_room_name lectureRoomName
+			, lecture_start_date lectureStartDate
+			, lecture_end_date lectureEndDate
+			, lecture_active lectureActive
+			, lecture_state lectureState
+			, create_date updateDate
+			, update_date createDate
+		FROM lecture
+		ORDER BY lecture_end_date DESC
+	</select>
 </mapper>
