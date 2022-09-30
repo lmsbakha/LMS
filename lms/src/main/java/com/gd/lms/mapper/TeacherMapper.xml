@@ -7,10 +7,12 @@
 		SELECT
 		t.teacher_name teacherName
 		, l.lecture_active lectureActive
-		, l.lecture_name
+		,
+		l.lecture_name
 		lectureName
 		, l.lecture_start_date lectureStartDate
-		, l.lecture_end_date
+		,
+		l.lecture_end_date
 		lectureEndDate
 		FROM teacher t
 		INNER JOIN lecture l
@@ -22,27 +24,17 @@
 		ORDER BY l.lecture_start_date DESC
 	</select>
 
-	<!-- accountId로 확인 강사의 subject 리스트 -->
-	<select id="">
-		SELECT subject_name subjectName, lecture_name lectureName,
-		lecture_subject_no lectureSubjectNo FROM lecture_subject
-		WHERE lecture_name = (SELECT
-		l.lecture_name lectureName
-		FROM teacher t
-		INNER JOIN lecture l
-		USING(teacher_name)
-		WHERE t.account_id=#{accountId})
-
-	</select>
 	<!-- 강사목록 리스트 -->
 	<select id="selectTeacherList"
 		resultType="com.gd.lms.vo.Teacher">
 		SELECT
 		account_id accountId
 		, teacher_name teacherName
-		, teacher_gender teacherGender
+		,
+		teacher_gender teacherGender
 		, teacher_birth teacherBirth
-		, create_date createDate
+		, create_date
+		createDate
 		FROM teacher
 	</select>
 	<!-- /강사목록 리스트 -->
@@ -53,11 +45,14 @@
 		SELECT
 		account_id accountId
 		, teacher_name teacherName
-		, teacher_gender teacherGender
+		,
+		teacher_gender teacherGender
 		, teacher_birth teacherBirth
-		, teacher_email teacherEmail
+		,
+		teacher_email teacherEmail
 		, teacher_address teacherAddress
-		, teacher_detailaddress teacherDetailAddress
+		,
+		teacher_detailaddress teacherDetailAddress
 		, teacher_phone teacherPhone
 		, create_date createDate
 		FROM teacher
@@ -71,12 +66,16 @@
 		SET
 		teacher_name = #{teacherName}
 		, teacher_gender = #{teacherGender}
-		, teacher_birth = #{teacherBirth}
+		,
+		teacher_birth = #{teacherBirth}
 		, teacher_email = #{teacherEmail}
-		, teacher_address = #{teacherAddress}
-		, teacher_detailaddress = #{teacherDetailAddress}
+		,
+		teacher_address = #{teacherAddress}
+		, teacher_detailaddress =
+		#{teacherDetailAddress}
 		, teacher_phone = #{teacherPhone}
-		, update_date updateDate
+		, update_date
+		updateDate
 		WHERE account_id = #{accountId}
 	</update>
 	<!-- /강사 개인정보 수정하기 -->

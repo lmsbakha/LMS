@@ -87,8 +87,8 @@
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">학생관리</span></li>
+										<li><a href="#">강의관리</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">수강생관리</span></li>
 									</ul>
 								</div>
 							</div>
@@ -103,93 +103,87 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="product-status-wrap drp-lst">
-						<h4>학생관리</h4>
-						<hr>
 						<div class="sparkline12-graph">
 							<div class="basic-login-form-ad">
 								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="all-form-element-inner">
-											<!-- 해당 lecture 조회 -->
-											<form action="${pageContext.request.contextPath}/loginCheck/lectureListByTeacherForAttendance" method="post">
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">Lecture 조회</label>
-														</div>
-														<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-															<div class="form-select-list">
-																<select class="form-control custom-select-value" name="lectureName" id="lectureName" required="required">
-																	<option value="defalut">--------Lecture 선택-------</option>
-																	<c:forEach var="l" items="${lectureListByTeacher}">
-																		<option value="${l.lectureName }">${l.lectureName }</option>
-																	</c:forEach>
-																</select>
+
+									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+										<div class="product-status-wrap drp-lst">
+											<h4>Lecture 조회</h4>
+											<hr>
+											<!-- 문제 출제 하기 -->
+											<div class="all-form-element-inner">
+												<!-- 해당 lecture 조회 -->
+												<form action="${pageContext.request.contextPath}/loginCheck/lectureListByTeacherForAttendance" method="post">
+													<div class="form-group-inner">
+														<div class="row">
+															<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+																<div class="form-select-list">
+																	<select class="form-control custom-select-value" name="lectureName" id="lectureName" required="required">
+																		<option value="defalut">------ Lecture 선택 ------</option>
+																		<c:forEach var="l" items="${lectureListByTeacher}">
+																			<option value="${l.lectureName }">${l.lectureName }</option>
+																		</c:forEach>
+																	</select>
+																</div>
+															</div>
+															<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																<button type="submit" class="btn btn-custon-rounded-two btn-primary">조회하기</button>
 															</div>
 														</div>
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<button type="submit" class="btn btn-custon-rounded-two btn-primary">조회하기</button>
-														</div>
 													</div>
-												</div>
-											</form>
-											<!-- /해당 lecture 조회 -->
+												</form>
+												<!-- /해당 lecture 조회 -->
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+										<div class="product-status-wrap drp-lst">
+											<h4>수강생 목록</h4>
+											<!-- 문제 출제 하기 -->
+											<div class="asset-inner">
+												<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
+													<thead>
+														<tr>
+															<th>educationNo(학번)</th>
+															<th>studentName(학생이름)</th>
+															<th>studentId(학생ID)</th>
+															<th>lectureName(강좌)</th>
+															<th>teacherName(담임)</th>
+															<th style="width: 150px">Setting</th>
+														</tr>
+													</thead>
+													<tbody>
+														<c:if test="${empty attendanceList }">
+															<tr>
+																<td colspan="7" style="text-align: center;">--- lecture를 먼저 선택해주세요 ---</td>
+															</tr>
+														</c:if>
+														<c:if test="${not empty attendanceList }">
+															<c:forEach var="map" items="${attendanceList}">
+																<tr>
+																	<td>${map.educationNo}</td>
+																	<td>${map.studentName}</td>
+																	<td>${map.studentId}</td>
+																	<td>${map.lectureName}</td>
+																	<td>${map.teacherName}</td>
+																	<td>
+																		<a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${map.studentId}">
+																			<button type="button" class="btn btn-sm btn-custon-rounded-two btn-primary">
+																				<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i>상세보기
+																			</button>
+																		</a>
+																	</td>
+																</tr>
+															</c:forEach>
+														</c:if>
+													</tbody>
+												</table>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="product-status mg-b-15">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="product-status-wrap drp-lst">
-						<h4>수강생 목록</h4>
-						<!-- 문제 출제 하기 -->
-						<div class="asset-inner">
-							<table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-click-to-select="true" data-toolbar="#toolbar">
-								<thead>
-									<tr>
-										<th>educationNo(학번)</th>
-										<th>studentName(학생이름)</th>
-										<th>studentId(학생ID)</th>
-										<th>lectureName(강좌)</th>
-										<th>teacherName(담임)</th>
-										<th style="width: 150px">Setting</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:if test="${empty attendanceList }">
-										<tr>
-											<td colspan="7" style="text-align: center;">lecture를 먼저 선택해주세요</td>
-										</tr>
-									</c:if>
-									<c:if test="${not empty attendanceList }">
-										<c:forEach var="map" items="${attendanceList}">
-											<tr>
-												<td>${map.educationNo}</td>
-												<td>${map.studentName}</td>
-												<td>${map.studentId}</td>
-												<td>${map.lectureName}</td>
-												<td>${map.teacherName}</td>
-												<td>
-													<a href="#">
-														<button type="button" class="btn btn-sm btn-custon-rounded-two btn-primary">
-															<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i>상세보기
-														</button>
-													</a>
-												</td>
-											</tr>
-										</c:forEach>
-									</c:if>
-								</tbody>
-							</table>
 						</div>
 					</div>
 				</div>

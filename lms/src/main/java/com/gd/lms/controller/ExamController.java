@@ -76,28 +76,38 @@ public class ExamController {
 	@Autowired
 	private ExamAnswerService examAnswerService;
 
-	//=============================================================================
-	// 								강사전용
-	//=============================================================================
-
-	// [강사전용] 시험 메인페이지로 이동하는 메소드 
+	// [공통] 시험 메인페이지로 이동하는 메소드 
 	// 파라미터 : sessionId Model 
-	//리턴값 : lectureListByTeacher exam.jsp
+	// 리턴값 : lectureListByTeacher exam.jsp
 	@GetMapping("/loginCheck/exam")
 	public String exam(HttpSession session, Model model) {
 		// 세션에 저장된 값을 지역변수로 저장
 		String accountId = (String) session.getAttribute("sessionId");
+		int accountLevel = (int) session.getAttribute("sessionLevel");
 		// 디버깅
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
 
-		//LectureService에서 lectureList가져오기
-		List<Lecture> lectureListByTeacher = lectureService.getLectureListByAccoutId(accountId);
+		// 리턴값
+		List<Lecture> lectureListByTeacher = new ArrayList<>();
+
+		if (accountLevel == 2) {	// 강사가 로그인한 경우
+			//LectureService에서 lectureList가져오기
+			lectureListByTeacher = lectureService.getLectureListByAccoutId(accountId);
+		} else if (accountLevel >= 3) {	// 매니저 또는 총관리자가 로그인한 경우
+			//LectureService에서 lectureList가져오기
+			lectureListByTeacher = lectureService.getLectureListByAccoutId();
+		}
+
 		// model 단에 값 저장해서 보내줌
 		model.addAttribute("lectureListByTeacher", lectureListByTeacher);
 
 		return "exam/exam"; // forwarding으로 보내줌
 	}
 
+	//=============================================================================
+	// 								강사전용
+	//=============================================================================
 	// [강사전용] 문제은행 페이지를 보여주는 메소드 
 	// 파라미터 : 객관식 문제를 담은 List를 view로 전송할 Model, 검색어 subjectName 
 	// 리턴값 : 객관식 문제 리스트를 보여줄 문제 은행 view --> questionBank.jsp로 이동
@@ -323,14 +333,12 @@ public class ExamController {
 	// 파라미터 : Model
 	// 리턴값 : resultExam.jsp
 	@GetMapping("/loginCheck/resultExam")
-	public String resultExam(Model model
-			, @RequestParam(value = "examNo") int examNo
-			, @RequestParam(value = "educationNo") int educationNo) {
+	public String resultExam(Model model, @RequestParam(value = "examNo") int examNo, @RequestParam(value = "educationNo") int educationNo) {
 		// 시험결과(제출한 답안, 채점, 정답)을 가져오기 위해서 service call
 		List<Map<String, Object>> resultExam = examAnswerService.getResultExam(examNo, educationNo);
 		// 디버깅
 		log.debug(TeamColor.PSJ + resultExam + "<-- resultExam" + TeamColor.TEXT_RESET);
-		
+
 		// 맞은 개수를 가져오기 위해서
 		// model에 값 셋팅
 		model.addAttribute("resultExam", resultExam);

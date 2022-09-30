@@ -112,12 +112,16 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<c:if test="${sessionLevel >= 2}">
 											<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-											<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
+											<li><a
+												href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList">강의</a>
+												<span class="bread-slash">/</span></li>
 											<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
 										</c:if>
-										<c:if test="${sessionLevel == 1}">
+										<c:if test="${sessionLevel eq 1}">
 											<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-											<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
+											<li><a
+												href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList">강의</a>
+												<span class="bread-slash">/</span></li>
 											<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
 										</c:if>
 									</ul>
@@ -140,21 +144,18 @@
 						<div class="product-status-wrap drp-lst" style="padding: 2%;">
 							<h4>ReportList</h4>
 							<hr>
+							<c:if test="${sessionLevel >= 2}">
+								<div class="add-product">
+									<a
+										href="${pageContext.request.contextPath}/loginCheck/addReport">과제
+										추가</a>
+								</div>
+							</c:if>
 							<c:if test="${sessionLevel == 1}">
 								<div class="add-product">
 									<a
 										href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">나의
 										과제 제출 리스트</a>
-								</div>
-							</c:if>
-							<c:if test="${sessionLevel >= 2}">
-								<div class="add-product">
-									<a
-										href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">
-										학생 과제 제출 리스트</a> <a
-										href="${pageContext.request.contextPath}/loginCheck/addReport">과제
-										추가</a>
-
 								</div>
 							</c:if>
 							<div class="asset-inner">
@@ -165,9 +166,10 @@
 										<th>reportTitle</th>
 										<th>reportStartDate</th>
 										<th>reportEndDate</th>
-										<th></th>
+										<th>modify / remove</th>
+										<th>reportSubmit</th>
 									</tr>
-									<c:forEach var="report" items="${reportSubmitByStudent}">
+									<c:forEach var="report" items="${reportList}">
 										<tr>
 											<td>${report.reportNo}</td>
 											<td>${report.subjectName}</td>
@@ -176,7 +178,8 @@
 													<a>${report.reportTitle}</a>
 													<div>
 														<textarea name="reportContent" id="reportContent"
-															style="width: 300px; border-color: white;" readonly>
+															style="width: 300px; height: 100px; border-color: white;"
+															readonly>
 															 ${report.reportContent}</textarea>
 													</div>
 												</div>
@@ -189,37 +192,45 @@
 													href="${pageContext.request.contextPath}/loginCheck/modifyReport?reportNo=${report.reportNo}">
 														<button data-toggle="tooltip" title="Edit"
 															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+															<i class="fa fa-pencil-square-o" aria-hidden="true">수정하기</i>
 														</button>
 												</a><a
 													href="${pageContext.request.contextPath}/loginCheck/removeReport?reportNo=${report.reportNo}">
 														<button data-toggle="tooltip" title="Trash"
 															class="pd-setting-ed" type="button">
-															<i class="fa fa-trash-o" aria-hidden="true"></i>
+															<i class="fa fa-trash-o" aria-hidden="true">삭제하기</i>
+														</button>
+												</a></td>
+												<td><a
+													href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${report.reportNo}">
+														<button data-toggle="tooltip" title="reportSubmitList"
+															class="pd-setting-ed" type="button">
+															<i class="fa fa-pencil-square-o" aria-hidden="true">제출
+																과제 목록</i>
 														</button>
 												</a></td>
 											</c:if>
-											
+
 											<!-- sessionId가 학생이라면 -->
 											<c:if test="${sessionLevel eq 1}">
-													<c:if test="${report.state eq 0 }">
-														<td><a
-															href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
-																<button data-toggle="tooltip" title="submit"
-																	class="pd-setting-ed" type="button">
-																	<i class="fa fa-pencil-square-o" aria-hidden="true">과제제출</i>
-																</button>
-														</a></td>
-													</c:if>
-													<c:if test="${report.state eq 1 }">
-														<td><a
-															href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">
-																<button data-toggle="tooltip" title="submit"
-																	class="pd-setting-ed" type="button">
-																	<i class="fa fa-pencil-square-o" aria-hidden="true">제출확인</i>
-																</button>
-														</a></td>
-													</c:if>
+												<c:if test="${report.state eq 0 }">
+													<td><a
+														href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
+															<button data-toggle="tooltip" title="submit"
+																class="pd-setting-ed" type="button">
+																<i class="fa fa-pencil-square-o" aria-hidden="true">과제제출</i>
+															</button>
+													</a></td>
+												</c:if>
+												<c:if test="${report.state eq 1 }">
+													<td><a
+														href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">
+															<button data-toggle="tooltip" title="submit"
+																class="pd-setting-ed" type="button">
+																<i class="fa fa-pencil-square-o" aria-hidden="true">제출확인</i>
+															</button>
+													</a></td>
+												</c:if>
 											</c:if>
 										</tr>
 									</c:forEach>

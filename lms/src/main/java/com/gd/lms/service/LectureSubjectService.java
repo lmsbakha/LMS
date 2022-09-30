@@ -22,7 +22,7 @@ public class LectureSubjectService {
 	private LectureSubjectMapper lectureSubjectMapper;
 
 	// 강사가 강의하는 lecture 리스트 가져오기 위한 메소드
-	// 파라미터 : 로그인한 강사 아이디(accountId)
+	// 파라미터 : 강좌명(lectureName)
 	// 리턴값: List<Map<String, Object>>
 	public List<Map<String, Object>> getLectureSubjectList(String lectureName) {
 		// 파라미터 디버깅
@@ -42,5 +42,22 @@ public class LectureSubjectService {
 	public List<LectureSubject> getSubjectNameList(){
 		
 		return lectureSubjectMapper.selectLectureSubjectName();
+	}
+	
+	/*
+	 * 강사와 관련된 강의 리스트 정보 받아오기
+	 * 파라미터 : 강사 아이디 accountId
+	 * 리턴값 : 강사와 관련된 강의 정보 List<LectureSubject>
+	 */
+	public List<LectureSubject> lectureSubjectInfoByTeacher(String accountId){
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+		
+		// lectureSubjectMapper Call
+		List<LectureSubject> lectureSubjectList = lectureSubjectMapper.lectureSubjectInfoByTeacher(accountId);
+		// lectureSubjectList 디버깅
+		log.debug(TeamColor.PSJ + lectureSubjectList + "<-- lectureSubjectList" + TeamColor.TEXT_RESET);
+		
+		return lectureSubjectList;
 	}
 }

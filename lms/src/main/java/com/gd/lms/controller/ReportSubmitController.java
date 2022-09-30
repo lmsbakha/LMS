@@ -63,6 +63,38 @@ public class ReportSubmitController {
 	@Autowired
 	LectureSubjectService lectureSubjectService;
 
+	/*
+	 * 과제별 제출한 과제 리스트 조회 메소드 
+	 * 파라미터 : reportNo 
+	 * 리턴값 : List<ReportSubmit>
+	 * reportSubmitList.jsp
+	 */
+	@GetMapping("/loginCheck/reportSubmitList")
+	String reportSubmitList(Model model, @RequestParam("reportNo") int reportNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@reportSubmitList Controller" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + reportNo + "<--reportNo" + TeamColor.TEXT_RESET);
+
+		// Service Call
+		List<ReportSubmit> reportSubmitList = reportSubmitService.getReportListByReport(reportNo);
+		// 디버깅
+		log.debug(TeamColor.PSY + reportSubmitList + "<--reportSubmitList" + TeamColor.TEXT_RESET);
+
+		// model에 담기
+		model.addAttribute("reportSubmitList", reportSubmitList);
+
+		if (reportSubmitList != null) {
+			// 성공
+			log.debug(TeamColor.PSY + " 과제별 제출한 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
+		} else {
+			// 실패
+			log.debug(TeamColor.PSY + " 과제별 제출한 과제 리스트 조회 실패" + TeamColor.TEXT_RESET);
+		}
+		// reportSubmitList로 이동
+		return "report/reportSubmitList";
+	} // end reportSubmitList
+
 	// 학생별 제출한 과제 리스트 조회 메소드
 	// 파라미터 : reportSubmitListById 담을 Model
 	// 리턴값 : reportSubmitListById.jsp로 이동
@@ -89,6 +121,7 @@ public class ReportSubmitController {
 
 		// model에 담기
 		model.addAttribute("listById", listById);
+
 		if (listById != null) {
 			// 성공
 			log.debug(TeamColor.PSY + " 제출한 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
@@ -100,37 +133,6 @@ public class ReportSubmitController {
 		return "report/reportSubmitListById";
 	} // end reportSubmitListById
 
-	// 강좌별 제출한 과제 리스트 조회 메소드
-	// reportSubmitList Form
-	// 파라미터 : infoAboutTeacher, subjectNameList 담을 Model
-	// 리턴값 : reportSubmitList.jsp로 이동
-	@GetMapping("/loginCheck/reportSubmitList")
-	String reportSubmitList(Model model, HttpSession session) {
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@reportSubmitList Controller" + TeamColor.TEXT_RESET);
-
-		// 세션 받아오기
-		String accountId = (String) session.getAttribute("sessionId");
-		// 로그인한 강사의 아이디 확인
-		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-
-		// lecturName 리스트 받아오기 Service Call
-		List<Lecture> lectureNameList = lectureService.getLectureListByAccoutId(accountId);
-		// 디버깅
-		log.debug(TeamColor.PSY + lectureNameList + "<-- lectureNameList" + TeamColor.TEXT_RESET);
-
-		// 모델단에 전체과목리스트와 과목과정 기간을 addAttribute해서 폼으로 전달
-		model.addAttribute("lectureNameList", lectureNameList);
-
-		if (lectureNameList != null) {
-			// 성공
-			log.debug(TeamColor.PSY + " 강좌리스트, 강의리스트 조회 성공" + TeamColor.TEXT_RESET);
-		} else {
-			// 실패
-			log.debug(TeamColor.PSY + " 강좌리스트, 강의리스트  리스트 조회 실패" + TeamColor.TEXT_RESET);
-		}
-		return "report/reportSubmitList";
-	}
 
 	// 과제 제출하기 메소드
 	// addReportSubmit Form
@@ -273,10 +275,8 @@ public class ReportSubmitController {
 	} // end modifyReportSubmit @GetMapping
 
 	/*
-	 * 제출한 과제 수정하는 메소드 
-	 * modifyReportSubmit Action 
-	 * 파라미터 : reportSubmitNo 담을 Model 
-	 * 리턴값: reportSubmitListById.jsp로 이동
+	 * 제출한 과제 수정하는 메소드 modifyReportSubmit Action 파라미터 : reportSubmitNo 담을 Model 리턴값:
+	 * reportSubmitListById.jsp로 이동
 	 */
 	@PostMapping("/loginCheck/modifyReportSubmit")
 	String modifyReportSubmit(@RequestParam("reportSubmitTitle") String reportSubmitTitle,

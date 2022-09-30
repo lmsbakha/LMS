@@ -16,14 +16,23 @@ import com.gd.lms.vo.ReportSubmitFile;
 @Mapper
 public interface ReportSubmitMapper {
 	
+	
 	/*
+	 * 과제별 제출 리스트 조회 메소드
+	 * 파라미터 : reportNo
+	 * 리턴값 : List<ReportSubmit>
+	 * reportSubmitList.jsp
+	 */
+	List<ReportSubmit> selectReportListByReport(int reportNo);
+	
+	/* 사용 X
 	 * 제출한 과제 전체 리스트 조회 메소드
 	 * 파라미터 : X
 	 * 리턴값 : List<Map<String,Object>>
 	 */
 	List<ReportSubmit> selectReportList();
 	
-	/*
+	/* 사용 X
 	 * 학생별 제출한 과제 리스트 조회 메소드
 	 * 파라미터 : accountId
 	 * 리턴값 : List<Map<String,Object>>

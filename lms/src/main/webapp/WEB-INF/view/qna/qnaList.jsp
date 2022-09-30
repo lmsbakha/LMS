@@ -63,11 +63,10 @@
 <!-- modernizr JS
       ============================================ -->
 <script src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
- <!-- dropzone CSS
-		============================================ -->
-<link rel="stylesheet" href="css/dropzone/dropzone.css">
 </head>
+
 <body>
+   <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
    <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
    <!-- Start sidebar -->
@@ -78,20 +77,22 @@
    <jsp:include page="/WEB-INF/view/inc/topbar.jsp" />
    <!-- End tobbar -->
 
-
-    <!-- Main Contents -->
-	<div class="header-advance-area">
-            <div class="breadcome-area">
+    <!-- Start Welcome area -->
+       <div class="breadcome-area">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="breadcome-list single-page-breadcome">
-                                <div class="row"> 
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="breadcome-heading">
+                                        </div>
+                                    </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <ul class="breadcome-menu" style="float: left;">
-                                            <li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-                                            <li><a href="/lms/loginCheck/noticeList">공지사항</a> <span class="bread-slash">/</span></li>
-                                            <li><a href="/lms/loginCheck/addNotice">신규 공지 작성</a> <span class="bread-slash"></span></li>
+                                            <li><a href="#">Home</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li><a href="/lms/loginCheck/noticeList">QnA</a> <span class="bread-slash"></span>
                                         </ul>
                                     </div>
                                 </div>
@@ -100,53 +101,65 @@
                     </div>
                 </div>
             </div>
-        <div class="single-pro-review-area mt-t-30 mg-b-15">
+        <div class="product-status mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-status-wrap drp-lst">
-                                <h4>Add Notice</h4>
-                                <hr>
-                            <div id="myTabContent" class="tab-content custom-product-edit">
-                                <div class="product-tab-list tab-pane fade active in" id="description">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="review-content-section" >
-                                                    <form action="${pageContext.request.contextPath}/loginCheck/addNotice" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="addNoticeForm" method="post" enctype="multipart/form-data" >
-                                                        <div class="row">
-                                                            <div class="form-group edit-ta-resize res-mg-t-15">
-                                                                <div class="form-group">
-                                                                    <label for="noticeTitle">제목</label> <input name="noticeTitle" id="noticeTitle" type="text" class="form-control">
-                                                                     <input name="accountId" type="hidden" value="${notice.accountId}">
-                                                                </div>
-                                                                <div class="form-group edit-ta-resize res-mg-t-15">
-                                                                    <label for="noticeContent">본문</label> <textarea name="noticeContent" id="noticeContent"  class="form-control" style="resize: none;"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>	
-														<div class="form-group col-lg-12">
-									                		<div class="row">
-	                                                            <div class="col-lg-12">
-	                                                                <div class="payment-adress">
-	                                                                    <button type="submit" id="addNoticeSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
-	                                                                </div>
-	                                                            </div>
-	                                                    	</div>
-                                                    	</div>
-                                                 	</form>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+                            <h4>Departments List</h4>
+                            <div class="add-product">
+                                <a href="add-department.html">질문하기</a>
+                            </div>
+                            <div class="asset-inner">
+                                <table>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Id</th>
+                                        <th>Title</th>
+                                        <th>State</th>
+                                        <th>Date</th>
+                                        <th>Setting</th>
+                                    </tr>
+                                    <c:forEach var="qna" items="${qnaList}">
+                                    <tr>
+                                        <td><a href="${pageContext.request.contextPath}/loginCheck/qnaOne?qnaNo=${qna.qnaNo}">${qna.qnaNo}</a></td>
+                                        <td>${qna.accountId}</td>
+                                        <td><a href="${pageContext.request.contextPath}/loginCheck/qnaOne?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+                                        <td>
+                                           <button class="pd-setting"> 대기중 </button>
+												 
+                                        </td>
+                                        <td>${qna.createDate}</td>
+                                        <td>
+                                            <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                        </td>
+                                    </tr>
+                                   	</c:forEach>
+                                </table>
+                            </div>
+                            <!-- 
+                            <div class="custom-pagination">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                             -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- footer -->
 	<jsp:include page="../inc/footer.jsp" />
-</div>
 
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
@@ -200,23 +213,5 @@
    <!-- tawk chat JS
       ============================================ -->
    <script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
-    <!-- dropzone JS
-		============================================ -->
-    <script src="js/dropzone/dropzone.js"></script>
 </body>
-
-<script>
-
-$('#addNoticeSubmit').click(function() {
-	if ($('#noticeTitle').val() == '') {
-		alert("제목을 입력해 주세요.");
-		$('#noticeTitle').focus();
-		return false;
-	}else if ($('#noticeContent').val() == '') {
-		alert('내용을 입력해주세요.');
-		$('#noticeContent').focus();
-		return false;
-	}
-});
-</script>
 </html>

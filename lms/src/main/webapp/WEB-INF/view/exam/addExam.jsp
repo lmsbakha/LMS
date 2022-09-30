@@ -316,18 +316,14 @@
 	/*
 	 시험출제 버튼을 눌렀을 때 객관식 문항 + 단답형 문항이 10개 초과또는 미만일 경우 alert();
 	 */
-	$('#addExamBtn')
-			.click(
-					function() {
-						if (Number(document.getElementById('multipleCnt').value)
-								+ Number(document
-										.getElementById('shortAnswerCnt').value) == 10) {
-							$('#addExamForm').submit();
-							return;
-						} else {
-							alert('총 문제 수를 10 문항으로 맞춰주세요');
-							return false;
-						}
-					});
+	$('#addExamBtn').click( function() {
+		if (Number(document.getElementById('multipleCnt').value) + Number(document .getElementById('shortAnswerCnt').value) == 10) {
+			$('#addExamForm').submit();
+			return;
+		} else {
+			alert('총 문제 수를 10 문항으로 맞춰주세요');
+			return false;
+		}
+	});
 </script>
 </html>

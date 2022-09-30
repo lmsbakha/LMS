@@ -72,6 +72,27 @@
 	</select>
 	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
 
+	<!-- 과제별 제출한 과제 리스트 조회 메소드 -->
+	<select id="selectReportListByReport" parameterType="int"
+		resultType="List">
+		SELECT
+			rs.report_submit_no reportSubmitNo,
+			rs.education_no educationNo,
+			rs.account_id accountId,
+			rs.report_no reporNo,
+			rs.report_submit_title reportSubmitTitle,
+			rs.report_submit_content reportSubmitContent,
+			rs.report_submit_score reportSubmitScore,
+			rs.report_submit_state reportSubmitState,
+			rs.create_date createDate,
+			r.subject_name subjectName
+		FROM report_submit rs INNER JOIN report r
+		USING(report_no)
+		WHERE report_no = #{reportNo}
+		ORDER BY report_no DESC
+	</select>
+	<!-- 과제별 제출한 과제 리스트 조회 메소드 -->
+
 	<!-- 과제 제출하기 메소드 -->
 	<insert id="insertReportSubmit" useGeneratedKeys="true"
 		keyProperty="reportSubmitNo"

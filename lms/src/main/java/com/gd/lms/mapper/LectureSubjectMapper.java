@@ -17,4 +17,11 @@ public interface LectureSubjectMapper {
 	// 파라미터 : X
 	// 리턴값 : 강의 정보 (List<LectureSubject>)
 	List<LectureSubject>selectLectureSubjectName();
+	
+	/*
+	 * 강사와 관련된 강의 리스트 정보 받아오기
+	 * 파라미터 : 강사 아이디 accountId
+	 * 리턴값 : 강사와 관련된 강의 정보 List<LectureSubject>
+	 */
+	List<LectureSubject> lectureSubjectInfoByTeacher(String accountId);
 }
