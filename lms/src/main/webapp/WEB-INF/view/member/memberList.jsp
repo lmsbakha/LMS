@@ -158,34 +158,49 @@
 										<c:if test="${memberCheck eq 'student'}">
 											<c:forEach var="s" items="${studentList}">
 												<tr>
-													<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${s.accountId}">${s.accountId}</a></td>
+													<td>${s.accountId}</td>
 													<td>${s.studentName}</td>
 													<td>${s.studentGender}</td>
 													<td>${s.studentBirth}</td>
 													<td>${s.createDate}</td>
-													<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${s.accountId}"></a></td>
+													<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${s.accountId}">
+														<button class="btn btn-sm btn-custon-rounded-foue btn-primary">
+															<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i> 상세보기
+														</button>
+													</a></td>
+													
 												</tr>
 											</c:forEach>
 										</c:if>
 										<c:if test="${memberCheck eq 'teacher'}">
 											<c:forEach var="t" items="${teacherList}">
 												<tr>
-													<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${t.accountId}">${t.accountId}</a></td>
+													<td>${t.accountId}</td>
 													<td>${t.teacherName}</td>
 													<td>${t.teacherGender}</td>
 													<td>${t.teacherBirth}</td>
 													<td>${t.createDate}</td>
+													<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${t.accountId}">
+														<button class="btn btn-sm btn-custon-rounded-foue btn-primary">
+															<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i> 상세보기
+														</button>
+													</a></td>
 												</tr>
 											</c:forEach>
 										</c:if>
 										<c:if test="${memberCheck eq 'manager'}">
 											<c:forEach var="m" items="${managerList}">
 												<tr>
-													<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${m.accountId}">${m.accountId}</a></td>
+													<td>${m.accountId}</td>
 													<td>${m.managerName}</td>
 													<td>${m.managerGender}</td>
 													<td>${m.managerBirth}</td>
 													<td>${m.createDate}</td>
+													<td><a href="${pageContext.request.contextPath}/loginCheck/memberOne?accountId=${m.accountId}">
+														<button class="btn btn-sm btn-custon-rounded-foue btn-primary">
+															<i class="fa fa-info-circle edu-informatio" aria-hidden="true"></i> 상세보기
+														</button>
+													</a></td>
 												</tr>
 											</c:forEach>
 										</c:if>

@@ -10,7 +10,8 @@
 			, manager_gender managerGender
 			, manager_birth managerBirth
 			, create_date createDate
-		FROM manager	
+		FROM manager
+		ORDER BY binary(manager_name) ASC	
 	</select>
 	<!-- /행정목록 리스트 -->
 	

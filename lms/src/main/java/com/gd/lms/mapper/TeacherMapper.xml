@@ -30,12 +30,11 @@
 		SELECT
 		account_id accountId
 		, teacher_name teacherName
-		,
-		teacher_gender teacherGender
+		, teacher_gender teacherGender
 		, teacher_birth teacherBirth
-		, create_date
-		createDate
+		, create_date createDate
 		FROM teacher
+		ORDER BY binary(teacher_name) ASC
 	</select>
 	<!-- /강사목록 리스트 -->
 
@@ -45,14 +44,11 @@
 		SELECT
 		account_id accountId
 		, teacher_name teacherName
-		,
-		teacher_gender teacherGender
+		, teacher_gender teacherGender
 		, teacher_birth teacherBirth
-		,
-		teacher_email teacherEmail
+		, teacher_email teacherEmail
 		, teacher_address teacherAddress
-		,
-		teacher_detailaddress teacherDetailAddress
+		, teacher_detailaddress teacherDetailAddress
 		, teacher_phone teacherPhone
 		, create_date createDate
 		FROM teacher
@@ -66,16 +62,12 @@
 		SET
 		teacher_name = #{teacherName}
 		, teacher_gender = #{teacherGender}
-		,
-		teacher_birth = #{teacherBirth}
+		, teacher_birth = #{teacherBirth}
 		, teacher_email = #{teacherEmail}
-		,
-		teacher_address = #{teacherAddress}
-		, teacher_detailaddress =
-		#{teacherDetailAddress}
+		, teacher_address = #{teacherAddress}
+		, teacher_detailaddress = #{teacherDetailAddress}
 		, teacher_phone = #{teacherPhone}
-		, update_date
-		updateDate
+		, update_date updateDate
 		WHERE account_id = #{accountId}
 	</update>
 	<!-- /강사 개인정보 수정하기 -->

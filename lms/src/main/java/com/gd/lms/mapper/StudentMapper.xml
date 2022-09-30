@@ -18,7 +18,8 @@
 			, student_gender studentGender
 			, student_birth studentBirth
 			, create_date createDate
-		FROM student	
+		FROM student
+		ORDER BY binary(student_name) ASC
 	</select>
 	<!-- /학생목록 리스트 -->
 	

@@ -161,7 +161,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				</div>
 				<div class="col-lg-6">
 					<div class="calender-inner">
-						출석 날짜를 선택해주세요
+						<table class="table table-striped">
+							<tr>
+								<th>출석 날짜</th>
+								<td>ㅇㅇㅇㅇㅇㅇㅇ</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
