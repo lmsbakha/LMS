@@ -28,10 +28,6 @@ public class LectureController {
 	@Autowired
 	private ExamService examService;
 
-	// AttendanceService 객체 주입
-	@Autowired
-	private AttendanceService attendanceService;
-
 	// LectureService 객체 주입
 	@Autowired
 	private LectureService lectureService;
@@ -52,38 +48,6 @@ public class LectureController {
 		return "redirect:/loginCheck/exam";
 	}
 
-	// [강사전용] 학생관리 메인페이지로 이동하는 메소드
-	// 파라미터 : 사용자가 선택한 lectureName, 강사 accountId 
-	// 리턴값 : 선택된 강좌의 학생 출석부를 보여주는 학생관리 페이지
-	@PostMapping("/loginCheck/lectureListByTeacherForAttendance")
-	public String lectureListByTeacherForAttendance(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam(value = "lectureName") String lectureName) {
-		// 파라미터 디버깅
-		String accountId = (String) session.getAttribute("sessionId");
-		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
-
-		// 출석부 리스트 service call
-		List<Map<String, Object>> attendanceList = attendanceService.getAttendanceListByTeacher(accountId, lectureName);
-		// redirectAttributes을 통해서 값 전달
-		redirectAttributes.addFlashAttribute("attendanceList", attendanceList);
-
-		return "redirect:/loginCheck/studentbookForTeacher";
-	}
-
-	// [행정/총관리자] 학생관리 메인페이지로 이동하는 메소드
-	// 파라미터 : 사용자가 선택한 lectureName
-	// 리턴값 : 강좌의 학생 출석부를 보여주는 학생관리 페이지
-	@PostMapping("/loginCheck/lectureListByManagerForAttendance")
-	public String lectureListByManagerForAttendance(RedirectAttributes redirectAttributes, @RequestParam(value = "lectureName") String lectureName) {
-		log.debug(TeamColor.PSJ + lectureName + "<-- lectureName" + TeamColor.TEXT_RESET);
-
-		// 출석부 리스트 service call
-		List<Map<String, Object>> attendanceList = attendanceService.getAttendanceListByManager(lectureName);
-		// redirectAttributes을 통해서 값 전달
-		redirectAttributes.addFlashAttribute("attendanceList", attendanceList);
-
-		return "redirect:/loginCheck/studentbookForManager";
-	}
 
 	// [행정/총관리자] 강좌관리 페이지로 이동하는 메소드
 	// 파라미터 : X

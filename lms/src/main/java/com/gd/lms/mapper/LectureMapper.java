@@ -28,4 +28,14 @@ public interface LectureMapper {
 	// 파라미터 : lectureName
 	// 리턴값 : Map<String,Object>
 	Map<String,Object> selectLectureOne(String lectureName);
+	
+	// 강사가 담당하는 해당 강의 수강생 리스트 받아오기
+	// 파라미터 : Map<String, Object> map (accountId, lectureName)
+	// 리턴값 : List<Map<String,Object>>
+	List<Map<String, Object>> selectStudentBookListByTeacher(Map<String, Object> map);
+
+	// 각 클래스 학생들 수강생 리스트 받아오기
+	// 파라미터 : lectureName
+	// 리턴값 : List<Map<String,Object>>
+	List<Map<String, Object>> selectStudentBookListByManager(String lectureName);
 }

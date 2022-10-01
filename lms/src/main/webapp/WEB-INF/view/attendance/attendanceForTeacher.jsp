@@ -152,19 +152,29 @@ document.addEventListener('DOMContentLoaded', function() {
 	</div>
 	<div class="calender-area mg-b-15">
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-6">
-					<div id='script-warning'>
-				    <code>ics/feed.ics</code> must be servable
-				  </div>
-				  <div id='calendar'></div>
-				</div>
-				<div class="col-lg-6">
-					<div class="calender-inner">
+			<div class="calender-inner">
+				<div class="row">
+					<div class="col-lg-6">
+						<div id='script-warning'>
+				   			<code>ics/feed.ics</code> must be servable
+				  		</div>
+				  		<div id='calendar'></div>
+					</div>
+					<div class="col-lg-6"><br><br><br><br><br>
 						<table class="table table-striped">
 							<tr>
 								<th>출석 날짜</th>
-								<td>ㅇㅇㅇㅇㅇㅇㅇ</td>
+								<th>학생 아이디</th>
+								<th>학생 이름</th>
+								<th>출결</th>
+								<th>사유</th>
+							</tr>
+							<tr>
+								<th>2022-04-23</th>
+								<th>chanwoong</th>
+								<th>박찬웅</th>
+								<th>출석</th>
+								<th>-</th>
 							</tr>
 						</table>
 					</div>

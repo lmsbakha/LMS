@@ -1,18 +1,21 @@
 package com.gd.lms.mapper;
-import java.util.List;
+
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface AttendanceMapper {
-	// 강사가 담당하는 클래스 학생들 출석부 가져오기
-	// 파라미터 : Map<String, Object> map (accountId, lectureName)
-	// 리턴값 : List<Map<String,Object>>
-	List<Map<String, Object>> selectAttendanceListByTeacher(Map<String, Object> map);
 
-	// 각 클래스 학생들 출석부 가져오기
-	// 파라미터 : lectureName
-	// 리턴값 : List<Map<String,Object>>
-	List<Map<String, Object>> selectAttendanceListByManager(String lectureName);
+	// 오늘 날짜 구해주기
+	String selectNotDate();
+
+	// 각 강사별 강의명
+	String selectLectureNameByTeacherName(Map<String, Object> map);
+
+	// 각 학생의 educationNo 뽑아오기
+	int selectEducationNo(String accountId);
+
+	// 각 학생의 출결사항 수정
+	int updateAttendance(Map<String, Object> map);
 }

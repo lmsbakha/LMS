@@ -47,4 +47,56 @@
 		FROM lecture
 		WHERE lecture_name = #{lectureName}
 	</select>
+	<!-- 강사가 담당하는 해당 강의 수강생 리스트 받아오기 -->
+	<select id="selectStudentBookListByTeacher" parameterType="Map" resultType="Map">
+	SELECT 
+		w.account_id teacherId
+		, w.teacher_name teacherName
+		, w.lecture_name lectureName
+		, w.education_no educationNo
+		, w.studentId studentId
+		, s.student_name studentName
+	FROM student s
+	INNER JOIN(
+		SELECT e.education_no, e.account_id studentId, z.*
+		FROM education e
+		INNER JOIN(
+			SELECT l.lecture_name, t.account_id, t.teacher_name
+			FROM lecture l
+			INNER JOIN (
+				SELECT account_id, teacher_name
+				FROM teacher
+				WHERE account_id =#{accountId})t
+			ON l.teacher_name=t.teacher_name
+			WHERE l.lecture_name = #{lectureName}
+		)z
+		ON e.lecture_name = z.lecture_name
+	)w
+	ON s.account_id =w.studentId
+	ORDER BY binary(s.student_name) ASC
+	</select>
+
+	<!-- 각 클래스 학생들 수강생 리스트 받아오기 -->
+	<select id="selectStudentBookListByManager" parameterType="String" resultType="Map">
+	SELECT 
+		w.education_no educationNo
+		, s.student_name studentName
+		, w.lecture_name lectureName
+		, w.studentId studentId
+		, w.teacher_name teacherName
+	FROM student s
+	INNER JOIN (
+			SELECT e.education_no, e.lecture_name, e.account_id studentId, z.teacher_name
+			FROM education e
+			INNER JOIN(
+				SELECT l.lecture_name, l.teacher_name
+				FROM lecture l
+				WHERE lecture_name=#{lectureName}
+			)z
+			ON e.lecture_name = z.lecture_name 
+		)w
+	ON s.account_id = w.studentId
+	ORDER BY w.education_no ASC
+	</select>
+	
 </mapper>
