@@ -38,4 +38,6 @@ public interface LectureMapper {
 	// 파라미터 : lectureName
 	// 리턴값 : List<Map<String,Object>>
 	List<Map<String, Object>> selectStudentBookListByManager(String lectureName);
+	
+	// 
 }

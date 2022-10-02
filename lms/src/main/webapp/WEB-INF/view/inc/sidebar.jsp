@@ -27,6 +27,7 @@
 	                        <li>
 	                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-apps icon-wrap"></span> <span class="mini-click-non">나의 강의실</span></a>
 	                            <ul class="submenu-angle app-mini-nb-dp" aria-expanded="false">
+	                            	<li> <a title="나의 강의" href="${pageContext.request.contextPath}/loginCheck/scheduleList"><span class="mini-sub-pro">나의 강의</span></a> </li>
 	                                <li> <a title="과제" href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList"><span class="mini-sub-pro">과제</span></a> </li>
 	                                <li><a title="시험" href="${pageContext.request.contextPath}/loginCheck/examForStudent"><span class="mini-sub-pro">시험</span></a></li>
 	                                <li><a title="성적" href="${pageContext.request.contextPath}/loginCheck/grade"><span class="mini-sub-pro">성적</span></a></li>
@@ -49,6 +50,7 @@
                          <li>
                             <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-apps icon-wrap"></span> <span class="mini-click-non">강의관리</span></a>
                             <ul class="submenu-angle app-mini-nb-dp" aria-expanded="false">
+                            	<li> <a title="나의 강의" href="${pageContext.request.contextPath}/loginCheck/scheduleList"><span class="mini-sub-pro">나의 강의</span></a> </li>
                            		<li><a title="출결관리" href="${pageContext.request.contextPath}/loginCheck/attendanceForTeacher"><span class="mini-sub-pro">출결관리</span></a></li>
                                 <li><a title="과제관리" href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList"><span class="mini-sub-pro">과제관리</span></a></li>
                                 <li><a title="시험관리" href="${pageContext.request.contextPath}/loginCheck/exam"><span class="mini-sub-pro">시험관리</span></a></li>
@@ -73,6 +75,7 @@
                          <li>
                             <a class="has-arrow" href="all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">회원관리</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
+                            	<li> <a title="전체 강의" href="${pageContext.request.contextPath}/loginCheck/scheduleList"><span class="mini-sub-pro">전체 강의</span></a> </li>
                             	<li><a title="출결관리" href="${pageContext.request.contextPath}/loginCheck/attendanceForTeacher"><span class="mini-sub-pro">출결관리</span></a></li>
                                 <li><a title="학생관리" href="${pageContext.request.contextPath}/loginCheck/memberList?memberCheck=student"><span class="mini-sub-pro">학생관리</span></a></li>
                                 <li><a title="강사관리" href="${pageContext.request.contextPath}/loginCheck/memberList?memberCheck=teacher"><span class="mini-sub-pro">강사관리</span></a></li>
