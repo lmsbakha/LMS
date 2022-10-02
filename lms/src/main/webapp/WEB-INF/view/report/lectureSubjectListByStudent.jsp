@@ -132,7 +132,7 @@
 									<th>lectureSubjectNo</th>
 									<th>lectureName</th>
 									<th>subjectName</th>
-									<th style="width: 150px">report</th>
+									<th style="width: 150px;  text-align: center;">report</th>
 								</tr>
 								<c:forEach var="SubjectList"
 									items="${lectureSubjectListByStudent}">
@@ -141,15 +141,15 @@
 										<td>${SubjectList.lectureName}</td>
 										<td>${SubjectList.subjectName}</td>
 										<td><a
-											href="${pageContext.request.contextPath}/loginCheck/reportList?subjectName=${SubjectList.subjectName}">
+											href="${pageContext.request.contextPath}/loginCheck/reportListByStudent?subjectName=${SubjectList.subjectName}">
 												<button data-toggle="tooltip" title="reportList"
 													class="pd-setting-ed" type="button">
 													<i class="fa fa-pencil-square-o" aria-hidden="true">과제
 														리스트</i>
 												</button>
 										</a> <a
-											href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">
-												<button data-toggle="tooltip" title="reportList"
+											href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById?subjectName=${SubjectList.subjectName}">
+												<button data-toggle="tooltip" title="reportSubmitList"
 													class="pd-setting-ed" type="button">
 													<i class="fa fa-pencil-square-o" aria-hidden="true">제출한
 														과제 리스트</i>

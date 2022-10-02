@@ -5,8 +5,7 @@
 	<select id="selectEducationInfo"
 		resultType="com.gd.lms.vo.Education" parameterType="String">
 		SELECT
-		education_no educationNo , lecture_name lectureName, account_id accountId,
-		education_state educationState, education_date educationDate
+		education_no educationNo , lecture_name lectureName, account_id accountId, education_date educationDate
 		FROM education WHERE account_id = #{accountId}
 	</select>
 	<!-- 계정 1 정보 조회 -->

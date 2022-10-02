@@ -110,24 +110,13 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
-										<c:if test="${sessionLevel >= 2}">
-											<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-											<li><a
-												href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList">강의</a>
-												<span class="bread-slash">/</span></li>
-											<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
-										</c:if>
-										<c:if test="${sessionLevel eq 1}">
-											<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-											<li><a
-												href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList">강의</a>
-												<span class="bread-slash">/</span></li>
-											<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
-										</c:if>
+										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
 									</ul>
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
 				</div>
 			</div>
@@ -153,7 +142,7 @@
 										<th>reportStartDate</th>
 										<th>reportEndDate</th>
 										<th>modify / remove</th>
-										<th style="width: 150px">reportSubmit</th>
+										<th style="width: 150px;  text-align: center;">reportSubmit</th>
 									</tr>
 									<c:forEach var="report" items="${reportList}">
 										<tr>
@@ -172,52 +161,27 @@
 											</td>
 											<td>${report.reportStartDate}</td>
 											<td>${report.reportEndDate}</td>
-											<!-- sessionId가 교사나 행정이라면 -->
-											<c:if test="${sessionLevel >= 2}">
-												<td><a
-													href="${pageContext.request.contextPath}/loginCheck/modifyReport?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="Edit"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true">수정하기</i>
-														</button>
-												</a><a
-													href="${pageContext.request.contextPath}/loginCheck/removeReport?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="Trash"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-trash-o" aria-hidden="true">삭제하기</i>
-														</button>
-												</a></td>
-												<td><a
-													href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="reportSubmitList"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true">제출
-																과제 목록</i>
-														</button>
-												</a></td>
-											</c:if>
-
-											<!-- sessionId가 학생이라면 -->
-											<c:if test="${sessionLevel eq 1}">
-												<c:if test="${report.state eq 0 }">
-													<td><a
-														href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
-															<button data-toggle="tooltip" title="submit"
-																class="pd-setting-ed" type="button">
-																<i class="fa fa-pencil-square-o" aria-hidden="true">과제제출</i>
-															</button>
-													</a></td>
-												</c:if>
-												<c:if test="${report.state eq 1 }">
-													<td><a
-														href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">
-															<button data-toggle="tooltip" title="submit"
-																class="pd-setting-ed" type="button">
-																<i class="fa fa-pencil-square-o" aria-hidden="true">제출확인</i>
-															</button>
-													</a></td>
-												</c:if>
-											</c:if>
+											<td><a
+												href="${pageContext.request.contextPath}/loginCheck/modifyReport?reportNo=${report.reportNo}">
+													<button data-toggle="tooltip" title="Edit"
+														class="pd-setting-ed" type="button">
+														<i class="fa fa-pencil-square-o" aria-hidden="true">수정하기</i>
+													</button>
+											</a><a
+												href="${pageContext.request.contextPath}/loginCheck/removeReport?reportNo=${report.reportNo}">
+													<button data-toggle="tooltip" title="Trash"
+														class="pd-setting-ed" type="button">
+														<i class="fa fa-trash-o" aria-hidden="true">삭제하기</i>
+													</button>
+											</a></td>
+											<td><a
+												href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${report.reportNo}">
+													<button data-toggle="tooltip" title="reportSubmitList"
+														class="pd-setting-ed" type="button">
+														<i class="fa fa-pencil-square-o" aria-hidden="true">제출
+															과제 목록</i>
+													</button>
+											</a></td>
 										</tr>
 									</c:forEach>
 								</table>

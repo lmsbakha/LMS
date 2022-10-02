@@ -112,12 +112,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a
-											href="#">과제</a>
-											<span class="bread-slash">/</span></li>
-										<li><a
-											href="#">제출 리스트</a>
-											<span class="bread-slash">/</span></li>
+										<li><a href="#">과제</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">제출</a> <span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">상세보기</span></li>
 									</ul>
 								</div>
@@ -137,7 +133,6 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
 						<div class="product-status-wrap drp-lst"  style="padding:2%;">
 							<h4>Detail ReportSubmit</h4>
-							<h4>${param.reportSubmitTitle }</h4>
 							<hr>
 							<div class="form-group">
 								<label for="reportSubmitNo">reportSubmitNo</label> <input

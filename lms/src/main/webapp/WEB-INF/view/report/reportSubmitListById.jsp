@@ -132,11 +132,6 @@
 						<div class="product-status-wrap drp-lst"  style="padding:2%;">
 							<h4>Report SubmitList</h4>
 							<hr>
-							<div class="add-product">
-								<a
-									href="${pageContext.request.contextPath}/loginCheck/reportList">과제
-									리스트</a>
-							</div>
 							<div class="asset-inner">
 								<table>
 									<tr>
@@ -144,7 +139,7 @@
 										<th>subjectName</th>
 										<th>reportSubmitTitle</th>
 										<th>createDate</th>
-										<th></th>
+										<th style="width: 150px;  text-align: center;">setting</th>
 									</tr>
 									<c:forEach var="listById" items="${listById}">
 										<tr>

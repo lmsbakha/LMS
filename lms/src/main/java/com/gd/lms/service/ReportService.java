@@ -1,5 +1,6 @@
 package com.gd.lms.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,14 +34,15 @@ public class ReportService {
 	 * 파라미터 : educationNo 리턴값
 	 * : List<Map<String,Object>>
 	 */
-	public List<Map<String, Object>> getReportListStateInfo(String accountId) {
+	public List<Map<String, Object>> getReportListStateInfo(String accountId, String subjectName) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@getReportListStateInfo Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-
+		log.debug(TeamColor.PSY + subjectName + "<-- subjectName" + TeamColor.TEXT_RESET);
+		
 		// Mapper Call
-		List<Map<String, Object>> ReportListStateInfo = reportMapper.selectReportListStateInfo(accountId);
+		List<Map<String, Object>> ReportListStateInfo = reportMapper.selectReportListStateInfo(accountId, subjectName);
 		// ReportListStateInfo 디버깅
 		log.debug(TeamColor.PSY + ReportListStateInfo + "<-- ReportListStateInfo" + TeamColor.TEXT_RESET);
 
@@ -156,5 +158,4 @@ public class ReportService {
 
 		return removeReport;
 	} // removeReport
-
 }

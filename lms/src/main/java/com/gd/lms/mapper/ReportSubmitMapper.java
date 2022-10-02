@@ -16,7 +16,6 @@ import com.gd.lms.vo.ReportSubmitFile;
 @Mapper
 public interface ReportSubmitMapper {
 	
-	
 	/*
 	 * 과제별 제출 리스트 조회 메소드
 	 * 파라미터 : reportNo
@@ -25,26 +24,13 @@ public interface ReportSubmitMapper {
 	 */
 	List<Map<String, Object>> selectReportListByReport(int reportNo);
 	
-	/* 사용 X
-	 * 제출한 과제 전체 리스트 조회 메소드
-	 * 파라미터 : X
-	 * 리턴값 : List<Map<String,Object>>
-	 */
-	List<ReportSubmit> selectReportList();
-	
-	/* 사용 X
+	/* 
 	 * 학생별 제출한 과제 리스트 조회 메소드
-	 * 파라미터 : accountId
+	 * 파라미터 : accountId, subjectName
 	 * 리턴값 : List<Map<String,Object>>
 	 */
-	List<ReportSubmit> selectReportListById(Map<String, Object> paramMap);
+	List<ReportSubmit> selectReportListById(String accountId, String subjectName);
 
-	/*
-	 * 강좌별 제출한 과제 리스트 조회 메소드
-	 * 파라미터 : educationNo
-	 * 리턴값 : List<Map<String,Object>>
-	 */
-	List<ReportSubmit> selectReportListBySubject(String lectureName);
 	
 	/*
 	 * 제출한 과제별 정보 조회 메소드

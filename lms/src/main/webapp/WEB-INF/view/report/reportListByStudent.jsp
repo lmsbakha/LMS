@@ -1,4 +1,4 @@
-v<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -112,13 +112,7 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a
-											href="#">과제</a>
-											<span class="bread-slash">/</span></li>
-										<li><a
-											href="#">제출</a>
-											<span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">수정하기</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
 									</ul>
 								</div>
 							</div>
@@ -131,57 +125,62 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<form
-				action="${pageContext.request.contextPath}/loginCheck/modifyReportSubmit"
-				id="modifyReportSubmitForm" method="post">
+				action="${pageContext.request.contextPath}/loginCheck/reportList"
+				id="reportListForm" method="post">
 				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+						style="padding: 1%;">
 						<div class="product-status-wrap drp-lst" style="padding: 2%;">
-							<h4>Modify ReportSubmit</h4>
+							<h4>ReportList</h4>
 							<hr>
-							<div class="form-group">
-								<label for="reportSubmitNo">reportSubmitNo</label> <input
-									name="reportSubmitNo" class="form-control" type="text"
-									value="${reportSubmitOne.reportSubmitNo}" readonly>
+							<div class="asset-inner">
+								<table>
+									<tr>
+										<th>reportNo</th>
+										<th>subjectName</th>
+										<th>reportTitle</th>
+										<th>reportStartDate</th>
+										<th>reportEndDate</th>
+										<th style="width: 150px">report</th>
+									</tr>
+									<c:forEach var="reportList" items="${reportListByStudent}">
+										<tr>
+											<td>${reportList.reportNo}</td>
+											<td>${reportList.subjectName}</td>
+											<td style="width: 350px;">
+												<div class="menu">
+													<a>${reportList.reportTitle}</a>
+													<div>
+														<textarea name="reportContent" id="reportContent"
+															style="width: 300px; height: 100px; border-color: white;"
+															readonly>
+															 ${reportList.reportContent}</textarea>
+													</div>
+												</div>
+											</td>
+											<td>${reportList.reportStartDate}</td>
+											<td>${reportList.reportEndDate}</td>
+											<c:if test="${reportList.state eq 0 }">
+												<td><a
+													href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${reportList.reportNo}&subjectName=${reportList.subjectName}">
+														<button data-toggle="tooltip" title="submit"
+															class="pd-setting-ed" type="button">
+															<i class="fa fa-pencil-square-o" aria-hidden="true">과제제출</i>
+														</button>
+												</a></td>
+											</c:if>
+											<c:if test="${reportList.state eq 1 }">
+												<td><button data-toggle="tooltip" title="complete"
+														class="pd-setting-ed" type="button">제출완료
+													</button></td>
+											</c:if>
+
+										</tr>
+									</c:forEach>
+								</table>
 							</div>
-							<div class="form-group">
-								<label for="reportNo">reportNo</label> <input name="reportNo"
-									id="reportNo" type="text" class="form-control"
-									value="${reportSubmitOne.reportNo}" readonly>
-							</div>
-							<div class="form-group">
-								<label for="reportSubmitTitle">reportSubmitTitle</label> <input
-									name="reportSubmitTitle" id="reportSubmitTitle" type="text"
-									class="form-control" 
-									value="${reportSubmitOne.reportSubmitTitle}" required="required">
-							</div>
-							<div class="form-group edit-ta-resize res-mg-t-15">
-								<label for="reportSubmitContent">reportSubmitContent</label>
-								<textarea name="reportSubmitContent" id="reportSubmitContent" required="required">${reportSubmitOne.reportSubmitContent}</textarea>
-							</div>
-							<div class="form-group alert-up-pd">
-								<div class="dz-message needsclick download-custom">
-									<i class="fa fa-download edudropnone" aria-hidden="true"></i> <input
-										name="reportSubmitFilename" id="filename" class="form-control"
-										type="file" multiple="multiple" accept=".zip">
-										<span>* zip 파일만 업로드 해주세요.</span>
-										<input
-									name="reportSubmitNo" id="reportSubmitNo" type="hidden"
-									class="form-control" 
-									value="${reportSubmitOne.reportSubmitNo}">
-									<input
-									name="reportSubmitOriginName" id="reportSubmitOriginName" type="hidden"
-									class="form-control" 
-									value="${reportSubmitOne.reportSubmitFilename}">
-								</div>
-							</div>
-						</div>
-						<div class="payment-adress">
-							<button type="button" id="modifyReportSubmitBtn"
-								class="btn btn-primary waves-effect waves-light"
-								style="float: right; margin-top: 3%; margin-right: 3%;">submit</button>
 						</div>
 					</div>
-
 				</div>
 			</form>
 			<!-- </form> -->
@@ -192,7 +191,6 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 	<!-- End footer -->
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-
 	<!-- jquery
 		============================================ -->
 	<script
@@ -272,22 +270,62 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 	<!-- tawk chat JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
+	<!-- data table JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/tableExport.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/data-table-active.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-editable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-editable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-resizable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/colResizable-1.5.source.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-export.js"></script>
+	<!--  editable JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/editable/jquery.mockjax.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/mock-active.js"></script>
+	<script src="${pageContext.request.contextPath}/js/editable/select2.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/moment.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/bootstrap-datetimepicker.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/bootstrap-editable.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/editable/xediable-active.js"></script>
+	<!-- Chart JS
+		============================================ -->
+	<script
+		src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/peity/peity-active.js"></script>
+	<!-- tab JS
+		============================================ -->
+	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 </body>
 <script>
-	$('#modifyReportSubmitBtn').click(function() {
-		if ($('#reportSubmitTitle').val() == '') {
-			alert('reportSubmitTitle를 입력해주세요.');
-			$('#reporSubmittTitle').focus();
-		} else if ($('#reportSubmitContent').val() == '') {
-			alert('reportSubmitContent를 입력해주세요.');
-			$('#reportContent').focus();
-		}else if ($('#filename').val() == '') {
-			alert('파일을 업로드해주세요.');
-			$('#filename').focus();
-		} else {
-			alert('과제를 수정하시겠습니까?');
-			$('#modifyReportSubmitForm').submit();
-		}
+	    // html dom 이 다 로딩된 후 실행된다.    
+	$(document).ready(function() {
+		// menu 클래스 바로 하위에 있는 a 태그를 클릭했을때       
+		$(".menu>a").click(function() {
+			var submenu = $(this).next("div");
+			// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 부드럽게 펼치기           
+			if (submenu.is(":visible")) {
+				submenu.slideUp();
+			} else {
+				submenu.slideDown();
+			}
+		});
 	});
 </script>
 </html>

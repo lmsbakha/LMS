@@ -41,31 +41,22 @@ public class ReportSubmitService {
 	ReportSubmitFileMapper reportSubmitFileMapper;
 
 	/*
-	 * 학생별 제출한 과제 리스트 조회 메소드 파라미터 : accountId 리턴값 : List<Map<String,Object>>
+	 * 학생별 제출한 과제 리스트 조회 메소드 
+	 * 파라미터 : accountId, subjectName 
+	 * 리턴값 : List<Map<String,Object>>
+	 * reportSubmitListById.jsp
 	 */
-	public List<ReportSubmit> getReportListById(String accountId) {
+	public List<ReportSubmit> getReportListById(String accountId, String subjectName) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@getReportListById Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-
-		// 리턴값 받아올 객체 생성
-		Map<String, Object> returnMap = new HashMap<>();
-
-		// ReportMapper에 넣어줄 매개변수 설정
-		Map<String, Object> paramMap = new HashMap<>();
-		// paramMap에 값 넣어주기
-		paramMap.put("accountId", accountId);
-		// 파마리터 디버깅
-		log.debug(TeamColor.PSY + paramMap + "<-- paramMap" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + subjectName + "<-- subjectName" + TeamColor.TEXT_RESET);
 
 		// reportSubmitMapper call
-		List<ReportSubmit> reportSubmitListById = reportSubmitMapper.selectReportListById(paramMap);
+		List<ReportSubmit> reportSubmitListById = reportSubmitMapper.selectReportListById(accountId, subjectName);
 		// reportSubmitMapper에서 받아온 ReportSubmitListById 값 디버깅
 		log.debug(TeamColor.PSY + reportSubmitListById.toString() + "<-- ReportSubmitListById" + TeamColor.TEXT_RESET);
-
-		// list에 값 넣어주기
-		returnMap.put("reportSubmitListById", reportSubmitListById);
 
 		return reportSubmitListById;
 	} // end getReportListById
@@ -89,40 +80,11 @@ public class ReportSubmitService {
 		
 		return reportSubmitInfo;
 	} // end getReportSubmitInfo
-	
-	/*
-	 * 강좌별 제출한 과제 리스트 조회 메소드 파라미터 : accountId 리턴값 : List<Map<String,Object>>
-	 */
-	public List<ReportSubmit> getReportListBySubject(String lectureName) {
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@getReportListBySubject Service" + TeamColor.TEXT_RESET);
-		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + lectureName + "<-- educationNo" + TeamColor.TEXT_RESET);
-
-		// 리턴값 받아올 객체 생성
-		Map<String, Object> returnMap = new HashMap<>();
-
-		// ReportMapper에 넣어줄 매개변수 설정
-		Map<String, Object> paramMap = new HashMap<>();
-		// paramMap에 값 넣어주기
-		paramMap.put("lectureName", lectureName);
-		// lectureName 디버깅
-		log.debug(TeamColor.PSY + paramMap + "<-- paramMap" + TeamColor.TEXT_RESET);
-
-		// reportSubmitMapper call
-		List<ReportSubmit> ReportSubmitListBySubject = reportSubmitMapper.selectReportListBySubject(lectureName);
-		// reportSubmitMapper에서 받아온 ReportSubmitListById 값 디버깅
-		log.debug(TeamColor.PSY + ReportSubmitListBySubject.toString()
-				+ "<-- ReportReportSubmitListBySubjectSubmitListById" + TeamColor.TEXT_RESET);
-
-		// list에 값 넣어주기
-		returnMap.put("ReportSubmitListBySubject", ReportSubmitListBySubject);
-
-		return ReportSubmitListBySubject;
-	} // end getReportSubmitListBySubject
 
 	/*
-	 * 과제별 제출한 과제 리스트 조회 메소드 파라미터 : reportSubmitNo 리턴값 : List<Map<String, Object>>
+	 * 과제별 제출한 과제 리스트 조회 메소드 
+	 * 파라미터 : reportSubmitNo
+	 * 리턴값 : List<Map<String, Object>>
 	 * 제출한 과제 리스트 reportSubmitList.jsp
 	 */
 	public List<Map<String, Object>> getReportListByReport(int reportNo) {
@@ -145,26 +107,13 @@ public class ReportSubmitService {
 	} // end getReportListByReport
 
 	/*
-	 * 과제 제출하는 메소드 addReportSubmit Form 파라미터 : reportNo 리턴값 : ReportSubmit
+	 * 과제 제출하는 메소드 
+	 * 파라미터 : ReportSubmit, ReportSubmitFile 
+	 * 리턴값 : ReportSubmit
+	 * addReportSubmit.jsp Action 
 	 */
-	public ReportSubmit addReportSubmitForm(int reportSubmitNo) {
+	public void addReportSubmit(ReportSubmitForm reportSubmitForm) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Service" + TeamColor.TEXT_RESET);
-		// 파라미터 디버깅
-		log.debug(TeamColor.PSY + reportSubmitNo + "<-- reportSubmitNo" + TeamColor.TEXT_RESET);
-		// reportSubmitMapper call
-		ReportSubmit ReportSubmit = reportSubmitMapper.addReportSubmitForm(reportSubmitNo);
-		// reportSubmitMapper에서 받아온 ReportSubmitOne 값 디버깅
-		log.debug(TeamColor.PSY + ReportSubmit + "<-- ReportSubmit" + TeamColor.TEXT_RESET);
-
-		return ReportSubmit;
-	} // end addReportSubmitForm
-
-	/*
-	 * 과제 제출하는 메소드 addReportSubmit Action 파라미터 : ReportSubmit, ReportSubmitFile 리턴값
-	 * : ReportSubmit
-	 */
-	public void addReportSubmit(ReportSubmitForm reportSubmitForm) {// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReportSubmit Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + reportSubmitForm + "<-- reportSubmitForm" + TeamColor.TEXT_RESET);
@@ -173,8 +122,8 @@ public class ReportSubmitService {
 		String reportSubmitTitle = reportSubmitForm.getReportSubmitTitle();
 		String reportSubmitContent = reportSubmitForm.getReportSubmitContent();
 		int reportNo = reportSubmitForm.getReportNo();
-		int educationNo = reportSubmitForm.getEducationNo();
 		int reportSubmitNo = reportSubmitForm.getReportSubmitNo();
+		int educationNo = reportSubmitForm.getEducationNo();
 		String accountId = reportSubmitForm.getAccountId();
 		MultipartFile file = reportSubmitForm.getReportSubmitFile();
 		// 요청값 디버깅
@@ -191,8 +140,10 @@ public class ReportSubmitService {
 		reportSubmit.setAccountId(accountId);
 		reportSubmit.setEducationNo(educationNo);
 		reportSubmit.setReportNo(reportNo);
+		reportSubmit.setReportSubmitNo(reportSubmitNo);
 		reportSubmit.setReportSubmitContent(reportSubmitContent);
 		reportSubmit.setReportSubmitTitle(reportSubmitTitle);
+		reportSubmit.setReportSubmitNo(reportNo);
 		// reportSubmit 디버깅
 		log.debug(TeamColor.PSY + reportSubmit + "<--reportSubmit" + TeamColor.TEXT_RESET);
 
@@ -206,7 +157,7 @@ public class ReportSubmitService {
 			// file 디버깅
 			log.debug(TeamColor.PSY + file + "<--file" + TeamColor.TEXT_RESET);
 			ReportSubmitFile reportSubmiFile = new ReportSubmitFile();
-			reportSubmiFile.setReportSubmitNo(reportSubmitNo);
+			reportSubmiFile.setReportSubmitNo(reportSubmit.getReportSubmitNo());
 			// reportSubmiFile 디버깅
 			log.debug(TeamColor.PSY + reportSubmiFile + "<--reportSubmiFile" + TeamColor.TEXT_RESET);
 
@@ -265,7 +216,9 @@ public class ReportSubmitService {
 	} // end addReportSubmit
 
 	/*
-	 * 제출한 과제 상세보기 메소드 파라미터 : reportSubmitNo 리턴값 : Map<String, Object>
+	 * 제출한 과제 상세보기 메소드 
+	 * 파라미터 : reportSubmitNo 
+	 * 리턴값 : Map<String, Object>
 	 */
 	public Map<String, Object> reportSubmitOne(int reportSubmitNo) {
 		// 디버깅 영역구분
@@ -295,7 +248,7 @@ public class ReportSubmitService {
 	 */
 	public void modifyReportSubmit(ReportSubmit paramReportSubmit, ReportSubmitFile paramReportSubmitFile) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@reportSubmit Service" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PSY + "\n\n@modifyReportSubmit Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSY + paramReportSubmit + "<-- reportSubmit" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.PSY + paramReportSubmitFile + "<-- reportSubmitFile" + TeamColor.TEXT_RESET);
@@ -330,6 +283,7 @@ public class ReportSubmitService {
 		int modifyReportSubmitFile = reportSubmitFileMapper.updateReportSubmitFile(reportSubmiFile);
 		// modifyReportSubmitFile 디버깅
 		log.debug(TeamColor.PSY + modifyReportSubmitFile + "<--modifyReportSubmitFile" + TeamColor.TEXT_RESET);
+
 	} // end modifyReportSubmit
 
 

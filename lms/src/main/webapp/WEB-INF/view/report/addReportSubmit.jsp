@@ -112,9 +112,7 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/reportList">과제</a>
-											<span class="bread-slash">/</span></li>
+										<li><a href="$#">과제</a> <span class="bread-slash">/</span></li>
 										<li><span class="bread-blod" style="font-weight: bold;">제출</span></li>
 									</ul>
 								</div>
@@ -141,10 +139,10 @@
 										<hr>
 										<div class="form-group">
 											<label for="subjectName">subjectName</label>
-											 <input name="subjectName" id="subjectName" type="text" class="form-control" value="${addReportSubmitForm.subjectName}" readonly>
-											 <input type="hidden" name="reportNo" value="${addReportSubmitForm.reportNo}">
-											 <input type="hidden" name="educationNo" value="${EducationInfo.educationNo}">
-											 <input type="hidden" name="accountId" value="${EducationInfo.accountId}">
+											 <input name="subjectName" id="subjectName" type="text" class="form-control" value="${subjectName}" readonly>
+											 <input type="hidden" name="reportNo" value="${reportNo}">
+											 <input type="hidden" name="educationNo" value="${educationInfoById.educationNo}">
+											 <input type="hidden" name="accountId" value="${educationInfoById.accountId}">
 
 										</div>
 										<div class="form-group">
@@ -161,7 +159,8 @@
 											<div class="dz-message needsclick download-custom">
 												<i class="fa fa-download edudropnone" aria-hidden="true"></i>
 												<input name="reportSubmitFile" id="filename" class="form-control"
-													type="file" multiple="multiple" required="required" accept=".txt,.zip">
+													type="file" multiple="multiple" required="required" accept=".txt,.zip" >
+													<span>* zip 파일만 업로드 해주세요.</span>
 											</div>
 										</div>
 									</div>
