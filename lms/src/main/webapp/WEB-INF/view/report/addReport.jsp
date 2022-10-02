@@ -110,13 +110,9 @@
 							<h4>Add Report</h4>
 							<hr>
 							<div class="form-group">
-								<div class="row">
-									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 										<label for="subjectName">subjectName</label>
 										<input name="subjectName" id="subjectName" type="text"
-									class="form-control" value="${subjectName}">
-									</div>
-								</div>
+									class="form-control" value="${subjectName}" readonly="readonly">
 							</div>
 							<div class="form-group">
 								<label for="reportTitle">reportTitle</label> <input

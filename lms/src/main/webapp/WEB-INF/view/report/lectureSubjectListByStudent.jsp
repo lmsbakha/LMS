@@ -87,7 +87,6 @@
 <script
 	src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-
 <body>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
@@ -101,7 +100,6 @@
 
 	<!-- Main Contents -->
 	<div class="header-advance-area">
-		<!-- Mobile Menu end -->
 		<div class="breadcome-area">
 			<div class="container-fluid">
 				<div class="row">
@@ -110,24 +108,13 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<ul class="breadcome-menu" style="float: left;">
-										<c:if test="${sessionLevel >= 2}">
-											<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-											<li><a
-												href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList">강의</a>
-												<span class="bread-slash">/</span></li>
-											<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
-										</c:if>
-										<c:if test="${sessionLevel eq 1}">
-											<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-											<li><a
-												href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList">강의</a>
-												<span class="bread-slash">/</span></li>
-											<li><span class="bread-blod" style="font-weight: bold;">과제</span></li>
-										</c:if>
+										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">강의리스트</span></li>
 									</ul>
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
 				</div>
 			</div>
@@ -135,103 +122,52 @@
 	</div>
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form
-				action="${pageContext.request.contextPath}/loginCheck/reportList"
-				id="reportListForm" method="post">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-						style="padding: 1%;">
-						<div class="product-status-wrap drp-lst" style="padding: 2%;">
-							<h4>ReportList</h4>
-							<hr>
-							<div class="asset-inner">
-								<table>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="product-status-wrap drp-lst">
+						<h4>강의리스트</h4>
+						<div class="asset-inner">
+							<table>
+								<tr>
+									<th>lectureSubjectNo</th>
+									<th>lectureName</th>
+									<th>subjectName</th>
+									<th style="width: 150px">report</th>
+								</tr>
+								<c:forEach var="SubjectList"
+									items="${lectureSubjectListByStudent}">
 									<tr>
-										<th>reportNo</th>
-										<th>subjectName</th>
-										<th>reportTitle</th>
-										<th>reportStartDate</th>
-										<th>reportEndDate</th>
-										<th>modify / remove</th>
-										<th style="width: 150px">reportSubmit</th>
+										<td>${SubjectList.lectureSubjectNo}</td>
+										<td>${SubjectList.lectureName}</td>
+										<td>${SubjectList.subjectName}</td>
+										<td><a
+											href="${pageContext.request.contextPath}/loginCheck/reportList?subjectName=${SubjectList.subjectName}">
+												<button data-toggle="tooltip" title="reportList"
+													class="pd-setting-ed" type="button">
+													<i class="fa fa-pencil-square-o" aria-hidden="true">과제
+														리스트</i>
+												</button>
+										</a> <a
+											href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">
+												<button data-toggle="tooltip" title="reportList"
+													class="pd-setting-ed" type="button">
+													<i class="fa fa-pencil-square-o" aria-hidden="true">제출한
+														과제 리스트</i>
+												</button>
+										</a></td>
 									</tr>
-									<c:forEach var="report" items="${reportList}">
-										<tr>
-											<td>${report.reportNo}</td>
-											<td>${report.subjectName}</td>
-											<td style="width: 350px;">
-												<div class="menu">
-													<a>${report.reportTitle}</a>
-													<div>
-														<textarea name="reportContent" id="reportContent"
-															style="width: 300px; height: 100px; border-color: white;"
-															readonly>
-															 ${report.reportContent}</textarea>
-													</div>
-												</div>
-											</td>
-											<td>${report.reportStartDate}</td>
-											<td>${report.reportEndDate}</td>
-											<!-- sessionId가 교사나 행정이라면 -->
-											<c:if test="${sessionLevel >= 2}">
-												<td><a
-													href="${pageContext.request.contextPath}/loginCheck/modifyReport?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="Edit"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true">수정하기</i>
-														</button>
-												</a><a
-													href="${pageContext.request.contextPath}/loginCheck/removeReport?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="Trash"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-trash-o" aria-hidden="true">삭제하기</i>
-														</button>
-												</a></td>
-												<td><a
-													href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${report.reportNo}">
-														<button data-toggle="tooltip" title="reportSubmitList"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true">제출
-																과제 목록</i>
-														</button>
-												</a></td>
-											</c:if>
-
-											<!-- sessionId가 학생이라면 -->
-											<c:if test="${sessionLevel eq 1}">
-												<c:if test="${report.state eq 0 }">
-													<td><a
-														href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${report.reportNo}">
-															<button data-toggle="tooltip" title="submit"
-																class="pd-setting-ed" type="button">
-																<i class="fa fa-pencil-square-o" aria-hidden="true">과제제출</i>
-															</button>
-													</a></td>
-												</c:if>
-												<c:if test="${report.state eq 1 }">
-													<td><a
-														href="${pageContext.request.contextPath}/loginCheck/reportSubmitListById">
-															<button data-toggle="tooltip" title="submit"
-																class="pd-setting-ed" type="button">
-																<i class="fa fa-pencil-square-o" aria-hidden="true">제출확인</i>
-															</button>
-													</a></td>
-												</c:if>
-											</c:if>
-										</tr>
-									</c:forEach>
-								</table>
-							</div>
+								</c:forEach>
+							</table>
 						</div>
 					</div>
 				</div>
-			</form>
-			<!-- </form> -->
+			</div>
 		</div>
 	</div>
 	<!-- Start footer -->
 	<jsp:include page="../inc/footer.jsp" />
 	<!-- End footer -->
+
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<!-- jquery
@@ -313,62 +249,5 @@
 	<!-- tawk chat JS
 		============================================ -->
 	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
-	<!-- data table JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/tableExport.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/data-table-active.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-editable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-editable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-resizable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/colResizable-1.5.source.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/data-table/bootstrap-table-export.js"></script>
-	<!--  editable JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/editable/jquery.mockjax.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/mock-active.js"></script>
-	<script src="${pageContext.request.contextPath}/js/editable/select2.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/moment.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/bootstrap-datetimepicker.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/bootstrap-editable.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/editable/xediable-active.js"></script>
-	<!-- Chart JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/peity/peity-active.js"></script>
-	<!-- tab JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
 </body>
-<script>
-	    // html dom 이 다 로딩된 후 실행된다.    
-	$(document).ready(function() {
-		// menu 클래스 바로 하위에 있는 a 태그를 클릭했을때       
-		$(".menu>a").click(function() {
-			var submenu = $(this).next("div");
-			// submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 부드럽게 펼치기           
-			if (submenu.is(":visible")) {
-				submenu.slideUp();
-			} else {
-				submenu.slideDown();
-			}
-		});
-	});
-</script>
 </html>

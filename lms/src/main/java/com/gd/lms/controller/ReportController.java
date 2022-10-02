@@ -55,19 +55,21 @@ public class ReportController {
 	LectureSubjectService lectureSubjectService;
 
 	/*
-	 * 강좌 리스트 정보 받아오기 
-	 * 파라미터 : 강사 아이디 accountId 
-	 * 리턴값 : lectureListByTeacher
+	 * 강사용 강좌 리스트 정보 받아오기 
+	 * 파라미터 : 강사 아이디 accountId , lectureListByTeacher 담을 Model
+	 * 리턴값 : lectureSubjectList 
+	 * lectureListByTeacher.jsp
 	 */
 	@GetMapping("/loginCheck/lectureSubjectList")
 	String lectureSubjectList(HttpSession session, Model model) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@lectureSubjectList Controller" + TeamColor.TEXT_RESET);
-		// 세션에 저장된 값을 지역변수로 저장
+		
+		// 세션에 저장된 아이디 받아오기
 		String accountId = (String) session.getAttribute("sessionId");
 		// 디버깅
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-
+		
 		// LectureService에서 lectureList가져오기
 		List<Lecture> lectureListByTeacher = lectureService.getLectureListByAccoutId(accountId);
 		// model 단에 값 저장해서 보내줌
@@ -78,13 +80,13 @@ public class ReportController {
 	}
 
 	/*
-	 * 강의 리스트 정보 조회하기 
+	 * 강사용 강의 리스트 정보 조회하기 
 	 * 파라미터 : 강좌명 lectureName 
-	 * 리턴값 : lectureSubjectList.jsp로 이동
+	 * 리턴값 : lectureSubjectList
+	 * lectureSubjectList.jsp
 	 */
 	@PostMapping("/loginCheck/lectureSubjectList")
-	String lectureSubjectList(RedirectAttributes redirectAttributes,
-			@RequestParam(value = "lectureName") String lectureName) {
+	String lectureSubjectList(RedirectAttributes redirectAttributes, @RequestParam("lectureName") String lectureName) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@lectureSubjectList Controller" + TeamColor.TEXT_RESET);
 		// 파라미터값 디버깅
@@ -103,9 +105,10 @@ public class ReportController {
 	}
 
 	/*
-	 * 강의별 과제 리스트 조회하기
-	 * 파라미터 : subjectName
-	 * 리턴값 : reportList.jsp로 이동
+	 * 강의별 과제 리스트 조회하기 
+	 * 파라미터 : subjectName, reportList을 담아줄 Model 
+	 * 리턴값 : reportList 
+	 * reportList.jsp
 	 */
 	@GetMapping("/loginCheck/reportList")
 	String reportList(@RequestParam("subjectName") String subjectName, Model model) {
@@ -118,10 +121,10 @@ public class ReportController {
 		List<Map<String, Object>> reportList = reportService.getReportListBySubjectName(subjectName);
 		// lectureSubjectList 디버깅
 		log.debug(TeamColor.PSY + reportList + "<--reportList" + TeamColor.TEXT_RESET);
-		
+
 		// model 단에 값 저장해서 보내줌
 		model.addAttribute("reportList", reportList);
-		
+
 		if (reportList != null) {
 			// 성공
 			log.debug(TeamColor.PSY + " 과제 리스트 조회 성공" + TeamColor.TEXT_RESET);
@@ -133,41 +136,33 @@ public class ReportController {
 		return "report/reportList";
 	} // end reportList
 
-	// 과제 출제하는 메소드
-	// addReport Form
-	// 파라미터 : List<LectureSubject>를 담아둘 Model, 세션 값
-	// 리턴값: 과제를 출제하기 위한 form인 addReport.jsp로 이동
+	/*
+	 * 과제 출제하는 메소드 
+	 * 파라미터: List<LectureSubject>를 담아둘 Model, 세션 값 
+	 * 리턴값: 과제를 출제하기 위한 Form
+	 * addReport 
+	 * addReport.jsp Form
+	 */
 	@GetMapping("/loginCheck/addReport")
-	String addReport(Model model, HttpSession session) {
+	String addReport(Model model, @RequestParam("subjectName") String subjectName) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@addReport Controller" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSY + subjectName + "<-- subjectName" + TeamColor.TEXT_RESET);
 
-		// 세션 받아오기
-		String accountId = (String) session.getAttribute("sessionId");
-		// 로그인한 강사의 아이디 확인
-		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-
-		// 로그인한 아이디의 강사 정보 받아오기
-		Map<String, Object> infoAboutTeacher = memberService.getInfoAboutTeacher(accountId);
-		// 디버깅
-		log.debug(TeamColor.PSY + infoAboutTeacher + "<-- infoAboutTeacher" + TeamColor.TEXT_RESET);
-
-		// lectureSubject 리스트 model값으로 보내기
-		List<LectureSubject> subjectNameList = reportService.getlectureSubject();
-		// 디버깅
-		log.debug(TeamColor.PSY + subjectNameList + "<-- subjectNameList" + TeamColor.TEXT_RESET);
-
-		// 모델단에 전체과목리스트와 과목과정 기간을 addAttribute해서 폼으로 전달
-		model.addAttribute("subjectNameList", subjectNameList);
-		model.addAttribute("infoAboutTeacher", infoAboutTeacher);
+		// 모델단에 넘겨받은 subjectName을 addAttribute해서 폼으로 전달
+		model.addAttribute("subjectName", subjectName);
+		// model.addAttribute("lectureInfo", lectureInfo);
 
 		return "report/addReport";
 	} // end addReport
 
-	// 과제 출제하는 메소드
-	// addReport Action
-	// 파라미터 : Report
-	// 리턴값 : reportList.jsp로 이동
+	/*
+	 * 과제 출제하는 메소드 
+	 * 파라미터 : 받아온 Report 
+	 * 리턴값 : lectureSubjectList 
+	 * addReport.jsp Action
+	 */
 	@PostMapping("/loginCheck/addReport")
 	String addReport(@RequestParam("subjectName") String subjectName, @RequestParam("reportTitle") String reportTitle,
 			@RequestParam("reportContent") String reportContent,
@@ -196,14 +191,17 @@ public class ReportController {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 출제 실패" + TeamColor.TEXT_RESET);
 		}
-		// reportList로 리다이렉트
-		return "redirect:/loginCheck/reportList";
+		// lectureSubjectList로 리다이렉트
+		return "redirect:/loginCheck/lectureSubjectList";
 	} // end addReport @PostMapping
 
-	// 출제한 과제 수정하는 메소드
-	// modifyReport Form
-	// 파라미터 : Report 담아둘 Model , reportNo
-	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동
+	/*
+	 * 출제한 과제 수정하는 메소드 
+	 * 파라미터 : Report 담아둘 Model , reportNo 
+	 * 리턴값: 출제한 과제를 수정하기 위한 Form
+	 * modifyReport 
+	 * modifyReport.jsp Form
+	 */
 	@GetMapping("/loginCheck/modifyReport")
 	String modifyReport(Model model, @RequestParam("reportNo") int reportNo) {
 		// 디버깅 영역구분
@@ -219,17 +217,17 @@ public class ReportController {
 		// 모델단에 reportOne을 addAttribute해서 폼으로 전달
 		model.addAttribute("reportOne", reportOne);
 
+		// modifyReport.jsp로 이동
 		return "report/modifyReport";
 	} // end modifyReport @GetMapping
 
-	// 출제한 과제 수정하는 메소드
-	// modifyReport Action
-	// 파라미터 : 받아온 Report
-	// 리턴값: 출제한 과제를 수정하기 위한 form인 modifyReport.jsp로 이동
+	/*
+	 * 출제한 과제 수정하는 메소드 파라미터 : 받아온 Report 리턴값: 출제한 과제를 수정하기 위한 Action modifyReport
+	 * modifyReport.jsp Action
+	 */
 	@PostMapping("/loginCheck/modifyReport")
 	public String modifyReport(@RequestParam("reportNo") int reportNo, @RequestParam("reportTitle") String reportTitle,
-			@RequestParam("subjectName") String subjectName,
-			@RequestParam("reportContent") String reportContent,
+			@RequestParam("subjectName") String subjectName, @RequestParam("reportContent") String reportContent,
 			@RequestParam("reportStartDate") String reportStartDate,
 			@RequestParam("reportEndDate") String reportEndDate) {
 		// 디버깅 영역구분
@@ -247,7 +245,7 @@ public class ReportController {
 		log.debug(TeamColor.PSY + paramReport + "<-- paramReport" + TeamColor.TEXT_RESET);
 
 		// 과제 수정 service call
-		int modifyReport = reportService.modifyReport(paramReport); 
+		int modifyReport = reportService.modifyReport(paramReport);
 		// 디버깅
 		log.debug(TeamColor.PSY + modifyReport + "<-- modifyReport" + TeamColor.TEXT_RESET);
 
@@ -258,13 +256,13 @@ public class ReportController {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 수정 실패" + TeamColor.TEXT_RESET);
 		}
-		// reportList로 리다이렉트
+		// lectureSubjectList로 리다이렉트
 		return "redirect:/loginCheck/lectureSubjectList";
 	} // end modifyReport @PostMapping
 
-	// 행정용 출제한 과제 삭제하는 메소드
-	// 파라미터 : reportNo
-	// 리턴값 : reportList.jsp로 이동
+	/*
+	 * 출제한 과제 삭제하는 메소드 파라미터 : reportNo 리턴값 : lectureSubjectList reportList.jsp
+	 */
 	@GetMapping("/loginCheck/removeReport")
 	public String removeReport(@RequestParam("reportNo") int reportNo) {
 		// 디버깅 영역구분
@@ -284,7 +282,44 @@ public class ReportController {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 삭제 실패" + TeamColor.TEXT_RESET);
 		}
-		// reportList로 리다이렉트
-		return "redirect:/loginCheck/reportList";
-	}
+		// lectureSubjectList로 리다이렉트
+		return "redirect:/loginCheck/lectureSubjectList";
+	} // end removeReport
+
+	/*
+	 * 학생용 강의 리스트 정보 조회하기 
+	 * 파라미터 : 학생 아이디 accountId, reportList을 담아줄 Model 
+	 * 리턴값 : lectureSubjectList
+	 * lectureSubjectList.jsp
+	 */
+	@GetMapping("/loginCheck/lectureSubjectListByStudent")
+	public String lectureSubjectListByStudent(HttpSession session , Model model) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@lectureSubjectListByStudent Controller" + TeamColor.TEXT_RESET);
+
+		// 세션에 저장된 아이디 받아오기
+		String accountId = (String) session.getAttribute("sessionId");
+		// 디버깅
+		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+		
+		// 과제 삭제 service call
+		List<LectureSubject> lectureSubjectListByStudent = lectureSubjectService.lectureSubjectInfoByStudent(accountId);
+		// 파라미터
+		log.debug(TeamColor.PSY + lectureSubjectListByStudent + "<-- lectureSubjectListByStudent" + TeamColor.TEXT_RESET);
+
+		// 모델단에 lectureSubjectListByStudent을 addAttribute해서 폼으로 전달
+		model.addAttribute("lectureSubjectListByStudent", lectureSubjectListByStudent);
+
+		if (lectureSubjectListByStudent != null) {
+			// 성공
+			log.debug(TeamColor.PSY + " 학생용 강의 리스트 정보 조회하기 성공" + TeamColor.TEXT_RESET);
+		} else {
+			// 실패
+			log.debug(TeamColor.PSY + " 학생용 강의 리스트 정보 조회하기 실패" + TeamColor.TEXT_RESET);
+		}
+		
+		// lectureSubjectListByStudent로 이동
+ 		return "report/lectureSubjectListByStudent";
+	} // end lectureSubjectListByStudent
+
 }

@@ -173,7 +173,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<div class="row">
@@ -186,7 +185,7 @@
 									<th>lectureSubjectNo</th>
 									<th>lectureName</th>
 									<th>subjectName</th>
-									<th style="width: 150px">reportList</th>
+									<th style="width: 150px">report</th>
 								</tr>
 								<c:if test="${empty lectureSubjectList}">
 									<tr>
@@ -202,10 +201,18 @@
 											<td>${lectureSubjectList.lectureName}</td>
 											<td>${lectureSubjectList.subjectName}</td>
 											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/reportList?subjectName=${lectureSubjectList.subjectName}">
-													<button data-toggle="tooltip" title="submit"
+												href="${pageContext.request.contextPath}/loginCheck/addReport?subjectName=${lectureSubjectList.subjectName}">
+													<button data-toggle="tooltip" title="addReport"
 														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true">과제 리스트</i>
+														<i class="fa fa-pencil-square-o" aria-hidden="true">과제
+															추가</i>
+													</button>
+											</a><a
+												href="${pageContext.request.contextPath}/loginCheck/reportList?subjectName=${lectureSubjectList.subjectName}">
+													<button data-toggle="tooltip" title="reportList"
+														class="pd-setting-ed" type="button">
+														<i class="fa fa-pencil-square-o" aria-hidden="true">과제
+															리스트</i>
 													</button>
 											</a></td>
 										</tr>

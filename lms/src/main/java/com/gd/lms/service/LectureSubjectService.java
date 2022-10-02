@@ -36,28 +36,46 @@ public class LectureSubjectService {
 		return lectureSubjectList;
 	}
 
-	// addReport에 필요한 subjecteName 가져오기
-	// 파라미터 : X
-	// 리턴값 : LectureSubject
-	public List<LectureSubject> getSubjectNameList(){
-		
-		return lectureSubjectMapper.selectLectureSubjectName();
-	}
-	
 	/*
-	 * 강사와 관련된 강의 리스트 정보 받아오기
-	 * 파라미터 : 강사 아이디 accountId
-	 * 리턴값 : 강사와 관련된 강의 정보 List<LectureSubject>
+	 * 강사와 관련된 강의 리스트 정보 받아오기 
+	 * 파라미터 : 강사 아이디 accountId 
+	 * 리턴값 : 강사와 관련된 강의 정보
+	 * List<LectureSubject> 
+	 * lectureSubjectList.jsp
 	 */
-	public List<LectureSubject> lectureSubjectInfoByTeacher(String accountId){
+	public List<LectureSubject> lectureSubjectInfoByTeacher(String accountId) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@lectureSubjectInfoByTeacher Serivce" + TeamColor.TEXT_RESET);
+
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-		
+
 		// lectureSubjectMapper Call
 		List<LectureSubject> lectureSubjectList = lectureSubjectMapper.lectureSubjectInfoByTeacher(accountId);
 		// lectureSubjectList 디버깅
 		log.debug(TeamColor.PSJ + lectureSubjectList + "<-- lectureSubjectList" + TeamColor.TEXT_RESET);
+
+		return lectureSubjectList;
+	} // end lectureSubjectInfoByTeacher
+
+	/*
+	 * 학생과 관련된 강의 리스트 정보 받아오기 
+	 * 파라미터 : 학생 아이디 accountId 
+	 * 리턴값 : 학생과 관련된 강의 정보
+	 * List<LectureSubject> 
+	 * lectureSubjectList.jsp
+	 */
+	public List<LectureSubject> lectureSubjectInfoByStudent(String accountId) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.PSY + "\n\n@lectureSubjectInfoByStudent Service" + TeamColor.TEXT_RESET);
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
+
+		// lectureSubjectMapper Call
+		List<LectureSubject> lectureSubjectList = lectureSubjectMapper.lectureSubjectInfoByStudent(accountId);
+		// lectureSubjectList 디버깅
+		log.debug(TeamColor.PSJ + lectureSubjectList + "<-- lectureSubjectList" + TeamColor.TEXT_RESET);
 		
 		return lectureSubjectList;
-	}
+	} // end lectureSubjectInfoByStudent
 }

@@ -29,7 +29,8 @@ public class ReportService {
 	LectureSubjectMapper lectureSubjectMapper;
 
 	/*
-	 * 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보를 추출하는 메소드 파라미터 : educationNo 리턴값
+	 * 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보를 추출하는 메소드 
+	 * 파라미터 : educationNo 리턴값
 	 * : List<Map<String,Object>>
 	 */
 	public List<Map<String, Object>> getReportListStateInfo(String accountId) {
@@ -66,9 +67,11 @@ public class ReportService {
 		return reportList;
 	} // end getReportListBySubjectName
 
-	// [강사전용] 강좌별 강의리스트 메인페이지로 이동하는 메소드
-	// 파라미터 : lectureName XXX
-	// 리턴값 : List<Map<String, Object>> 과제 리스트
+	/*
+	 * 강좌별 강의리스트 메인페이지로 이동하는 메소드
+	 *  파라미터 : lectureName XXX
+	 * 리턴값 : List<Map<String, Object>> 과제 리스트
+	 */
 	public List<Map<String, Object>> getReportList(String lectureName) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@getReportList Service" + TeamColor.TEXT_RESET);
@@ -83,19 +86,6 @@ public class ReportService {
 		return reportList;
 	} // end getReportList
 
-	// addReport에 필요한 subjecteName, lectureStartDate , lectureEndDate 가져오기
-	// 파라미터 : X
-	// 리턴값 : List<LectureSubject>
-	public List<LectureSubject> getlectureSubject() {
-		// 디버깅 영역구분
-		log.debug(TeamColor.PSY + "\n\n@getlectureSubject Service" + TeamColor.TEXT_RESET);
-		// Mapper call
-		List<LectureSubject> lecureSubjectList = lectureSubjectMapper.selectLectureSubjectName();
-		// Mapper에서 받아온 account 값 디버깅
-		log.debug(TeamColor.PSY + lecureSubjectList + "<-- lecureSubjectList" + TeamColor.TEXT_RESET);
-
-		return lecureSubjectList;
-	}// end getlectureSubject
 
 	// 과제 출제하는 메소드
 	// 파라미터 : Report

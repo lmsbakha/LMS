@@ -5,39 +5,53 @@
 	<select id="selectLectureSubjectList" parameterType="String"
 		resultType="Map">
 		select
-		lecture_subject_no lectureSubjectNo, subject_name
-		subjectName, lecture_name lectureName
+			lecture_subject_no lectureSubjectNo, subject_name
+			subjectName, lecture_name lectureName
 		FROM lecture_subject
-		WHERE
-		lecture_name=#{lectureName}
+		WHERE lecture_name=#{lectureName}
 	</select>
-
-	<!-- addReport에 필요한 subjecteName 가져오기 -->
-	<select id="selectLectureSubjectName"
-		resultType="com.gd.lms.vo.LectureSubject">
-		SELECT
-		subject_name subjectName
-		FROM lecture_subject
-	</select>
-	<!-- addReport에 필요한 subjecteName 가져오기 -->
 
 	<!-- accountId로 확인 강사의 subject 리스트 -->
-	<select id="lectureSubjectInfoByTeacher" parameterType="String" resultType="com.gd.lms.vo.LectureSubject">
+	<select id="lectureSubjectInfoByTeacher" parameterType="String"
+		resultType="com.gd.lms.vo.LectureSubject">
 		SELECT
 			subject_name subjectName,
 			lecture_name lectureName,
 			lecture_subject_no lectureSubjectNo
 		FROM lecture_subject
 		WHERE lecture_name =
-		(SELECT l.lecture_name lectureName
-		FROM teacher t
-		INNER JOIN lecture l
-		USING(teacher_name)
-		WHERE t.account_id=#{accountId}
-		 <![CDATA[
-		AND l.lecture_start_date <= CURDATE() AND l.lecture_end_date >=
-		CURDATE()
-		]]>
-		)
+			(SELECT
+				l.lecture_name lectureName
+			FROM teacher t
+			INNER
+			JOIN lecture l
+			USING(teacher_name)
+			WHERE t.account_id=#{accountId}
+				 <![CDATA[
+				AND l.lecture_start_date <= CURDATE() AND l.lecture_end_date >=
+				CURDATE()
+				]]>
+			)
 	</select>
+	<!-- accountId로 확인 강사의 subject 리스트 -->
+
+	<!-- accountId로 확인 학생의 subject 리스트 -->
+	<select id="lectureSubjectInfoByStudent" parameterType="String"
+		resultType="com.gd.lms.vo.LectureSubject">
+		SELECT
+			subject_name subjectName,
+			lecture_name lectureName,
+			lecture_subject_no
+			lectureSubjectNo
+		FROM lecture_subject
+		WHERE lecture_name =
+			(SELECT
+				e.lecture_name lectureName
+			FROM student s
+			INNER JOIN education e
+			USING(account_id)
+			WHERE s.account_id=#{accountId}
+			)
+	</select>
+	<!-- accountId로 확인 학생의 subject 리스트 -->
 </mapper>
