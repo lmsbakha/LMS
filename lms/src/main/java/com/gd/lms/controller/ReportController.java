@@ -1,6 +1,5 @@
 package com.gd.lms.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,7 +78,9 @@ public class ReportController {
 	}
 
 	/*
-	 * 강사용 강의 리스트 정보 조회하기 파라미터 : 강좌명 lectureName 리턴값 : lectureSubjectList
+	 * 강사용 강의 리스트 정보 조회하기
+	 * 파라미터 : 강좌명 lectureName 
+	 * 리턴값 : lectureSubjectList
 	 * lectureSubjectList.jsp
 	 */
 	@PostMapping("/loginCheck/lectureSubjectList")
@@ -102,8 +103,10 @@ public class ReportController {
 	}
 
 	/*
-	 * 강사용 강의별 과제 리스트 조회하기 파라미터 : subjectName, reportList을 담아줄 Model 리턴값 :
-	 * reportList reportList.jsp
+	 * 강사용 강의별 과제 리스트 조회하기 
+	 * 파라미터 : subjectName, reportList을 담아줄 Model 
+	 * 리턴값 : reportList 
+	 * reportList.jsp
 	 */
 	@GetMapping("/loginCheck/reportList")
 	String reportList(@RequestParam("subjectName") String subjectName, Model model) {
@@ -132,8 +135,10 @@ public class ReportController {
 	} // end reportList
 
 	/*
-	 * 과제 출제하는 메소드 파라미터: List<LectureSubject>를 담아둘 Model, 세션 값 리턴값: 과제를 출제하기 위한 Form
-	 * addReport addReport.jsp Form
+	 * 과제 출제하기 
+	 * 파라미터: List<LectureSubject>를 담아둘 Model, 세션 값 
+	 * 리턴값: addReport 
+	 * addReport.jsp Form
 	 */
 	@GetMapping("/loginCheck/addReport")
 	String addReport(Model model, @RequestParam("subjectName") String subjectName) {
@@ -150,7 +155,10 @@ public class ReportController {
 	} // end addReport
 
 	/*
-	 * 과제 출제하는 메소드 파라미터 : 받아온 Report 리턴값 : lectureSubjectList addReport.jsp Action
+	 * 과제 출제하기
+	 * 파라미터 : 받아온 Report 
+	 * 리턴값 : lectureSubjectList 
+	 * addReport.jsp Action
 	 */
 	@PostMapping("/loginCheck/addReport")
 	String addReport(@RequestParam("subjectName") String subjectName, @RequestParam("reportTitle") String reportTitle,
@@ -185,8 +193,10 @@ public class ReportController {
 	} // end addReport @PostMapping
 
 	/*
-	 * 출제한 과제 수정하는 메소드 파라미터 : Report 담아둘 Model , reportNo 리턴값: 출제한 과제를 수정하기 위한 Form
-	 * modifyReport modifyReport.jsp Form
+	 * 출제한 과제 수정하기 
+	 * 파라미터 : Report 담아둘 Model , reportNo 
+	 * 리턴값:  modifyReport
+	 * modifyReport.jsp Form
 	 */
 	@GetMapping("/loginCheck/modifyReport")
 	String modifyReport(Model model, @RequestParam("reportNo") int reportNo) {
@@ -208,7 +218,9 @@ public class ReportController {
 	} // end modifyReport @GetMapping
 
 	/*
-	 * 출제한 과제 수정하는 메소드 파라미터 : 받아온 Report 리턴값: 출제한 과제를 수정하기 위한 Action modifyReport
+	 * 출제한 과제 수정하기
+	 * 파라미터 : 받아온 Report 
+	 * 리턴값: modifyReport
 	 * modifyReport.jsp Action
 	 */
 	@PostMapping("/loginCheck/modifyReport")
@@ -247,7 +259,10 @@ public class ReportController {
 	} // end modifyReport @PostMapping
 
 	/*
-	 * 출제한 과제 삭제하는 메소드 파라미터 : reportNo 리턴값 : lectureSubjectList reportList.jsp
+	 * 출제한 과제 삭제하기 
+	 * 파라미터 : reportNo 
+	 * 리턴값 : lectureSubjectList 
+	 * reportList.jsp
 	 */
 	@GetMapping("/loginCheck/removeReport")
 	public String removeReport(@RequestParam("reportNo") int reportNo) {

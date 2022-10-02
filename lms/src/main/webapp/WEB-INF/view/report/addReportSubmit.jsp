@@ -138,29 +138,33 @@
 										<h4>Add ReportSubmit</h4>
 										<hr>
 										<div class="form-group">
-											<label for="subjectName">subjectName</label>
-											 <input name="subjectName" id="subjectName" type="text" class="form-control" value="${subjectName}" readonly>
-											 <input type="hidden" name="reportNo" value="${reportNo}">
-											 <input type="hidden" name="educationNo" value="${educationInfoById.educationNo}">
-											 <input type="hidden" name="accountId" value="${educationInfoById.accountId}">
+											<label for="subjectName">subjectName</label> <input
+												name="subjectName" id="subjectName" type="text"
+												class="form-control" value="${subjectName}" readonly>
+											<input type="hidden" name="reportNo" value="${reportNo}">
+											<input type="hidden" name="educationNo"
+												value="${educationInfoById.educationNo}"> <input
+												type="hidden" name="accountId"
+												value="${educationInfoById.accountId}">
 
 										</div>
 										<div class="form-group">
 											<label for="reportSubmitTitle">reportSubmitTitle</label> <input
-												type="text" class="form-control" required="required" id="reportSubmitTitle"
-												name="reportSubmitTitle">
+												type="text" class="form-control" required="required"
+												id="reportSubmitTitle" name="reportSubmitTitle">
 										</div>
 										<div class="form-group edit-ta-resize res-mg-t-15">
 											<label for="reportSubmitContent">reportSubmitContent</label>
-											<textarea name="reportSubmitContent" required="required" id="reportSubmitContent"
-												name="reportSubmitContent"></textarea>
+											<textarea name="reportSubmitContent" required="required"
+												id="reportSubmitContent" name="reportSubmitContent"></textarea>
 										</div>
 										<div class="form-group alert-up-pd">
 											<div class="dz-message needsclick download-custom">
 												<i class="fa fa-download edudropnone" aria-hidden="true"></i>
-												<input name="reportSubmitFile" id="filename" class="form-control"
-													type="file" multiple="multiple" required="required" accept=".txt,.zip" >
-													<span>* zip 파일만 업로드 해주세요.</span>
+												<input name="reportSubmitFile" id="filename"
+													class="form-control" type="file" multiple="multiple"
+													required="required" accept=".txt,.zip"> <span>*
+													zip 파일만 업로드 해주세요.</span>
 											</div>
 										</div>
 									</div>
@@ -169,7 +173,7 @@
 									<div class="col-lg-12">
 										<div class="payment-adress">
 											<button type="button" id="addReportSubmitBtn"
-												class="btn btn-primary waves-effect waves-light"
+												class="btn btn-success"
 												style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
 										</div>
 									</div>
@@ -185,114 +189,28 @@
 	<jsp:include page="../inc/footer.jsp" />
 	<!-- End footer -->
 
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-	<!-- jquery
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/vendor/jquery-1.12.4.min.js"></script>
-	<!-- bootstrap JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-	<!-- wow JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
-	<!-- price-slider JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/jquery-price-slider.js"></script>
-	<!-- meanmenu JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/jquery.meanmenu.js"></script>
-	<!-- owl.carousel JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-	<!-- sticky JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
-	<!-- scrollUp JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/jquery.scrollUp.min.js"></script>
-	<!-- counterup JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/counterup/jquery.counterup.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/counterup/waypoints.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/counterup/counterup-active.js"></script>
-	<!-- mCustomScrollbar JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/scrollbar/mCustomScrollbar-active.js"></script>
-	<!-- metisMenu JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/metisMenu/metisMenu.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/metisMenu/metisMenu-active.js"></script>
-	<!-- morrisjs JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/morrisjs/raphael-min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/morrisjs/morris.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/morrisjs/morris-active.js"></script>
-	<!-- morrisjs JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/sparkline/jquery.sparkline.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/sparkline/jquery.charts-sparkline.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/sparkline/sparkline-active.js"></script>
-	<!-- calendar JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/calendar/moment.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/calendar/fullcalendar.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script>
-	<!-- dropzone JS
-		============================================ -->
-	<script
-		src="${pageContext.request.contextPath}/js/dropzone/dropzone.js"></script>
-	<!-- tab JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/tab.js"></script>
-	<!-- plugins JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/plugins.js"></script>
-	<!-- main JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/main.js"></script>
-	<!-- tawk chat JS
-		============================================ -->
-	<script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
-
+	<!-- Start script -->
+	<jsp:include page="../js/alljs.jsp" />
+	<!-- End script -->
 </body>
 <script>
-$('#addReportSubmitBtn').click(function() {
-	if ($('#reportSubmitTitle').val() == '') {
-		alert('reportSubmitTitle를 입력해주세요.');
-		$('#reportTitle').focus();
-	}else if ($('#reportContent').val() == '') {
-		alert('reportSubmitContent를 입력해주세요.');
-		$('#reportSubmitContent').focus();
-	}else if ($('#filename').val() == '') {
-		alert('파일을 업로드해주세요.');
-		$('#filename').focus();
-	}else if ($('#filename').val() == '') {
-		alert('파일을 업로드해주세요.');
-		$('#filename').focus();
-	}else {
-		alert('과제를 제출하시겠습니까?');
-		 $( '#addreportSubmitForm' ).submit();
-	}
-});
+	$('#addReportSubmitBtn').click(function() {
+		if ($('#reportSubmitTitle').val() == '') {
+			alert('reportSubmitTitle를 입력해주세요.');
+			$('#reportTitle').focus();
+		} else if ($('#reportContent').val() == '') {
+			alert('reportSubmitContent를 입력해주세요.');
+			$('#reportSubmitContent').focus();
+		} else if ($('#filename').val() == '') {
+			alert('파일을 업로드해주세요.');
+			$('#filename').focus();
+		} else if ($('#filename').val() == '') {
+			alert('파일을 업로드해주세요.');
+			$('#filename').focus();
+		} else {
+			alert('과제를 제출하시겠습니까?');
+			$('#addreportSubmitForm').submit();
+		}
+	});
 </script>
 </html>

@@ -146,7 +146,7 @@
 					</div>
 					<div class="payment-adress">
 						<button type="button" id="addReportBtn"
-							class="btn btn-primary waves-effect waves-light"
+							class="btn btn-success"
 							style="float: right; margin-top: 3%; margin-right: 3%; background-color: #03a84ea8; border-color: #03a84ea8;">Submit</button>
 					</div>
 				</div>
