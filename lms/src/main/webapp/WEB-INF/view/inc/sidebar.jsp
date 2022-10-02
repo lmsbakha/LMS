@@ -28,7 +28,7 @@
 	                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-apps icon-wrap"></span> <span class="mini-click-non">나의 강의실</span></a>
 	                            <ul class="submenu-angle app-mini-nb-dp" aria-expanded="false">
 	                            	<li> <a title="나의 강의" href="${pageContext.request.contextPath}/loginCheck/scheduleList"><span class="mini-sub-pro">나의 강의</span></a> </li>
-	                                <li> <a title="과제" href="${pageContext.request.contextPath}/loginCheck/lectureSubjectList"><span class="mini-sub-pro">과제</span></a> </li>
+	                                <li> <a title="과제" href="${pageContext.request.contextPath}/loginCheck/lectureSubjectListByStudent"><span class="mini-sub-pro">과제</span></a> </li>
 	                                <li><a title="시험" href="${pageContext.request.contextPath}/loginCheck/examForStudent"><span class="mini-sub-pro">시험</span></a></li>
 	                                <li><a title="성적" href="${pageContext.request.contextPath}/loginCheck/grade"><span class="mini-sub-pro">성적</span></a></li>
 	                                <li><a title="교재" href="${pageContext.request.contextPath}/loginCheck/textbook"><span class="mini-sub-pro">교재</span></a></li>
