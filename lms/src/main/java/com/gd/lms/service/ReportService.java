@@ -1,6 +1,5 @@
 package com.gd.lms.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LectureSubjectMapper;
 import com.gd.lms.mapper.ReportMapper;
-import com.gd.lms.vo.LectureSubject;
 import com.gd.lms.vo.Report;
-import com.gd.lms.vo.ReportSubmit;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,8 +28,9 @@ public class ReportService {
 
 	/*
 	 * 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보를 추출하는 메소드 
-	 * 파라미터 : educationNo 리턴값
-	 * : List<Map<String,Object>>
+	 * 파라미터 : educationNo 
+	 * 리턴값 : List<Map<String,Object>>
+	 * reportListByStudent.jsp
 	 */
 	public List<Map<String, Object>> getReportListStateInfo(String accountId, String subjectName) {
 		// 디버깅 영역구분
@@ -70,8 +68,8 @@ public class ReportService {
 	} // end getReportListBySubjectName
 
 	/*
-	 * 강좌별 강의리스트 메인페이지로 이동하는 메소드
-	 *  파라미터 : lectureName XXX
+	 * 강사용 강의별 과제 리스트 조회하는 메소드
+	 * 파라미터 : lectureName 
 	 * 리턴값 : List<Map<String, Object>> 과제 리스트
 	 */
 	public List<Map<String, Object>> getReportList(String lectureName) {

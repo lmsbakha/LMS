@@ -3,6 +3,7 @@
 <mapper namespace="com.gd.lms.mapper.ReportMapper">
 
 	<!-- 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보를 추출하는 메소드 -->
+	<!-- reportListByStudent.jsp -->
 	<select id="selectReportListStateInfo" resultType="Map"
 		parameterType="String">
 		SELECT
@@ -31,23 +32,7 @@
 		ORDER BY r.report_end_date DESC
 	</select>
 	<!-- 제출기한을 넘기지 않은 출제된 과제 중 과제 제출 하지 않은 과제에 대한 정보를 추출하는 메소드 -->
-
-	<!-- 강좌별 과제 리스트 조회하기 -->
-	<select id="selectReportList" resultType="com.gd.lms.vo.Report">
-		SELECT
-		report_no reportNo,
-		subject_name subjectName,
-		report_title reportTitle,
-		report_content reportContent,
-		report_start_date reportStartDate,
-		report_end_date reportEndDate,
-		update_date updateDate,
-		create_date createDate
-		FROM report
-		ORDER BY report_no DESC
-	</select>
-	<!-- 전체 과제 리스트 조회하기 -->
-
+	
 	<!-- 과목당 과제 조회 -->
 	<!-- reportList.jsp -->
 	<select id="selectReportListBySubjectName" parameterType="String" resultType="Map">
@@ -65,25 +50,8 @@
 	</select>
 	<!-- 과목당 과제 조회 -->
 
-	<!-- reportNo와 관련된 subjectName 가져오기 -->
-	<select id="selectLectureSubject" resultType="List"
-		parameterType="int">
-		SELECT report_no reportNo,
-			subject_name subjectName,
-			report_title reportTitle, 
-			report_content reportContent,
-			report_start_date reportStartDate, 
-			report_end_date reportEndDate,
-			update_date updateDate, 
-			create_date createDate
-		FROM report
-		WHERE report_no =
-			(SELECT report_no FROM
-			report_submit WHERE report_submit_no= #{reportNo});
-	</select>
-	<!-- lectureSubject의 subjectName 가져오기 -->
-
 	<!-- 과제 출제하기 -->
+	<!-- addReport.jsp -->
 	<insert id="insertReport" parameterType="com.gd.lms.vo.Report">
 		INSERT INTO
 		report(
@@ -96,6 +64,7 @@
 	<!-- 과제 출제하기 -->
 
 	<!-- 출제한 과제 수정하기 form -->
+	<!-- modifyReport.jsp -->
 	<select id="selectReportOne" resultType="com.gd.lms.vo.Report"
 		parameterType="int">
 		SELECT report_no reportNo, subject_name subjectName,
@@ -110,6 +79,7 @@
 	<!-- 출제한 과제 수정하기 form -->
 
 	<!-- 출제한 과제 수정하기 -->
+	<!-- modifyReport.jsp -->
 	<update id="updateReport" parameterType="com.gd.lms.vo.Report">
 		UPDATE report SET
 		report_title = #{reportTitle}, report_content = #{reportContent},
@@ -119,11 +89,12 @@
 	</update>
 	<!-- 출제한 과제 수정하기 -->
 
-	<!-- 행정용 출제한 과제 삭제하기 -->
+	<!-- 출제한 과제 삭제하기 -->
+	<!-- reportList.jsp -->
 	<delete id="deleteReport" parameterType="int">
 		DELETE FROM report WHERE
 		report_no = #{reportNo}
 	</delete>
-	<!-- 행정용 출제한 과제 삭제하기 -->
+	<!-- 출제한 과제 삭제하기 -->
 
 </mapper>

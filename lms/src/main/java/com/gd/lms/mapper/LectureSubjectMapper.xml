@@ -21,7 +21,7 @@
 		FROM lecture_subject
 		WHERE lecture_name =
 			(SELECT
-				l.lecture_name lectureName
+			l.lecture_name lectureName
 			FROM teacher t
 			INNER
 			JOIN lecture l
@@ -41,12 +41,11 @@
 		SELECT
 			subject_name subjectName,
 			lecture_name lectureName,
-			lecture_subject_no
-			lectureSubjectNo
+			lecture_subject_no lectureSubjectNo
 		FROM lecture_subject
 		WHERE lecture_name =
 			(SELECT
-				e.lecture_name lectureName
+			e.lecture_name lectureName
 			FROM student s
 			INNER JOIN education e
 			USING(account_id)

@@ -34,7 +34,7 @@ public class LectureSubjectService {
 		log.debug(TeamColor.PSJ + lectureSubjectList + "<-- lectureSubjectList" + TeamColor.TEXT_RESET);
 
 		return lectureSubjectList;
-	}
+	} 
 
 	/*
 	 * 강사와 관련된 강의 리스트 정보 받아오기 

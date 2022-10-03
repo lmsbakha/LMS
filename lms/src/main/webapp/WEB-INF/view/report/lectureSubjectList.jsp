@@ -132,35 +132,68 @@
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<div class="all-form-element-inner">
-											<!-- 해당 lecture 조회 -->
-											<form
-												action="${pageContext.request.contextPath}/loginCheck/lectureSubjectList"
-												method="post">
-												<div class="form-group-inner">
-													<div class="row">
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<label class="login2 pull-right pull-right-pro">Lecture
-																조회</label>
-														</div>
-														<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-															<div class="form-select-list">
-																<select class="form-control custom-select-value"
-																	name="lectureName" id="lectureName" required="required">
-																	<option value="defalut">------------------------강좌선택-----------------------</option>
-																	<c:forEach var="l" items="${lectureListByTeacher}">
-																		<option value="${l.lectureName }">${l.lectureName }</option>
-																	</c:forEach>
-																</select>
+											<!-- 강사용 lecture 조회 -->
+											<c:choose>
+												<c:when test="${sessionLevel == 2}">
+													<form
+														action="${pageContext.request.contextPath}/loginCheck/lectureSubjectList"
+														method="post">
+														<div class="form-group-inner">
+															<div class="row">
+																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																	<label class="login2 pull-right pull-right-pro">Lecture
+																		조회</label>
+																</div>
+																<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+																	<div class="form-select-list">
+																		<select class="form-control custom-select-value"
+																			name="lectureName" id="lectureName"
+																			required="required">
+																			<option value="defalut">------------------------강좌선택-----------------------</option>
+																			<c:forEach var="l" items="${lectureListByTeacher}">
+																				<option value="${l.lectureName }">${l.lectureName }</option>
+																			</c:forEach>
+																		</select>
+																	</div>
+																</div>
+																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																	<button type="submit" class="btn btn-success">강좌선택</button>
+																</div>
 															</div>
 														</div>
-														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<button type="submit"
-																class="btn btn-success">강좌선택</button>
+													</form>
+												</c:when>
+												<c:when test="${sessionLevel >= 3}">
+													<form
+														action="${pageContext.request.contextPath}/loginCheck/lectureSubjectList"
+														method="post">
+														<div class="form-group-inner">
+															<div class="row">
+																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																	<label class="login2 pull-right pull-right-pro">Lecture
+																		조회</label>
+																</div>
+																<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+																	<div class="form-select-list">
+																		<select class="form-control custom-select-value"
+																			name="lectureName" id="lectureName"
+																			required="required">
+																			<option value="defalut">------------------------강좌선택-----------------------</option>
+																			<c:forEach var="l" items="${lectureListByAdmin}">
+																				<option value="${l.lectureName }">${l.lectureName }</option>
+																			</c:forEach>
+																		</select>
+																	</div>
+																</div>
+																<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+																	<button type="submit" class="btn btn-success">강좌선택</button>
+																</div>
+															</div>
 														</div>
-													</div>
-												</div>
-											</form>
-											<!-- /해당 lecture 조회 -->
+													</form>
+												</c:when>
+											</c:choose>
+											<!-- / 행정용 lecture 조회 -->
 										</div>
 									</div>
 
