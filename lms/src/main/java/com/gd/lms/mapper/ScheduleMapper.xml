@@ -1,3 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.lms.mapper.ScheduleMapper"></mapper>
+<mapper namespace="com.gd.lms.mapper.ScheduleMapper">  
+	
+	<!-- lectureSubjectNo를 이용해 scheduleNo 받아오기 -->
+	<select id="selectScheduleNoByLectureSubjectNo" parameterType="com.gd.lms.vo.Schedule"  resultType="int">
+		SELECT schedule_no scheduleNo
+		FROM schedule
+		WHERE lecture_subject_no = #{lectureSubjectNo} AND schedule_date = #{scheduleDateOne}
+	</select>
+	<!-- /lectureSubjectNo를 이용해 scheduleNo 받아오기 -->
+	
+	<!-- 강의 과목 리스트 받아오기 -->
+	<select id="selectLectureSubjectList"  resultType="com.gd.lms.vo.LectureSubject">
+		SELECT lecture_subject_no lectureSubjectNo
+		     , lecture_name lectureName
+		     , subject_name subjectName
+		FROM lecture_subject
+	</select>
+	<!-- /강의 과목 리스트 받아오기 -->
+	
+	<!-- 강사 담당하고있는 강의명 -->
+	<select id="selectLectureNameByTeacher"  parameterType="String" resultType="String">
+		SELECT l.lecture_name lectureName
+		FROM lecture l INNER JOIN teacher t
+		ON l.teacher_name = t.teacher_name
+		WHERE t.account_id = #{accountId} AND l.lecture_state = '수강'
+	</select>
+	<!-- /강사 담당하고있는 강의명 -->
+	
+	<!-- 학생 수강중인 강의명-->
+	<select id="selectLectureNameByStudent"  parameterType="String" resultType="String">
+		SELECT e.lecture_name lectureName
+		FROM education e
+		INNER JOIN account a
+			ON e.account_id = a.account_id
+		WHERE a.account_id = #{accountId}
+	</select>
+	<!-- /학생 수강중인 강의명 -->
+	
+	<!-- 전체 시간표 리스트 받아오기 -->
+	<select id="selectScheduleList" parameterType="map" resultType="com.gd.lms.vo.ScheduleCalendar">
+		SELECT s.schedule_no scheduleNo
+			 , ls.lecture_name lectureName
+			 , ls.subject_name subjectName
+			 , DAY(s.schedule_date) scheduleDateDay
+		FROM schedule s 
+		INNER JOIN lecture_subject ls
+			ON s.lecture_subject_no = ls.lecture_subject_no
+		WHERE YEAR(s.schedule_date) = #{year} AND MONTH(s.schedule_date) = #{month} 
+	</select>
+	<!-- /전체 시간표 리스트 받아오기 -->
+	
+	<!-- 학생 본인 시간표 리스트 받아오기 -->
+	<select id="selectScheduleListByStudent" parameterType="map" resultType="com.gd.lms.vo.ScheduleCalendar">
+		SELECT s.schedule_no scheduleNo
+			 , s.lecture_subject_no lectureSubjectNo
+			 , ed.lecture_name lectureName
+			 , ls.subject_name subjectName
+			 , DAY(s.schedule_date) scheduleDateDay
+		FROM schedule s 
+		INNER JOIN lecture_subject ls
+			ON s.lecture_subject_no = ls.lecture_subject_no
+		INNER JOIN lecture l
+			ON l.lecture_name = ls.lecture_name
+		Inner JOIN 	education ed
+			ON ed.lecture_name = l.lecture_name
+		Inner JOIN account a
+			ON a.account_id = ed.account_id
+		WHERE a.account_id = #{accountId} AND YEAR(s.schedule_date) = #{year} AND MONTH(s.schedule_date) = #{month} 
+	</select>
+	<!-- /학생 본인 시간표 리스트 받아오기 --> 
+	
+	<!-- 강사 본인 시간표 리스트 받아오기 -->
+	<select id="selectScheduleListByTeacher" parameterType="map" resultType="com.gd.lms.vo.ScheduleCalendar">
+		SELECT s.schedule_no scheduleNo
+			 , s.lecture_subject_no lectureSubjectNo
+			 , ls.lecture_name lectureName
+			 , ls.subject_name subjectName
+			 , DAY(s.schedule_date) scheduleDateDay
+		FROM schedule s 
+		INNER JOIN lecture_subject ls
+			ON s.lecture_subject_no = ls.lecture_subject_no
+		INNER JOIN lecture l
+			ON l.lecture_name = ls.lecture_name
+		Inner JOIN 	teacher t
+			ON l.teacher_name = t.teacher_name
+		Inner JOIN account a
+			ON a.account_id = t.account_id
+		WHERE a.account_id = #{accountId} AND YEAR(s.schedule_date) = #{year} AND MONTH(schedule_date) = #{month}
+	</select>
+	<!-- /강사 본인 시간표 리스트 받아오기 --> 
+	
+	<!-- 시간표 상세보기 -->
+	<select id="selectScheduleOne" parameterType="int" resultType="map">
+		SELECT s.schedule_no scheduleNo
+			 , s.schedule_date scheduleDate
+			 , s.lecture_subject_no lectureSubjectNo
+			 , ls.lecture_name lectureName
+			 , ls.subject_name subjectName
+		FROM schedule s
+		INNER JOIN lecture_subject ls
+			ON s.lecture_subject_no = ls.lecture_subject_no
+		WHERE s.schedule_no = #{scheduleNo}
+	</select>
+	<!-- /시간표 상세보기 -->
+	
+	<!-- 시간표 강의 받아오기 -->
+	<select id="selectLectureName" parameterType="int" resultType="String">
+		SELECT lecture_name lectureName
+		FROM lecture_subject
+		WHERE lecture_subject_no = #{lectureSubjectNo}
+	</select>
+	<!-- /시간표 강의 받아오기-->
+	
+	<!-- 시간표 일정 추가 하기 -->
+	<insert id="insertSchedule" parameterType="com.gd.lms.vo.Schedule">
+		<selectKey resultType="int" keyProperty="scheduleNo" order="AFTER">
+			SELECT LAST_INSERT_ID();  <!-- 테이블의 auto_increment로 증가된 컬럼값을 가져오는 쿼리-->
+		</selectKey>
+		INSERT INTO schedule(
+			schedule_date
+		  , lecture_subject_no
+		  , update_date
+		  , create_date
+		 ) VALUES(
+		 	#{scheduleDate}
+		  ,	#{lectureSubjectNo}
+		  , NOW()
+		  , NOW())
+	
+	</insert>
+	<!-- /시간표 일정 추가 하기 -->
+	
+	<!-- 시간표 일정 중복확인 하기 -->
+	<select id="selectCheckScheduleList" parameterType="com.gd.lms.vo.Schedule" resultType="com.gd.lms.vo.Schedule">
+		SELECT schedule_date scheduleDate
+		     , lecture_subject_no lectureSubjectNo
+		FROM schedule
+		WHERE schedule_date = #{scheduleDate} AND lecture_subject_no = #{lectureSubjectNo}
+	</select>
+	<!-- /시간표 일정 중복확인 하기 -->
+	
+	<!-- 시간표 일정 수정 하기 -->
+	<update id="updateSchedule" parameterType="com.gd.lms.vo.Schedule">
+		UPDATE schedule
+		SET schedule_date = #{scheduleDate}
+		  , lecture_subject_no = #{lectureSubjectNo}
+		  , update_date = NOW()
+		WHERE schedule_no = #{scheduleNo}
+	</update>
+	<!-- /시간표 일정 수정 하기 -->
+	
+	<!-- 시간표 일정 삭제 하기 -->
+	<delete id="deleteSchedule" parameterType="int">
+		DELETE FROM schedule
+		WHERE schedule_no = #{scheduleNo}
+	
+	</delete>
+	<!-- /시간표 일정 삭제 하기 -->
+	
+	<!-- 출결 추가하기 -->
+	<insert id="insertAttendance" parameterType="com.gd.lms.vo.Attendance">
+		INSERT INTO attendance(
+			schedule_no
+		  , education_no
+		  , attendance_state
+		  )
+		VALUES(
+			#{scheduleNo}
+		  , #{educationNo}
+		  , '출석전') 
+	</insert>
+	<!-- /출결 추가하기 -->
+	
+	<!-- 해당강의 출석 학생리스트 -->
+	<select id="selectStudentEducationListByAttendance" parameterType="String" resultType="int">
+		SELECT education_no educationNo
+		FROM education
+		WHERE lecture_name = #{lectureName}
+	</select>
+	<!-- /해당강의 출석 학생리스트 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

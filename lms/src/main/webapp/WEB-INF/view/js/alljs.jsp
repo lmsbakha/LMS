@@ -57,9 +57,9 @@
     <script src="${pageContext.request.contextPath}/js/sparkline/jquery.charts-sparkline.js"></script>
     <!-- calendar JS
 		============================================ -->
-<%--     <script src="${pageContext.request.contextPath}/js/calendar/moment.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/calendar/moment.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/calendar/fullcalendar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script> --%>
+    <script src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script>
     <!-- Chart JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/js/chart/jquery.peity.min.js"></script>
