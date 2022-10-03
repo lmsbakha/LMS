@@ -31,9 +31,6 @@
 	WHERE qna_question_no = ${qnaNo}
 	</select>
 
-
-
-
 	<!-- Qna 답변 상세보기 -->
 	<select id="selectQnaAnswerOne" parameterType="int" resultType="com.gd.lms.vo.QnaAnswer">
 	SELECT
@@ -46,6 +43,116 @@
 	FROM	qna_answer
 	WHERE qna_answer_no = ${qnaNo}
 	</select>
+
+	<!-- 질문 신규 작성 액션 -->
+	<insert id="insertQnaQuestion" parameterType="com.gd.lms.vo.QnaQuestion">
+	INSERT INTO qna_question(	 
+					qna_question_title, 
+					qna_question_content, 
+					account_id, 
+					create_date, 
+					update_date
+	) VALUES(			
+					#{qnaQuestionTitle},	 
+					#{qnaQuestionContent}, 
+					#{accountId}, 
+					NOW(), 
+					NOW())
+	</insert>
+
+	<!-- 답변 신규 작성 액션 -->
+	<insert id="insertQnaAnswer" parameterType="com.gd.lms.vo.QnaAnswer">
+	INSERT INTO qna_answer(	 
+					qna_answer_no
+					qna_answer_title, 
+					qna_answer_content, 
+					account_id, 
+					create_date, 
+					update_date
+	) VALUES(			
+					#{qnaNo}
+					#{qnaAnswerTitle},	 
+					#{qnaAnswerContent}, 
+					#{accountId}, 
+					NOW(), 
+					NOW())
+	</insert>
+	
+	<!-- 상태값 답변완료 처리 -->
+	<update id="updateQnaState" parameterType="int">
+		UPDATE qna_question 
+		SET
+			qna_state = '답변완료'
+		WHERE
+			qna_question_no = #{qnaNo}
+	</update>
+	
+	<!-- 상태값 대기중 처리 -->
+	<update id="updateQnaStateBack" parameterType="int">
+		UPDATE qna_question 
+		SET
+			qna_state = '대기중'
+		WHERE
+			qna_question_no = #{qnaNo}
+	</update>
+
+	<!-- 질문 삭제 -->
+	<delete id="deleteQnaQuestion" parameterType="int">
+	DELETE FROM qna_question 
+	WHERE qna_question_no = #{qnaNo}
+	</delete>
+	
+	<!-- 답변 삭제 -->
+	<delete id="deleteQnaAnswer" parameterType="int">
+	DELETE FROM qna_answer 
+	WHERE qna_answer_no = #{qnaNo}
+	</delete>
+
+	<!-- 질문 수정 폼 -->
+	<select id="updateQnaQuestionForm" resultType="com.gd.lms.vo.QnaQuestion" parameterType="int">
+	SELECT	qna_question_no qnaQuestionNo,
+			qna_question_title qnaQuestionTitle,
+			qna_question_content qnaQuestionContent
+	FROM 	qna_question 
+	WHERE 	qna_question_no = #{qnaNo};
+	</select>
+	
+	<!-- 질문 수정 액션 -->
+	<update id="updateQnaQuestion" parameterType="com.gd.lms.vo.QnaQuestion">
+	UPDATE qna_question
+		SET
+			qna_question_title = #{qnaQuestionTitle},
+			qna_question_content = #{qnaQuestionContent},
+			update_date = now()
+		WHERE
+			qna_question_no = #{qnaNo}
+	</update>
+
+	<!-- 답변 수정 폼 -->
+	<select id="updateQnaAnswerForm" resultType="com.gd.lms.vo.QnaAnswer" parameterType="int">
+	SELECT	qna_answer_no qnaAnswerNo,
+			qna_answer_title qnaAnswerTitle,
+			qna_answer_content qnaAnswerContent
+	FROM 	qna_answer 
+	WHERE 	qna_answer_no = #{qnaNo};
+	</select>
+	
+	<!-- 답변 수정 액션 -->
+	<update id="updateQnaAnswer" parameterType="com.gd.lms.vo.QnaAnswer">
+	UPDATE qna_answer 
+		SET
+			qna_answer_title = #{qnaAnswerTitle},
+			qna_answer_content = #{qnaAnswerContent},
+			update_date = now()
+		WHERE
+			qna_answer_no = #{qnaNo}
+	</update>
+
+
+
+
+
+
 
 
 

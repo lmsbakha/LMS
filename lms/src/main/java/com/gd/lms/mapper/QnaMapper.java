@@ -18,22 +18,30 @@ public interface QnaMapper {
 	QnaQuestion selectQnaQuestionOne(int qnaNo);
 		
 	// 질문 작성 액션
-	int insertQuestion(QnaQuestion question);
+	int insertQnaQuestion(QnaQuestion question);
+	//질문 수정 폼
+	QnaQuestion updateQnaQuestionForm(int qnaNo);
 	// 질문 수정 액션
-	int updateQuestion(QnaQuestion qna);
+	int updateQnaQuestion(QnaQuestion qna);
 	// 질문 삭제 액션	
-	int deleteQuestion(int questionNo);
+	int deleteQnaQuestion(int qnaNo);
 	
 	/////////////////////////////////////////////////////
 		
 	// 답변 상세보기
 	QnaAnswer selectQnaAnswerOne(int qnaNo);
-	
 	// 답변 작성 액션
-	int insertAnswer(QnaAnswer answer);
+	int insertQnaAnswer(QnaAnswer answer, int qnaNo);
+	// 답변 수정 폼
+	QnaAnswer updateQnaAnswerForm(int qnaNo);
 	// 답변 수정 액션
-	int updateAnswer(QnaAnswer qna);
+	int updateQnaAnswer(QnaAnswer qna);
 	// 답변 삭제 액션	
-	int deleteAnswer(int questionNo);
+	int deleteQnaAnswer(int qnaNo);
 
+	// 상태값 답변완료 처리
+	int updateQnaState(int qnaNo);
+	
+	// 상태값 대기중 처리
+	int updateQnaStateBack(int qnaNo);
 }

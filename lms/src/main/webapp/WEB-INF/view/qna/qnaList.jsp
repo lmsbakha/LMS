@@ -108,7 +108,7 @@
                         <div class="product-status-wrap drp-lst">
                             <h4>QnA List</h4>
                             <div class="add-product">
-                                <a href="add-department.html">질문하기</a>
+                                <a href="/lms/loginCheck/addQnaQuestion">질문하기</a>
                             </div>
                             <div class="asset-inner">
                                 <table>

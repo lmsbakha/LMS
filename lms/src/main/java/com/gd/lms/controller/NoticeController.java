@@ -59,17 +59,17 @@ public class NoticeController {
 	
 	// 공지글 작성 폼
 	@GetMapping("/loginCheck/addNotice")
-	public String addNoticeForm(Model model) {
+	public String addNoticeForm() {
 		return "notice/addNotice";
 	}
 
 	// 공지글 작성 액션
-		@PostMapping("/loginCheck/addNotice")
-		String addNotice(Model model,
-				@RequestParam("noticeTitle") String noticeTitle,
-				@RequestParam("noticeContent") String noticeContent, 
-				HttpServletRequest request,
-				HttpSession session) {
+	@PostMapping("/loginCheck/addNotice")
+	String addNotice(Model model,
+			@RequestParam("noticeTitle") String noticeTitle,
+			@RequestParam("noticeContent") String noticeContent, 
+			HttpServletRequest request,
+			HttpSession session) {
 			
 		log.debug(TeamColor.LHN + "게시글 작성" + TeamColor.TEXT_RESET);
 		Notice notice = new Notice();

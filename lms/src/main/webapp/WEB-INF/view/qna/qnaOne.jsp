@@ -106,8 +106,9 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="latest-blog-single blog-single-full-view">
                                         <div class="blog-details blog-sig-details">
-                                       	 	<label for="noticeTitle">제목</label>
-                                            <h1> ${qnaQuestion.qnaQuestionTitle}</h1>
+				                            <h4>QnA Detail</h4>
+				                            <hr>
+                                            <h1>질문: ${qnaQuestion.qnaQuestionTitle}</h1>
                                             <p> 작성자: ${qnaQuestion.accountId}</p>
                                             <hr>
                                             <div style="font-size:12px; text-align:right;">작성일: ${qnaQuestion.createDate}</div>
@@ -118,30 +119,66 @@
                                             <br>
                                             <hr>
                                             <br>
-                                            <div class="add-product">
-                                				<a href="/lms/loginCheck/QnAList">목록으로</a>                           				
-                            				</div>
                                         </div>
                                     </div>
                                     <c:if test="${qnaAnswer.qnaAnswerTitle != null}">
 	                                        <div class="blog-details blog-sig-details">
-	                                        	<label for="noticeTitle">제목</label>
-	                                            <h1>${qnaAnswer.qnaAnswerTitle}</h1>
+	                                            <h1>답변: ${qnaAnswer.qnaAnswerTitle}</h1>
 	                                            <p>작성자: ${qnaAnswer.accountId}</p>
 	                                            <hr>
 	                                            <div style="font-size:12px; text-align:right;">작성일: ${qnaAnswer.createDate}</div>
 	                                            <div style="font-size:12px; text-align:right;">수정일: ${qnaAnswer.updateDate}</div>
-	                                            
+	                                            <c:if test="${userLevel == 4 || qnaAnswer.accountId eq qna.accountId}">
+					                              <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" 
+					                              href="${pageContext.request.contextPath}/loginCheck/removeQnaAnswer?qnaNo=${qna.qnaNo}">
+					                              <i class="fa fa-trash-o" aria-hidden="true" ></i></a>
+					                         	</c:if>
 	                                            <label for="noticeContent">답변</label>
 	                                            <p>${qnaAnswer.qnaAnswerContent}</p>
 	                                            <br>
 	                                            <hr>
                                         	</div>
                                        </c:if> 
+                                       <c:if test="${qnaAnswer.qnaAnswerTitle eq null}">
+                                    	 <form action="${pageContext.request.contextPath}/loginCheck/addQnaAnswer" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="addQnaAnswerForm" method="post" enctype="multipart/form-data" >
+                                     		<div class="row">
+                                              <div class="form-group edit-ta-resize res-mg-t-15">
+                                                <div class="form-group">
+                                                <h4> 답변 작성하기</h4>
+                                                <hr>
+                                                   <label for="qnaAnswerTitle">제목</label> <input name="qnaAnswerTitle" id="qnaAnswerTitle" type="text" class="form-control">
+                                                      <input name="accountId" type="hidden" value="${qna.accountId}">
+                                                      <input name="qnaAnswerNo" type="hidden" value="${qna.qnaNo}">
+                                                 </div>
+                                                 <div class="form-group edit-ta-resize res-mg-t-15">
+                                                    <label for="qnaAnswerContent">본문</label> <textarea name="qnaAnswerContent" id="qnaAnswerContent"  class="form-control" style="resize: none;"></textarea>
+                                                 </div>
+                                               </div>
+                                           </div>	
+										<div class="form-group col-lg-12">
+					                		<div class="row">
+                                                         <div class="col-lg-12">
+                                                             <div class="payment-adress">
+                                                                 <button type="submit" id="addQnaAnswerSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
+                                                             </div>
+                                                         </div>
+                                                 	</div>
+                                                	</div>
+                                          </form>
+                                    </c:if>
+                                    
                                 </div>
                             </div>
-               			 </div>
-                      </div>
+               			 </div> 
+               			 <div class="add-product">
+                              <a href="/lms/loginCheck/QnAList">목록으로</a>
+                              <c:if test="${userLevel == 4 || accountId eq qna.accountId}">
+	                              <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" 
+	                              href="${pageContext.request.contextPath}/loginCheck/removeQnaQuestion?qnaNo=${qna.qnaQuestionNo}">
+	                              <i class="fa fa-trash-o" aria-hidden="true" ></i></a>
+					         </c:if>
+                 		</div>
+               		</div>
                  </div>  
             </div>
             

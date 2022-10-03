@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.QnaMapper;
+import com.gd.lms.vo.Notice;
 import com.gd.lms.vo.QnaAnswer;
 import com.gd.lms.vo.QnaQuestion;
 
@@ -65,22 +66,66 @@ public class QnaService {
 	
 	
 	// 질문 작성 액션
+	public int addQnaQuestion(QnaQuestion qnaQuestion) {
+		// 디버깅
+		log.debug(TeamColor.LHN + " addQnaQuestion 실행" + TeamColor.TEXT_RESET);
+		int addQnaQuestion = 0;	// 리턴값
+		log.debug(TeamColor.LHN + "addQnaQuestion: " + addQnaQuestion + TeamColor.TEXT_RESET);
+		// 매퍼 실행
+		addQnaQuestion = qnaMapper.insertQnaQuestion(qnaQuestion);
+		return addQnaQuestion;
+	}
+	
 	
 	
 	// 질문 수정 액션
 	
 	
 	// 질문 삭제 액션	
-	
+	public int removeQnaQuestion(int questionNo) {
+		log.debug(TeamColor.LHN + "답변 삭제" + TeamColor.TEXT_RESET);
+		int removeQuestion = 0;
+		log.debug(TeamColor.LHN  + "답변 번호: " + questionNo + TeamColor.TEXT_RESET);
+		// 매퍼 적용
+		removeQuestion = qnaMapper.deleteQnaQuestion(questionNo);
+		// 만약 답변이 있을 경우 답변도 같이 삭제
+		
+		log.debug(TeamColor.LHN + "삭제여부: "+ removeQuestion  + TeamColor.TEXT_RESET);
+		
+		return removeQuestion;
+		
+	}
 	
 	/////////////////////////////////////////////////////
 		
 	
 	// 답변 작성 액션
+	public int addQnaAnswer(QnaAnswer qnaAnswer, int qnaAnswerNo) {
+		// 디버깅
+		log.debug(TeamColor.LHN + " addQnaAnswer 실행" + TeamColor.TEXT_RESET);
+		int addQnaAnswer = 0;	// 리턴값
+		log.debug(TeamColor.LHN + "addQnaAnswer: " + addQnaAnswer + TeamColor.TEXT_RESET);
+		// 매퍼 실행
+		addQnaAnswer = qnaMapper.insertQnaAnswer(qnaAnswer, qnaAnswerNo);
+		// 상태값 답변완료 처리
+		addQnaAnswer = qnaMapper.updateQnaState(addQnaAnswer);
+		return addQnaAnswer;
+	}
 	
 	
 	// 답변 수정 액션
 	
 	
 	// 답변 삭제 액션
+	public int removeQnaAnswer(int questionNo) {
+		log.debug(TeamColor.LHN + "답변 삭제" + TeamColor.TEXT_RESET);
+		int removeAnswer = 0;
+		log.debug(TeamColor.LHN  + "답변 번호: " + questionNo + TeamColor.TEXT_RESET);
+		// 매퍼 적용
+		removeAnswer = qnaMapper.deleteQnaAnswer(questionNo);
+		log.debug(TeamColor.LHN + "삭제여부: "+ removeAnswer  + TeamColor.TEXT_RESET);
+		// 상태값 대기중 상태로 변경
+		removeAnswer = qnaMapper.updateQnaStateBack(questionNo);
+		return removeAnswer;
+	}
 }

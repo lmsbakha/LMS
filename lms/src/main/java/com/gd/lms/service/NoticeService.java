@@ -69,8 +69,6 @@ public class NoticeService {
 		
 	}
 	//공지사항 신규 작성 액션
-
-	
 	public int addNotice(Notice notice) {
 		// 디버깅
 		log.debug(TeamColor.LHN + " addNotice 실행" + TeamColor.TEXT_RESET);
