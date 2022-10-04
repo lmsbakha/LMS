@@ -44,4 +44,9 @@ public interface LectureMapper {
 	// 리턴값 : int
 	int updateLecture(Lecture paramLecture);
 	
+	// lecture 추가
+	// 파라미터 : lecture
+	// 리턴값 : int
+	int insertLecture(Lecture paramLecture);
+	
 }

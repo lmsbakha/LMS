@@ -107,7 +107,7 @@
 					<div class="product-status-wrap drp-lst">
 						<h4>강좌개설</h4>
 						<div class="asset-inner">
-							<form action="">
+							<form action="${pageContext.request.contextPath}/loginCheck/addLecture" method="post">
 								<table>
 									<tr class="table-info">
 										<th>강좌명</th>
@@ -148,23 +148,17 @@
 									</tr>
 									<tr class="table-info">
 										<th>개강일</th>
+										<td><input type="date" class="form-control" id="lectureStartDate" name="lectureStartDate"></td>
 									</tr>
 									<tr class="table-info">
 										<th>종강일</th>
-									</tr>
-									<tr class="table-info">
-										<th>lectureActive</th>
-									</tr>
-									<tr class="table-info">
-										<th>lectureState</th>
-									</tr>
-									<tr class="table-info">
-										<th>updateDate</th>
-									</tr>
-									<tr class="table-info">
-										<th>createDate</th>
+										<th style="font-weight: normal;"><input type="date" class="form-control" id="lectureEndDate" name="lectureEndDate"></th>
 									</tr>
 								</table>
+								<div class="btn-custom-groups-one btn-mg-b-10" style="float: right; margin: 10px 10px 10px 0">
+									<button type="button" onclick="location.href='${pageContext.request.contextPath}/loginCheck/lecture'" class="btn btn-custon-rounded-four btn-primary">목록</button>
+									<button type="submit" class="btn btn-custon-rounded-four btn-danger">강좌개설</button>
+								</div>
 							</form>
 						</div>
 					</div>

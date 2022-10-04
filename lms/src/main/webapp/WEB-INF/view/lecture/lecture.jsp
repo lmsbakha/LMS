@@ -108,7 +108,7 @@
 							강좌목록
 							<div class="btn-custom-groups-one btn-mg-b-10" style="float: right;">
 								<button type="button" class="btn btn-custon-rounded-four btn-danger" onclick="location.href = '${pageContext.request.contextPath}/loginCheck/addLecture' ">
-									<b>+</b> 강좌추가
+									<b>+</b> 강좌개설
 								</button>
 							</div>
 						</h4>

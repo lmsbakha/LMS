@@ -147,8 +147,18 @@ public class LectureService {
 	public int modifyLecture(Lecture paramLecture) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + paramLecture + "<-- paramLecture" + TeamColor.TEXT_RESET);
-		
+
 		// Mapper call
 		return lectureMapper.updateLecture(paramLecture);
+	}
+
+	// 강좌 추가하기
+	// 파라미터 : Lecture
+	// 리턴값 : int
+	public int addLecture(Lecture paramLecture) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + paramLecture + "<-- paramLecture" + TeamColor.TEXT_RESET);
+		// Mapper call
+		return lectureMapper.insertLecture(paramLecture);
 	}
 }

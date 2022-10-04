@@ -88,7 +88,7 @@
                             </ul>
                         </li>
                        <li>
-                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-apps icon-wrap"></span> <span class="mini-click-non">강좌관리</span></a>
+                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-apps icon-wrap"></span> <span class="mini-click-non">강의관리</span></a>
                             <ul class="submenu-angle app-mini-nb-dp" aria-expanded="false">
                                 <li><a title="강좌관리" href="${pageContext.request.contextPath}/loginCheck/lecture"><span class="mini-sub-pro">강좌관리</span></a></li>
                                 <li><a title="과목관리" href="${pageContext.request.contextPath}/loginCheck/subject"><span class="mini-sub-pro">과목관리</span></a></li>
