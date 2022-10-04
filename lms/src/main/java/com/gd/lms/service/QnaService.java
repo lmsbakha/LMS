@@ -100,15 +100,19 @@ public class QnaService {
 		
 	
 	// 답변 작성 액션
-	public int addQnaAnswer(QnaAnswer qnaAnswer, int qnaAnswerNo) {
+	public int addQnaAnswer(QnaAnswer qnaAnswer) {
 		// 디버깅
 		log.debug(TeamColor.LHN + " addQnaAnswer 실행" + TeamColor.TEXT_RESET);
 		int addQnaAnswer = 0;	// 리턴값
 		log.debug(TeamColor.LHN + "addQnaAnswer: " + addQnaAnswer + TeamColor.TEXT_RESET);
+		
 		// 매퍼 실행
-		addQnaAnswer = qnaMapper.insertQnaAnswer(qnaAnswer, qnaAnswerNo);
+		qnaMapper.insertQnaAnswer(qnaAnswer);
+		
 		// 상태값 답변완료 처리
-		addQnaAnswer = qnaMapper.updateQnaState(addQnaAnswer);
+		int qnaAnswerNo = qnaAnswer.getQnaAnswerNo();
+		addQnaAnswer = qnaMapper.updateQnaState(qnaAnswerNo);
+		log.debug(TeamColor.LHN + "addQnaAnswer 답변완료 처리: " + addQnaAnswer + TeamColor.TEXT_RESET);
 		return addQnaAnswer;
 	}
 	

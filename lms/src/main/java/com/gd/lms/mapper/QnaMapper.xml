@@ -63,14 +63,14 @@
 	<!-- 답변 신규 작성 액션 -->
 	<insert id="insertQnaAnswer" parameterType="com.gd.lms.vo.QnaAnswer">
 	INSERT INTO qna_answer(	 
-					qna_answer_no
+					qna_answer_no,
 					qna_answer_title, 
 					qna_answer_content, 
 					account_id, 
 					create_date, 
 					update_date
 	) VALUES(			
-					#{qnaNo}
+					#{qnaAnswerNo},
 					#{qnaAnswerTitle},	 
 					#{qnaAnswerContent}, 
 					#{accountId}, 
@@ -84,7 +84,7 @@
 		SET
 			qna_state = '답변완료'
 		WHERE
-			qna_question_no = #{qnaNo}
+			qna_question_no = #{qnaAnswerNo}
 	</update>
 	
 	<!-- 상태값 대기중 처리 -->

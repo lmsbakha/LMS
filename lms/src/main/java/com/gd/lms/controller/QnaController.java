@@ -100,7 +100,7 @@ public class QnaController {
 	String addQnaQuestion(Model model,
 			@RequestParam("qnaQuestionTitle") String qnaQuestionTitle,
 			@RequestParam("qnaQuestionContent") String qnaQuestionContent, 
-			HttpSession session) {
+			HttpSession session, HttpServletRequest request) {
 			
 		log.debug(TeamColor.LHN + "문의글 작성" + TeamColor.TEXT_RESET);
 		QnaQuestion qnaQuestion = new QnaQuestion();
@@ -116,6 +116,7 @@ public class QnaController {
 		qnaQuestion.setAccountId(accountId);
 		log.debug(TeamColor.LHN + "accountId: " + accountId +  TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + "qnaQuestion: " + qnaQuestion +  TeamColor.TEXT_RESET);
+
 
 		// qnaQuestion 적용
 		qnaService.addQnaQuestion(qnaQuestion);
@@ -166,41 +167,52 @@ public class QnaController {
 	// 수정 필요 //////////////////////////////////////////////////////////////////
 	@PostMapping("/loginCheck/addQnaAnswer")
 	String addQnaAnswer(Model model,
-			@RequestParam("qnaAnswerNo") int qnaAnswerNo,
-			@RequestParam("qnaAnswerTitle") String qnaAnswerTitle,
-			@RequestParam("qnaAnswerContent") String qnaAnswerContent, 
+			QnaAnswer qnaAnswer, 
 			HttpServletRequest request,
 			HttpSession session) {
 			
-		log.debug(TeamColor.LHN + "문의글 작성" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "답변글 작성" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "qnaAnswer: " + qnaAnswer +  TeamColor.TEXT_RESET);
 		
-		// 자동개행 
-		QnaAnswer qnaAnswer = new QnaAnswer();
-		qnaAnswerContent = qnaAnswerContent.replace("\r\n","<br>");
-		log.debug(TeamColor.LHN + "자동 개행 적용: " + qnaAnswerContent +  TeamColor.TEXT_RESET);
+		// 답변제목
+		String qnaAnswerTitle = qnaAnswer.getQnaAnswerTitle();
+		log.debug(TeamColor.LHN + "qnaAnswerTitle: " + qnaAnswerTitle +  TeamColor.TEXT_RESET);
 		
-		// 입력 내용 qnaAnswer 적용
-		qnaAnswer.setQnaAnswerNo(qnaAnswerNo);
+		// 게시글 번호
+		String url = request.getHeader("referer");
+		int qnaNo = Integer.parseInt(url.substring(45));
+		log.debug(TeamColor.LHN + "qnaNo: " + qnaNo +  TeamColor.TEXT_RESET);
+		
+		// 본문 자동개행 
+		String qnaAnswerContent = qnaAnswer.getQnaAnswerContent().replace("\r\n","<br>");
+		log.debug(TeamColor.LHN + "qnaAnswerContent 자동 개행 적용: " + qnaAnswerContent +  TeamColor.TEXT_RESET);
+		
+		qnaAnswer.setQnaAnswerNo(qnaNo);
 		qnaAnswer.setQnaAnswerTitle(qnaAnswerTitle);
-		qnaAnswer.setQnaAnswerContent(qnaAnswerContent);	
+		qnaAnswer.setQnaAnswerContent(qnaAnswerContent);
+		log.debug(TeamColor.LHN + "qnaAnswer: " + qnaAnswer +  TeamColor.TEXT_RESET);
 		
+		// 계정 레벨 호출=> 접근 권한 설정에 필요
 		int userLevel = (int) session.getAttribute("sessionLevel");
 		log.debug(TeamColor.LHN + "userLevel: " + userLevel + TeamColor.TEXT_RESET);
 		
-		// 작성자 아이디 담기
+		// 작성자 아이디 불러와서 담기
 		String accountId = (String) session.getAttribute("sessionId");
 		qnaAnswer.setAccountId(accountId);
 		log.debug(TeamColor.LHN + "accountId: " + accountId +  TeamColor.TEXT_RESET);
-		log.debug(TeamColor.LHN + "qnaQuestion: " + qnaAnswer +  TeamColor.TEXT_RESET);
 
+		
 		// qnaService 적용
-		qnaService.addQnaAnswer(qnaAnswer, qnaAnswerNo);
+		qnaService.addQnaAnswer(qnaAnswer);
 		
 		// model에 담기
 		model.addAttribute("userLevel", userLevel);
 		
 		// 공지 리스트로
 		return "redirect:/loginCheck/QnAList";
+		
+		// 현재 진행상황: 아이디와 게시글 번호까지는 확인되나 qnaService에 qnaNo가 담기지 않음, 매퍼 쪽에 문제가 있을 수도
+		// 집 가서 확인하기
 	} 
 	
 	// 답변 수정 폼

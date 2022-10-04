@@ -16,7 +16,6 @@ public interface QnaMapper {
 	
 	// 질문 상세보기
 	QnaQuestion selectQnaQuestionOne(int qnaNo);
-		
 	// 질문 작성 액션
 	int insertQnaQuestion(QnaQuestion question);
 	//질문 수정 폼
@@ -31,7 +30,7 @@ public interface QnaMapper {
 	// 답변 상세보기
 	QnaAnswer selectQnaAnswerOne(int qnaNo);
 	// 답변 작성 액션
-	int insertQnaAnswer(QnaAnswer answer, int qnaNo);
+	int insertQnaAnswer(QnaAnswer qnaAnswer);
 	// 답변 수정 폼
 	QnaAnswer updateQnaAnswerForm(int qnaNo);
 	// 답변 수정 액션
