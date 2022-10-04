@@ -203,6 +203,14 @@ public class AccountService {
 		// member 테이블 insert
 		accountMapper.insertMember(paramMember);
 		
+		Account account = new Account();
+		account.setAccountId(paramMember.getAccountId());
+		account.setAccountPw(paramMember.getAccountPw());
+		
+		// 비밀번호 이력 테이블에 추가해주기
+		accountMapper.insertPwRecordByAccount(account);
+		
+		// 파일 
 		MultipartFile mf = paramMember.getMemberFile();
 		
 		// 원래 파일 이름 추출
