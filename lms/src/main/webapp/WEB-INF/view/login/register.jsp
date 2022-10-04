@@ -340,10 +340,11 @@
 	
 	// 파일 확장자 체크
 	$('#memberFile').blur(function() {
-		if($('#uploadFile').val() == ''){
-			alert("※ 파일을 선택해 주세요.");			
+		if($('#memberFile').val() == ''){
+			$('#fileinfo').text('※ 파일을 등록해주세요.');
 		} else if (!reg_file.test($("#memberFile").val())) {
 			$('#fileinfo').text('※ 파일 형식 또는 파일 확장자가 잘못되었습니다.');
+			$('#uploadFile').focus();
   		} else {
   			$('#fileinfo').text('');
   		}
@@ -499,8 +500,6 @@
 			$('#detailaddrinfo').text('');
 			$('#fileinfo').text('※ 파일을 등록해 주세요.');
 			$('#uploadFile').focus();
-		} else if($('#uploadFile').val() == ''){
-			alert("※ 파일을 선택해 주세요.");			
 		} else if (!reg_file.test($("#memberFile").val())) {
 			$('#fileinfo').text('※ 파일 형식 또는 파일 확장자가 잘못되었습니다.');
 			$('#uploadFile').focus();
@@ -592,8 +591,6 @@
 				$('#detailaddrinfo').text('');
 				$('#fileinfo').text('※ 파일을 등록해 주세요.');
 				$('#uploadFile').focus();
-			} else if($('#uploadFile').val() == ''){
-				alert("※ 파일을 선택해 주세요.");			
 			} else if (!reg_file.test($("#memberFile").val())) {
 				$('#fileinfo').text('※ 파일 형식 또는 파일 확장자가 잘못되었습니다.');
 				$('#uploadFile').focus();
