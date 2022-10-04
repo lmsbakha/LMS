@@ -201,14 +201,12 @@
 											<th data-field="JavaScript_F" data-editable="true">JavaScript_F</th>
 											<th data-field="Java_M" data-editable="true">Java_M</th>
 											<th data-field="Java_F" data-editable="true">Java_F</th>
-											<th data-field="MidtermExamScore" data-editable="true">MidtermExamScore</th>
-											<th data-field="FinalExamScore" data-editable="true">FinalExamScore</th>
 											<th data-field="totalGrade" data-editable="true">totalGrade</th>
 									</thead>
 									<tbody>
 											<c:forEach var="grade" items="${gradeList}">
 										<tr>
-											<td></td>
+										<%-- 	<td></td>
 											<td>${grade.studentName}</td>
 											<td>${grade.BigData_M}</td>
 											<td>${grade.BigData_F}</td>
@@ -220,9 +218,7 @@
 											<td>${grade.JavaScript_F}</td>
 											<td>${grade.Java_M}</td>
 											<td>${grade.Java_F}</td>
-											<td>${grade.MidtermExamScore}</td>
-											<td>${grade.FinalExamScore}</td>
-											<td>${grade.totalGrade}</td>
+											<td>${grade.totalGrade}</td> --%>
 										</tr>
 										</c:forEach>
 									</tbody>

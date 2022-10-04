@@ -36,9 +36,10 @@ public class GradeController {
 	}
 
 	/*
-	 * 과제성적관리 페이지로 이동하는 메소드
-	 * 
-	 * 
+	 * 과제 성적관리 페이지로 이동하는 메소드
+	 * 파라미터 : lectureListByAdmin을 담을 Model
+	 * 리턴값 : lectureListByAdmin
+	 * reportGrade.jsp
 	 */
 	@GetMapping("/loginCheck/reportGrade")
 	public String grade(Model model) {
@@ -53,7 +54,7 @@ public class GradeController {
 		// model 단에 값 저장해서 보내줌
 		model.addAttribute("lectureListByAdmin", lectureListByAdmin);
 
-		return "grade/grade";
+		return "grade/reportGrade";
 	} // end getGrade @GetMapping
 
 	@PostMapping("/loginCheck/reportGrade")
