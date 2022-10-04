@@ -154,8 +154,7 @@
 															</div>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-															<button type="submit"
-																class="btn btn-success">강좌선택</button>
+															<button type="submit" class="btn btn-success">강좌선택</button>
 														</div>
 													</div>
 												</div>
@@ -163,8 +162,9 @@
 											<!-- /해당 lecture 조회 -->
 										</div>
 									</div>
-									
-								</div><!-- /row  -->
+
+								</div>
+								<!-- /row  -->
 							</div>
 						</div>
 					</div>
@@ -175,55 +175,35 @@
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					<div class="product-status-wrap drp-lst">
-						<!-- Static Table Start -->
-						<div class="sparkline13-graph">
-							<div class="datatable-dashv1-list custom-datatable-overright">
-								<table id="table" data-toggle="table" data-pagination="true"
-									data-search="true" data-show-columns="true"
-									data-show-pagination-switch="true" data-show-refresh="true"
-									data-key-events="true" data-show-toggle="true"
-									data-resizable="true" data-cookie="true"
-									data-cookie-id-table="saveId" data-show-export="true"
-									data-click-to-select="true" data-toolbar="#toolbar">
-									<thead>
+						<h4>강의별 평균</h4>
+						<div class="asset-inner">
+							<table>
+								<tr>
+									<th>lectureSubjectNo</th>
+									<th>lectureName</th>
+									<th>subjectName</th>
+									<th style="width: 100px">Average</th>
+								</tr>
+								<c:if test="${empty lectureSubjectList}">
+									<tr>
+										<td colspan="7" style="text-align: center;">lecture를 먼저
+											선택해주세요</td>
+									</tr>
+								</c:if>
+								<c:if test="${not empty lectureSubjectList}">
+									<c:forEach var="lectureSubjectList"
+										items="${lectureSubjectList}">
 										<tr>
-											<th data-field="state" data-checkbox="true"></th>
-											<th data-field="studentName" data-editable="true">studentName</th>
-											<th data-field="BigData_M" data-editable="true">BigData_M</th>
-											<th data-field="BigData_F" data-editable="true">BigData_F</th>
-											<th data-field="NetWork_M" data-editable="true">NetWork_M</th>
-											<th data-field="NetWork_F" data-editable="true">NetWork_F</th>
-											<th data-field="DB설계_M" data-editable="true">DB설계_M</th>
-											<th data-field="DB설계_F" data-editable="true">DB설계_F</th>
-											<th data-field="JavaScript_M" data-editable="true">JavaScript_M</th>
-											<th data-field="JavaScript_F" data-editable="true">JavaScript_F</th>
-											<th data-field="Java_M" data-editable="true">Java_M</th>
-											<th data-field="Java_F" data-editable="true">Java_F</th>
-											<th data-field="totalGrade" data-editable="true">totalGrade</th>
-									</thead>
-									<tbody>
-											<c:forEach var="grade" items="${gradeList}">
-										<tr>
-										<%-- 	<td></td>
-											<td>${grade.studentName}</td>
-											<td>${grade.BigData_M}</td>
-											<td>${grade.BigData_F}</td>
-											<td>${grade.NetWork_M}</td>
-											<td>${grade.NetWork_F}</td>
-											<td>${grade.DB설계_M}</td>
-											<td>${grade.DB설계_F}</td>
-											<td>${grade.JavaScript_M}</td>
-											<td>${grade.JavaScript_F}</td>
-											<td>${grade.Java_M}</td>
-											<td>${grade.Java_F}</td>
-											<td>${grade.totalGrade}</td> --%>
+											<td>${lectureSubjectList.lectureSubjectNo}</td>
+											<td>${lectureSubjectList.lectureName}</td>
+											<td>${lectureSubjectList.subjectName}</td>
+											<td>${lectureSubjectList.Average}</td>
 										</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
+									</c:forEach>
+								</c:if>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -238,5 +218,45 @@
 	<jsp:include page="../js/alljs.jsp" />
 	<!-- End script -->
 </body>
+<script>
+//차트에서 사용할 모델(데이터)로 가공
+var myData = [['gender','count']];
+// 데이터를 호출
+$.ajax({
+	type:'get'
+	,url:'/stats/stats'
+	,success:function(jsonData) {
+		//console.log(jsonData);
+		/*
+		[{gender: 'Male', count: 18},
+		 {gender: 'Female', count: 27},
+		 {gender: 'null', count: 4}]
+		*/
+		for(var i=0; i<jsonData.length; i++) {
+			// console.log(jsonData[i].gender , jsonData[i].count);
+			myData.push([jsonData[i].gender,jsonData[i].count])
+		}
+	}
+});
 
+console.log(myData);
+
+
+// 차트를 그리는 로직
+
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+	var data = google.visualization.arrayToDataTable(myData);
+
+var options = {
+  title:'World Wide Wine Production'
+};
+
+var chart = new google.visualization.ColumnChart(document.getElementById('myChart'));
+  chart.draw(data, options);
+}
+
+</script>
 </html>

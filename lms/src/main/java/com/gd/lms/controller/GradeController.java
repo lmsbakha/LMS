@@ -1,6 +1,9 @@
 package com.gd.lms.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,11 +37,12 @@ public class GradeController {
 		log.debug(TeamColor.PSJ + "성적관리 탭으로 이동" + TeamColor.TEXT_RESET);
 		return "grade/grade";
 	}
+	
 
 	/*
 	 * 과제 성적관리 페이지로 이동하는 메소드
 	 * 파라미터 : lectureListByAdmin을 담을 Model
-	 * 리턴값 : lectureListByAdmin
+	 * 리턴값 : 
 	 * reportGrade.jsp
 	 */
 	@GetMapping("/loginCheck/reportGrade")
@@ -67,4 +71,22 @@ public class GradeController {
 		// gradeList로 리다이랙트
 		return "redirect:/loginCheck/grade";
 	} // end gradeList @PostMapping
+	
+	@GetMapping("/stats")
+	public List<Map<String, Object>> stats() {
+		List<Map<String, Object>> list = new ArrayList<>();
+		Map<String, Object> m1 = new HashMap<>();
+		m1.put("gender", "Male");
+		m1.put("count", 18);
+		Map<String, Object> m2 = new HashMap<>();
+		m2.put("gender", "Female");
+		m2.put("count", 27);
+		Map<String, Object> m3 = new HashMap<>();
+		m3.put("gender", "null");
+		m3.put("count", 4);
+		list.add(m1);
+		list.add(m2);
+		list.add(m3);
+		return list;
+	}
 }

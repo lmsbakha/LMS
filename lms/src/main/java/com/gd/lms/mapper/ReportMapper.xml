@@ -13,19 +13,19 @@
 			r.report_content reportContent, r.report_start_date reportStartDate,
 			r.report_end_date reportEndDate,
 			(SELECT COUNT(*) FROM report_submit
-		WHERE education_no= z.education_no AND report_no = r.report_no) state
+			WHERE education_no= z.education_no AND report_no = r.report_no) state
 		FROM report r
 		INNER JOIN (
 			SELECT t.account_id, t.lecture_name,
 				t.education_no, ls.subject_name
 			FROM lecture_subject ls
-			INNER JOIN (
-			SELECT e.account_id, e.education_no, l.lecture_name
-			FROM education e
-			INNER JOIN lecture l
-			USING(lecture_name)
-			WHERE e.account_id= #{accountId})t
-			USING(lecture_name) )z
+				INNER JOIN (
+				SELECT e.account_id, e.education_no, l.lecture_name
+				FROM education e
+					INNER JOIN lecture l
+					USING(lecture_name)
+					WHERE e.account_id= #{accountId})t
+				USING(lecture_name) )z
 			USING(subject_name)
 		WHERE
 			r.subject_name= #{subjectName}
