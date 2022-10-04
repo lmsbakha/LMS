@@ -48,7 +48,6 @@ public class LectureController {
 		return "redirect:/loginCheck/exam";
 	}
 
-
 	// [행정/총관리자] 강좌관리 페이지로 이동하는 메소드
 	// 파라미터 : X
 	// 리턴값 : 전체 강좌 목록 보여주기 
@@ -85,14 +84,36 @@ public class LectureController {
 
 		return "lecture/lectureOne";
 	}
-	
+
 	// [행정/총관리자] 강좌 개설 폼
 	// 파라미터 : accountId
 	// 리턴값 : 강좌개설 페이지 폼 
 	@GetMapping("/loginCheck/addLecture")
 	public String addLecture(Model model) {
-		Map<String,Object> infoMap = lectureService.getInfoForAddLecture();
+		Map<String, Object> infoMap = lectureService.getInfoForAddLecture();
 		model.addAttribute("infoMap", infoMap);
 		return "lecture/addLecture";
+	}
+
+	// [행정/총관리자] 강좌 수정 액션
+	// 파라미터 : 
+	// 리턴값 : 강좌수정 성공시 lecture.jsp /실패시 lectureOne.jsp
+	@PostMapping("/loginCheck/modifyLecture")
+	public String modifyLecture(RedirectAttributes redirectAttributes, Lecture paramLecture) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.PSJ + paramLecture + "<-- paramLecture" + TeamColor.TEXT_RESET);
+		
+		// Service call
+		int row = lectureService.modifyLecture(paramLecture);
+		// 결과 처리
+		if(row != 0) {	// 수정에 성공했을 떄
+			log.debug(TeamColor.PSJ + "modifyLecture 수정 성공" + TeamColor.TEXT_RESET);
+			redirectAttributes.addFlashAttribute("alertMsg", "수정에 성공하였습니다.");
+		} else {	// 수정에 실패했을 때
+			log.debug(TeamColor.PSJ + "modifyLecture 수정 실패" + TeamColor.TEXT_RESET);
+			redirectAttributes.addFlashAttribute("alertMsg", "수정에 실패하였습니다.");
+		}
+		redirectAttributes.addAttribute("lectureName", paramLecture.getLectureName());
+		return "redirect:/loginCheck/lectureOne";
 	}
 }
