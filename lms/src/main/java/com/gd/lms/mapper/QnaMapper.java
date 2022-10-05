@@ -10,8 +10,7 @@ import com.gd.lms.vo.QnaQuestion;
 @Mapper
 public interface QnaMapper {
 	// 질문 리스트 조회
-	List selectQnaList();
-	
+	List selectQnaQuestionList();
 	/////////////////////////////////////////////////////
 	
 	// 질문 상세보기

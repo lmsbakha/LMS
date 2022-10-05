@@ -153,7 +153,9 @@
 					                		<div class="row">
                                                          <div class="col-lg-12">
                                                              <div class="payment-adress">
+                                                             	<c:if test="${userLevel gt 1}">
                                                                  <button type="submit" id="addQnaAnswerSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
+                                                                 </c:if>
                                                              </div>
                                                          </div>
                                                  	</div>
@@ -238,11 +240,16 @@ $('#addQnaAnswerSubmit').click(function() {
 		alert("제목을 입력해 주세요.");
 		$('#qnaAnswerTitle').focus();
 		return false;
-	}else if ($('#qnaAnswerContent').val() == '') {
+	}
+});
+$('#addQnaAnswerSubmit').click(function() {
+	if ($('#qnaAnswerContent').val() == '') {
 		alert('내용을 입력해주세요.');
 		$('#qnaAnswerContent').focus();
 		return false;
 	}
 });
+
+
 </script>
 </html>

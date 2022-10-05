@@ -22,8 +22,8 @@ public class QnaService {
 	private QnaMapper qnaMapper;
 	
 	// 질문 리스트 조회
-	public List<QnaQuestion> getQnaList() {
-		return qnaMapper.selectQnaList();
+	public List<QnaQuestion> getQnaQuestionList() {
+		return qnaMapper.selectQnaQuestionList();
 	}
 	
 	// 답변여부

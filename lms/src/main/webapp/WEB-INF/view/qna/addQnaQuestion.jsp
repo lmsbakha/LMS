@@ -206,17 +206,21 @@
 </body>
 
 <script>
-
 $('#addQnaQuestionSubmit').click(function() {
 	if ($('#qnaQuestionTitle').val() == '') {
 		alert("제목을 입력해 주세요.");
 		$('#qnaQuestionTitle').focus();
 		return false;
-	}else if ($('#qnaQuestioContent').val() == '') {
+	}
+});
+
+$('#addQnaQuestionSubmit').click(function() {
+	if ($('#qnaQuestionContent').val() == '') {
 		alert('내용을 입력해주세요.');
-		$('#qnaQuestioContent').focus();
+		$('#qnaQuestionContent').focus();
 		return false;
 	}
 });
+
 </script>
 </html>

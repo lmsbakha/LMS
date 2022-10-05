@@ -42,22 +42,20 @@ public class QnaController {
 
 		// 리스트 불러오기
 		// 어차피 답변은 상세보기에서만 노출될 것이기 때문에 질문 제목만 불러옴
-		List<QnaQuestion> qnaList = qnaService.getQnaList();	
-		log.debug(TeamColor.LHN + "qnaList: " + qnaList + TeamColor.TEXT_RESET);
-		
+		List<QnaQuestion> qnaQuestionList = qnaService.getQnaQuestionList();	
+		log.debug(TeamColor.LHN + "qnaQuestionList: " + qnaQuestionList + TeamColor.TEXT_RESET);
 		
 		// model에 데이터 세팅
-		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qnaList", qnaQuestionList);
 		model.addAttribute("userLevel", userLevel);
 		model.addAttribute("accountId", accountId);
-		
 
 		return "qna/qnaList";
 	}
 	
 	// 질문 상세보기
 	@GetMapping("/loginCheck/qnaOne")
-	public String QnaOne(Model model, @RequestParam("qnaNo") int qnaNo) {
+	public String QnaOne(Model model, @RequestParam("qnaNo") int qnaNo, HttpServletRequest request) {
 		log.debug(TeamColor.LHN + "qna 상세보기" + TeamColor.TEXT_RESET);
 		
 		// 대기중일 경우 질문만 노출, 답변완료 상태일 경우 답변까지 노출
@@ -79,9 +77,13 @@ public class QnaController {
 			log.debug(TeamColor.LHN + "답변 없음" + TeamColor.TEXT_RESET);
 		}
 		
+		HttpSession session = request.getSession();
+		int userLevel = (int) session.getAttribute("sessionLevel");
+		log.debug(TeamColor.LHN + "userLevel: " + userLevel + TeamColor.TEXT_RESET);
+		
 		// model에 담기
 		model.addAttribute("qnaQuestion", qnaQuestion);
-
+		model.addAttribute("userLevel", userLevel);
 		return "qna/qnaOne";
 	}
 	

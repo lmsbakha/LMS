@@ -119,10 +119,8 @@
                                         <th>State</th>
                                         <th>CreateDate</th>
                                         <th>UpdateDate</th>
-                                        <c:if test="${userLevel > 2 || accountId eq qna.accountId}"> 
                                         <th>QuestionSetting</th>
-                                        </c:if>
-                                        <c:if test="${userLevel > 2 || accountId eq qnaAnswer.accountId}"> 
+                                        <c:if test="${userLevel gt 2 }">
                                         <th>AnswerSetting</th>
                                         </c:if>
                                     </tr>
@@ -155,13 +153,13 @@
                                             <i class="fa fa-trash-o" aria-hidden="true" ></i></a>
                                             </c:if>
                                         </td>
-                                        <td>
-                                        	<c:if test="${userLevel > 2 || accountId eq qnaAnswer.accountId}"> 
+                                        <td><!--
+                                        	<c:if test="${accountId eq qna.accountId}"> 
                                     		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" 
                                     		href="${pageContext.request.contextPath}/loginCheck/modifyQnaAnswerForm?qnaNo=${qna.qnaNo}">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
-                                            </c:if>
-                                            <c:if test="${userLevel > 2 || accountId eq qnaAnswer.accountId}"> 
+                                            </c:if>  -->
+                                            <c:if test="${userLevel gt 2}"> 
                                             <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" 
                                             href="${pageContext.request.contextPath}/loginCheck/removeQnaAnswer?qnaNo=${qna.qnaNo}">
                                             <i class="fa fa-trash-o" aria-hidden="true" ></i></a>

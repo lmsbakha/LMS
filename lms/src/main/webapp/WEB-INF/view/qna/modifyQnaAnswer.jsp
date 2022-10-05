@@ -216,12 +216,15 @@
 </body>
 <script>
 
-$('#modifyQnaAnswerSubmit').click(function() {
+$('#addQnaAnswerSubmit').click(function() {
 	if ($('#qnaAnswerTitle').val() == '') {
 		alert("제목을 입력해 주세요.");
 		$('#qnaAnswerTitle').focus();
 		return false;
-	}else if ($('#qnaAnswerContent').val() == '') {
+	}
+});
+$('#addQnaAnswerSubmit').click(function() {
+	if ($('#qnaAnswerContent').val() == '') {
 		alert('내용을 입력해주세요.');
 		$('#qnaAnswerContent').focus();
 		return false;

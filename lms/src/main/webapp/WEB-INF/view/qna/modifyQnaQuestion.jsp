@@ -213,9 +213,13 @@ $('#addQnaQuestionSubmit').click(function() {
 		alert("제목을 입력해 주세요.");
 		$('#qnaQuestionTitle').focus();
 		return false;
-	}else if ($('#qnaQuestioContent').val() == '') {
+	}
+});
+
+$('#addQnaQuestionSubmit').click(function() {
+	if ($('#qnaQuestionContent').val() == '') {
 		alert('내용을 입력해주세요.');
-		$('#qnaQuestioContent').focus();
+		$('#qnaQuestionContent').focus();
 		return false;
 	}
 });
