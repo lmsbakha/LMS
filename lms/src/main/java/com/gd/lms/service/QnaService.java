@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.QnaMapper;
+import com.gd.lms.vo.Notice;
 import com.gd.lms.vo.QnaAnswer;
 import com.gd.lms.vo.QnaQuestion;
 
@@ -73,10 +74,28 @@ public class QnaService {
 		return addQnaQuestion;
 	}
 	
+	// 질문 수정 폼(기존 내용 수정 화면으로 불러오기)
+	public QnaQuestion modifyQnaQuestionForm(int qnaQuestionNo) {
+		log.debug(TeamColor.LHN + "updateqnaQuestionForm 호출" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "qnaQuestionNo: " + qnaQuestionNo +  TeamColor.TEXT_RESET);
+		
+		// 수정할 객체
+		QnaQuestion qnaQuestion = qnaMapper.updateQnaQuestionForm(qnaQuestionNo);
+		String qnaQuestionContent = qnaQuestion.getQnaQuestionContent();
+		qnaQuestionContent = qnaQuestionContent.replace("<br>", "\r\n");
+		qnaQuestion.setQnaQuestionContent(qnaQuestionContent);
+		log.debug(TeamColor.LHN + "자동 개행 적용" + qnaQuestionContent +  TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN+ "(Service)qnaQuestion : " +qnaQuestion + TeamColor.TEXT_RESET);
+		
+		return qnaQuestion;
+	}
 	
 	
 	// 질문 수정 액션
-	
+	public int modifyQnaQuestion(QnaQuestion qnaQuestion) {
+		log.debug(TeamColor.LHN + "modifyQnaQuestion 실행" + TeamColor.TEXT_RESET);
+		return qnaMapper.updateQnaQuestion(qnaQuestion);
+	}
 	
 	// 질문 삭제 액션	
 	public int removeQnaQuestion(int qnaQuestionNo) {
@@ -116,9 +135,26 @@ public class QnaService {
 		return addQnaAnswer;
 	}
 	
-	
+	// 답변 수정 폼(기존 내용 수정 화면으로 불러오기)
+		public QnaAnswer modifyQnaAnswerForm(int qnaAnswerNo) {
+			log.debug(TeamColor.LHN + "modifyQnaAnswerForm 호출" + TeamColor.TEXT_RESET);
+			log.debug(TeamColor.LHN + "qnaAnswerNo: " + qnaAnswerNo +  TeamColor.TEXT_RESET);
+			
+			// 수정할 객체
+			QnaAnswer qnaAnswer = qnaMapper.updateQnaAnswerForm(qnaAnswerNo);
+			String qnaAnswerContent = qnaAnswer.getQnaAnswerContent();
+			qnaAnswerContent = qnaAnswerContent.replace("<br>", "\r\n");
+			qnaAnswer.setQnaAnswerContent(qnaAnswerContent);
+			log.debug(TeamColor.LHN + "자동 개행 적용" + qnaAnswerContent +  TeamColor.TEXT_RESET);
+			log.debug(TeamColor.LHN+ "(Service)qnaAnswer : " +qnaAnswer + TeamColor.TEXT_RESET);
+			return qnaAnswer;
+		}
+		
 	// 답변 수정 액션
-	
+	public int modifyQnaAnswer(QnaAnswer qnaAnswer) {
+		log.debug(TeamColor.LHN + "modifyQnaAnswer 실행" + TeamColor.TEXT_RESET);
+		return qnaMapper.updateQnaAnswer(qnaAnswer);
+	}
 	
 	// 답변 삭제 액션
 	public int removeQnaAnswer(int qnaAnswerNo) {

@@ -127,7 +127,7 @@ public class NoticeController {
 	
 	// 수정 액션
 	@PostMapping("/loginCheck/modifyNotice")
-	public String modifyList(Model model, @RequestParam("noticeNo") int noticeNo,
+	public String modifyNotice(Model model, @RequestParam("noticeNo") int noticeNo,
 			@RequestParam("noticeTitle") String noticeTitle, @RequestParam("noticeContent") String noticeContent) {
 		
 		log.debug(TeamColor.LHN + "공지 수정 액션" + TeamColor.TEXT_RESET);
@@ -142,9 +142,6 @@ public class NoticeController {
 		int modifyNotice = noticeService.modifyNotice(notice);
 		// 디버깅
 		log.debug(TeamColor.LHN + "수정완료"+ TeamColor.TEXT_RESET);
-		
-		// 파일 여부에 따른 추가/삭제 기능 추가 필요
-		
 		
 		return "redirect:/loginCheck/noticeList";
 	}

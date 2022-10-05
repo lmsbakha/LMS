@@ -133,7 +133,7 @@
 			qna_question_content = #{qnaQuestionContent},
 			update_date = now()
 		WHERE
-			qna_question_no = #{qnaNo}
+			qna_question_no = #{qnaQuestionNo}
 	</update>
 
 	<!-- 답변 수정 폼 -->
@@ -153,12 +153,8 @@
 			qna_answer_content = #{qnaAnswerContent},
 			update_date = now()
 		WHERE
-			qna_answer_no = #{qnaNo}
+			qna_answer_no = #{qnaAnswerNo}
 	</update>
-
-
-
-
 
 
 

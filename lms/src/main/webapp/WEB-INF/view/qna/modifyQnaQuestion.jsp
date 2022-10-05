@@ -63,6 +63,9 @@
 <!-- modernizr JS
       ============================================ -->
 <script src="${pageContext.request.contextPath}/js/vendor/modernizr-2.8.3.min.js"></script>
+ <!-- dropzone CSS
+		============================================ -->
+<link rel="stylesheet" href="css/dropzone/dropzone.css">
 </head>
 <body>
    <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -74,21 +77,21 @@
    <!-- Start tobbar -->
    <jsp:include page="/WEB-INF/view/inc/topbar.jsp" />
    <!-- End tobbar -->
-    <!-- Start Welcome area -->
-        <div class="breadcome-area">
+
+
+    <!-- Main Contents -->
+	<div class="header-advance-area">
+            <div class="breadcome-area">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="breadcome-list single-page-breadcome">
-                                <div class="row">
+                                <div class="row"> 
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <ul class="breadcome-menu" style="float: left;">
-                                            <li><a href="#">Home</a> <span class="bread-slash">/</span>
-                                            </li>
-                                            <li><a href="/lms/loginCheck/QnAList">QnA</a> <span class="bread-slash">/</span>
-                                            </li>
-                                            <li>상세보기 <span class="bread-slash"></span>
-                                            </li>
+                                            <li><a href="#">Home</a> <span class="bread-slash">/</span></li>
+                                            <li><a href="/lms/loginCheck/qnaList">QnA</a> <span class="bread-slash">/</span></li>
+                                            <li><a href="/lms/loginCheck/addQnaQuestion">문의 수정</a> <span class="bread-slash"></span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -97,88 +100,56 @@
                     </div>
                 </div>
             </div>
-         <div class="blog-details-area mg-b-15">
+        <div class="single-pro-review-area mt-t-30 mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="blog-details-inner">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="latest-blog-single blog-single-full-view">
-                                        <div class="blog-details blog-sig-details">
-				                            <h4>QnA Detail</h4>
-				                            <hr>
-                                            <h1>질문: ${qnaQuestion.qnaQuestionTitle}</h1>
-                                            <p> 작성자: ${qnaQuestion.accountId}</p>
-                                            <hr>
-                                            <div style="font-size:12px; text-align:right;">작성일: ${qnaQuestion.createDate}</div>
-                                            <div style="font-size:12px; text-align:right;">수정일: ${qnaQuestion.updateDate}</div>
-                                            
-                                            <label for="noticeContent">질문</label>
-                                            <p>${qnaQuestion.qnaQuestionContent}</p>
-                                            <br>
-                                            <hr>
-                                            <br>
-                                        </div>
-                                    </div>
-                                    <c:if test="${qnaAnswer.qnaAnswerTitle != null}">
-	                                        <div class="blog-details blog-sig-details">
-	                                            <h1>답변: ${qnaAnswer.qnaAnswerTitle}</h1>
-	                                            <p>작성자: ${qnaAnswer.accountId}</p>
-	                                            <hr>
-	                                            <div style="font-size:12px; text-align:right;">작성일: ${qnaAnswer.createDate}</div>
-	                                            <div style="font-size:12px; text-align:right;">수정일: ${qnaAnswer.updateDate}</div>
-	                                            <label for="noticeContent">답변</label>
-	                                            <p>${qnaAnswer.qnaAnswerContent}</p>
-	                                            <br>
-	                                            <hr>
-                                        	</div>
-                                       </c:if> 
-                                       <c:if test="${qnaAnswer.qnaAnswerTitle eq null}">
-                                    	 <form action="${pageContext.request.contextPath}/loginCheck/addQnaAnswer" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="addQnaAnswerForm" method="post" >
-                                     		<div class="row">
-                                              <div class="form-group edit-ta-resize res-mg-t-15">
-                                                <div class="form-group">
-                                                <h4> 답변 작성하기</h4>
-                                                <hr>
-                                                   <label for="qnaAnswerTitle">제목</label> <input name="qnaAnswerTitle" id="qnaAnswerTitle" type="text" class="form-control">
-                                                    <input name="qnaNo" type="hidden" value="${qnaQuestionNo}">
-                                                 </div>
-                                                 <div class="form-group edit-ta-resize res-mg-t-15">
-                                                    <label for="qnaAnswerContent">본문</label> <textarea name="qnaAnswerContent" id="qnaAnswerContent"  class="form-control" style="resize: none;"></textarea>
-                                                 </div>
-                                               </div>
-                                           </div>	
-										<div class="form-group col-lg-12">
-					                		<div class="row">
-                                                         <div class="col-lg-12">
-                                                             <div class="payment-adress">
-                                                                 <button type="submit" id="addQnaAnswerSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
-                                                             </div>
-                                                         </div>
-                                                 	</div>
-                                                	</div>
-                                          </form>
-                                    </c:if>
-                                    
-                                </div>
-                            </div>
-               			 </div> 
-               			 <div class="add-product">
-                              <a href="/lms/loginCheck/QnAList">목록으로</a>
-                              
-                 		</div>
-               		</div>
-                 </div>  
-            </div>
-            
-        </div>
-        
-        
+                        <div class="product-status-wrap drp-lst">
+                                <h4>Modify Question</h4>
+                                <hr>
+                            <div id="myTabContent" class="tab-content custom-product-edit">
+                                <div class="product-tab-list tab-pane fade active in" id="description">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="review-content-section" >
+                                                    <form action="${pageContext.request.contextPath}/loginCheck/modifyQnaQuestion" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="addQnaQuestionForm" method="post" enctype="multipart/form-data" >
+                                                        <div class="row">
+                                                            <div class="form-group edit-ta-resize res-mg-t-15">
+                                                                <div class="form-group">
+                                                                    <label for="qnaQuestionTitle">제목</label> <input name="qnaQuestionTitle" id="qnaQuestionTitle" type="text" class="form-control" value="${qnaQuestion.qnaQuestionTitle}">
+                                                                     <input name="accountId" type="hidden" value="${qnaQuestion.accountId}">
+                                                                     <input name="qnaQuestionNo" type="hidden" value="${qnaQuestion.qnaQuestionNo}">
+                                                                </div>
+                                                                <div class="form-group edit-ta-resize res-mg-t-15">
+                                                                    <label for="qnaQuestionContent">질문</label> <textarea name="qnaQuestionContent" id="qnaQuestionContent"  class="form-control" style="resize: none;">${qnaQuestion.qnaQuestionContent}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>	
+														<div class="form-group col-lg-12">
+									                		<div class="row">
+	                                                            <div class="col-lg-12">
+	                                                                <div class="payment-adress">
+	                                                                    <button type="submit" id="modifyQnaQuestionSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
+	                                                                </div>
+	                                                            </div>
+	                                                    	</div>
+                                                    	</div>
+                                                 	</form>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
     <!-- footer -->
 	<jsp:include page="../inc/footer.jsp" />
+</div>
 
-    <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
    <!-- jquery
       ============================================ -->
@@ -230,17 +201,21 @@
    <!-- tawk chat JS
       ============================================ -->
    <script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
+    <!-- dropzone JS
+		============================================ -->
+    <script src="js/dropzone/dropzone.js"></script>
 </body>
+
 <script>
 
-$('#addQnaAnswerSubmit').click(function() {
-	if ($('#qnaAnswerTitle').val() == '') {
+$('#addQnaQuestionSubmit').click(function() {
+	if ($('#qnaQuestionTitle').val() == '') {
 		alert("제목을 입력해 주세요.");
-		$('#qnaAnswerTitle').focus();
+		$('#qnaQuestionTitle').focus();
 		return false;
-	}else if ($('#qnaAnswerContent').val() == '') {
+	}else if ($('#qnaQuestioContent').val() == '') {
 		alert('내용을 입력해주세요.');
-		$('#qnaAnswerContent').focus();
+		$('#qnaQuestioContent').focus();
 		return false;
 	}
 });

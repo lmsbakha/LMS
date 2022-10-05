@@ -108,8 +108,6 @@ public class NoticeService {
 	// 공지글 삭제
 	public int removeNoticeOne(int noticeNo) {
 		log.debug(TeamColor.LHN + "게시글 삭제" + TeamColor.TEXT_RESET);
-		
-		
 		int removeNotice = 0;
 		log.debug(TeamColor.LHN  + "게시글 번호: " + noticeNo + TeamColor.TEXT_RESET);
 		// 매퍼 적용

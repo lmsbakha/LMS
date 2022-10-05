@@ -90,8 +90,8 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <ul class="breadcome-menu" style="float: left;">
                                             <li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-                                            <li><a href="/lms/loginCheck/noticeList">공지사항</a> <span class="bread-slash">/</span></li>
-                                            <li><a href="/lms/loginCheck/addNotice">신규 공지 작성</a> <span class="bread-slash"></span></li>
+                                            <li><a href="/lms/loginCheck/qnaList">QnA</a> <span class="bread-slash">/</span></li>
+                                            <li><a href="/lms/loginCheck/addQnaQuestion">신규 문의 작성</a> <span class="bread-slash"></span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-status-wrap drp-lst">
-                                <h4>Add Notice</h4>
+                                <h4>Add Question</h4>
                                 <hr>
                             <div id="myTabContent" class="tab-content custom-product-edit">
                                 <div class="product-tab-list tab-pane fade active in" id="description">

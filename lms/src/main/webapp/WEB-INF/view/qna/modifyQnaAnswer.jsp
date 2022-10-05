@@ -87,7 +87,7 @@
                                             </li>
                                             <li><a href="/lms/loginCheck/QnAList">QnA</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li>상세보기 <span class="bread-slash"></span>
+                                            <li>답변 수정 <span class="bread-slash"></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -106,7 +106,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="latest-blog-single blog-single-full-view">
                                         <div class="blog-details blog-sig-details">
-				                            <h4>QnA Detail</h4>
+				                            <h4>Modify Answer</h4>
 				                            <hr>
                                             <h1>질문: ${qnaQuestion.qnaQuestionTitle}</h1>
                                             <p> 작성자: ${qnaQuestion.accountId}</p>
@@ -121,31 +121,17 @@
                                             <br>
                                         </div>
                                     </div>
-                                    <c:if test="${qnaAnswer.qnaAnswerTitle != null}">
-	                                        <div class="blog-details blog-sig-details">
-	                                            <h1>답변: ${qnaAnswer.qnaAnswerTitle}</h1>
-	                                            <p>작성자: ${qnaAnswer.accountId}</p>
-	                                            <hr>
-	                                            <div style="font-size:12px; text-align:right;">작성일: ${qnaAnswer.createDate}</div>
-	                                            <div style="font-size:12px; text-align:right;">수정일: ${qnaAnswer.updateDate}</div>
-	                                            <label for="noticeContent">답변</label>
-	                                            <p>${qnaAnswer.qnaAnswerContent}</p>
-	                                            <br>
-	                                            <hr>
-                                        	</div>
-                                       </c:if> 
-                                       <c:if test="${qnaAnswer.qnaAnswerTitle eq null}">
-                                    	 <form action="${pageContext.request.contextPath}/loginCheck/addQnaAnswer" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="addQnaAnswerForm" method="post" >
+                                    	 <form action="${pageContext.request.contextPath}/loginCheck/modifyQnaAnswer" class="dropzone dropzone-custom needsclick add-professors dz-clickable" id="addQnaAnswerForm" method="post" >
                                      		<div class="row">
                                               <div class="form-group edit-ta-resize res-mg-t-15">
                                                 <div class="form-group">
                                                 <h4> 답변 작성하기</h4>
                                                 <hr>
-                                                   <label for="qnaAnswerTitle">제목</label> <input name="qnaAnswerTitle" id="qnaAnswerTitle" type="text" class="form-control">
-                                                    <input name="qnaNo" type="hidden" value="${qnaQuestionNo}">
+                                                   <label for="qnaAnswerTitle">제목</label> <input name="qnaAnswerTitle" id="qnaAnswerTitle" type="text" class="form-control" value="${qnaAnswer.qnaAnswerTitle}">
+                                                    <input name="qnaAnswerNo" type="hidden" value="${qnaAnswer.qnaAnswerNo}">
                                                  </div>
                                                  <div class="form-group edit-ta-resize res-mg-t-15">
-                                                    <label for="qnaAnswerContent">본문</label> <textarea name="qnaAnswerContent" id="qnaAnswerContent"  class="form-control" style="resize: none;"></textarea>
+                                                    <label for="qnaAnswerContent">본문</label> <textarea name="qnaAnswerContent" id="qnaAnswerContent"  class="form-control" style="resize: none;">${qnaAnswer.qnaAnswerContent}</textarea>
                                                  </div>
                                                </div>
                                            </div>	
@@ -153,20 +139,17 @@
 					                		<div class="row">
                                                          <div class="col-lg-12">
                                                              <div class="payment-adress">
-                                                                 <button type="submit" id="addQnaAnswerSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
+                                                                 <button type="submit" id="modifyQnaAnswerSubmit" class="btn btn-primary waves-effect waves-light">제출</button>
                                                              </div>
                                                          </div>
                                                  	</div>
                                                 	</div>
                                           </form>
-                                    </c:if>
-                                    
                                 </div>
                             </div>
                			 </div> 
                			 <div class="add-product">
                               <a href="/lms/loginCheck/QnAList">목록으로</a>
-                              
                  		</div>
                		</div>
                  </div>  
@@ -233,7 +216,7 @@
 </body>
 <script>
 
-$('#addQnaAnswerSubmit').click(function() {
+$('#modifyQnaAnswerSubmit').click(function() {
 	if ($('#qnaAnswerTitle').val() == '') {
 		alert("제목을 입력해 주세요.");
 		$('#qnaAnswerTitle').focus();

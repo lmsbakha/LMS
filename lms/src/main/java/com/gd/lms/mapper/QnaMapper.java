@@ -24,8 +24,12 @@ public interface QnaMapper {
 	int updateQnaQuestion(QnaQuestion qna);
 	// 질문 삭제 액션	
 	int deleteQnaQuestion(int qnaNo);
+	
+	
+	
 	// 답변여부 상태값
 	String selectQnaQuestionState(int qnaQuestionNo);
+	
 	
 	/////////////////////////////////////////////////////
 		

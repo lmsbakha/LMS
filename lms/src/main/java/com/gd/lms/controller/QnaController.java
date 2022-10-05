@@ -126,10 +126,36 @@ public class QnaController {
 	} 
 	
 	// 질문 수정 폼 => 답변 완료 시 수정 불가, 삭제만 가능
-	
+	@GetMapping("/loginCheck/modifyQnaQuestionForm")
+	public String modifyQnaQuestionForm(Model model, @RequestParam("qnaNo") int qnaQuestionNo) {
+		log.debug(TeamColor.LHN + "질문 수정 폼" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "qnaQuestionNo: " + qnaQuestionNo +  TeamColor.TEXT_RESET);
+		
+		QnaQuestion qnaQuestion = qnaService.modifyQnaQuestionForm(qnaQuestionNo);
+		model.addAttribute("qnaQuestion", qnaQuestion);
+		return "qna/modifyQnaQuestion";
+	}
 	
 	// 질문 수정 액션
-	
+	@PostMapping("/loginCheck/modifyQnaQuestion")
+	public String modifyQnaQuestion(Model model, QnaQuestion qnaQuestion, @RequestParam("qnaQuestionNo") int qnaQuestionNo) {
+		log.debug(TeamColor.LHN + "질문 수정 액션" + TeamColor.TEXT_RESET);
+
+		log.debug(TeamColor.LHN + "qnaQuestionNo: " + qnaQuestion.getQnaQuestionNo() + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "qnaQuestionTitle: " + qnaQuestion.getQnaQuestionTitle() + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "qnaQuestionContent: " + qnaQuestion.getQnaQuestionContent() + TeamColor.TEXT_RESET);
+		// 본문 자동개행 
+		String qnaQuestionContent = qnaQuestion.getQnaQuestionContent().replace("\r\n","<br>");
+		log.debug(TeamColor.LHN + "qnaAnswerContent 자동 개행 적용: " + qnaQuestionContent +  TeamColor.TEXT_RESET);
+		// qnaQuestion에 담기
+		qnaQuestion.setQnaQuestionContent(qnaQuestionContent);
+		
+		// 쿼리 실행
+		qnaService.modifyQnaQuestion(qnaQuestion);
+		log.debug(TeamColor.LHN + "수정완료" + TeamColor.TEXT_RESET);
+		
+		return "redirect:/loginCheck/QnAList";
+	}
 	
 	// 질문 삭제 액션
 	@GetMapping("/loginCheck/removeQnaQuestion")
@@ -159,14 +185,14 @@ public class QnaController {
 		
 		return "redirect:/loginCheck/QnAList";
 	}
+	
+	
 	/////////////////////////////////////////////////////
 	
 	
 	// 답변 작성 폼		=> X 질문글 상세보기 페이지 하단에 답변 작성/제출 폼 같이 두기로.
 	
-	
 	// 답변 작성 액션
-	// 수정 필요 //////////////////////////////////////////////////////////////////
 	@PostMapping("/loginCheck/addQnaAnswer")
 	String addQnaAnswer(Model model,
 			QnaAnswer qnaAnswer, 
@@ -212,25 +238,54 @@ public class QnaController {
 		
 		// 공지 리스트로
 		return "redirect:/loginCheck/QnAList";
-		
-		// 현재 진행상황: 아이디와 게시글 번호까지는 확인되나 qnaService에 qnaNo가 담기지 않음, 매퍼 쪽에 문제가 있을 수도
-		// 집 가서 확인하기
 	} 
 	
-	// 답변 수정 폼
+	// 답변 수정 폼(질문 내용이 같이 출력되어야 함)
+	@GetMapping("/loginCheck/modifyQnaAnswerForm")
+	public String modifyQnaAnswerForm(Model model, @RequestParam("qnaNo") int qnaQuestionNo) {
+		log.debug(TeamColor.LHN + "질문 수정 폼" + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "qnaQuestionNo: " + qnaQuestionNo +  TeamColor.TEXT_RESET);
+		
+		// 질문 내용 불러와서 담기
+		QnaQuestion qnaQuestion = qnaService.modifyQnaQuestionForm(qnaQuestionNo);
+		log.debug(TeamColor.LHN + "qnaQuestion: " + qnaQuestion +  TeamColor.TEXT_RESET);
+		
+		// 답변 내용 불러와서 담기
+		QnaAnswer qnaAnswer = qnaService.modifyQnaAnswerForm(qnaQuestionNo);
+		log.debug(TeamColor.LHN + "qnaQuestion: " + qnaQuestion +  TeamColor.TEXT_RESET);
+		
+		model.addAttribute("qnaQuestion", qnaQuestion);
+		model.addAttribute("qnaAnswer", qnaAnswer);
+		return "qna/modifyQnaAnswer";
+	}
 	
 	// 답변 수정 액션
+	@PostMapping("/loginCheck/modifyQnaAnswer")
+	public String modifyQnaAnswer(Model model, QnaAnswer qnaAnswer, @RequestParam("qnaAnswerNo") int qnaAnswerNo) {
+		log.debug(TeamColor.LHN + "질문 수정 액션" + TeamColor.TEXT_RESET);
+
+		log.debug(TeamColor.LHN + "qnaAnswerNo: " + qnaAnswer.getQnaAnswerNo() + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "qnaAnswerTitle: " + qnaAnswer.getQnaAnswerTitle() + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "qnaAnswerContent: " + qnaAnswer.getQnaAnswerContent() + TeamColor.TEXT_RESET);
+		
+		// 본문 자동개행 
+		String qnaAnswerContent = qnaAnswer.getQnaAnswerContent().replace("\r\n","<br>");
+		log.debug(TeamColor.LHN + "qnaAnswerContent 자동 개행 적용: " + qnaAnswerContent +  TeamColor.TEXT_RESET);
+		
+		// qnaQuestion에 담기
+		qnaAnswer.setQnaAnswerContent(qnaAnswerContent);
+		
+		// 쿼리 실행
+		qnaService.modifyQnaAnswer(qnaAnswer);
+		log.debug(TeamColor.LHN + "수정완료" + TeamColor.TEXT_RESET);
+		
+		return "redirect:/loginCheck/QnAList";
+	}
 	
 	// 답변 삭제 액션
 	@GetMapping("/loginCheck/removeQnaAnswer")
 	public String deleteQnaAnswer(@RequestParam (name="qnaNo") int qnaAnswerNo) {
 		log.debug(TeamColor.LHN + "답변 삭제" + TeamColor.TEXT_RESET);
-		
-		// 게시글 번호
-//		String url = request.getRequestURL().toString();
-//		log.debug(TeamColor.LHN + "url: " + url +  TeamColor.TEXT_RESET);
-//		int qnaAnswerNo = Integer.parseInt(url.substring(46));
-//		log.debug(TeamColor.LHN + "qnaAnswerNo" + qnaAnswerNo +  TeamColor.TEXT_RESET);
 		
 		int removeQnaAnswer = qnaService.removeQnaAnswer(qnaAnswerNo);
 		log.debug(TeamColor.LHN + "removeQnaAnswer: " + removeQnaAnswer + TeamColor.TEXT_RESET);

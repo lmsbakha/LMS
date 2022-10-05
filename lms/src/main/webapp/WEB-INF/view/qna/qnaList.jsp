@@ -156,9 +156,9 @@
                                             </c:if>
                                         </td>
                                         <td>
-                                        	<c:if test="${accountId eq qnaAnswer.accountId}"> 
+                                        	<c:if test="${userLevel > 2 || accountId eq qnaAnswer.accountId}"> 
                                     		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" 
-                                    		href="${pageContext.request.contextPath}/loginCheck/modifyQnaAnswerForm?qnaNo=${qnaAnswer.qnaAnswerNo}">
+                                    		href="${pageContext.request.contextPath}/loginCheck/modifyQnaAnswerForm?qnaNo=${qna.qnaNo}">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
                                             </c:if>
                                             <c:if test="${userLevel > 2 || accountId eq qnaAnswer.accountId}"> 
@@ -168,15 +168,15 @@
                                             </c:if>
                                         </td>
                                     </tr>
-                                   	</c:forEach>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                                </c:forEach>
+                             </table>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
     
     <!-- footer -->
 	<jsp:include page="../inc/footer.jsp" />
