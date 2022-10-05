@@ -1,8 +1,6 @@
 package com.gd.lms.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.QnaMapper;
-import com.gd.lms.vo.Notice;
 import com.gd.lms.vo.QnaAnswer;
 import com.gd.lms.vo.QnaQuestion;
 
@@ -82,18 +79,21 @@ public class QnaService {
 	
 	
 	// 질문 삭제 액션	
-	public int removeQnaQuestion(int questionNo) {
+	public int removeQnaQuestion(int qnaQuestionNo) {
 		log.debug(TeamColor.LHN + "답변 삭제" + TeamColor.TEXT_RESET);
-		int removeQuestion = 0;
-		log.debug(TeamColor.LHN  + "답변 번호: " + questionNo + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN  + "답변 번호: " + qnaQuestionNo + TeamColor.TEXT_RESET);
 		// 매퍼 적용
-		removeQuestion = qnaMapper.deleteQnaQuestion(questionNo);
-		// 만약 답변이 있을 경우 답변도 같이 삭제
-		
+		int removeQuestion = 0;
+		removeQuestion = qnaMapper.deleteQnaQuestion(qnaQuestionNo);
 		log.debug(TeamColor.LHN + "삭제여부: "+ removeQuestion  + TeamColor.TEXT_RESET);
 		
 		return removeQuestion;
 		
+	}
+	
+	// 답변여부 조회
+	public String showQnaQuestionState(int qnaQuestionNo) {
+		return qnaMapper.selectQnaQuestionState(qnaQuestionNo);
 	}
 	
 	/////////////////////////////////////////////////////
@@ -121,15 +121,51 @@ public class QnaService {
 	
 	
 	// 답변 삭제 액션
-	public int removeQnaAnswer(int questionNo) {
+	public int removeQnaAnswer(int qnaAnswerNo) {
 		log.debug(TeamColor.LHN + "답변 삭제" + TeamColor.TEXT_RESET);
+		
 		int removeAnswer = 0;
-		log.debug(TeamColor.LHN  + "답변 번호: " + questionNo + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN  + "답변 번호: " + qnaAnswerNo + TeamColor.TEXT_RESET);
+		
 		// 매퍼 적용
-		removeAnswer = qnaMapper.deleteQnaAnswer(questionNo);
-		log.debug(TeamColor.LHN + "삭제여부: "+ removeAnswer  + TeamColor.TEXT_RESET);
+		removeAnswer = qnaMapper.deleteQnaAnswer(qnaAnswerNo);
+		log.debug(TeamColor.LHN + "삭제 여부: "+ removeAnswer  + TeamColor.TEXT_RESET);
+		
 		// 상태값 대기중 상태로 변경
-		removeAnswer = qnaMapper.updateQnaStateBack(questionNo);
+		removeAnswer = qnaMapper.updateQnaStateBack(qnaAnswerNo);
+		log.debug(TeamColor.LHN + "상태값 변경 여부: "+ removeAnswer  + TeamColor.TEXT_RESET);
+		 
 		return removeAnswer;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

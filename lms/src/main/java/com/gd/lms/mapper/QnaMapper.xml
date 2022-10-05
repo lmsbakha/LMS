@@ -99,15 +99,23 @@
 	<!-- 질문 삭제 -->
 	<delete id="deleteQnaQuestion" parameterType="int">
 	DELETE FROM qna_question 
-	WHERE qna_question_no = #{qnaNo}
+	WHERE qna_question_no = #{qnaQuestionNo}
 	</delete>
 	
 	<!-- 답변 삭제 -->
 	<delete id="deleteQnaAnswer" parameterType="int">
 	DELETE FROM qna_answer 
-	WHERE qna_answer_no = #{qnaNo}
+	WHERE qna_answer_no = #{qnaAnswerNo}
 	</delete>
 
+	<!-- 답변여부 조회 -->
+	<select id="selectQnaQuestionState" parameterType="int" resultType="String">
+	SELECT qna_state	qnaQuestionState
+	FROM qna_question
+	WHERE qna_question_no = #{qnaQuestionNo}
+	</select>
+	
+	
 	<!-- 질문 수정 폼 -->
 	<select id="updateQnaQuestionForm" resultType="com.gd.lms.vo.QnaQuestion" parameterType="int">
 	SELECT	qna_question_no qnaQuestionNo,

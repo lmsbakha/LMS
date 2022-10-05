@@ -132,28 +132,30 @@ public class QnaController {
 	
 	
 	// 질문 삭제 액션
-	@GetMapping("/loginCheck/deleteQnaQuestion")
-	public String deleteQnaQuestion(@RequestParam(name="qnaQuestionNo") int qnaQuestionNo,
-			@RequestParam(name="qnaState") String qnaState) {
+	@GetMapping("/loginCheck/removeQnaQuestion")
+	public String deleteQnaQuestion(@RequestParam(name="qnaNo") int qnaQuestionNo) {
+		log.debug(TeamColor.LHN + "질문 삭제 액션" + TeamColor.TEXT_RESET);
 		log.debug(TeamColor.LHN + qnaQuestionNo +  ": qnaQuestionNo " + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.LHN + qnaState +  ": qnaState " + TeamColor.TEXT_RESET);
+		String qnaQuestionState = qnaService.showQnaQuestionState(qnaQuestionNo);
+		log.debug(TeamColor.LHN + qnaQuestionState +  ": qnaState " + TeamColor.TEXT_RESET);
 		
 		int removeQnaQuestion = qnaService.removeQnaQuestion(qnaQuestionNo);
 		log.debug(TeamColor.LHN + removeQnaQuestion+ ": removeQnaQuestion " + TeamColor.TEXT_RESET);
 		// 답변 있을 경우 답변 삭제
-		if(qnaState.equals("답변완료")) {
+		if(qnaQuestionState.equals("답변완료")) {
 			int removeQnaAnswer	 = 	qnaService.removeQnaAnswer(qnaQuestionNo);
 			if(removeQnaAnswer!=0) {
 				log.debug(TeamColor.LHN +" 답변 삭제 성공 " + TeamColor.TEXT_RESET);
-			}
+			}else {
 				log.debug(TeamColor.LHN +" 답변 삭제 실패 " + TeamColor.TEXT_RESET);
+			}
 		}
 		
 		if(removeQnaQuestion!=0) {
 			log.debug(TeamColor.LHN +" 질문 삭제 성공 " + TeamColor.TEXT_RESET);
-		}
+		}else {
 			log.debug(TeamColor.LHN +" 질문 삭제 실패 " + TeamColor.TEXT_RESET);
-			
+		}	
 		
 		return "redirect:/loginCheck/QnAList";
 	}
@@ -221,17 +223,44 @@ public class QnaController {
 	
 	// 답변 삭제 액션
 	@GetMapping("/loginCheck/removeQnaAnswer")
-	public String deleteQnaAnswer(@RequestParam(name="qnaAnswerNo") int qnaAnswerNo) {
-		log.debug(TeamColor.LHN + qnaAnswerNo +  ": qnaAnswerNo " + TeamColor.TEXT_RESET);
+	public String deleteQnaAnswer(@RequestParam (name="qnaNo") int qnaAnswerNo) {
+		log.debug(TeamColor.LHN + "답변 삭제" + TeamColor.TEXT_RESET);
+		
+		// 게시글 번호
+//		String url = request.getRequestURL().toString();
+//		log.debug(TeamColor.LHN + "url: " + url +  TeamColor.TEXT_RESET);
+//		int qnaAnswerNo = Integer.parseInt(url.substring(46));
+//		log.debug(TeamColor.LHN + "qnaAnswerNo" + qnaAnswerNo +  TeamColor.TEXT_RESET);
 		
 		int removeQnaAnswer = qnaService.removeQnaAnswer(qnaAnswerNo);
-		log.debug(TeamColor.LHN + removeQnaAnswer+ ": removeQnaAnswer " + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.LHN + "removeQnaAnswer: " + removeQnaAnswer + TeamColor.TEXT_RESET);
+		
 		if(removeQnaAnswer!=0) {
 			log.debug(TeamColor.LHN +" 삭제 성공 " + TeamColor.TEXT_RESET);
-		}
+		}else {
 			log.debug(TeamColor.LHN +" 삭제 실패 " + TeamColor.TEXT_RESET);
-			
+		}
 		
 		return "redirect:/loginCheck/QnAList";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

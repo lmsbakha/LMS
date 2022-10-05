@@ -158,12 +158,11 @@ public class NoticeController {
 		log.debug(TeamColor.LHN + removeNotice+ ": removeNotice " + TeamColor.TEXT_RESET);
 		if(removeNotice!=0) {
 			log.debug(TeamColor.LHN +" 삭제 성공 " + TeamColor.TEXT_RESET);
-		}
+		}else {
 			log.debug(TeamColor.LHN +" 삭제 실패 " + TeamColor.TEXT_RESET);
-			
+		}
 		
 		return "redirect:/loginCheck/noticeList";
-		
 	}
 	
 }

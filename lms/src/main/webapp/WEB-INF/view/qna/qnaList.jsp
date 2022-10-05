@@ -119,8 +119,11 @@
                                         <th>State</th>
                                         <th>CreateDate</th>
                                         <th>UpdateDate</th>
-                                        <c:if test="${userLevel eq 4 || accountId eq qna.accountId}"> 
-                                        <th>Setting</th>
+                                        <c:if test="${userLevel > 2 || accountId eq qna.accountId}"> 
+                                        <th>QuestionSetting</th>
+                                        </c:if>
+                                        <c:if test="${userLevel > 2 || accountId eq qnaAnswer.accountId}"> 
+                                        <th>AnswerSetting</th>
                                         </c:if>
                                     </tr>
                                     <c:forEach var="qna" items="${qnaList}">
@@ -143,12 +146,24 @@
                                         <td>
                                             <c:if test="${accountId eq qna.accountId}"> 
                                     		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" 
-                                    		href="${pageContext.request.contextPath}/loginCheck/modifyQnaForm?qnaNo=${qna.qnaNo}">
+                                    		href="${pageContext.request.contextPath}/loginCheck/modifyQnaQuestionForm?qnaNo=${qna.qnaNo}">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
                                             </c:if>
-                                            <c:if test="${userLevel eq 4 || accountId eq qna.accountId}"> 
+                                            <c:if test="${userLevel > 2 || accountId eq qna.accountId}"> 
                                             <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" 
-                                            href="${pageContext.request.contextPath}/loginCheck/removeQna?qnaNo=${qna.qnaNo}">
+                                            href="${pageContext.request.contextPath}/loginCheck/removeQnaQuestion?qnaNo=${qna.qnaNo}">
+                                            <i class="fa fa-trash-o" aria-hidden="true" ></i></a>
+                                            </c:if>
+                                        </td>
+                                        <td>
+                                        	<c:if test="${accountId eq qnaAnswer.accountId}"> 
+                                    		<a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Edit" class="pd-setting-ed" 
+                                    		href="${pageContext.request.contextPath}/loginCheck/modifyQnaAnswerForm?qnaNo=${qnaAnswer.qnaAnswerNo}">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a>
+                                            </c:if>
+                                            <c:if test="${userLevel > 2 || accountId eq qnaAnswer.accountId}"> 
+                                            <a class="btn btn-primary"  type="button" data-toggle="tooltip" title="Trash" class="pd-setting-ed" 
+                                            href="${pageContext.request.contextPath}/loginCheck/removeQnaAnswer?qnaNo=${qna.qnaNo}">
                                             <i class="fa fa-trash-o" aria-hidden="true" ></i></a>
                                             </c:if>
                                         </td>
@@ -156,19 +171,6 @@
                                    	</c:forEach>
                                 </table>
                             </div>
-                            <!-- 
-                            <div class="custom-pagination">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                             -->
                         </div>
                     </div>
                 </div>
