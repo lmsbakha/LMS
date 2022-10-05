@@ -242,7 +242,7 @@
 																					<a class=" btn-sm btn-primary"
 																						data-toggle="modal" data-target="#modifyScheduleModal" onclick="javascript:CClick(${c.scheduleNo});">수정</a>
 																					<a class=" btn-sm btn-danger"
-																						href="${pageContext.request.contextPath}/loginCheck/removeSchedule?scheduleNo=${c.scheduleNo}&year=${year}&month=${month}">삭제</a>
+																						href="${pageContext.request.contextPath}/loginCheck/removeSchedule?scheduleNo=${c.scheduleNo}">삭제</a>
 																				</div>
 																				<div id="modifyScheduleModal" class="modal modal-edu-general Customwidth-popup-WarningModal fade" role="dialog">
 													                            <div class="modal-dialog">
@@ -352,6 +352,7 @@
 		$('#lectureSubjectNo').val('')	
 	});
 	
+	// 상세보기
 	function Click(scheduleNo) {
 			var url = "${pageContext.request.contextPath}";
 			$.ajax({
@@ -370,6 +371,8 @@
 				}
 			});
 		}
+	
+	// 수정
 	function CClick(scheduleNo) {
 		var url = "${pageContext.request.contextPath}";
 		$.ajax({

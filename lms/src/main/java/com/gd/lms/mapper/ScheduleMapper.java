@@ -54,7 +54,10 @@ public interface ScheduleMapper {
 	// 출결 추가하기
 	int insertAttendance(Attendance attendance);
 	
+	// 출결 삭제하기
+	int deleteAttendance(int scheduleNo);
+	
 	// 해당강의 출석 학생리스트
 	List<Integer> selectStudentEducationListByAttendance(String lectureName);
-
+	
 }

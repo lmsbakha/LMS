@@ -155,7 +155,6 @@
 	<delete id="deleteSchedule" parameterType="int">
 		DELETE FROM schedule
 		WHERE schedule_no = #{scheduleNo}
-	
 	</delete>
 	<!-- /시간표 일정 삭제 하기 -->
 	
@@ -172,6 +171,14 @@
 		  , '출석전') 
 	</insert>
 	<!-- /출결 추가하기 -->
+	
+	<!-- 출결 삭제하기 -->
+	<delete id="deleteAttendance" parameterType="int">
+		DELETE FROM attendance
+		WHERE schedule_no = #{scheduleNo}
+	
+	</delete>
+	<!-- /출결 삭제하기 -->
 	
 	<!-- 해당강의 출석 학생리스트 -->
 	<select id="selectStudentEducationListByAttendance" parameterType="String" resultType="int">

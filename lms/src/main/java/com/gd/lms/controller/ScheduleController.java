@@ -82,6 +82,7 @@ public class ScheduleController {
 	}
 	
 	
+	// 시간표 수정 Action
 	@PostMapping("/loginCheck/modifySchedule")
 	public String modifySchedule(Schedule schedule , @RequestParam(value="scheduleDateTwo") Date scheduleDateTwo
 									,@RequestParam(value="lectureSubjetNo") int lectureSubjetNo) {
@@ -106,6 +107,29 @@ public class ScheduleController {
 		return "redirect:/loginCheck/scheduleList";
 	}
 	
+	// 시간표 삭제 Action
+	@GetMapping("/loginCheck/removeSchedule")
+	public String removeSchedule(HttpSession session, @RequestParam(value="scheduleNo") int scheduleNo) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + " PostMapping(/loginCheck/removeSchedule) schedule : " + scheduleNo + TeamColor.TEXT_RESET);
+		
+		int accountLevel = (int)session.getAttribute("sessionLevel");
+		
+		if(accountLevel <= 2) {  // 행정 or 총관리자가 아니라면 메인 페이지로 보내주기
+			return "redirect:/logincheck/index";
+		}
+		
+		int row = scheduleService.removeSchedule(scheduleNo);
+		
+		if(row == 1) {
+			log.debug(TeamColor.PCW + " removeSchedule scheduleNo 삭제 성공" + TeamColor.TEXT_RESET);
+		} else {
+			log.debug(TeamColor.PCW + " removeSchedule scheduleNo 삭제 실패" + TeamColor.TEXT_RESET);
+		}
+		
+		return "redirect:/loginCheck/scheduleList";
+	}
 			
 			
 }

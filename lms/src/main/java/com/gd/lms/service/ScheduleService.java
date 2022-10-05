@@ -262,5 +262,32 @@ public class ScheduleService {
 		return row;
 		
 	}
+	
+	// 시간표 삭제
+	public int removeSchedule(int scheduleNo) {
+		
+		// 디버깅
+		log.debug(TeamColor.PCW + " removeSchedule scheduleNo :  " + scheduleNo + TeamColor.TEXT_RESET);
+		
+		int attendacneRow = scheduleMapper.deleteAttendance(scheduleNo);
+		int row = scheduleMapper.deleteSchedule(scheduleNo);
+		// 디버깅
+		log.debug(TeamColor.PCW + " removeSchedule scheduleNo  row :  " + row + TeamColor.TEXT_RESET);
+		if(attendacneRow == 1) {
+			log.debug(TeamColor.PCW + " removeSchedule scheduleNo  attendacneRow 출결 삭제 성공!" + row + TeamColor.TEXT_RESET);
+		} else {
+			log.debug(TeamColor.PCW + " removeSchedule scheduleNo  attendacneRow 출결 삭제 실패!" + row + TeamColor.TEXT_RESET);
+		}
+		
+		return row;
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 }
