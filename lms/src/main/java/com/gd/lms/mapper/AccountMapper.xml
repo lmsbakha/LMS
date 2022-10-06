@@ -310,12 +310,12 @@
 	</update>
 	<!-- /회원가입 승인 -->
 	
-	<!-- 회원가입 승인 -->
+	<!-- 회원가입 거절  -->
 	<update id="updateDeniedWaitMemberList" parameterType="String">
 		UPDATE account
 		SET account_state = '거절'
 		WHERE account_id = #{accountId}
 	</update>
-	<!-- /회원가입 승인 -->
+	<!-- /회원가입 거절 -->
 
 </mapper>
