@@ -69,7 +69,7 @@
 		USING(subject_name)
 		WHERE 
 		 <![CDATA[
-      	 e.exam_start_date <= CURDATE() AND CURDATE() <= e.exam_end_date
+      	 e.exam_start_date <= CURDATE() <= e.exam_end_date
         ]]>
         ORDER BY e.exam_end_date DESC
 	</select>
