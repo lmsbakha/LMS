@@ -73,7 +73,7 @@
 	<div class="error-pagewrap">
 		<div class="error-page-int">
 			<div class="text-center m-b-md custom-login">
-				<h3>PLEASE LOGIN TO LMS</h3>
+				<h3>Bakha LMS</h3>
 			</div>
 			<div class="login-error">
 				<div class="hpanel">
@@ -81,12 +81,12 @@
                         <form method="post" action="${pageContext.request.contextPath}/login" id="loginForm">
                             <div class="form-group">
                                 <label class="control-label" for="accountId">아이디</label>
-                                <input type="text" placeholder="Please enter you Id" name="accountId" id="accountId" class="form-control">
+                                <input type="text" placeholder="Please enter you Id" name="accountId" id="accountId" class="form-control" value="admin">
                                 <span id="idinfo"></span>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="accountPw">비밀번호</label>
-                                <input type="password" placeholder="Please enter your password"  name="accountPw" id="accountPw" class="form-control">
+                                <input type="password" placeholder="Please enter your password"  name="accountPw" id="accountPw" class="form-control" value="1234">
                           	    <span class="help-block small">대문자, 소문자, 특수문자가 포함된 10자리 비밀번호</span>
                           	    <span id="passinfo"></span>
                           	    <input type="hidden" name="accountState" id="accountState">
@@ -151,6 +151,12 @@
                             <div style="text-align:right;">
                             	<a class="search"  href="${pageContext.request.contextPath}/searchAccountId">아이디 찾기</a> / 
            						<a class="search"  href="${pageContext.request.contextPath}/searchAccountPw">비밀번호 찾기</a>
+							</div>
+							<div>
+								<p>[학생 대표 계정] ID: student PW:1234  </p>
+								<p>[강사 대표 계정] ID: teacher PW:1234  </p>
+								<p>[행정 대표 계정] ID: manager PW:1234  </p>
+								<p>[총 관리자 계정] ID: admin PW:1234  </p>
 							</div>
 						</form>
 						<c:if test="${ msg != null}">

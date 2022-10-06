@@ -102,7 +102,14 @@ public class LectureController {
 	public String addLecture(RedirectAttributes redirectAttributes, Lecture paramLecture) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.PSJ + paramLecture + "<-- paramLecture" + TeamColor.TEXT_RESET);
-		
+		// service call
+		int row = lectureService.addLecture(paramLecture);
+		// 결과 처리
+		if(row != 0) {
+			
+		} else {
+			
+		}
 		
 		return "redirect:/loginCheck/lecture";
 	}

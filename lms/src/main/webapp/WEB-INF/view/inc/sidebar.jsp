@@ -31,7 +31,6 @@
 	                                <li> <a title="과제" href="${pageContext.request.contextPath}/loginCheck/lectureSubjectListByStudent"><span class="mini-sub-pro">과제</span></a> </li>
 	                                <li><a title="시험" href="${pageContext.request.contextPath}/loginCheck/examForStudent"><span class="mini-sub-pro">시험</span></a></li>
 	                                <li><a title="성적" href="${pageContext.request.contextPath}/loginCheck/grade"><span class="mini-sub-pro">성적</span></a></li>
-	                                <li><a title="교재" href="${pageContext.request.contextPath}/loginCheck/textbook"><span class="mini-sub-pro">교재</span></a></li>
 	                                <li><a title="출결현황" href="#"><span class="mini-sub-pro">출결현황</span></a></li>
 	                            </ul>
 	                        </li>
@@ -56,7 +55,6 @@
                                 <li><a title="시험관리" href="${pageContext.request.contextPath}/loginCheck/exam"><span class="mini-sub-pro">시험관리</span></a></li>
                                 <li><a title="문제은행" href="${pageContext.request.contextPath}/loginCheck/questionBank"><span class="mini-sub-pro">문제은행</span></a></li>
                                 <li><a title="성적관리" href="${pageContext.request.contextPath}/loginCheck/grade"><span class="mini-sub-pro">성적관리</span></a></li>
-                                <li><a title="교재관리" href="${pageContext.request.contextPath}/loginCheck/textbook"><span class="mini-sub-pro">교재관리</span></a></li>
                                 <li><a title="수강생관리" href="${pageContext.request.contextPath}/loginCheck/studentbookForTeacher"><span class="mini-sub-pro">수강생관리</span></a></li>
                             </ul>
                        	 </li>
@@ -96,7 +94,6 @@
                                 <li><a title="시험관리" href="${pageContext.request.contextPath}/loginCheck/exam"><span class="mini-sub-pro">시험관리</span></a></li>
                                 <li><a title="문제은행" href="${pageContext.request.contextPath}/loginCheck/questionBank"><span class="mini-sub-pro">문제은행</span></a></li>
                                 <li><a title="성적관리" href="${pageContext.request.contextPath}/loginCheck/grade"><span class="mini-sub-pro">성적관리</span></a></li>
-                                <li><a title="교재관리" href="${pageContext.request.contextPath}/loginCheck/textbook"><span class="mini-sub-pro">교재관리</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -108,7 +105,6 @@
 	                     </li>
                         </c:if>
                         <!-- /행정 로그인 시 -->
-                        
                     </ul>
                 </nav>
             </div>

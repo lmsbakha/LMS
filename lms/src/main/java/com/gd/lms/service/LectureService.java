@@ -161,4 +161,10 @@ public class LectureService {
 		// Mapper call
 		return lectureMapper.insertLecture(paramLecture);
 	}
+	
+	// 매일 정각마다 lectureState 변경하는 메소드
+	public int modifyLectureState() {
+		// Mapper call
+		return lectureMapper.updateLectureState();
+	}
 }

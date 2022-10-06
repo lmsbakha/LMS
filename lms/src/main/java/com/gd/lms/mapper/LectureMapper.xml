@@ -116,4 +116,11 @@
 		,update_date = NOW()
 	WHERE lecture_name = #{lectureName}
 	</update>
+
+	<!-- 매일 정각마다 lectureState 변경하는 메소드 -->
+	<update id="updateLectureState">
+	UPDATE lecture
+	SET lecture_state ='수강'
+	WHERE lecture_state='대기' AND lecture_start_date= (select DATE_FORMAT(CURDATE(), '%Y-%m-%d'))
+	</update>
 </mapper>

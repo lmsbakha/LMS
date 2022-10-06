@@ -49,4 +49,7 @@ public interface LectureMapper {
 	// 리턴값 : int
 	int insertLecture(Lecture paramLecture);
 	
+	// 매일 정각마다 lectureState 변경하는 메소드
+	int updateLectureState();
+	
 }
