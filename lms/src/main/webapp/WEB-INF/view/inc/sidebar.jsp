@@ -38,7 +38,7 @@
 	                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-form icon-wrap"></span> <span class="mini-click-non">커뮤니티</span></a>
 	                            <ul class="submenu-angle interface-mini-nb-dp" aria-expanded="false">
 	                               <li><a title="공지사항" href="${pageContext.request.contextPath}/loginCheck/noticeList"><span class="mini-sub-pro">공지사항</span></a></li>
-	                               <li><a title="문의사항" href="departments.html"><span class="mini-sub-pro">문의사항</span></a></li>
+	                               <li><a title="문의사항" href="${pageContext.request.contextPath}/loginCheck/QnAList"><span class="mini-sub-pro">문의사항</span></a></li>
 	                            </ul>
 	                        </li>
                         </c:if>
@@ -62,7 +62,7 @@
                             <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-form icon-wrap"></span> <span class="mini-click-non">커뮤니티</span></a>
                             <ul class="submenu-angle interface-mini-nb-dp" aria-expanded="false">
                                <li><a title="공지사항" href="${pageContext.request.contextPath}/loginCheck/noticeList"><span class="mini-sub-pro">공지사항</span></a></li>
-                               <li><a title="문의사항" href="departments.html"><span class="mini-sub-pro">문의사항</span></a></li>
+                               <li><a title="문의사항" href="${pageContext.request.contextPath}/loginCheck/QnAList"><span class="mini-sub-pro">문의사항</span></a></li>
                             </ul>
 	                     </li>
                         </c:if>
@@ -100,7 +100,7 @@
                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><span class="educate-icon educate-form icon-wrap"></span> <span class="mini-click-non">커뮤니티</span></a>
                            <ul class="submenu-angle interface-mini-nb-dp" aria-expanded="false">
                               <li><a title="공지사항" href="${pageContext.request.contextPath}/loginCheck/noticeList"><span class="mini-sub-pro">공지사항</span></a></li>
-                              <li><a title="문의사항" href="departments.html"><span class="mini-sub-pro">문의사항</span></a></li>
+                              <li><a title="문의사항" href="${pageContext.request.contextPath}/loginCheck/QnAList"><span class="mini-sub-pro">문의사항</span></a></li>
                            </ul>
 	                     </li>
                         </c:if>
