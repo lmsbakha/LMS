@@ -75,7 +75,7 @@
 	<div class="error-pagewrap">
 		<div class="error-page-int">
 			<div class="text-center ps-recovered">
-				<h3>휴면 계정 활성화하기</h3>
+				<h3>휴면 계정 활성화 하기</h3>
 				<p>아이디와 비밀번호를 입력해주세요</p>
 			</div>
 			<div class="content-error">
