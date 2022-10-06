@@ -121,7 +121,26 @@
                                             <br>
                                         </div>
                                     </div>
-                                    <c:if test="${qnaAnswer.qnaAnswerTitle != null}">
+                                </div>
+                            </div>
+               			 </div> 
+               			 <div class="add-product">
+                              <a href="/lms/loginCheck/QnAList">목록으로</a>
+                 		</div>
+               		</div>
+                 </div>  
+            </div>
+        </div>
+        <div class="blog-details-area mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="blog-details-inner">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="latest-blog-single blog-single-full-view">
+                                        <div class="blog-details blog-sig-details">
+       										<c:if test="${qnaAnswer.qnaAnswerTitle != null}">
 	                                        <div class="blog-details blog-sig-details">
 	                                            <h1>답변: ${qnaAnswer.qnaAnswerTitle}</h1>
 	                                            <p>작성자: ${qnaAnswer.accountId}</p>
@@ -159,24 +178,19 @@
                                                              </div>
                                                          </div>
                                                  	</div>
-                                                	</div>
+                                                </div>
                                           </form>
                                     </c:if>
-                                    
-                                </div>
-                            </div>
-               			 </div> 
-               			 <div class="add-product">
-                              <a href="/lms/loginCheck/QnAList">목록으로</a>
-                              
-                 		</div>
-               		</div>
-                 </div>  
-            </div>
-            
-        </div>
-        
-        
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+                                   
     <!-- footer -->
 	<jsp:include page="../inc/footer.jsp" />
 
