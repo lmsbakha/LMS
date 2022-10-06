@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Register | Kiaalap - Kiaalap Admin Template</title>
+<title>BAKHA LMS</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -73,8 +73,7 @@
 	<div class="error-pagewrap">
 		<div class="error-page-int">
 			<div class="text-center custom-login">
-				<h3>Registration</h3>
-				<p>This is the best app ever!</p>
+				<h3>회원가입</h3>
 			</div>
 			<div class="content-error">
 				<!-- memberCheck 선택 -->

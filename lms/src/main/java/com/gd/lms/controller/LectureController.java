@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.lms.commons.TeamColor;
-import com.gd.lms.service.AttendanceService;
 import com.gd.lms.service.ExamService;
 import com.gd.lms.service.LectureService;
 import com.gd.lms.vo.Lecture;

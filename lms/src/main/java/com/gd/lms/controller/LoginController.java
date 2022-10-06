@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.AccountService;
 import com.gd.lms.service.MemberService;
+import com.gd.lms.service.ScheduleService;
 import com.gd.lms.vo.Account;
 import com.gd.lms.vo.Member;
 import com.gd.lms.vo.MemberFile;
@@ -27,10 +28,14 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 	// AccountService 객체 주입
 	@Autowired
-	AccountService accountService;
+	private AccountService accountService;
 	// MemberService 객체 주입
 	@Autowired
-	MemberService memberService;
+	private MemberService memberService;
+	
+	// ScheduleService 객체 주입
+	@Autowired 
+	private ScheduleService scheduleService;
 	
 	// 휴면계정 Form
 	@GetMapping("/accountStateMember")
@@ -281,7 +286,9 @@ public class LoginController {
 	
 	// index Form
 	@GetMapping("/loginCheck/index")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session
+			, @RequestParam(value = "year", defaultValue = "-1") int year
+			, @RequestParam(value = "month", defaultValue = "-1") int month) {
 		Account account = new Account();
 		
 		// sessionId & sessionLevel 받아오기
@@ -292,6 +299,9 @@ public class LoginController {
 		int accountLevel = (int)session.getAttribute("sessionLevel");
 		// 디버깅
 		log.debug(TeamColor.PCW + " LoginController GetMappingg(/loginCheck/index) accountLevel : " + accountLevel + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + " GetMapping(/loginCheck/index) year : " + year + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.PCW + " GetMapping(/loginCheck/index) month : " + month + TeamColor.TEXT_RESET);
+		
 		
 		account.setAccountId(accountId);
 		account.setAccountLevel(accountLevel);
@@ -302,6 +312,22 @@ public class LoginController {
 		String memberFileName = memberFile.getMemberFileName();
 		session.setAttribute("memberFileName", memberFileName);
 		model.addAttribute("memberFile", memberFile);
+		
+		// 서비스 호출
+		Map<String,Object> scheduleMap = scheduleService.getScheduleList(year, month, accountId, accountLevel);
+		// 디버깅
+		log.debug(TeamColor.PCW + " GetMapping(/loginCheck/scheduleList) scheduleMap : " + scheduleMap + TeamColor.TEXT_RESET);
+		
+		// model값 담아주기
+		model.addAttribute("scheduleList", scheduleMap.get("scheduleList"));
+		model.addAttribute("lectureSubjectList", scheduleMap.get("lectureSubjectList"));
+		model.addAttribute("lectureName", scheduleMap.get("lectureName"));
+		model.addAttribute("year", scheduleMap.get("year"));
+		model.addAttribute("month", scheduleMap.get("month"));
+		model.addAttribute("lastDay", scheduleMap.get("lastDay"));
+		model.addAttribute("startBlank", scheduleMap.get("startBlank"));
+		model.addAttribute("endBlank", scheduleMap.get("endBlank"));
+		model.addAttribute("totalBlank", scheduleMap.get("totalBlank"));
 		
 		
 		return "/login/index";

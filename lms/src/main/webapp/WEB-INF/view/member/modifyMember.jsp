@@ -205,7 +205,7 @@
 																	<th>성별</th>
 																	<td>
 																		<select class="form-control" name="studentGender" id="Gender">
-															             	<option value="${member.studentGender}" disabled selected>${member.studentGender}</option>
+															             	<option value="${member.studentGender}" selected>${member.studentGender}</option>
 														                    <option value="default">===선택해 주세요.===</option>
 														                    <option value="남">남자</option>
 														                    <option value="여">여자</option>
@@ -255,7 +255,7 @@
 																	<th>병역유무</th>
 																	<td>
 																		 <select class="form-control" name="studentMilitary" id="Military">
-															             	<option value="${member.studentMilitary}" disabled selected>${member.studentMilitary}</option>
+															             	<option value="${member.studentMilitary}" selected>${member.studentMilitary}</option>
 															             	<option value="default">===선택해 주세요.===</option>
 															             	<option value="해당없음">해당없음</option>
 														                    <option value="군필">군필</option>
@@ -268,7 +268,7 @@
 																	<th>학력</th>
 																	<td>
 																		<select class="form-control" name="studentGraduate" id="Graduate">
-															             	<option value="${member.studentGraduate}" disabled selected>${member.studentGraduate}</option>
+															             	<option value="${member.studentGraduate}" selected>${member.studentGraduate}</option>
 															             	<option value="default">===선택해 주세요.===</option>
 															             	<option value="고졸">고졸</option>
 														                    <option value="초대졸">초대졸</option>
@@ -311,7 +311,7 @@
 																	<th>성별</th>
 																	<td>
 																		<select class="form-control" name="teacherGender" id="Gender">
-															             	<option value="${member.teacherGender}" disabled selected>${member.teacherGender}</option>
+															             	<option value="${member.teacherGender}" selected>${member.teacherGender}</option>
 														                    <option value="default">===선택해 주세요.===</option>
 														                    <option value="남">남자</option>
 														                    <option value="여">여자</option>
@@ -384,7 +384,7 @@
 																	<th>성별</th>
 																	<td>
 																		<select class="form-control" name="managerGender" id="Gender">
-															             	<option value="${member.managerGender}" disabled selected>${member.managerGender}</option>
+															             	<option value="${member.managerGender}" selected>${member.managerGender}</option>
 														                    <option value="default">===선택해 주세요.===</option>
 														                    <option value="남">남자</option>
 														                    <option value="여">여자</option>
@@ -434,7 +434,7 @@
 																	<th>담당부서</th>
 																	<td>
 																		<select class="form-control" name="managerDept" id="Dept">
-																			<option value="${member.managerDept}" disabled selected>${member.managerDept}</option>
+																			<option value="${member.managerDept}" selected>${member.managerDept}</option>
 															             	<option value="default">===선택해 주세요.===</option>
 															             	<option value="교무행정">교무행정</option>
 														                    <option value="능력개발">능력개발</option>

@@ -12,10 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.commons.TeamColor;
-import com.gd.lms.mapper.NoticeFileMapper;
 import com.gd.lms.mapper.NoticeMapper;
 import com.gd.lms.vo.Notice;
-import com.gd.lms.vo.NoticeFile;
 
 import lombok.extern.slf4j.Slf4j;
 

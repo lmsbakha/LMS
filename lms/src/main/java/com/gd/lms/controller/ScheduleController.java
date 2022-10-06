@@ -23,42 +23,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class ScheduleController {
-	@Autowired private ScheduleService scheduleService;
+	// ScheduleService 객체 주입
+	@Autowired 
+	private ScheduleService scheduleService;
 	
-	// 시간표 FORM
-	@GetMapping("/loginCheck/scheduleList")
-	public String getScheduleList(Model model, HttpSession session
-								, @RequestParam(value = "year", defaultValue = "-1") int year
-								, @RequestParam(value = "month", defaultValue = "-1") int month) {
-		
-		// session 값 받아오기
-		String accountId = (String)session.getAttribute("sessionId");
-		int accountLevel = (int)session.getAttribute("sessionLevel");
-		// 디버깅
-		log.debug(TeamColor.PCW + " GetMapping(/loginCheck/scheduleList) year : " + year + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PCW + " GetMapping(/loginCheck/scheduleList) month : " + month + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PCW + " GetMapping(/loginCheck/scheduleList) accountId : " + accountId + TeamColor.TEXT_RESET);
-		log.debug(TeamColor.PCW + " GetMapping(/loginCheck/scheduleList) accountLevel : " + accountLevel + TeamColor.TEXT_RESET);
-		
-		
-		// 서비스 호출
-		Map<String,Object> scheduleMap = scheduleService.getScheduleList(year, month, accountId, accountLevel);
-		// 디버깅
-		log.debug(TeamColor.PCW + " GetMapping(/loginCheck/scheduleList) scheduleMap : " + scheduleMap + TeamColor.TEXT_RESET);
-		
-		// model값 담아주기
-		model.addAttribute("scheduleList", scheduleMap.get("scheduleList"));
-		model.addAttribute("lectureSubjectList", scheduleMap.get("lectureSubjectList"));
-		model.addAttribute("lectureName", scheduleMap.get("lectureName"));
-		model.addAttribute("year", scheduleMap.get("year"));
-		model.addAttribute("month", scheduleMap.get("month"));
-		model.addAttribute("lastDay", scheduleMap.get("lastDay"));
-		model.addAttribute("startBlank", scheduleMap.get("startBlank"));
-		model.addAttribute("endBlank", scheduleMap.get("endBlank"));
-		model.addAttribute("totalBlank", scheduleMap.get("totalBlank"));
-		
-		return "/schedule/scheduleList";
-	}
 	
 	// 시간표 추가 Action
 	@PostMapping("/loginCheck/addSchedule")
@@ -77,7 +45,7 @@ public class ScheduleController {
 			log.debug(TeamColor.PCW + " PostMapping(/loginCheck/addSchedule) 실패" + lectureSubjectNo + TeamColor.TEXT_RESET);
 		}
 		
-		return "redirect:/loginCheck/scheduleList?year";
+		return "redirect:/loginCheck/index";
 	
 	}
 	
@@ -104,7 +72,7 @@ public class ScheduleController {
 			log.debug(TeamColor.PCW + " PostMapping(/loginCheck/modifySchedule) 수정 실패" + schedule + TeamColor.TEXT_RESET);
 		}
 		
-		return "redirect:/loginCheck/scheduleList";
+		return "redirect:/loginCheck/index";
 	}
 	
 	// 시간표 삭제 Action
@@ -128,7 +96,7 @@ public class ScheduleController {
 			log.debug(TeamColor.PCW + " removeSchedule scheduleNo 삭제 실패" + TeamColor.TEXT_RESET);
 		}
 		
-		return "redirect:/loginCheck/scheduleList";
+		return "redirect:/loginCheck/index";
 	}
 			
 			

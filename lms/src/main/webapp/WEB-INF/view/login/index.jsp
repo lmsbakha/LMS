@@ -38,6 +38,12 @@
 <!-- main CSS
       ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+<!-- buttons CSS
+		============================================ -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/buttons.css">
+<!-- modals CSS
+		============================================ -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/modals.css"> 
 <!-- educate icon CSS
       ============================================ -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/educate-custon-icon.css">
@@ -122,10 +128,196 @@
    <div class="header-advance-area">
       <div class="breadcome-area">
          <div class="container-fluid">
-            <div class="row"></div>
+            <div class="row">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="calender-inner">
+						<c:if test="${sessionLevel < 3}">
+							<h1>${lectureName}시간표</h1>
+						</c:if>
+						<c:if test="${sessionLevel > 2}">
+							<h1>전체 시간표</h1>
+						</c:if>
+						<div class="table-responsive">
+							<h2 style="text-align: center; font-size:50px;">${year}.${month}</h2>
+								<div>
+								<a class="btn btn-custon-rounded-three btn-success"
+									href="${pageContext.request.contextPath}/loginCheck/index?year=${year}&month=${month-1}">이전달</a>&nbsp;&nbsp;
+								<a class="btn btn-custon-rounded-three btn-success"
+									href="${pageContext.request.contextPath}/loginCheck/index?year=${year}&month=${month+1}">다음달</a>
+								</div>
+								<div class="text-right">
+									<c:if test="${sessionLevel > 2}">
+										<div class="modal-area-button">
+											<a class="Warning Warning-color mg-b-10" href="#" data-toggle="modal" data-target="#addScheduleModal">시간표 추가</a>
+										</div>
+										<div id="addScheduleModal" class="modal modal-edu-general Customwidth-popup-WarningModal fade" role="dialog">
+			                            <div class="modal-dialog">
+			                                <div class="modal-content">
+			                                    <div class="modal-close-area modal-close-df">
+			                                        <a class="close" data-dismiss="modal"  id="close"><i class="fa fa-close"></i></a>
+			                                    </div>
+			                                    <form id="addScheduleForm" action="${pageContext.request.contextPath}/loginCheck/addSchedule" method="post">
+				                                    <div class="modal-body">
+				                                    	<hr>
+				                                    	<h2 style="text-align:center;">시간표 추가</h2>
+				                                    	<span id="addScheduleHelper"></span>
+														<div>
+															강의시작 : <input id="scheduleStartDate" type="date"
+																name="scheduleStartDate">
+														</div>
+														<div>
+															강의종료 : <input id="scheduleEndDate" type="date"
+																name="scheduleEndDate">
+														</div>
+														<label for="lectureSubjectNo">강의 과목</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														 <select id="lectureSubjectNo" name="lectureSubjectNo">
+																<option value="default" selected>[강의]과목을 선택하세요.</option>
+																<c:forEach var="ls" items="${lectureSubjectList}">
+																	<option value="${ls.lectureSubjectNo}">[${ls.lectureName}]${ls.subjectName}</option>
+																</c:forEach>
+															</select>
+														<hr>	
+				                                    </div>
+				                                    <div class="button-style-three" style="padding-bottom:10px; padding-right:10px;">
+				                                        <button class="btn btn-custon-rounded-three btn-success" type="button"  id="addScheduleBtn">추가</button>
+				                                        <button class="btn btn-custon-rounded-three btn-danger" type="button" id="resetBtn" data-dismiss="modal">취소</button>
+				                                    </div>
+			                                    </form>
+			                                </div>
+			                            </div>
+			                        </div>
+									</c:if>
+								</div>
+								<br>
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th style="text-align:center;" class="text-danger"> 일</th>
+											<th style="text-align:center;">월</th>
+											<th style="text-align:center;">화</th>
+											<th style="text-align:center;">수</th>
+											<th style="text-align:center;">목</th>
+											<th style="text-align:center;">금</th>
+											<th style="text-align:center;" class="text-primary">토</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<c:forEach var="i" begin="1" end="${totalBlank}" step="1">
+												<c:choose>
+													<c:when
+														test="${(i - startBlank) > 0 && i <= lastDay+startBlank}">
+														<c:choose>
+															<c:when test="${i%7==0}">
+																<c:set var="e" value="text-primary" />
+															</c:when>
+															<c:when test="${i%7==1}">
+																<c:set var="e" value="text-danger" />
+															</c:when>
+															<c:otherwise>
+																<c:set var="e" value="" />
+															</c:otherwise>
+														</c:choose>
+														<td class="${e}" style="height: 150px; text-align:right; width:13%;">
+															${i - startBlank}
+															<div>
+																<c:forEach var="c" items="${scheduleList}">
+																	<c:if test="${(c.scheduleDateDay) ==  (i - startBlank)}">
+																		<span id="c${c.scheduleNo}" > 
+																		<br>
+																			<c:if test="${sessionLevel <= 2}">
+																			<input name="scheduleNo" class="btn btn-custon-rounded-three btn-default" type="button" data-toggle="modal" data-target="#scheduleOneModal" onclick="javascript:Click(${c.scheduleNo})" value="[${c.lectureName}]${c.subjectName}"> 
+																			<br>
+																			</c:if>
+																			<c:if test="${sessionLevel > 2}">
+																				<input style="font-size:11px;"  name="scheduleNo" class="btn btn-custon-rounded-three btn-default" type="button" data-toggle="modal" data-target="#scheduleOneModal" onclick="javascript:Click(${c.scheduleNo})" value="[${c.lectureName}]${c.subjectName}"> 
+																				<div class="btn-group">
+																					<a class=" btn-sm btn-primary"
+																						data-toggle="modal" data-target="#modifyScheduleModal" onclick="javascript:CClick(${c.scheduleNo});">수정</a>
+																					<a class=" btn-sm btn-danger"
+																						href="${pageContext.request.contextPath}/loginCheck/removeSchedule?scheduleNo=${c.scheduleNo}">삭제</a>
+																				</div>
+																				<div id="modifyScheduleModal" class="modal modal-edu-general Customwidth-popup-WarningModal fade" role="dialog">
+													                            <div class="modal-dialog">
+													                                <div class="modal-content">
+													                                    <div class="modal-close-area modal-close-df">
+													                                   		<a class="close" data-dismiss="modal"  id="close"><i class="fa fa-close"></i></a>
+													                                    </div>
+													                                    <form id="modifyScheduleForm" action="${pageContext.request.contextPath}/loginCheck/modifySchedule" method="post">
+														                                    <div class="modal-body">
+														                                    	<hr>
+														                                    	<h2 style="text-align:center;">시간표 수정</h2>
+														                                    	<span id="addScheduleHelper"></span>
+														                                    	<input id="scheduleDateOne" type="date" name="scheduleDateOne" hidden="hidden">
+																								<label for="scheduleDateTwo">강의 날짜</label>&nbsp;&nbsp;&nbsp;&nbsp;
+																								<input id="scheduleDateTwo" type="Date" name="scheduleDateTwo">
+																								<br>
+																								<label for="lectureSubjectNo">강의 과목</label>&nbsp;&nbsp;&nbsp;&nbsp;
+																								<input type="hidden" name="lectureSubjetNo" id="lectureSubjetNo"><input type="text" name="lectureMName" id="lectureMName"> 
+																								<hr>	
+														                                    </div>
+														                                    <div class="button-style-three" style="padding-bottom:10px; padding-right:10px;">
+														                                        <button class="btn btn-custon-rounded-three btn-success" type="submit"  id="modifyScheduleBtn" >수정</button>
+														                                        <button class="btn btn-custon-rounded-three btn-danger" type="button" id="resetBtn" data-dismiss="modal">취소</button>
+														                                    </div>
+													                                    </form>
+													                                </div>
+													                            </div>
+													                        </div>
+																			<br>
+																			</c:if>
+																		</span>
+																		<div id="scheduleOneModal" class="modal modal-edu-general Customwidth-popup-WarningModal fade" role="dialog">
+													                            <div class="modal-dialog">
+													                                <div class="modal-content">
+													                                    <div class="modal-close-area modal-close-df">
+													                                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+													                                    </div>
+														                                    <div class="modal-body">
+														                                    	<hr>
+														                                    	<h2 style="text-align:center;">강의 상세보기</h2>
+														                                    	<br>
+																								<h5>강의명 : <span id="lectureName"></span></h5>
+																								<br>
+																								<h5>과목명 : <span id="subjectName"></span></h5>
+																								<br>
+																								<h5>강의 날짜 : <span id="scheduleDateThree"></span></h5>
+																								<hr>
+														                                    </div>
+													                                </div>
+													                            </div>
+													                        </div>
+																	</c:if>
+																</c:forEach>
+															</div>
+														</td>
+													</c:when>
+													<c:when test="${(i-startBlank)<1}">
+														<td></td>
+													</c:when>
+													<c:when test="${i>lastDay}">
+														<td></td>
+													</c:when>
+												</c:choose>
+												<c:if test="${i%7==0}">
+										</tr>
+										<tr>
+											</c:if>
+											</c:forEach>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+            </div>
          </div>
       </div>
-   </div>
 
    <div class="header-advance-area">
       <!-- Mobile Menu end -->
@@ -182,68 +374,9 @@
    <!-- End footer -->
 
 
-   <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-   <!-- jquery
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/vendor/jquery-1.12.4.min.js"></script>
-   <!-- bootstrap JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-   <!-- wow JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
-   <!-- price-slider JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/jquery-price-slider.js"></script>
-   <!-- meanmenu JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/jquery.meanmenu.js"></script>
-   <!-- owl.carousel JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-   <!-- sticky JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/jquery.sticky.js"></script>
-   <!-- scrollUp JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/jquery.scrollUp.min.js"></script>
-   <!-- counterup JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/counterup/jquery.counterup.min.js"></script>
-   <script src="${pageContext.request.contextPath}/js/counterup/waypoints.min.js"></script>
-   <script src="${pageContext.request.contextPath}/js/counterup/counterup-active.js"></script>
-   <!-- mCustomScrollbar JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-   <script src="${pageContext.request.contextPath}/js/scrollbar/mCustomScrollbar-active.js"></script>
-   <!-- metisMenu JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/metisMenu/metisMenu.min.js"></script>
-   <script src="${pageContext.request.contextPath}/js/metisMenu/metisMenu-active.js"></script>
-   <!-- morrisjs JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/morrisjs/raphael-min.js"></script>
-   <script src="${pageContext.request.contextPath}/js/morrisjs/morris.js"></script>
-   <script src="${pageContext.request.contextPath}/js/morrisjs/morris-active.js"></script>
-   <!-- morrisjs JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/sparkline/jquery.sparkline.min.js"></script>
-   <script src="${pageContext.request.contextPath}/js/sparkline/jquery.charts-sparkline.js"></script>
-   <script src="${pageContext.request.contextPath}/js/sparkline/sparkline-active.js"></script>
-   <!-- calendar JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/calendar/moment.min.js"></script>
-   <script src="${pageContext.request.contextPath}/js/calendar/fullcalendar.min.js"></script>
-   <script src="${pageContext.request.contextPath}/js/calendar/fullcalendar-active.js"></script>
-   <!-- plugins JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/plugins.js"></script>
-   <!-- main JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/main.js"></script>
-   <!-- tawk chat JS
-      ============================================ -->
-   <script src="${pageContext.request.contextPath}/js/tawk-chat.js"></script>
+   	<!-- Start js -->
+	<jsp:include page="../js/alljs.jsp" />
+	<!-- End js -->
    <script>
       /*<![CDATA[*/
       $(document).ready(function() {
@@ -253,6 +386,71 @@
       })
       /*]]>*/
    </script>
+   	<script>
+	<!-- 유효성 검사-->
+	$('#addScheduleBtn').click(function(){
+		if($('#scheduleDate').val() == '') {
+			$('#addScheduleHelper').text('날짜를 선택하세요.');
+		} else if($('#lectureSubjectNo').val() == '') {
+			$('#addScheduleHelper').text('[강의]과목을 선택하세요.');
+		} else if($('#scheduleStartDate').val() > $('#scheduleEndDate').val()) {
+			$('#addScheduleHelper').text('시작날짜가 종료날짜보다 늦게 되어있습니다.');
+		} else {
+			$('#addScheduleHelper').text('');
+			$('#addScheduleForm').submit();
+		}
+	});
+	<!-- 일정추가 하다가 취소버튼 누르면 초기화-->
+	$('#resetBtn').click(function(){
+		$('#scheduleDate').val('')
+		$('#lectureSubjectNo').val('')	
+	});
+	$('#close').click(function(){
+		$('#scheduleDate').val('')
+		$('#lectureSubjectNo').val('')	
+	});
+	
+	// 상세보기
+	function Click(scheduleNo) {
+			var url = "${pageContext.request.contextPath}";
+			$.ajax({
+				type: "GET", //요청 메소드 방식(post, get)
+				url: url+"/getScheduleOne",
+				data :  "scheduleNo="+scheduleNo,
+				dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입 (return값)
+				success : function(result){ // 응답성공시 실행할 
+				console.log(result);
+					$('#lectureName').text(result.lectureName)
+					$('#subjectName').text(result.subjectName)
+					$('#scheduleDateThree').text(result.scheduleDate)
+				},
+				error : function(error){
+					alert(error);
+				}
+			});
+		}
+	
+	// 수정
+	function CClick(scheduleNo) {
+		var url = "${pageContext.request.contextPath}";
+		$.ajax({
+			type: "GET", //요청 메소드 방식(post, get)
+			url: url+"/getScheduleOne",
+			data :  "scheduleNo="+scheduleNo,
+			dataType:"json", //서버가 요청 URL을 통해서 응답하는 내용의 타입 (return값)
+			success : function(result){ // 응답성공시 실행할 
+			console.log(result);
+				$('#lectureMName').val(result.lectureName+result.subjectName)
+				$('#scheduleDateOne').val(result.scheduleDate)
+				$('#scheduleDateTwo').val(result.scheduleDate)
+				$('#lectureSubjetNo').val(result.lectureSubjectNo)
+			},	
+			error : function(error){
+				alert(error);
+			}
+		});
+	}
+	</script>
    <script src="//code.jquery.com/jquery-latest.min.js"></script>
 </body>
 
