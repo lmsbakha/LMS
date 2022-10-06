@@ -6,7 +6,7 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Departments | Kiaalap - Kiaalap Admin Template</title>
+<title>BAKHA LMS</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon
