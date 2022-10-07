@@ -65,7 +65,9 @@ public class ReportSubmitController {
 	LectureSubjectService lectureSubjectService;
 
 	/*
-	 * 과제별 제출한 과제 리스트 조회 메소드 파라미터: reportNo 리턴값: List<ReportSubmit>
+	 * 과제별 제출한 과제 리스트 조회 메소드 
+	 * 파라미터: reportNo 
+	 * 리턴값: List<ReportSubmit>
 	 * reportSubmitList.jsp
 	 */
 	@GetMapping("/loginCheck/reportSubmitList")
@@ -95,8 +97,9 @@ public class ReportSubmitController {
 	} // end reportSubmitList
 
 	/*
-	 * 학생별 제출한 과제 리스트 조회 메소드 파라미터: reportSubmitListById 담을 Model 리턴값:
-	 * reportSubmitListById reportSubmitListById.jsp
+	 * 학생별 제출한 과제 리스트 조회 메소드 
+	 * 파라미터: reportSubmitListById 담을 
+	 * Model 리턴값: reportSubmitListById reportSubmitListById.jsp
 	 */
 	@GetMapping("/loginCheck/reportSubmitListById")
 	String reportSubmitListById(Model model, HttpSession session, @RequestParam("subjectName") String subjectName) {
@@ -354,10 +357,15 @@ public class ReportSubmitController {
 		log.debug(TeamColor.PSY + reportSubmitFile + "<-- reportSubmitFile" + TeamColor.TEXT_RESET);
 
 		// Service Call
-		reportSubmitService.modifyReportSubmit(reportSubmit, reportSubmitFile);
+		String modifyReportSubmit = reportSubmitService.modifyReportSubmit(reportSubmit, reportSubmitFile);
 		
-		// lectureSubjectListByStudent로 이동
-		return "report/lectureSubjectListByStudent";
+		if(modifyReportSubmit != null) {
+			// 디버깅 
+			log.debug(TeamColor.PSY + "수정 성공" + TeamColor.TEXT_RESET);
+		}
+
+		// lectureSubjectListByStudent로 리다이렉트
+		return "redirect:/loginCheck/lectureSubjectListByStudent";
 	} // end modifyReportSubmit @PostMapping
 
 	/*
@@ -377,7 +385,7 @@ public class ReportSubmitController {
 		// 과제 삭제 service call
 		reportSubmitService.removeReportSubmit(reportSubmitNo);
 
-		// reportSubmitListById로 리다이렉트
+		// lectureSubjectListByStudent로 리다이렉트
 		return "redirect:/loginCheck/lectureSubjectListByStudent";
 	} // end removeReportSubmit
 }

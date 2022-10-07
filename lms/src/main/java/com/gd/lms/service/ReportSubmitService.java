@@ -10,7 +10,6 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.commons.TeamColor;
@@ -230,7 +229,7 @@ public class ReportSubmitService {
 		Map<String, Object> returnMap = new HashMap<>();
 
 		// reportSubmitMapper call
-		Map<String, Object> reportSubmitOne = reportSubmitMapper.ReportSubmitOne(reportSubmitNo);
+		Map<String, Object> reportSubmitOne = reportSubmitMapper.reportSubmitOne(reportSubmitNo);
 		// reportSubmitMapper에서 받아온 reportSubmitOne값 디버깅
 		log.debug(TeamColor.PSY + reportSubmitOne + "<-- reportSubmitOne" + TeamColor.TEXT_RESET);
 
@@ -246,7 +245,7 @@ public class ReportSubmitService {
 	 * 파라미터 : ReportSubmit,
 	 * ReportSubmitFile 리턴값 : X
 	 */
-	public void modifyReportSubmit(ReportSubmit paramReportSubmit, ReportSubmitFile paramReportSubmitFile) {
+	public String modifyReportSubmit(ReportSubmit paramReportSubmit, ReportSubmitFile paramReportSubmitFile) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.PSY + "\n\n@modifyReportSubmit Service" + TeamColor.TEXT_RESET);
 		// 파라미터 디버깅
@@ -284,6 +283,7 @@ public class ReportSubmitService {
 		// modifyReportSubmitFile 디버깅
 		log.debug(TeamColor.PSY + modifyReportSubmitFile + "<--modifyReportSubmitFile" + TeamColor.TEXT_RESET);
 
+		return "lectureSubjectListByStudent";
 	} // end modifyReportSubmit
 
 

@@ -112,10 +112,8 @@
 									<ul class="breadcome-menu" style="float: left;">
 										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
 										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a
-											href="#">과제</a>
-											<span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">제출리스트</span></li> 
+										<li><a href="#">과제</a> <span class="bread-slash">/</span></li>
+										<li><span class="bread-blod" style="font-weight: bold;">제출리스트</span></li>
 									</ul>
 								</div>
 							</div>
@@ -125,7 +123,7 @@
 			</div>
 		</div>
 	</div>
- 	<div class="product-status mg-b-15">
+	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<form
 				action="${pageContext.request.contextPath}/loginCheck/reportSubmitList"
@@ -147,37 +145,42 @@
 										<th>modify</th>
 										<th>delete</th>
 									</tr>
-									<c:forEach var="reportSubmitList" items="${reportSubmitList}">
-										<tr style="text-align: center;">
-											<td>${reportSubmitList.reportSubmitNo}</td>
-											<td>${reportSubmitList.subjectName}</td>
-											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${reportSubmitList.reportSubmitNo}">
-													${reportSubmitList.reportSubmitTitle} </a></td>
-											<td>${reportSubmitList.createDate}</td>
-											<td>${reportSubmitList.accountId}</td>
-											<td>${reportSubmitList.reportSubmitScore}</td>
-											<td>
-												<a
+									<c:if test="${empty reportSubmitList}">
+										<tr>
+											<td colspan="7" style="text-align: center;">제출한 과제가
+												없습니다.</td>
+										</tr>
+									</c:if>
+									<c:if test="${not empty reportSubmitList}">
+										<c:forEach var="reportSubmitList" items="${reportSubmitList}">
+											<tr style="text-align: center;">
+												<td>${reportSubmitList.reportSubmitNo}</td>
+												<td>${reportSubmitList.subjectName}</td>
+												<td><a
+													href="${pageContext.request.contextPath}/loginCheck/reportSubmitOne?reportSubmitNo=${reportSubmitList.reportSubmitNo}">
+														${reportSubmitList.reportSubmitTitle} </a></td>
+												<td>${reportSubmitList.createDate}</td>
+												<td>${reportSubmitList.accountId}</td>
+												<td>${reportSubmitList.reportSubmitScore}</td>
+												<td><a
 													href="${pageContext.request.contextPath}/loginCheck/modifyReportScore?reportSubmitNo=${reportSubmitList.reportSubmitNo}&reportNo=${reportSubmitList.reportNo}">
 														<button data-toggle="tooltip" title="Edit"
 															class="pd-setting-ed" type="button">
 															<i class="fa fa-pencil-square-o" aria-hidden="true">점수
 																수정하기</i>
 														</button>
-												</a>
-												</td>
-												<td>
-												<a
+												</a></td>
+												<td><a
 													href="${pageContext.request.contextPath}/loginCheck/removeReportSubmit?reportSubmitNo=${reportSubmitList.reportSubmitNo}">
 														<button data-toggle="tooltip" title="Trash"
-															class="pd-setting-ed" type="button">
+															class="pd-setting-ed" type="button"
+															id="deleteSubmitReportBtn">
 															<i class="fa fa-trash-o" aria-hidden="true">삭제하기</i>
 														</button>
-												</a>
-											</td>
-										</tr>  
-									</c:forEach>
+												</a></td>
+											</tr>
+										</c:forEach>
+									</c:if>
 								</table>
 							</div>
 						</div>
@@ -187,7 +190,7 @@
 			<!-- </form> -->
 		</div>
 	</div>
-		<!-- Start footer -->
+	<!-- Start footer -->
 	<jsp:include page="../inc/footer.jsp" />
 	<!-- End footer -->
 

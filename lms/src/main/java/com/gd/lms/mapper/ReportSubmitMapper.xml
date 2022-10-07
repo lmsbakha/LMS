@@ -108,7 +108,7 @@
 	<!-- 과제 제출 첨부파일 업로드 메소드 -->
 
 	<!-- 제출한 과제 상세보기 -->
-	<select id="ReportSubmitOne" parameterType="int"
+	<select id="reportSubmitOne" parameterType="int"
 		resultType="Map">
 		SELECT
 		rs.report_submit_no reportSubmitNo,
