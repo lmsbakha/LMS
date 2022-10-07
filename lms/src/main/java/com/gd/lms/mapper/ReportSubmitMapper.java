@@ -67,7 +67,7 @@ public interface ReportSubmitMapper {
 	 * 리턴값 : Map<String, Object>
 	 * modifyReportSubmit.jsp
      */	
-	Map<String, Object> ReportSubmitOne(int reportNo);
+	Map<String, Object> reportSubmitOne(int reportNo);
 
 	/*
 	 * 제출한 과제 수정하는 메소드 Action

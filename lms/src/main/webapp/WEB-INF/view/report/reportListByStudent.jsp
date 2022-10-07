@@ -143,40 +143,47 @@
 										<th>reportEndDate</th>
 										<th style="width: 150px">report</th>
 									</tr>
-									<c:forEach var="reportList" items="${reportListByStudent}">
+									<c:if test="${empty reportListByStudent}">
 										<tr>
-											<td>${reportList.reportNo}</td>
-											<td>${reportList.subjectName}</td>
-											<td style="width: 350px;">
-												<div class="menu">
-													<a>${reportList.reportTitle}</a>
-													<div>
-														<textarea name="reportContent" id="reportContent"
-															style="width: 300px; height: 100px; border-color: white;"
-															readonly>
-															 ${reportList.reportContent}</textarea>
-													</div>
-												</div>
-											</td>
-											<td>${reportList.reportStartDate}</td>
-											<td>${reportList.reportEndDate}</td>
-											<c:if test="${reportList.state eq 0 }">
-												<td><a
-													href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${reportList.reportNo}&subjectName=${reportList.subjectName}">
-														<button data-toggle="tooltip" title="submit"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true">과제제출</i>
-														</button>
-												</a></td>
-											</c:if>
-											<c:if test="${reportList.state eq 1 }">
-												<td><button data-toggle="tooltip" title="complete"
-														class="pd-setting-ed" type="button">제출완료
-													</button></td>
-											</c:if>
-
+											<td colspan="7" style="text-align: center;">과제가
+												없습니다.</td>
 										</tr>
-									</c:forEach>
+									</c:if>
+									<c:if test="${not empty reportListByStudent}">
+										<c:forEach var="reportList" items="${reportListByStudent}">
+											<tr>
+												<td>${reportList.reportNo}</td>
+												<td>${reportList.subjectName}</td>
+												<td style="width: 350px;">
+													<div class="menu">
+														<a>${reportList.reportTitle}</a>
+														<div>
+															<textarea name="reportContent" id="reportContent"
+																style="width: 300px; height: 100px; border-color: white;"
+																readonly>
+															 ${reportList.reportContent}</textarea>
+														</div>
+													</div>
+												</td>
+												<td>${reportList.reportStartDate}</td>
+												<td>${reportList.reportEndDate}</td>
+												<c:if test="${reportList.state eq 0 }">
+													<td><a
+														href="${pageContext.request.contextPath}/loginCheck/addReportSubmit?reportNo=${reportList.reportNo}&subjectName=${reportList.subjectName}">
+															<button data-toggle="tooltip" title="submit"
+																class="pd-setting-ed" type="button">
+																<i class="fa fa-pencil-square-o" aria-hidden="true">과제제출</i>
+															</button>
+													</a></td>
+												</c:if>
+												<c:if test="${reportList.state eq 1 }">
+													<td><button data-toggle="tooltip" title="complete"
+															class="pd-setting-ed" type="button">제출완료</button></td>
+												</c:if>
+
+											</tr>
+										</c:forEach>
+									</c:if>
 								</table>
 							</div>
 						</div>

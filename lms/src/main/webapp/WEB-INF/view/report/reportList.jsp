@@ -144,46 +144,54 @@
 										<th>modify / remove</th>
 										<th>reportSubmit</th>
 									</tr>
-									<c:forEach var="report" items="${reportList}">
+									<c:if test="${empty reportList}">
 										<tr>
-											<td>${report.reportNo}</td>
-											<td>${report.subjectName}</td>
-											<td style="width: 350px;">
-												<div class="menu">
-													<a>${report.reportTitle}</a>
-													<div>
-														<textarea name="reportContent" id="reportContent"
-															style="width: 300px; height: 100px; border-color: white;"
-															readonly>
-															 ${report.reportContent}</textarea>
-													</div>
-												</div>
-											</td>
-											<td>${report.reportStartDate}</td>
-											<td>${report.reportEndDate}</td>
-											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/modifyReport?reportNo=${report.reportNo}">
-													<button data-toggle="tooltip" title="Edit"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true">수정하기</i>
-													</button>
-											</a><a
-												href="${pageContext.request.contextPath}/loginCheck/removeReport?reportNo=${report.reportNo}">
-													<button data-toggle="tooltip" title="Trash"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-trash-o" aria-hidden="true">삭제하기</i>
-													</button>
-											</a></td>
-											<td><a
-												href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${report.reportNo}">
-													<button data-toggle="tooltip" title="reportSubmitList"
-														class="pd-setting-ed" type="button">
-														<i class="fa fa-pencil-square-o" aria-hidden="true">제출
-															과제 목록</i>
-													</button>
-											</a></td>
+											<td colspan="7" style="text-align: center;">출제한 과제가
+												없습니다.</td>
 										</tr>
-									</c:forEach>
+									</c:if>
+									<c:if test="${not empty reportList}">
+										<c:forEach var="reportList" items="${reportList}">
+											<tr>
+												<td>${reportList.reportNo}</td>
+												<td>${reportList.subjectName}</td>
+												<td style="width: 350px;">
+													<div class="menu">
+														<a>${reportList.reportTitle}</a>
+														<div>
+															<textarea name="reportContent" id="reportContent"
+																style="width: 300px; height: 100px; border-color: white;"
+																readonly>
+															 ${reportList.reportContent}</textarea>
+														</div>
+													</div>
+												</td>
+												<td>${reportList.reportStartDate}</td>
+												<td>${reportList.reportEndDate}</td>
+												<td><a
+													href="${pageContext.request.contextPath}/loginCheck/modifyReport?reportNo=${reportList.reportNo}">
+														<button data-toggle="tooltip" title="Edit"
+															class="pd-setting-ed" type="button">
+															<i class="fa fa-pencil-square-o" aria-hidden="true">수정하기</i>
+														</button>
+												</a><a
+													href="${pageContext.request.contextPath}/loginCheck/removeReport?reportNo=${reportList.reportNo}">
+														<button data-toggle="tooltip" title="Trash"
+															class="pd-setting-ed" type="button">
+															<i class="fa fa-trash-o" aria-hidden="true">삭제하기</i>
+														</button>
+												</a></td>
+												<td><a
+													href="${pageContext.request.contextPath}/loginCheck/reportSubmitList?reportNo=${reportList.reportNo}">
+														<button data-toggle="tooltip" title="reportSubmitList"
+															class="pd-setting-ed" type="button">
+															<i class="fa fa-pencil-square-o" aria-hidden="true">제출
+																과제 목록</i>
+														</button>
+												</a></td>
+											</tr>
+										</c:forEach>
+									</c:if>
 								</table>
 							</div>
 						</div>

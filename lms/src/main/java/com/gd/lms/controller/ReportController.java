@@ -55,10 +55,8 @@ public class ReportController {
 	LectureSubjectService lectureSubjectService;
 
 	/*
-	 * 행정/강사용 강좌 리스트 정보 받아오는 메소드
-	 * 파라미터 : 강사 아이디 accountId , lectureListByTeacher 담을 Model
-	 * 리턴값 : lectureListByTeacher 
-	 * lectureSubjectList.jsp
+	 * 행정/강사용 강좌 리스트 정보 받아오는 메소드 파라미터 : 강사 아이디 accountId , lectureListByTeacher 담을
+	 * Model 리턴값 : lectureListByTeacher lectureSubjectList.jsp
 	 */
 	@GetMapping("/loginCheck/lectureSubjectList")
 	String lectureSubjectList(HttpSession session, Model model) {
@@ -69,14 +67,14 @@ public class ReportController {
 		String accountId = (String) session.getAttribute("sessionId");
 		// 디버깅
 		log.debug(TeamColor.PSY + accountId + "<-- accountId" + TeamColor.TEXT_RESET);
-		
+
 		// 세션에 저장된 레벨 받아오기
 		int sessionLevel = (int) session.getAttribute("sessionLevel");
 		// 디버깅
 		log.debug(TeamColor.PSJ + sessionLevel + "<-- sessionLevel" + TeamColor.TEXT_RESET);
-		
+
 		// 강사용
-		if(sessionLevel == 2) {
+		if (sessionLevel == 2) {
 			// LectureService에서 lectureListByTeacher 가져오기
 			List<Lecture> lectureListByTeacher = lectureService.getLectureListByAccoutId(accountId);
 			// 디버깅
@@ -84,7 +82,7 @@ public class ReportController {
 
 			// model 단에 값 저장해서 보내줌
 			model.addAttribute("lectureListByTeacher", lectureListByTeacher);
-		}else {
+		} else {
 			// LectureService에서 lectureListByAdmin 가져오기
 			List<Lecture> lectureListByAdmin = lectureService.getLectureListByAccoutId();
 			// 디버깅
@@ -98,9 +96,7 @@ public class ReportController {
 	} // end lectureSubjectList @GetMapping
 
 	/*
-	 * 행정/강사용 강의 리스트 정보 조회하는 메소드
-	 * 파라미터 : 강좌명 lectureName 
-	 * 리턴값 : lectureSubjectList
+	 * 행정/강사용 강의 리스트 정보 조회하는 메소드 파라미터 : 강좌명 lectureName 리턴값 : lectureSubjectList
 	 * lectureSubjectList.jsp
 	 */
 	@PostMapping("/loginCheck/lectureSubjectList")
@@ -123,10 +119,8 @@ public class ReportController {
 	} // end lectureSubjectList @PostMapping
 
 	/*
-	 * 행정/강사용 강의별 과제 리스트 조회하는 메소드
-	 * 파라미터 : subjectName, reportList을 담아줄 Model 
-	 * 리턴값 : reportList 
-	 * reportList.jsp
+	 * 행정/강사용 강의별 과제 리스트 조회하는 메소드 파라미터 : subjectName, reportList을 담아줄 Model 리턴값 :
+	 * reportList reportList.jsp
 	 */
 	@GetMapping("/loginCheck/reportList")
 	String reportList(@RequestParam("subjectName") String subjectName, Model model) {
@@ -155,9 +149,7 @@ public class ReportController {
 	} // end reportList
 
 	/*
-	 * 과제 출제하는 메소드
-	 * 파라미터: List<LectureSubject>를 담아둘 Model, 세션 값 
-	 * 리턴값: addReport
+	 * 과제 출제하는 메소드 파라미터: List<LectureSubject>를 담아둘 Model, 세션 값 리턴값: addReport
 	 * addReport.jsp Form
 	 */
 	@GetMapping("/loginCheck/addReport")
@@ -174,10 +166,7 @@ public class ReportController {
 	} // end addReport
 
 	/*
-	 * 과제 출제하는 메소드
-	 * 파라미터 : 받아온 Report
-	 * 리턴값 : lectureSubjectList 
-	 * addReport.jsp Action
+	 * 과제 출제하는 메소드 파라미터 : 받아온 Report 리턴값 : lectureSubjectList addReport.jsp Action
 	 */
 	@PostMapping("/loginCheck/addReport")
 	String addReport(@RequestParam("subjectName") String subjectName, @RequestParam("reportTitle") String reportTitle,
@@ -207,14 +196,12 @@ public class ReportController {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 출제 실패" + TeamColor.TEXT_RESET);
 		}
-		// lectureSubjectList로 리다이렉트
-		return "redirect:/loginCheck/lectureSubjectList";
+		// reportList로 리다이렉트
+		return "redirect:/loginCheck/reportList?subjectName=" + subjectName;
 	} // end addReport @PostMapping
 
 	/*
-	 * 출제한 과제 수정하는 메소드
-	 * 파라미터 : Report 담아둘 Model , reportNo 
-	 * 리턴값: modifyReport
+	 * 출제한 과제 수정하는 메소드 파라미터 : Report 담아둘 Model , reportNo 리턴값: modifyReport
 	 * modifyReport.jsp Form
 	 */
 	@GetMapping("/loginCheck/modifyReport")
@@ -237,10 +224,7 @@ public class ReportController {
 	} // end modifyReport @GetMapping
 
 	/*
-	 * 출제한 과제 수정하는 메소드
-	 * 파라미터 : 받아온 Report 
-	 * 리턴값: modifyReport 
-	 * modifyReport.jsp Action
+	 * 출제한 과제 수정하는 메소드 파라미터 : 받아온 Report 리턴값: modifyReport modifyReport.jsp Action
 	 */
 	@PostMapping("/loginCheck/modifyReport")
 	public String modifyReport(@RequestParam("reportNo") int reportNo, @RequestParam("reportTitle") String reportTitle,
@@ -273,15 +257,12 @@ public class ReportController {
 			// 실패
 			log.debug(TeamColor.PSY + " 과제 수정 실패" + TeamColor.TEXT_RESET);
 		}
-		// lectureSubjectList로 리다이렉트
-		return "redirect:/loginCheck/lectureSubjectList";
+		// reportList로 리다이렉트
+		return "redirect:/loginCheck/reportList?subjectName=" + subjectName;
 	} // end modifyReport @PostMapping
 
 	/*
-	 * 출제한 과제 삭제하는 메소드
-	 * 파라미터 : reportNo 
-	 * 리턴값 : lectureSubjectList 
-	 * reportList.jsp
+	 * 출제한 과제 삭제하는 메소드 파라미터 : reportNo 리턴값 : lectureSubjectList reportList.jsp
 	 */
 	@GetMapping("/loginCheck/removeReport")
 	public String removeReport(@RequestParam("reportNo") int reportNo) {
@@ -307,10 +288,8 @@ public class ReportController {
 	} // end removeReport
 
 	/*
-	 * 학생용 강의 리스트 정보 조회하는 메소드
-	 * 파라미터 : 학생 아이디 accountId, reportList을 담아줄 Model 
-	 * 리턴값 : lectureSubjectList 
-	 * lectureSubjectList.jsp
+	 * 학생용 강의 리스트 정보 조회하는 메소드 파라미터 : 학생 아이디 accountId, reportList을 담아줄 Model 리턴값 :
+	 * lectureSubjectList lectureSubjectList.jsp
 	 */
 	@GetMapping("/loginCheck/lectureSubjectListByStudent")
 	public String lectureSubjectListByStudent(HttpSession session, Model model) {
@@ -344,10 +323,8 @@ public class ReportController {
 	} // end lectureSubjectListByStudent
 
 	/*
-	 * 학생용 강의별 과제 리스트 조회하는 메소드
-	 * 파라미터 : sessionId, reportListByStudent을 담아줄 Model
-	 *리턴값 :  reportList 
-	 *reportListByStudent.jsp
+	 * 학생용 강의별 과제 리스트 조회하는 메소드 파라미터 : sessionId, reportListByStudent을 담아줄 Model 리턴값
+	 * : reportList reportListByStudent.jsp
 	 */
 	@GetMapping("/loginCheck/reportListByStudent")
 	String reportListByStudent(HttpSession session, @RequestParam("subjectName") String subjectName, Model model) {
