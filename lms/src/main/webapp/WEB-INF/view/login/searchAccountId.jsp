@@ -159,7 +159,7 @@
 				                           </div>
 				                        </c:if>
 					   				 	<br>
-					   				 	<a class="btn btn-success-search btn-block" style="color:white;" href="${pageContext.request.contextPath}/searchAccountPass">비밀번호 찾기</a>
+					   				 	<a class="btn btn-success-search btn-block" style="color:white;" href="${pageContext.request.contextPath}/searchAccountPw">비밀번호 찾기</a>
 					   				 	<hr>
 					   				 	<a class="btn btn-success btn-block" style="color:white;" href="${pageContext.request.contextPath}/bakha/login">로그인 하러가기</a>
 					   				 </c:otherwise>

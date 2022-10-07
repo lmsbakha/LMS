@@ -160,10 +160,8 @@ public class ScheduleService {
 		// 날짜끼리의 차이 구하기
 		
 		long diff = scheduleEndDate.getTime() - scheduleStartDate.getTime(); // 나열된 시간은 millisecond 즉 1/1000초를 나타냄 1970년
-																				// 1월 1일 자정을 기준으로 함참고로 음수가 나타날 경우 1970년
-																				// 이전을 의미
-		// TimeUnit(시간데이터가 없으니 입력해야 쓸수 있다.)쓰는 방식이 이러니 왜 이거냐 물음X convert에서(diff를
-		// MILLISECONDS로 들고 오겠다.) 다시 1분단위로으로 변환
+																				// 1월 1일 자정을 기준으로 함참고로 음수가 나타날 경우 1970년 이전을 의미
+		// TimeUnit(시간데이터가 없으니 입력해야 쓸수 있다.) convert에서(diff를 MILLISECONDS로 들고 오겠다.) 다시 1분단위로으로 변환
 		// 즉 CONVERT 함수는 데이터를 다른 유형으로 변환할 때 사용하는 함수
 		long diffMinutes = TimeUnit.MINUTES.convert(diff, TimeUnit.MILLISECONDS);
 
